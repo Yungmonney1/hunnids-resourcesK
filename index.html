@@ -24,7 +24,6 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -44,9 +43,7 @@
       background: var(--bg-sidebar);
       border-right: 1px solid var(--border);
       position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
+      top: 0; left: 0; bottom: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -82,24 +79,33 @@
       justify-content: center;
       border-radius: 8px;
       cursor: pointer;
-      transition: background 0.15s, color 0.15s;
+      transition: background 0.15s, transform 0.2s;
       color: var(--text-secondary);
       font-size: 15px;
       text-decoration: none;
       position: relative;
     }
 
-    .sidebar-icon:hover {
-      background: var(--bg-hover);
-      color: var(--teal);
+    .sidebar-icon img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+      transition: transform 0.2s, filter 0.2s;
+      filter: brightness(0.6);
     }
 
-    .sidebar-icon.active {
-      background: #1a2e2e;
-      color: var(--teal);
+    .sidebar-icon:hover img {
+      transform: scale(1.15) rotate(-5deg);
+      filter: brightness(1);
     }
 
-    /* tooltip */
+    .sidebar-icon.active img {
+      filter: brightness(1);
+    }
+
+    .sidebar-icon:hover { background: var(--bg-hover); }
+    .sidebar-icon.active { background: #1a2e2e; }
+
     .sidebar-icon::after {
       content: attr(data-tip);
       position: absolute;
@@ -124,9 +130,7 @@
     /* ── TOPBAR ── */
     header {
       position: fixed;
-      top: 0;
-      left: 56px;
-      right: 0;
+      top: 0; left: 56px; right: 0;
       height: 48px;
       background: rgba(15,15,15,0.92);
       backdrop-filter: blur(8px);
@@ -138,11 +142,7 @@
       z-index: 100;
     }
 
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-    }
+    .header-left { display: flex; align-items: center; gap: 24px; }
 
     .breadcrumb {
       font-family: 'JetBrains Mono', monospace;
@@ -151,10 +151,7 @@
     }
     .breadcrumb span { color: var(--teal); }
 
-    .header-tabs {
-      display: flex;
-      gap: 2px;
-    }
+    .header-tabs { display: flex; gap: 2px; }
 
     .tab {
       padding: 4px 12px;
@@ -168,11 +165,7 @@
     .tab:hover { background: var(--bg-hover); color: var(--text-primary); }
     .tab.active { color: var(--text-primary); background: var(--bg-hover); }
 
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .header-right { display: flex; align-items: center; gap: 12px; }
 
     .search-bar {
       display: flex;
@@ -201,19 +194,210 @@
       margin-left: auto;
     }
 
-    /* ── MAIN ── */
-    main {
+    /* ── LAYOUT WRAPPER ── */
+    .layout {
       margin-left: 56px;
       margin-top: 48px;
       flex: 1;
-      padding: 48px 56px;
-      max-width: 1000px;
+      display: flex;
+      min-height: calc(100vh - 48px);
+    }
+
+    /* ── MAIN CONTENT ── */
+    main {
+      flex: 1;
+      padding: 52px 52px 52px 52px;
+      min-width: 0;
+    }
+
+    /* ── RIGHT SIDEBAR ── */
+    .right-sidebar {
+      width: 280px;
+      min-width: 280px;
+      border-left: 1px solid var(--border);
+      padding: 52px 24px;
+      position: sticky;
+      top: 48px;
+      height: calc(100vh - 48px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .right-sidebar::-webkit-scrollbar { width: 3px; }
+    .right-sidebar::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+
+    /* sidebar widgets */
+    .widget {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+
+    .widget-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--teal-dim);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .stat-row:last-child { border-bottom: none; }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .stat-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--teal);
+      font-weight: 500;
+    }
+
+    .tip-text {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .tip-text strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .hype-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.5;
+    }
+
+    .hype-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* mascot widget */
+    .mascot-widget {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 20px 18px;
+    }
+
+    .mascot-widget img {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), filter 0.2s;
+      cursor: pointer;
+      filter: drop-shadow(0 0 0px transparent);
+    }
+
+    .mascot-widget img:hover {
+      transform: scale(1.12) rotate(-4deg);
+      filter: drop-shadow(0 4px 12px rgba(62,207,207,0.25));
+    }
+
+    .mascot-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--teal-dim);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .mascot-desc {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* changelog */
+    .change-item {
+      display: flex;
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .change-item:last-child { border-bottom: none; }
+
+    .change-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--teal-dim);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .change-text {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .change-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* nav links in sidebar */
+    .quick-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .quick-nav-item:last-child { border-bottom: none; }
+    .quick-nav-item:hover .qnav-label { color: var(--teal); }
+
+    .qnav-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      min-width: 18px;
+    }
+
+    .qnav-label {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      transition: color 0.15s;
     }
 
     /* ── PAGE HEADER ── */
     .page-header {
-      margin-bottom: 48px;
+      margin-bottom: 52px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
     }
+
+    .page-header-text { flex: 1; }
 
     .page-eyebrow {
       font-family: 'JetBrains Mono', monospace;
@@ -226,42 +410,50 @@
 
     .page-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 32px;
+      font-size: 38px;
       font-weight: 700;
       color: var(--white);
-      letter-spacing: -0.8px;
+      letter-spacing: -1px;
       line-height: 1.1;
     }
-
     .page-title .asterisk { color: var(--teal); }
 
     .page-desc {
       color: var(--text-secondary);
-      font-size: 13.5px;
-      margin-top: 10px;
-      max-width: 480px;
+      font-size: 14px;
+      margin-top: 12px;
+      max-width: 500px;
+    }
+
+    .page-mascot {
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .page-mascot:hover {
+      transform: scale(1.1) rotate(5deg);
     }
 
     /* ── SECTION ── */
-    .section {
-      margin-bottom: 56px;
-    }
+    .section { margin-bottom: 64px; }
 
     .section-header {
       display: flex;
       align-items: baseline;
       gap: 8px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     .section-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 600;
       color: var(--white);
       letter-spacing: -0.2px;
     }
-
     .section-title .asterisk { color: var(--teal); }
 
     .section-line {
@@ -276,17 +468,33 @@
       color: var(--text-muted);
     }
 
-    /* ── OS TOGGLE ── */
-    .os-toggle {
+    /* coming soon notice */
+    .coming-soon {
+      margin-top: 16px;
       display: flex;
-      gap: 4px;
-      margin-bottom: 20px;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--teal-dim);
+      opacity: 0.8;
     }
+    .coming-soon::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--teal-dim);
+      flex-shrink: 0;
+    }
+
+    /* ── OS TOGGLE ── */
+    .os-toggle { display: flex; gap: 4px; margin-bottom: 22px; }
 
     .os-btn {
       font-family: 'JetBrains Mono', monospace;
       font-size: 11.5px;
-      padding: 5px 14px;
+      padding: 6px 16px;
       border-radius: 5px;
       border: 1px solid var(--border);
       background: transparent;
@@ -304,7 +512,7 @@
     /* ── SOFTWARE CARDS ── */
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 12px;
     }
 
@@ -312,28 +520,25 @@
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 18px 20px;
+      padding: 20px 22px;
       transition: border-color 0.15s, background 0.15s;
     }
-    .card:hover {
-      border-color: var(--border-hover);
-      background: var(--bg-hover);
-    }
+    .card:hover { border-color: var(--border-hover); background: var(--bg-hover); }
 
     .card-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 13.5px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--text-primary);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
     }
 
     .card-title .dot {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--teal-dim);
       flex-shrink: 0;
@@ -343,41 +548,31 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 5px 0;
+      padding: 6px 0;
       border-bottom: 1px solid var(--border);
     }
     .version-row:last-child { border-bottom: none; }
 
     .version-label {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
+      font-size: 12.5px;
       color: var(--text-secondary);
     }
 
-    .version-links {
-      display: flex;
-      gap: 2px;
-      align-items: center;
-    }
+    .version-links { display: flex; gap: 2px; align-items: center; }
 
     .version-links a {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11.5px;
+      font-size: 12px;
       color: var(--teal);
       text-decoration: none;
-      padding: 2px 6px;
+      padding: 3px 8px;
       border-radius: 3px;
       transition: background 0.12s, color 0.12s;
     }
-    .version-links a:hover {
-      background: #1a2e2e;
-      color: var(--teal-hover);
-    }
+    .version-links a:hover { background: #1a2e2e; color: var(--teal-hover); }
 
-    .version-links .sep {
-      color: var(--text-muted);
-      font-size: 10px;
-    }
+    .version-links .sep { color: var(--text-muted); font-size: 10px; }
 
     /* ── PLUGIN LIST ── */
     .plugin-grid {
@@ -390,17 +585,14 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 14px;
+      padding: 12px 16px;
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 8px;
       text-decoration: none;
       transition: border-color 0.15s, background 0.15s;
     }
-    .plugin-item:hover {
-      border-color: var(--teal-dim);
-      background: var(--bg-hover);
-    }
+    .plugin-item:hover { border-color: var(--teal-dim); background: var(--bg-hover); }
 
     .plugin-item .arrow {
       font-family: 'JetBrains Mono', monospace;
@@ -412,10 +604,7 @@
     }
     .plugin-item:hover .arrow { opacity: 1; }
 
-    .plugin-name {
-      font-size: 13px;
-      color: var(--text-primary);
-    }
+    .plugin-name { font-size: 13.5px; color: var(--text-primary); }
 
     .plugin-tag {
       font-family: 'JetBrains Mono', monospace;
@@ -429,17 +618,13 @@
     }
 
     /* ── GUIDES ── */
-    .guides-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+    .guides-list { display: flex; flex-direction: column; gap: 6px; }
 
     .guide-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 10px 16px;
+      gap: 14px;
+      padding: 13px 18px;
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -447,10 +632,7 @@
       transition: border-color 0.15s, background 0.15s;
       cursor: pointer;
     }
-    .guide-item:hover {
-      border-color: var(--border-hover);
-      background: var(--bg-hover);
-    }
+    .guide-item:hover { border-color: var(--border-hover); background: var(--bg-hover); }
 
     .guide-num {
       font-family: 'JetBrains Mono', monospace;
@@ -459,10 +641,7 @@
       min-width: 24px;
     }
 
-    .guide-name {
-      font-size: 13px;
-      color: var(--text-primary);
-    }
+    .guide-name { font-size: 13.5px; color: var(--text-primary); }
 
     .guide-tag {
       font-family: 'JetBrains Mono', monospace;
@@ -471,16 +650,12 @@
       background: #0f2020;
       border: 1px solid #1a3030;
       border-radius: 3px;
-      padding: 1px 6px;
+      padding: 2px 7px;
       margin-left: auto;
     }
 
     /* ── FAQ ── */
-    .faq-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-    }
+    .faq-list { display: flex; flex-direction: column; gap: 1px; }
 
     .faq-item {
       border: 1px solid var(--border);
@@ -493,10 +668,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 13px 18px;
+      padding: 15px 20px;
       cursor: pointer;
       background: var(--bg-card);
-      font-size: 13.5px;
+      font-size: 14px;
       color: var(--text-primary);
       transition: background 0.12s;
       user-select: none;
@@ -513,10 +688,10 @@
 
     .faq-a {
       display: none;
-      padding: 14px 18px;
+      padding: 16px 20px;
       color: var(--text-secondary);
-      font-size: 13px;
-      line-height: 1.7;
+      font-size: 13.5px;
+      line-height: 1.75;
       background: #0d0d0d;
       border-top: 1px solid var(--border);
     }
@@ -525,7 +700,7 @@
     /* ── HELPFUL SITES ── */
     .sites-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 10px;
     }
 
@@ -533,27 +708,24 @@
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 16px 18px;
+      padding: 18px 20px;
       text-decoration: none;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 5px;
       transition: border-color 0.15s, background 0.15s;
     }
-    .site-card:hover {
-      border-color: var(--teal-dim);
-      background: var(--bg-hover);
-    }
+    .site-card:hover { border-color: var(--teal-dim); background: var(--bg-hover); }
 
     .site-name {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 13.5px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--teal);
     }
 
     .site-desc {
-      font-size: 12.5px;
+      font-size: 13px;
       color: var(--text-secondary);
       line-height: 1.5;
     }
@@ -572,6 +744,20 @@
     /* ── OS PANEL ── */
     .os-panel { display: none; }
     .os-panel.active { display: block; }
+
+    /* section mascot accent */
+    .section-mascot {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      margin-left: 6px;
+      transition: transform 0.2s cubic-bezier(.34,1.56,.64,1);
+      cursor: pointer;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+    .section-mascot:hover { transform: scale(1.2) rotate(-8deg); }
   </style>
 </head>
 <body>
@@ -580,11 +766,21 @@
 <nav class="icon-sidebar">
   <div class="sidebar-logo">h*</div>
   <div class="sidebar-divider"></div>
-  <a class="sidebar-icon active" href="#downloads" data-tip="Downloads">📁</a>
-  <a class="sidebar-icon" href="#extensions" data-tip="Extensions">🧩</a>
-  <a class="sidebar-icon" href="#guides" data-tip="Guides">📖</a>
-  <a class="sidebar-icon" href="#faq" data-tip="FAQ">❓</a>
-  <a class="sidebar-icon" href="#helpful" data-tip="Helpful Sites">🔗</a>
+  <a class="sidebar-icon active" href="#downloads" data-tip="Downloads">
+    <img src="assets/hunnids%20shape%20files/HUNNIDO_SHAPE_00000_clean.png" alt="Downloads" />
+  </a>
+  <a class="sidebar-icon" href="#extensions" data-tip="Extensions">
+    <img src="assets/hunnids%20shape%20files/KILO_SHAPE_00000_clean.png" alt="Extensions" />
+  </a>
+  <a class="sidebar-icon" href="#guides" data-tip="Guides">
+    <img src="assets/hunnids%20shape%20files/CENTI_SHAPE_00000_clean.png" alt="Guides" />
+  </a>
+  <a class="sidebar-icon" href="#faq" data-tip="FAQ">
+    <img src="assets/hunnids%20shape%20files/HUNDO_SHAPE_00000_clean.png" alt="FAQ" />
+  </a>
+  <a class="sidebar-icon" href="#helpful" data-tip="Helpful Sites">
+    <img src="assets/hunnids%20shape%20files/HUNNIDO_SHAPE_00000_clean.png" alt="Helpful Sites" />
+  </a>
 </nav>
 
 <!-- TOPBAR -->
@@ -604,20 +800,27 @@
   </div>
 </header>
 
+<!-- LAYOUT -->
+<div class="layout">
+
 <!-- MAIN -->
 <main>
 
   <!-- PAGE HEADER -->
   <div class="page-header">
-    <div class="page-eyebrow">// resource hub</div>
-    <div class="page-title">hunnids<span class="asterisk">*</span></div>
-    <div class="page-desc">Software, plugins, guides and tools — curated for editors. All links are placeholders; swap them out as needed.</div>
+    <div class="page-header-text">
+      <div class="page-eyebrow">// resource hub</div>
+      <div class="page-title">hunnids<span class="asterisk">*</span></div>
+      <div class="page-desc">Software, plugins, guides and tools — curated for editors. New stuff gets added all the time, so check back.</div>
+    </div>
+    <img class="page-mascot" src="assets/hunnids%20shape%20files/HUNNIDO_SHAPE_00000_clean.png" alt="hunnido" />
   </div>
 
   <!-- DOWNLOADS -->
   <div class="section" id="downloads">
     <div class="section-header">
       <div class="section-title">Downloads<span class="asterisk">*</span></div>
+      <img class="section-mascot" src="assets/hunnids%20shape%20files/KILO_SHAPE_00000_clean.png" alt="kilo" />
       <div class="section-line"></div>
       <div class="section-count">// 04 apps</div>
     </div>
@@ -630,56 +833,47 @@
     <!-- WINDOWS -->
     <div class="os-panel active" id="os-win">
       <div class="cards-grid">
-
         <div class="card">
           <div class="card-title"><span class="dot"></span>After Effects</div>
           <div class="version-row"><span class="version-label">2025</span><span class="version-links"><a href="https://drive.google.com/drive/folders/1Hzbwwf-bIu6qFrSAlMXRZBz7IqJ9LR80?usp=drive_link">Link</a></span></div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="dot"></span>Premiere Pro</div>
           <div class="version-row"><span class="version-label">2025</span><span class="version-links"><a href="#">Link</a></span></div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="dot"></span>Photoshop</div>
           <div class="version-row"><span class="version-label">2025</span><span class="version-links"><a href="https://drive.google.com/drive/folders/1ZkaG6pK-54rnA9LHAQGCUfDNblDuD83G?usp=sharing">Link</a></span></div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="dot"></span>Media Encoder</div>
           <div class="version-row"><span class="version-label">2025</span><span class="version-links"><a href="#">Link</a></span></div>
         </div>
-
       </div>
+      <div class="coming-soon">// more versions + software being added soon</div>
     </div>
 
     <!-- MACOS -->
     <div class="os-panel" id="os-mac">
-      <p style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#2a9898; margin-bottom:16px;">// more versions coming — links are being updated</p>
       <div class="cards-grid">
-
         <div class="card">
           <div class="card-title"><span class="dot"></span>After Effects</div>
           <div class="version-row"><span class="version-label">2025</span><span class="version-links"><a href="#">Link</a></span></div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="dot"></span>Premiere Pro</div>
           <div class="version-row"><span class="version-label">2025</span><span class="version-links"><a href="#">Link</a></span></div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="dot"></span>Photoshop</div>
           <div class="version-row"><span class="version-label">2025</span><span class="version-links"><a href="#">Link</a></span></div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="dot"></span>Media Encoder</div>
           <div class="version-row"><span class="version-label">2025</span><span class="version-links"><a href="#">Link</a></span></div>
         </div>
-
       </div>
+      <div class="coming-soon">// mac links are being updated — check back soon</div>
     </div>
   </div>
 
@@ -687,6 +881,7 @@
   <div class="section" id="extensions">
     <div class="section-header">
       <div class="section-title">Extensions & Scripts<span class="asterisk">*</span></div>
+      <img class="section-mascot" src="assets/hunnids%20shape%20files/CENTI_SHAPE_00000_clean.png" alt="centi" />
       <div class="section-line"></div>
       <div class="section-count">// After Effects</div>
     </div>
@@ -712,12 +907,14 @@
       <a class="plugin-item" href="https://drive.google.com/file/d/1qaTifU5wfHBot6yea8Kiope1jvZ0ad68/view?usp=drive_link"><span class="plugin-name">Excalibur 1.1.5</span><span class="plugin-tag">PR</span><span class="arrow">→</span></a>
       <a class="plugin-item" href="https://drive.google.com/file/d/10n1X-4iFQNf_bEmTD6DUppq6wPp33lMG/view?usp=drive_link"><span class="plugin-name">Easify 2 Pro 2.5.0</span><span class="plugin-tag">PR</span><span class="arrow">→</span></a>
     </div>
+    <div class="coming-soon">// more plugins dropping soon — stay tuned</div>
   </div>
 
   <!-- GUIDES -->
   <div class="section" id="guides">
     <div class="section-header">
       <div class="section-title">Guides<span class="asterisk">*</span></div>
+      <img class="section-mascot" src="assets/hunnids%20shape%20files/HUNDO_SHAPE_00000_clean.png" alt="hundo" />
       <div class="section-line"></div>
       <div class="section-count">// 10 guides</div>
     </div>
@@ -733,6 +930,7 @@
       <a class="guide-item" href="#"><span class="guide-num">09</span><span class="guide-name">How to Extract Zip/7z Files</span><span class="guide-tag">GEN</span></a>
       <a class="guide-item" href="#"><span class="guide-num">10</span><span class="guide-name">Rosetta (M1+) Guide</span><span class="guide-tag">GEN</span></a>
     </div>
+    <div class="coming-soon">// more guides being written — check back</div>
   </div>
 
   <!-- FAQ -->
@@ -746,35 +944,36 @@
 
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFAQ(this)">What software does this server support? <span class="faq-chevron">▾</span></div>
-        <div class="faq-a">Placeholder answer. Replace with your actual content when ready.</div>
+        <div class="faq-a">We primarily focus on Adobe After Effects and Premiere Pro, with some Photoshop and Media Encoder resources as well. More software may be added in the future based on community needs.</div>
       </div>
 
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFAQ(this)">Are these links safe to use? <span class="faq-chevron">▾</span></div>
-        <div class="faq-a">Placeholder answer. Replace with your actual content when ready.</div>
+        <div class="faq-a">All links are vetted by the hunnids team before being posted here. That said, always use caution when downloading software and run a virus scan if you're unsure. If a link seems off, let us know in the Discord.</div>
       </div>
 
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFAQ(this)">How do I install After Effects? <span class="faq-chevron">▾</span></div>
-        <div class="faq-a">Placeholder answer. Replace with your actual content when ready.</div>
+        <div class="faq-a">Download the installer from the Downloads section above and follow the setup steps. Check out our After Effects Beginners Guide in the Guides section for a full walkthrough including installation paths and first-time setup tips.</div>
       </div>
 
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFAQ(this)">After Effects crashes on launch. How do I fix it? <span class="faq-chevron">▾</span></div>
-        <div class="faq-a">Placeholder answer. Replace with your actual content when ready.</div>
+        <div class="faq-a">Try clearing your AE cache and preferences first — go to Edit → Purge → All Memory & Disk Cache. If it keeps crashing, check that your GPU drivers are up to date and that you're running a compatible version of Windows or macOS. You can also ask for help in the Discord.</div>
       </div>
 
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFAQ(this)">The installer is asking for a serial number. What do I do? <span class="faq-chevron">▾</span></div>
-        <div class="faq-a">Placeholder answer. Replace with your actual content when ready.</div>
+        <div class="faq-a">Check the folder the installer came in — serial numbers or activation instructions are usually included alongside the download. If you can't find it, reach out in the Discord and someone can help you out.</div>
       </div>
 
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFAQ(this)">Where do I go if I need help? <span class="faq-chevron">▾</span></div>
-        <div class="faq-a">Placeholder answer. Replace with your actual content when ready.</div>
+        <div class="faq-a">Jump in the Discord! We have dedicated help channels where members and staff can assist with installs, plugins, general editing questions and more. The community is super active so you'll usually get a response fast.</div>
       </div>
 
     </div>
+    <div class="coming-soon">// more FAQs being added as questions come in</div>
   </div>
 
   <!-- HELPFUL SITES -->
@@ -826,9 +1025,93 @@
         <span class="site-url">example.com</span>
       </a>
     </div>
+    <div class="coming-soon">// more sites being curated — suggestions welcome in Discord</div>
   </div>
 
 </main>
+
+<!-- RIGHT SIDEBAR -->
+<aside class="right-sidebar">
+
+  <!-- hype widget -->
+  <div class="widget">
+    <div class="widget-label">// the vibe</div>
+    <div class="hype-text">editing resources, no fluff.</div>
+    <div class="hype-sub">// curated by hunnids for hunnids</div>
+  </div>
+
+  <!-- mascot showcase -->
+  <div class="widget mascot-widget">
+    <div class="widget-label">// the crew</div>
+    <img src="assets/hunnids%20shape%20files/KILO_SHAPE_00000_clean.png" alt="Kilo" />
+    <div class="mascot-name">KILO</div>
+    <div class="mascot-desc">the brains of the operation. knows every plugin ever made.</div>
+  </div>
+
+  <!-- stats -->
+  <div class="widget">
+    <div class="widget-label">// by the numbers</div>
+    <div class="stat-row"><span class="stat-label">plugins listed</span><span class="stat-val">13</span></div>
+    <div class="stat-row"><span class="stat-label">guides available</span><span class="stat-val">10</span></div>
+    <div class="stat-row"><span class="stat-label">helpful sites</span><span class="stat-val">07</span></div>
+    <div class="stat-row"><span class="stat-label">software downloads</span><span class="stat-val">04</span></div>
+  </div>
+
+  <!-- tip of the day -->
+  <div class="widget">
+    <div class="widget-label">// tip of the day</div>
+    <div class="tip-text"><strong>Use proxies.</strong> If AE is running slow, create proxy files for your heavy footage. It'll save your sanity on longer timelines.</div>
+  </div>
+
+  <!-- another mascot -->
+  <div class="widget mascot-widget">
+    <img src="assets/hunnids%20shape%20files/HUNDO_SHAPE_00000_clean.png" alt="Hundo" />
+    <div class="mascot-name">HUNDO</div>
+    <div class="mascot-desc">chill, reliable. always has a link ready.</div>
+  </div>
+
+  <!-- changelog -->
+  <div class="widget">
+    <div class="widget-label">// recent updates</div>
+    <div class="change-item">
+      <div class="change-dot"></div>
+      <div>
+        <div class="change-text">Added Newton 4 + CRT Emulator to AE plugins</div>
+        <div class="change-date">recent</div>
+      </div>
+    </div>
+    <div class="change-item">
+      <div class="change-dot"></div>
+      <div>
+        <div class="change-text">Photoshop 2025 Windows link updated</div>
+        <div class="change-date">recent</div>
+      </div>
+    </div>
+    <div class="change-item">
+      <div class="change-dot"></div>
+      <div>
+        <div class="change-text">FAQ answers filled in</div>
+        <div class="change-date">recent</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- centi -->
+  <div class="widget mascot-widget">
+    <img src="assets/hunnids%20shape%20files/CENTI_SHAPE_00000_clean.png" alt="Centi" />
+    <div class="mascot-name">CENTI</div>
+    <div class="mascot-desc">battle-scarred. has crashed AE more times than anyone.</div>
+  </div>
+
+  <!-- another tip -->
+  <div class="widget">
+    <div class="widget-label">// did you know</div>
+    <div class="tip-text"><strong>Flow</strong> is one of the best free easing plugins for AE. Smooth out your animations in seconds — it's in the plugins list above.</div>
+  </div>
+
+</aside>
+
+</div><!-- end layout -->
 
 <script>
   // OS toggle
