@@ -436,21 +436,18 @@
     .page-mascot-wrap {
       width: 60px;
       height: 60px;
-      overflow: hidden;
       flex-shrink: 0;
-      border-radius: 8px;
     }
 
     .page-mascot {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center;
+      object-fit: contain;
       transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
       cursor: pointer;
     }
     .page-mascot:hover {
-      transform: scale(1.15) rotate(5deg);
+      transform: scale(1.2) rotate(5deg);
     }
 
     /* ── SECTION ── */
@@ -765,21 +762,18 @@
     .section-mascot-wrap {
       width: 18px;
       height: 18px;
-      overflow: hidden;
       flex-shrink: 0;
-      border-radius: 2px;
       margin-left: 6px;
     }
 
     .section-mascot {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center;
+      object-fit: contain;
       transition: transform 0.2s cubic-bezier(.34,1.56,.64,1);
       cursor: pointer;
     }
-    .section-mascot:hover { transform: scale(1.1); }
+    .section-mascot:hover { transform: scale(1.3) rotate(-8deg); }
   </style>
 </head>
 <body>
@@ -816,11 +810,28 @@
     </div>
   </div>
   <div class="header-right">
-    <div class="search-bar">
+    <div class="search-bar" onclick="openSearch()" id="search-trigger">
       <span>⌕</span> Search<span class="kbd">⌘K</span>
     </div>
   </div>
 </header>
+
+<!-- SEARCH MODAL -->
+<div id="search-modal" style="display:none; position:fixed; inset:0; z-index:999; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); align-items:flex-start; justify-content:center; padding-top:120px;">
+  <div style="background:#141414; border:1px solid #2e2e2e; border-radius:12px; width:560px; max-width:90vw; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,0.6);">
+    <div style="display:flex; align-items:center; gap:10px; padding:14px 18px; border-bottom:1px solid #202020;">
+      <span style="color:#555; font-size:16px;">⌕</span>
+      <input id="search-input" type="text" placeholder="Search plugins, guides, software..."
+        style="flex:1; background:transparent; border:none; outline:none; color:#efefef; font-family:'Inter',sans-serif; font-size:14px;"
+        oninput="doSearch(this.value)" onkeydown="searchKeyNav(event)" />
+      <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#333; cursor:pointer;" onclick="closeSearch()">ESC</span>
+    </div>
+    <div id="search-results" style="max-height:380px; overflow-y:auto; padding:8px;"></div>
+    <div style="padding:10px 18px; border-top:1px solid #202020; font-family:'JetBrains Mono',monospace; font-size:10px; color:#333;">
+      ↑↓ navigate &nbsp;·&nbsp; ↵ jump to &nbsp;·&nbsp; esc close
+    </div>
+  </div>
+</div>
 
 <!-- LAYOUT -->
 <div class="layout">
@@ -1164,6 +1175,114 @@
   }, { rootMargin: '-20% 0px -60% 0px' });
 
   sections.forEach(s => obs.observe(s));
+
+  // Search index
+  const searchIndex = [
+    { label: 'After Effects', category: 'Downloads', target: '#downloads' },
+    { label: 'Premiere Pro', category: 'Downloads', target: '#downloads' },
+    { label: 'Photoshop', category: 'Downloads', target: '#downloads' },
+    { label: 'Media Encoder', category: 'Downloads', target: '#downloads' },
+    { label: 'TheAnimeScripter', category: 'Plugin · AE', target: '#extensions' },
+    { label: 'Uwu2x', category: 'Plugin · AE', target: '#extensions' },
+    { label: 'FxConsole', category: 'Plugin · AE', target: '#extensions' },
+    { label: 'Flow 1.5.2', category: 'Plugin · AE', target: '#extensions' },
+    { label: 'TextEvo', category: 'Plugin · AE', target: '#extensions' },
+    { label: 'DataMosh 2', category: 'Plugin · AE', target: '#extensions' },
+    { label: 'Matrix', category: 'Plugin · AE', target: '#extensions' },
+    { label: 'CRT Emulator', category: 'Plugin · AE', target: '#extensions' },
+    { label: 'Newton 4', category: 'Plugin · AE', target: '#extensions' },
+    { label: 'Captioneer 1.7.0', category: 'Plugin · PR', target: '#extensions' },
+    { label: 'FastFx v1.0.0', category: 'Plugin · PR', target: '#extensions' },
+    { label: 'Excalibur 1.1.5', category: 'Plugin · PR', target: '#extensions' },
+    { label: 'Easify 2 Pro 2.5.0', category: 'Plugin · PR', target: '#extensions' },
+    { label: 'After Effects Beginners Guide', category: 'Guide · AE', target: '#guides' },
+    { label: 'Changing After Effects Version', category: 'Guide · AE', target: '#guides' },
+    { label: 'After Effects Installation Paths', category: 'Guide · AE', target: '#guides' },
+    { label: 'How to Use Track Mattes', category: 'Guide · AE', target: '#guides' },
+    { label: 'Puppet Tool Basics', category: 'Guide · AE', target: '#guides' },
+    { label: 'Premiere Pro Setup Guide', category: 'Guide · PR', target: '#guides' },
+    { label: 'Exporting Settings Guide', category: 'Guide · PR', target: '#guides' },
+    { label: 'Color Grading Basics', category: 'Guide · PR', target: '#guides' },
+    { label: 'How to Extract Zip/7z Files', category: 'Guide · General', target: '#guides' },
+    { label: 'Rosetta (M1+) Guide', category: 'Guide · General', target: '#guides' },
+    { label: 'FAQ', category: 'Section', target: '#faq' },
+    { label: 'Helpful Websites', category: 'Section', target: '#helpful' },
+  ];
+
+  let searchActive = -1;
+
+  function openSearch() {
+    const modal = document.getElementById('search-modal');
+    modal.style.display = 'flex';
+    setTimeout(() => document.getElementById('search-input').focus(), 50);
+    doSearch('');
+  }
+
+  function closeSearch() {
+    document.getElementById('search-modal').style.display = 'none';
+    document.getElementById('search-input').value = '';
+    searchActive = -1;
+  }
+
+  function doSearch(q) {
+    const results = q.trim() === ''
+      ? searchIndex.slice(0, 8)
+      : searchIndex.filter(i => i.label.toLowerCase().includes(q.toLowerCase()) || i.category.toLowerCase().includes(q.toLowerCase()));
+
+    const container = document.getElementById('search-results');
+    searchActive = -1;
+
+    if (results.length === 0) {
+      container.innerHTML = `<div style="padding:20px; text-align:center; font-family:'JetBrains Mono',monospace; font-size:12px; color:#444;">// no results found</div>`;
+      return;
+    }
+
+    container.innerHTML = results.map((r, i) => `
+      <div class="search-result-item" data-target="${r.target}" data-index="${i}"
+        style="display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-radius:7px; cursor:pointer; transition:background 0.1s;"
+        onmouseenter="setSearchActive(${i})"
+        onclick="jumpTo('${r.target}')">
+        <span style="font-size:13.5px; color:#efefef;">${r.label}</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#444; background:#1a1a1a; border:1px solid #222; border-radius:3px; padding:2px 7px;">${r.category}</span>
+      </div>
+    `).join('');
+  }
+
+  function setSearchActive(i) {
+    searchActive = i;
+    document.querySelectorAll('.search-result-item').forEach((el, idx) => {
+      el.style.background = idx === i ? '#1a2e2e' : '';
+    });
+  }
+
+  function searchKeyNav(e) {
+    const items = document.querySelectorAll('.search-result-item');
+    if (e.key === 'ArrowDown') { e.preventDefault(); setSearchActive(Math.min(searchActive + 1, items.length - 1)); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); setSearchActive(Math.max(searchActive - 1, 0)); }
+    if (e.key === 'Enter') {
+      const active = document.querySelector('.search-result-item[data-index="' + searchActive + '"]');
+      if (active) jumpTo(active.dataset.target);
+      else if (items.length > 0) jumpTo(items[0].dataset.target);
+    }
+    if (e.key === 'Escape') closeSearch();
+  }
+
+  function jumpTo(target) {
+    closeSearch();
+    const el = document.querySelector(target);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Cmd/Ctrl+K to open
+  document.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
+    if (e.key === 'Escape') closeSearch();
+  });
+
+  // Click outside to close
+  document.getElementById('search-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeSearch();
+  });
 </script>
 
 </body>
