@@ -634,18 +634,25 @@
     .guides-list { display: flex; flex-direction: column; gap: 6px; }
 
     .guide-item {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.15s;
+    }
+    .guide-item:hover { border-color: var(--border-hover); }
+    .guide-item.open { border-color: var(--teal-dim); }
+
+    .guide-header {
       display: flex;
       align-items: center;
       gap: 14px;
       padding: 13px 18px;
       background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      text-decoration: none;
-      transition: border-color 0.15s, background 0.15s;
       cursor: pointer;
+      transition: background 0.12s;
+      user-select: none;
     }
-    .guide-item:hover { border-color: var(--border-hover); background: var(--bg-hover); }
+    .guide-header:hover { background: var(--bg-hover); }
 
     .guide-num {
       font-family: 'JetBrains Mono', monospace;
@@ -654,7 +661,7 @@
       min-width: 24px;
     }
 
-    .guide-name { font-size: 13.5px; color: var(--text-primary); }
+    .guide-name { font-size: 13.5px; color: var(--text-primary); flex: 1; }
 
     .guide-tag {
       font-family: 'JetBrains Mono', monospace;
@@ -664,7 +671,112 @@
       border: 1px solid #1a3030;
       border-radius: 3px;
       padding: 2px 7px;
-      margin-left: auto;
+    }
+
+    .guide-chevron {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      transition: transform 0.2s;
+      margin-left: 6px;
+    }
+    .guide-item.open .guide-chevron { transform: rotate(180deg); }
+
+    .guide-body {
+      display: none;
+      padding: 16px 20px;
+      background: #0d0d0d;
+      border-top: 1px solid var(--border);
+      flex-direction: column;
+      gap: 14px;
+    }
+    .guide-item.open .guide-body { display: flex; }
+
+    .guide-desc {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    /* YouTube card */
+    .yt-card {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #111;
+      cursor: pointer;
+      max-width: 480px;
+    }
+
+    .yt-thumb-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: #000;
+    }
+
+    .yt-thumb-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.2s;
+    }
+
+    .yt-card:hover .yt-thumb-wrap img { opacity: 0.85; }
+
+    .yt-play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .yt-play-btn svg {
+      width: 52px;
+      height: 52px;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+      transition: transform 0.2s;
+    }
+    .yt-card:hover .yt-play-btn svg { transform: scale(1.1); }
+
+    .yt-info {
+      padding: 10px 14px 12px;
+    }
+
+    .yt-title {
+      font-size: 12.5px;
+      color: var(--text-primary);
+      font-weight: 500;
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+
+    .yt-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .yt-embed-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      padding-top: 56.25%;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .yt-embed-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 
     /* ── FAQ ── */
@@ -982,16 +1094,185 @@
       <div class="section-count">// 10 guides</div>
     </div>
     <div class="guides-list">
-      <a class="guide-item" href="#"><span class="guide-num">01</span><span class="guide-name">After Effects Beginners Guide</span><span class="guide-tag">AE</span></a>
-      <a class="guide-item" href="#"><span class="guide-num">02</span><span class="guide-name">Changing After Effects Version</span><span class="guide-tag">AE</span></a>
-      <a class="guide-item" href="#"><span class="guide-num">03</span><span class="guide-name">After Effects Installation Paths</span><span class="guide-tag">AE</span></a>
-      <a class="guide-item" href="#"><span class="guide-num">04</span><span class="guide-name">Installing Plugins</span><span class="guide-tag">AE</span></a>
-      <a class="guide-item" href="#"><span class="guide-num">05</span><span class="guide-name">Optimizing After Effects Performance</span><span class="guide-tag">AE</span></a>
-      <a class="guide-item" href="#"><span class="guide-num">06</span><span class="guide-name">Premiere Pro Setup Guide</span><span class="guide-tag">PR</span></a>
-      <a class="guide-item" href="#"><span class="guide-num">07</span><span class="guide-name">Exporting Settings Guide</span><span class="guide-tag">PR</span></a>
-      <a class="guide-item" href="#"><span class="guide-num">08</span><span class="guide-name">Workspace Customization</span><span class="guide-tag">PR</span></a>
-      <a class="guide-item" href="#"><span class="guide-num">09</span><span class="guide-name">How to Extract Zip/7z Files</span><span class="guide-tag">GEN</span></a>
-      <a class="guide-item" href="#"><span class="guide-num">10</span><span class="guide-name">Installing Scripts & Extensions</span><span class="guide-tag">GEN</span></a>
+
+      <!-- Guide with YouTube -->
+      <div class="guide-item">
+        <div class="guide-header" onclick="toggleGuide(this)">
+          <span class="guide-num">01</span>
+          <span class="guide-name">After Effects Beginners Guide</span>
+          <span class="guide-tag">AE</span>
+          <span class="guide-chevron">▾</span>
+        </div>
+        <div class="guide-body">
+          <div class="guide-desc">A full walkthrough for getting started with After Effects — interface overview, compositions, keyframes, and your first animation.</div>
+          <div class="yt-card" onclick="playYT(this, 'TfeEhz-FSEY')">
+            <div class="yt-thumb-wrap">
+              <img src="https://img.youtube.com/vi/TfeEhz-FSEY/hqdefault.jpg" alt="AE Beginners Guide" />
+              <div class="yt-play-btn">
+                <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
+                  <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
+                </svg>
+              </div>
+            </div>
+            <div class="yt-info">
+              <div class="yt-title">After Effects for Beginners — Full Tutorial</div>
+              <div class="yt-meta">youtube.com · click to play</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guide text only -->
+      <div class="guide-item">
+        <div class="guide-header" onclick="toggleGuide(this)">
+          <span class="guide-num">02</span>
+          <span class="guide-name">Changing After Effects Version</span>
+          <span class="guide-tag">AE</span>
+          <span class="guide-chevron">▾</span>
+        </div>
+        <div class="guide-body">
+          <div class="guide-desc">How to switch between installed versions of After Effects using the Creative Cloud desktop app. Useful if a plugin requires a specific version.</div>
+        </div>
+      </div>
+
+      <!-- Guide text only -->
+      <div class="guide-item">
+        <div class="guide-header" onclick="toggleGuide(this)">
+          <span class="guide-num">03</span>
+          <span class="guide-name">After Effects Installation Paths</span>
+          <span class="guide-tag">AE</span>
+          <span class="guide-chevron">▾</span>
+        </div>
+        <div class="guide-body">
+          <div class="guide-desc">Where AE stores plugins, scripts, and presets on Windows and macOS. Essential for manually installing extensions.<br><br>
+            <strong style="color:var(--text-primary)">Windows:</strong> <code style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--teal); background:#111; padding:2px 6px; border-radius:3px;">C:\Program Files\Adobe\Adobe After Effects [year]\Support Files\Plug-ins</code><br><br>
+            <strong style="color:var(--text-primary)">macOS:</strong> <code style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--teal); background:#111; padding:2px 6px; border-radius:3px;">/Applications/Adobe After Effects [year]/Plug-ins</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guide with YouTube -->
+      <div class="guide-item">
+        <div class="guide-header" onclick="toggleGuide(this)">
+          <span class="guide-num">04</span>
+          <span class="guide-name">Installing Plugins</span>
+          <span class="guide-tag">AE</span>
+          <span class="guide-chevron">▾</span>
+        </div>
+        <div class="guide-body">
+          <div class="guide-desc">Step-by-step guide for installing .zxp, .aex, and script-based plugins into After Effects and Premiere Pro.</div>
+          <div class="yt-card" onclick="playYT(this, 'YOUTUBE_ID_HERE')">
+            <div class="yt-thumb-wrap">
+              <img src="https://img.youtube.com/vi/YOUTUBE_ID_HERE/hqdefault.jpg" alt="Installing Plugins" />
+              <div class="yt-play-btn">
+                <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
+                  <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
+                </svg>
+              </div>
+            </div>
+            <div class="yt-info">
+              <div class="yt-title">How to Install After Effects Plugins</div>
+              <div class="yt-meta">youtube.com · click to play</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guide text only -->
+      <div class="guide-item">
+        <div class="guide-header" onclick="toggleGuide(this)">
+          <span class="guide-num">05</span>
+          <span class="guide-name">Optimizing After Effects Performance</span>
+          <span class="guide-tag">AE</span>
+          <span class="guide-chevron">▾</span>
+        </div>
+        <div class="guide-body">
+          <div class="guide-desc">Tips for making AE run faster — RAM allocation, disk cache settings, GPU acceleration, and preview settings that make a noticeable difference.</div>
+        </div>
+      </div>
+
+      <!-- Guide text only -->
+      <div class="guide-item">
+        <div class="guide-header" onclick="toggleGuide(this)">
+          <span class="guide-num">06</span>
+          <span class="guide-name">Premiere Pro Setup Guide</span>
+          <span class="guide-tag">PR</span>
+          <span class="guide-chevron">▾</span>
+        </div>
+        <div class="guide-body">
+          <div class="guide-desc">How to set up a new Premiere Pro project correctly — sequence settings, scratch disk locations, and workspace layout recommendations.</div>
+        </div>
+      </div>
+
+      <!-- Guide with YouTube -->
+      <div class="guide-item">
+        <div class="guide-header" onclick="toggleGuide(this)">
+          <span class="guide-num">07</span>
+          <span class="guide-name">Exporting Settings Guide</span>
+          <span class="guide-tag">PR</span>
+          <span class="guide-chevron">▾</span>
+        </div>
+        <div class="guide-body">
+          <div class="guide-desc">The best export settings for different platforms — Discord, YouTube, Twitter/X, and local playback. Covers H.264, H.265, and ProRes.</div>
+          <div class="yt-card" onclick="playYT(this, 'YOUTUBE_ID_HERE')">
+            <div class="yt-thumb-wrap">
+              <img src="https://img.youtube.com/vi/YOUTUBE_ID_HERE/hqdefault.jpg" alt="Exporting Guide" />
+              <div class="yt-play-btn">
+                <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
+                  <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
+                </svg>
+              </div>
+            </div>
+            <div class="yt-info">
+              <div class="yt-title">Best Premiere Pro Export Settings</div>
+              <div class="yt-meta">youtube.com · click to play</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guide text only -->
+      <div class="guide-item">
+        <div class="guide-header" onclick="toggleGuide(this)">
+          <span class="guide-num">08</span>
+          <span class="guide-name">Workspace Customization</span>
+          <span class="guide-tag">PR</span>
+          <span class="guide-chevron">▾</span>
+        </div>
+        <div class="guide-body">
+          <div class="guide-desc">How to customize your Premiere Pro workspace — panel layout, keyboard shortcuts, and saving your setup so it persists between projects.</div>
+        </div>
+      </div>
+
+      <!-- Guide text only -->
+      <div class="guide-item">
+        <div class="guide-header" onclick="toggleGuide(this)">
+          <span class="guide-num">09</span>
+          <span class="guide-name">How to Extract Zip/7z Files</span>
+          <span class="guide-tag">GEN</span>
+          <span class="guide-chevron">▾</span>
+        </div>
+        <div class="guide-body">
+          <div class="guide-desc">Most downloads here are zipped. Use <strong style="color:var(--text-primary)">7-Zip</strong> (Windows) or <strong style="color:var(--text-primary)">The Unarchiver</strong> (Mac) to extract them. Right-click the file → Extract Here. If prompted for a password, use the one in the banner at the top of this page.</div>
+        </div>
+      </div>
+
+      <!-- Guide text only -->
+      <div class="guide-item">
+        <div class="guide-header" onclick="toggleGuide(this)">
+          <span class="guide-num">10</span>
+          <span class="guide-name">Installing Scripts & Extensions</span>
+          <span class="guide-tag">GEN</span>
+          <span class="guide-chevron">▾</span>
+        </div>
+        <div class="guide-body">
+          <div class="guide-desc">Scripts go in your AE Scripts folder. Extensions (.zxp files) need the <strong style="color:var(--text-primary)">aescripts + aeplugins manager</strong> or ZXP Installer to install. See guide 03 for the correct folder paths.</div>
+        </div>
+      </div>
+
     </div>
     <div class="coming-soon">// more guides being written — check back</div>
   </div>
@@ -1202,6 +1483,19 @@
     document.querySelectorAll('.os-panel').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
     document.getElementById('os-' + os).classList.add('active');
+  }
+
+  // Guide accordion
+  function toggleGuide(el) {
+    el.closest('.guide-item').classList.toggle('open');
+  }
+
+  // YouTube inline play
+  function playYT(card, videoId) {
+    const wrap = document.createElement('div');
+    wrap.className = 'yt-embed-wrap';
+    wrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    card.replaceWith(wrap);
   }
 
   // FAQ accordion
