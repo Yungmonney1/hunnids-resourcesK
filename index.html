@@ -5,22 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>hunnids*</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&family=Space+Grotesk:wght@500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
     :root {
-      --bg: #0f0f0f;
-      --bg-card: #141414;
-      --bg-hover: #1a1a1a;
-      --bg-sidebar: #111111;
-      --border: #202020;
-      --border-hover: #2e2e2e;
-      --text-primary: #efefef;
-      --text-secondary: #777777;
-      --text-muted: #3d3d3d;
-      --teal: #3ecfcf;
-      --teal-dim: #2a9898;
-      --teal-hover: #6edddd;
+      --bg: #fbf6ee;
+      --bg-soft: #f5ecdc;
+      --bg-card: #ffffff;
+      --bg-hover: #fff8ed;
+      --bg-sidebar: #ffffff;
+      --border: #ecdfc8;
+      --border-hover: #e0c9a0;
+      --text-primary: #4a3826;
+      --text-secondary: #8a7558;
+      --text-muted: #c4b193;
+      --brown: #9c5c2e;
+      --brown-dim: #79431f;
+      --brown-light: #d99761;
+      --cream-pop: #fff3de;
       --white: #ffffff;
+      --shadow-soft: 0 4px 18px rgba(181, 112, 58, 0.08);
+      --shadow-pop: 0 8px 28px rgba(181, 112, 58, 0.16);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,18 +32,32 @@
 
     body {
       background: var(--bg);
+      background-image:
+        radial-gradient(circle at 15% 8%, rgba(232, 168, 114, 0.18) 0%, transparent 40%),
+        radial-gradient(circle at 90% 25%, rgba(181, 112, 58, 0.10) 0%, transparent 35%),
+        radial-gradient(circle at 50% 95%, rgba(232, 168, 114, 0.12) 0%, transparent 45%);
       color: var(--text-primary);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Nunito', sans-serif;
       font-size: 14px;
       line-height: 1.6;
       display: flex;
       min-height: 100vh;
     }
 
-    /* ── ICON SIDEBAR ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(181,112,58,0.06) 1px, transparent 1.3px);
+      background-size: 14px 14px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
     .icon-sidebar {
-      width: 56px;
-      min-width: 56px;
+      width: 64px;
+      min-width: 64px;
       background: var(--bg-sidebar);
       border-right: 1px solid var(--border);
       position: fixed;
@@ -47,79 +65,76 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 16px 0;
-      gap: 4px;
+      padding: 18px 0;
+      gap: 6px;
       z-index: 200;
+      box-shadow: var(--shadow-soft);
     }
 
     .sidebar-logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 15px;
       font-weight: 700;
-      color: var(--teal);
+      color: var(--brown);
       writing-mode: vertical-rl;
       transform: rotate(180deg);
       letter-spacing: 1px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
       margin-top: 4px;
     }
 
     .sidebar-divider {
-      width: 24px;
-      height: 1px;
+      width: 28px;
+      height: 2px;
+      border-radius: 2px;
       background: var(--border);
       margin: 8px 0;
     }
 
     .sidebar-icon {
-      width: 36px;
-      height: 36px;
+      width: 42px;
+      height: 42px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 8px;
+      border-radius: 14px;
       cursor: pointer;
-      transition: background 0.15s, transform 0.2s;
+      transition: background 0.18s, transform 0.2s;
       color: var(--text-secondary);
-      font-size: 15px;
       text-decoration: none;
       position: relative;
     }
 
     .sidebar-icon img {
-      width: 18px;
-      height: 18px;
-      object-fit: cover;
-      object-position: center;
-      transition: transform 0.2s, filter 0.2s;
-      filter: brightness(0.6);
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      transition: transform 0.2s;
+      filter: brightness(0) saturate(100%) invert(45%) sepia(35%) saturate(800%) hue-rotate(0deg) opacity(0.55);
     }
 
-    .sidebar-icon:hover img {
-      transform: scale(1.1) rotate(-5deg);
-      filter: brightness(1);
-    }
+    .sidebar-icon:hover { background: var(--cream-pop); transform: scale(1.05); }
+    .sidebar-icon:hover img { transform: scale(1.12) rotate(-6deg); }
 
-    .sidebar-icon.active img {
-      filter: brightness(1);
+    .sidebar-icon.active {
+      background: linear-gradient(135deg, var(--brown-light), var(--brown));
+      box-shadow: var(--shadow-pop);
     }
-
-    .sidebar-icon:hover { background: var(--bg-hover); }
-    .sidebar-icon.active { background: #1a2e2e; }
+    .sidebar-icon.active img { filter: brightness(0) saturate(100%) invert(100%); }
 
     .sidebar-icon::after {
       content: attr(data-tip);
       position: absolute;
-      left: calc(100% + 10px);
+      left: calc(100% + 12px);
       top: 50%;
       transform: translateY(-50%);
-      background: #1e1e1e;
-      border: 1px solid var(--border-hover);
-      color: var(--text-primary);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      padding: 4px 8px;
-      border-radius: 4px;
+      background: var(--text-primary);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      font-size: 11.5px;
+      padding: 5px 10px;
+      border-radius: 8px;
       white-space: nowrap;
       pointer-events: none;
       opacity: 0;
@@ -128,13 +143,12 @@
     }
     .sidebar-icon:hover::after { opacity: 1; }
 
-    /* ── TOPBAR ── */
     header {
       position: fixed;
-      top: 0; left: 56px; right: 0;
-      height: 48px;
-      background: rgba(15,15,15,0.92);
-      backdrop-filter: blur(8px);
+      top: 0; left: 64px; right: 0;
+      height: 56px;
+      background: rgba(251, 246, 238, 0.85);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
@@ -150,21 +164,22 @@
       font-size: 12px;
       color: var(--text-secondary);
     }
-    .breadcrumb span { color: var(--teal); }
+    .breadcrumb span { color: var(--brown); }
 
-    .header-tabs { display: flex; gap: 2px; }
+    .header-tabs { display: flex; gap: 4px; }
 
     .tab {
-      padding: 4px 12px;
-      border-radius: 6px;
-      font-size: 12.5px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
       color: var(--text-secondary);
       text-decoration: none;
       transition: background 0.15s, color 0.15s;
       cursor: pointer;
     }
-    .tab:hover { background: var(--bg-hover); color: var(--text-primary); }
-    .tab.active { color: var(--text-primary); background: var(--bg-hover); }
+    .tab:hover { background: var(--cream-pop); color: var(--brown-dim); }
+    .tab.active { color: #fff; background: linear-gradient(135deg, var(--brown-light), var(--brown)); box-shadow: var(--shadow-soft); }
 
     .header-right { display: flex; align-items: center; gap: 12px; }
 
@@ -172,75 +187,118 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: var(--bg-card);
+      background: var(--white);
       border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 5px 10px;
+      border-radius: 20px;
+      padding: 7px 14px;
       color: var(--text-secondary);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11.5px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      font-size: 12.5px;
       cursor: pointer;
-      transition: border-color 0.15s;
-      width: 180px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      width: 190px;
     }
-    .search-bar:hover { border-color: var(--teal-dim); }
+    .search-bar:hover { border-color: var(--brown-light); box-shadow: var(--shadow-soft); }
 
     .kbd {
-      background: #1c1c1c;
-      border: 1px solid var(--border-hover);
-      border-radius: 3px;
-      padding: 1px 5px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1px 6px;
       font-size: 10px;
       color: var(--text-muted);
       margin-left: auto;
     }
 
-    /* ── LAYOUT WRAPPER ── */
+    .pw-banner {
+      position: fixed;
+      top: 56px;
+      left: 64px;
+      right: 0;
+      height: 36px;
+      background: linear-gradient(135deg, #fff3de, #fae2bd);
+      border-bottom: 1px solid var(--border-hover);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      z-index: 99;
+    }
+    .pw-banner span.label {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      color: var(--brown-dim);
+    }
+    .pw-banner span.pwval {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--brown);
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+    .pw-copy-btn {
+      background: var(--white);
+      border: 1px solid var(--border-hover);
+      border-radius: 14px;
+      color: var(--brown-dim);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 10.5px;
+      padding: 3px 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .pw-copy-btn:hover { background: var(--brown); color: #fff; border-color: var(--brown); }
+
     .layout {
-      margin-left: 56px;
-      margin-top: 80px;
+      margin-left: 64px;
+      margin-top: 92px;
       flex: 1;
       display: flex;
-      min-height: calc(100vh - 80px);
+      min-height: calc(100vh - 92px);
+      position: relative;
+      z-index: 1;
     }
 
-    /* ── MAIN CONTENT ── */
     main {
       flex: 1;
-      padding: 52px 52px 52px 52px;
+      padding: 48px 52px 52px 52px;
       min-width: 0;
     }
 
-    /* ── RIGHT SIDEBAR ── */
     .right-sidebar {
-      width: 280px;
-      min-width: 280px;
+      width: 290px;
+      min-width: 290px;
       border-left: 1px solid var(--border);
-      padding: 52px 24px;
+      padding: 48px 24px;
       position: sticky;
-      top: 48px;
-      height: calc(100vh - 48px);
+      top: 92px;
+      height: calc(100vh - 92px);
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 20px;
     }
 
-    .right-sidebar::-webkit-scrollbar { width: 3px; }
-    .right-sidebar::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+    .right-sidebar::-webkit-scrollbar { width: 4px; }
+    .right-sidebar::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
 
-    /* sidebar widgets */
     .widget {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px 18px;
+      border-radius: 18px;
+      padding: 18px 20px;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
+    .widget:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); }
 
     .widget-label {
       font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
-      color: var(--teal-dim);
+      color: var(--brown-dim);
       letter-spacing: 1.2px;
       text-transform: uppercase;
       margin-bottom: 12px;
@@ -250,39 +308,36 @@
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      padding: 6px 0;
-      border-bottom: 1px solid var(--border);
+      padding: 7px 0;
+      border-bottom: 1px dashed var(--border);
     }
     .stat-row:last-child { border-bottom: none; }
 
     .stat-label {
-      font-size: 12px;
+      font-size: 12.5px;
       color: var(--text-secondary);
+      font-weight: 600;
     }
 
     .stat-val {
       font-family: 'JetBrains Mono', monospace;
       font-size: 13px;
-      color: var(--teal);
-      font-weight: 500;
+      color: var(--brown);
+      font-weight: 600;
     }
 
     .tip-text {
-      font-size: 12.5px;
+      font-size: 13px;
       color: var(--text-secondary);
       line-height: 1.65;
     }
-
-    .tip-text strong {
-      color: var(--text-primary);
-      font-weight: 500;
-    }
+    .tip-text strong { color: var(--brown-dim); font-weight: 700; }
 
     .hype-text {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--white);
+      font-family: 'Quicksand', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
       line-height: 1.5;
     }
 
@@ -293,74 +348,74 @@
       margin-top: 6px;
     }
 
-    /* mascot widget */
     .mascot-widget {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 8px;
-      padding: 20px 18px;
+      padding: 22px 18px;
     }
 
     .mascot-img-wrap {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 8px;
+      width: 76px;
+      height: 76px;
+      flex-shrink: 0;
+      background: var(--bg-soft);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
     }
 
     .mascot-widget img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center;
-      transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), filter 0.2s;
+      object-fit: contain;
+      transition: transform 0.25s cubic-bezier(.34,1.56,.64,1);
       cursor: pointer;
     }
-
-    .mascot-widget img:hover {
-      transform: scale(1.2) rotate(-4deg);
-      filter: drop-shadow(0 4px 12px rgba(62,207,207,0.25));
-    }
+    .mascot-widget img:hover { transform: scale(1.15) rotate(-6deg); }
 
     .mascot-name {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: var(--teal-dim);
+      font-family: 'Quicksand', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brown);
       letter-spacing: 1px;
       text-transform: uppercase;
     }
 
     .mascot-desc {
-      font-size: 11.5px;
+      font-size: 12px;
       color: var(--text-secondary);
       text-align: center;
       line-height: 1.5;
     }
 
-    /* changelog */
     .change-item {
       display: flex;
       gap: 10px;
-      padding: 7px 0;
-      border-bottom: 1px solid var(--border);
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--border);
       align-items: flex-start;
     }
     .change-item:last-child { border-bottom: none; }
 
     .change-dot {
-      width: 5px;
-      height: 5px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
-      background: var(--teal-dim);
+      background: var(--brown-light);
       margin-top: 6px;
       flex-shrink: 0;
     }
 
     .change-text {
-      font-size: 12px;
+      font-size: 12.5px;
       color: var(--text-secondary);
       line-height: 1.5;
+      font-weight: 500;
     }
 
     .change-date {
@@ -370,104 +425,98 @@
       margin-top: 2px;
     }
 
-    /* nav links in sidebar */
-    .quick-nav-item {
+    .page-header {
+      margin-bottom: 48px;
+      position: relative;
+      background: linear-gradient(135deg, #fff7e8 0%, #fbe8c8 100%);
+      border: 1px solid var(--border-hover);
+      border-radius: 28px;
+      padding: 44px 48px;
+      overflow: hidden;
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 7px 0;
-      border-bottom: 1px solid var(--border);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-    .quick-nav-item:last-child { border-bottom: none; }
-    .quick-nav-item:hover .qnav-label { color: var(--teal); }
-
-    .qnav-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: var(--text-muted);
-      min-width: 18px;
-    }
-
-    .qnav-label {
-      font-size: 12.5px;
-      color: var(--text-secondary);
-      transition: color 0.15s;
-    }
-
-    /* ── PAGE HEADER ── */
-    .page-header {
-      margin-bottom: 52px;
-      display: flex;
-      align-items: flex-start;
       justify-content: space-between;
-      gap: 24px;
+      gap: 32px;
+      box-shadow: var(--shadow-pop);
     }
 
-    .page-header-text { flex: 1; }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(255,255,255,0.5), transparent 70%);
+      border-radius: 50%;
+    }
+
+    .page-header-text { flex: 1; position: relative; z-index: 1; }
 
     .page-eyebrow {
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
-      color: var(--teal-dim);
+      color: var(--brown-dim);
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      font-weight: 600;
     }
 
     .page-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 38px;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 44px;
       font-weight: 700;
-      color: var(--white);
+      color: var(--brown-dim);
       letter-spacing: -1px;
-      line-height: 1.1;
+      line-height: 1.05;
     }
-    .page-title .asterisk { color: var(--teal); }
+    .page-title .asterisk { color: var(--brown-light); }
 
     .page-desc {
       color: var(--text-secondary);
-      font-size: 14px;
-      margin-top: 12px;
-      max-width: 500px;
+      font-size: 14.5px;
+      font-weight: 500;
+      margin-top: 14px;
+      max-width: 460px;
     }
 
     .page-mascot-wrap {
-      width: 60px;
-      height: 60px;
+      width: 170px;
+      height: 170px;
       flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .page-mascot {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
+      transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
       cursor: pointer;
+      filter: drop-shadow(0 10px 20px rgba(181,112,58,0.25));
     }
-    .page-mascot:hover {
-      transform: scale(1.2) rotate(5deg);
-    }
+    .page-mascot:hover { transform: scale(1.08) rotate(4deg); }
 
-    /* ── SECTION ── */
-    .section { margin-bottom: 64px; }
+    .section { margin-bottom: 60px; }
 
     .section-header {
       display: flex;
       align-items: baseline;
-      gap: 8px;
+      gap: 10px;
       margin-bottom: 22px;
     }
 
     .section-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--white);
+      font-family: 'Quicksand', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--brown-dim);
       letter-spacing: -0.2px;
     }
-    .section-title .asterisk { color: var(--teal); }
+    .section-title .asterisk { color: var(--brown-light); }
 
     .section-line {
       flex: 1;
@@ -481,7 +530,6 @@
       color: var(--text-muted);
     }
 
-    /* coming soon notice */
     .coming-soon {
       margin-top: 16px;
       display: flex;
@@ -489,165 +537,221 @@
       gap: 8px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
-      color: var(--teal-dim);
-      opacity: 0.8;
+      color: var(--brown-dim);
+      opacity: 0.85;
     }
     .coming-soon::before {
       content: '';
-      width: 4px;
-      height: 4px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
-      background: var(--teal-dim);
+      background: var(--brown-light);
       flex-shrink: 0;
     }
 
-    /* ── OS TOGGLE ── */
-    .os-toggle { display: flex; gap: 4px; margin-bottom: 22px; }
+    .section-mascot-wrap {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      margin-left: 2px;
+    }
+    .section-mascot {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.2s cubic-bezier(.34,1.56,.64,1);
+      cursor: pointer;
+    }
+    .section-mascot:hover { transform: scale(1.3) rotate(-8deg); }
 
-    .os-btn {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11.5px;
-      padding: 6px 16px;
-      border-radius: 5px;
+    .plugin-filters {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filter-pill {
+      font-family: 'Nunito', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 7px 18px;
+      border-radius: 20px;
       border: 1px solid var(--border);
-      background: transparent;
+      background: var(--white);
       color: var(--text-secondary);
       cursor: pointer;
       transition: all 0.15s;
     }
-    .os-btn:hover { border-color: var(--teal-dim); color: var(--text-primary); }
-    .os-btn.active {
-      background: #1a2e2e;
-      border-color: var(--teal-dim);
-      color: var(--teal);
+    .filter-pill:hover { border-color: var(--brown-light); color: var(--brown-dim); }
+    .filter-pill.active {
+      background: linear-gradient(135deg, var(--brown-light), var(--brown));
+      border-color: var(--brown);
+      color: #fff;
+      box-shadow: var(--shadow-soft);
     }
 
-    /* ── SOFTWARE CARDS ── */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 12px;
-    }
-
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px 22px;
-      transition: border-color 0.15s, background 0.15s;
-    }
-    .card:hover { border-color: var(--border-hover); background: var(--bg-hover); }
-
-    .card-title {
-      font-family: 'Space Grotesk', sans-serif;
+    .plugin-section-label {
+      font-family: 'Quicksand', sans-serif;
       font-size: 14px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-
-    .card-title .dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--teal-dim);
-      flex-shrink: 0;
-    }
-
-    .version-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 6px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .version-row:last-child { border-bottom: none; }
-
-    .version-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12.5px;
+      font-weight: 700;
       color: var(--text-secondary);
-    }
-
-    .version-links { display: flex; gap: 2px; align-items: center; }
-
-    .version-links a {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--teal);
-      text-decoration: none;
-      padding: 3px 8px;
-      border-radius: 3px;
-      transition: background 0.12s, color 0.12s;
-    }
-    .version-links a:hover { background: #1a2e2e; color: var(--teal-hover); }
-
-    .version-links .sep { color: var(--text-muted); font-size: 10px; }
-
-    /* ── PLUGIN LIST ── */
-    .plugin-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      margin: 28px 0 14px;
+      display: flex;
+      align-items: center;
       gap: 8px;
     }
+    .plugin-section-label:first-child { margin-top: 0; }
 
-    .plugin-item {
+    /* show all plugins toggle */
+    .show-more-btn {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 12px 16px;
+      gap: 8px;
+      margin-top: 18px;
+      padding: 9px 18px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--brown-dim);
+      font-family: 'Nunito', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .show-more-btn:hover { border-color: var(--brown-light); background: var(--cream-pop); }
+    .show-more-chevron {
+      font-size: 10px;
+      transition: transform 0.2s;
+    }
+    .show-more-btn.open .show-more-chevron { transform: rotate(180deg); }
+
+    .all-plugins-panel {
+      display: none;
+      margin-top: 14px;
+      padding: 20px 24px;
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      text-decoration: none;
-      transition: border-color 0.15s, background 0.15s;
+      border-radius: 16px;
+      gap: 32px;
+      flex-wrap: wrap;
     }
-    .plugin-item:hover { border-color: var(--teal-dim); background: var(--bg-hover); }
+    .all-plugins-panel.open { display: flex; }
 
-    .plugin-item .arrow {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--teal);
-      margin-left: auto;
-      opacity: 0;
-      transition: opacity 0.15s;
+    .all-plugins-col {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 160px;
     }
-    .plugin-item:hover .arrow { opacity: 1; }
 
-    .plugin-name { font-size: 13.5px; color: var(--text-primary); }
-
-    .plugin-tag {
+    .all-plugins-col-label {
       font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
       color: var(--text-muted);
-      background: #1a1a1a;
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      padding: 1px 5px;
-      margin-left: auto;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
     }
 
-    /* ── GUIDES ── */
-    .guides-list { display: flex; flex-direction: column; gap: 6px; }
+    .all-plugins-link {
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 600;
+      text-decoration: none;
+      padding: 4px 0;
+      transition: color 0.12s;
+    }
+    .all-plugins-link:hover { color: var(--brown); text-decoration: underline; }
+
+    .plugin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 12px;
+    }
+
+    .plugin-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 18px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+      position: relative;
+    }
+    .plugin-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-pop);
+      border-color: var(--brown-light);
+    }
+
+    .plugin-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .plugin-name {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .plugin-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .plugin-card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+    }
+
+    .plugin-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      color: var(--text-muted);
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 7px;
+    }
+
+    .plugin-arrow {
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      color: var(--brown);
+      opacity: 0;
+      transition: opacity 0.15s, transform 0.15s;
+      font-weight: 700;
+    }
+    .plugin-card:hover .plugin-arrow { opacity: 1; transform: translateX(2px); }
+
+    .guides-list { display: flex; flex-direction: column; gap: 8px; }
 
     .guide-item {
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 16px;
       overflow: hidden;
-      transition: border-color 0.15s;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      background: var(--bg-card);
     }
-    .guide-item:hover { border-color: var(--border-hover); }
-    .guide-item.open { border-color: var(--teal-dim); }
+    .guide-item:hover { border-color: var(--brown-light); }
+    .guide-item.open { border-color: var(--brown-light); box-shadow: var(--shadow-soft); }
 
     .guide-header {
       display: flex;
       align-items: center;
       gap: 14px;
-      padding: 13px 18px;
-      background: var(--bg-card);
+      padding: 15px 20px;
       cursor: pointer;
       transition: background 0.12s;
       user-select: none;
@@ -661,21 +765,21 @@
       min-width: 24px;
     }
 
-    .guide-name { font-size: 13.5px; color: var(--text-primary); flex: 1; }
+    .guide-name { font-size: 14px; color: var(--text-primary); font-weight: 600; flex: 1; }
 
     .guide-tag {
       font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
-      color: var(--teal-dim);
-      background: #0f2020;
-      border: 1px solid #1a3030;
-      border-radius: 3px;
-      padding: 2px 7px;
+      color: var(--brown-dim);
+      background: var(--bg-soft);
+      border: 1px solid var(--border-hover);
+      border-radius: 8px;
+      padding: 2px 9px;
     }
 
     .guide-chevron {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
+      font-size: 11px;
       color: var(--text-muted);
       transition: transform 0.2s;
       margin-left: 6px;
@@ -684,8 +788,8 @@
 
     .guide-body {
       display: none;
-      padding: 16px 20px;
-      background: #0d0d0d;
+      padding: 16px 22px 20px;
+      background: var(--bg-hover);
       border-top: 1px solid var(--border);
       flex-direction: column;
       gap: 14px;
@@ -698,12 +802,11 @@
       line-height: 1.75;
     }
 
-    /* YouTube card */
     .yt-card {
-      border-radius: 8px;
+      border-radius: 14px;
       overflow: hidden;
       border: 1px solid var(--border);
-      background: #111;
+      background: #1a1a1a;
       cursor: pointer;
       max-width: 480px;
     }
@@ -723,7 +826,6 @@
       object-fit: cover;
       transition: opacity 0.2s;
     }
-
     .yt-card:hover .yt-thumb-wrap img { opacity: 0.85; }
 
     .yt-play-btn {
@@ -734,7 +836,6 @@
       justify-content: center;
       pointer-events: none;
     }
-
     .yt-play-btn svg {
       width: 52px;
       height: 52px;
@@ -743,14 +844,12 @@
     }
     .yt-card:hover .yt-play-btn svg { transform: scale(1.1); }
 
-    .yt-info {
-      padding: 10px 14px 12px;
-    }
+    .yt-info { padding: 10px 14px 12px; }
 
     .yt-title {
       font-size: 12.5px;
-      color: var(--text-primary);
-      font-weight: 500;
+      color: #fff;
+      font-weight: 600;
       line-height: 1.4;
       margin-bottom: 4px;
     }
@@ -758,7 +857,7 @@
     .yt-meta {
       font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
-      color: var(--text-muted);
+      color: #888;
     }
 
     .yt-embed-wrap {
@@ -766,11 +865,10 @@
       width: 100%;
       max-width: 480px;
       padding-top: 56.25%;
-      border-radius: 8px;
+      border-radius: 14px;
       overflow: hidden;
       border: 1px solid var(--border);
     }
-
     .yt-embed-wrap iframe {
       position: absolute;
       inset: 0;
@@ -779,24 +877,25 @@
       border: none;
     }
 
-    /* ── FAQ ── */
-    .faq-list { display: flex; flex-direction: column; gap: 1px; }
+    .faq-list { display: flex; flex-direction: column; gap: 8px; }
 
     .faq-item {
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 16px;
       overflow: hidden;
-      margin-bottom: 6px;
+      background: var(--bg-card);
+      transition: border-color 0.15s;
     }
+    .faq-item:hover { border-color: var(--brown-light); }
 
     .faq-q {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 15px 20px;
+      padding: 16px 20px;
       cursor: pointer;
-      background: var(--bg-card);
       font-size: 14px;
+      font-weight: 600;
       color: var(--text-primary);
       transition: background 0.12s;
       user-select: none;
@@ -804,7 +903,7 @@
     .faq-q:hover { background: var(--bg-hover); }
 
     .faq-chevron {
-      font-size: 10px;
+      font-size: 11px;
       color: var(--text-muted);
       transition: transform 0.2s;
       font-family: 'JetBrains Mono', monospace;
@@ -817,36 +916,35 @@
       color: var(--text-secondary);
       font-size: 13.5px;
       line-height: 1.75;
-      background: #0d0d0d;
+      background: var(--bg-hover);
       border-top: 1px solid var(--border);
     }
     .faq-item.open .faq-a { display: block; }
 
-    /* ── HELPFUL SITES ── */
     .sites-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 10px;
+      gap: 12px;
     }
 
     .site-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 16px;
       padding: 18px 20px;
       text-decoration: none;
       display: flex;
       flex-direction: column;
       gap: 5px;
-      transition: border-color 0.15s, background 0.15s;
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
     }
-    .site-card:hover { border-color: var(--teal-dim); background: var(--bg-hover); }
+    .site-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-pop); border-color: var(--brown-light); }
 
     .site-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--teal);
+      font-family: 'Quicksand', sans-serif;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--brown);
     }
 
     .site-desc {
@@ -862,56 +960,29 @@
       margin-top: 4px;
     }
 
-    /* ── SCROLLBAR ── */
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
-
-    /* ── OS PANEL ── */
-    .os-panel { display: none; }
-    .os-panel.active { display: block; }
-
-    /* section mascot accent */
-    .section-mascot-wrap {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-      margin-left: 6px;
-    }
-
-    .section-mascot {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      transition: transform 0.2s cubic-bezier(.34,1.56,.64,1);
-      cursor: pointer;
-    }
-    .section-mascot:hover { transform: scale(1.3) rotate(-8deg); }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
   </style>
 </head>
 <body>
 
-<!-- ICON SIDEBAR -->
 <nav class="icon-sidebar">
   <div class="sidebar-logo">h*</div>
   <div class="sidebar-divider"></div>
-  <a class="sidebar-icon active" href="#downloads" data-tip="Downloads">
-    <img src="assets/hunnids%20shape%20files/HUNNIDO_SHAPE_00000_clean_cropped.png" alt="Downloads" />
-  </a>
-  <a class="sidebar-icon" href="#extensions" data-tip="Extensions">
-    <img src="assets/hunnids%20shape%20files/KILO_SHAPE_00000_clean_cropped.png" alt="Extensions" />
+  <a class="sidebar-icon active" href="#plugins" data-tip="Plugins">
+    <img src="assets/hunnids%20shape%20files/HUNNIDO_SHAPE_00000_clean_cropped.png" alt="Plugins" />
   </a>
   <a class="sidebar-icon" href="#guides" data-tip="Guides">
-    <img src="assets/hunnids%20shape%20files/CENTI_SHAPE_00000_clean_cropped.png" alt="Guides" />
+    <img src="assets/hunnids%20shape%20files/HUNDO_SHAPE_00000_clean_cropped.png" alt="Guides" />
   </a>
   <a class="sidebar-icon" href="#faq" data-tip="FAQ">
-    <img src="assets/hunnids%20shape%20files/HUNDO_SHAPE_00000_clean_cropped.png" alt="FAQ" />
+    <img src="assets/hunnids%20shape%20files/CENTI_SHAPE_00000_clean_cropped.png" alt="FAQ" />
   </a>
   <a class="sidebar-icon" href="#helpful" data-tip="Helpful Sites">
     <img src="assets/hunnids%20shape%20files/CALICO_CAT_SHAPE_00000_clean_cropped.png" alt="Helpful Sites" />
   </a>
 </nav>
 
-<!-- TOPBAR -->
 <header>
   <div class="header-left">
     <div class="breadcrumb">hunnids<span>*</span> / resources</div>
@@ -928,152 +999,159 @@
   </div>
 </header>
 
-<!-- PASSWORD BANNER -->
-<div style="
-  position: fixed;
-  top: 48px;
-  left: 56px;
-  right: 0;
-  height: 32px;
-  background: #0d1f1f;
-  border-bottom: 1px solid #1a3030;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  z-index: 99;
-">
-  <span style="font-size:13px;">🔑</span>
-  <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#555; letter-spacing:0.5px;">// encrypted downloads · password:</span>
-  <span id="pw-text" style="font-family:'JetBrains Mono',monospace; font-size:11px; color: #3ecfcf; letter-spacing:1px;">h100</span>
-  <button onclick="copyPW()" style="
-    background: transparent;
-    border: 1px solid #1a3030;
-    border-radius: 4px;
-    color: #2a9898;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    padding: 2px 8px;
-    cursor: pointer;
-    transition: all 0.15s;
-  " onmouseover="this.style.borderColor='#3ecfcf';this.style.color='#3ecfcf'" onmouseout="this.style.borderColor='#1a3030';this.style.color='#2a9898'"
-  id="copy-btn">copy</button>
+<div class="pw-banner">
+  <span style="font-size:14px;">🔑</span>
+  <span class="label">encrypted downloads · password:</span>
+  <span class="pwval" id="pw-text">h100</span>
+  <button class="pw-copy-btn" onclick="copyPW()" id="copy-btn">copy</button>
 </div>
-<div id="search-modal" style="display:none; position:fixed; inset:0; z-index:999; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); align-items:flex-start; justify-content:center; padding-top:120px;">
-  <div style="background:#141414; border:1px solid #2e2e2e; border-radius:12px; width:560px; max-width:90vw; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,0.6);">
-    <div style="display:flex; align-items:center; gap:10px; padding:14px 18px; border-bottom:1px solid #202020;">
-      <span style="color:#555; font-size:16px;">⌕</span>
-      <input id="search-input" type="text" placeholder="Search plugins, guides, software..."
-        style="flex:1; background:transparent; border:none; outline:none; color:#efefef; font-family:'Inter',sans-serif; font-size:14px;"
+
+<div id="search-modal" style="display:none; position:fixed; inset:0; z-index:999; background:rgba(74,56,38,0.45); backdrop-filter:blur(4px); align-items:flex-start; justify-content:center; padding-top:120px;">
+  <div style="background:#fffdf8; border:1px solid #ecdfc8; border-radius:20px; width:560px; max-width:90vw; overflow:hidden; box-shadow:0 24px 60px rgba(74,56,38,0.25);">
+    <div style="display:flex; align-items:center; gap:10px; padding:16px 20px; border-bottom:1px solid #ecdfc8;">
+      <span style="color:#b5703a; font-size:16px;">⌕</span>
+      <input id="search-input" type="text" placeholder="Search plugins, guides..."
+        style="flex:1; background:transparent; border:none; outline:none; color:#4a3826; font-family:'Nunito',sans-serif; font-size:14px; font-weight:600;"
         oninput="doSearch(this.value)" onkeydown="searchKeyNav(event)" />
-      <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#333; cursor:pointer;" onclick="closeSearch()">ESC</span>
+      <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#c4b193; cursor:pointer;" onclick="closeSearch()">ESC</span>
     </div>
-    <div id="search-results" style="max-height:380px; overflow-y:auto; padding:8px;"></div>
-    <div style="padding:10px 18px; border-top:1px solid #202020; font-family:'JetBrains Mono',monospace; font-size:10px; color:#333;">
+    <div id="search-results" style="max-height:380px; overflow-y:auto; padding:10px;"></div>
+    <div style="padding:10px 20px; border-top:1px solid #ecdfc8; font-family:'JetBrains Mono',monospace; font-size:10px; color:#c4b193;">
       ↑↓ navigate &nbsp;·&nbsp; ↵ jump to &nbsp;·&nbsp; esc close
     </div>
   </div>
 </div>
 
-<!-- LAYOUT -->
 <div class="layout">
 
-<!-- MAIN -->
 <main>
 
-  <!-- PAGE HEADER -->
   <div class="page-header">
     <div class="page-header-text">
       <div class="page-eyebrow">// resource hub</div>
       <div class="page-title">hunnids<span class="asterisk">*</span></div>
-      <div class="page-desc">Software, plugins, guides, and tools curated for editors. New resources are added regularly, so check back often.</div>
+      <div class="page-desc">Plugins, guides, and tools curated for editors. New resources are added regularly, so check back often.</div>
     </div>
     <div class="page-mascot-wrap"><img class="page-mascot" src="assets/hunnids%20shape%20files/HUNNIDO_SHAPE_00000_clean_cropped.png" alt="hunnido" /></div>
   </div>
 
-  <!-- DOWNLOADS -->
-  <div class="section" id="downloads">
+  <div class="section" id="plugins">
     <div class="section-header">
-      <div class="section-title">Downloads<span class="asterisk">*</span></div>
+      <div class="section-title">Plugins<span class="asterisk">*</span></div>
       <div class="section-mascot-wrap"><img class="section-mascot" src="assets/hunnids%20shape%20files/KILO_SHAPE_00000_clean_cropped.png" alt="kilo" /></div>
       <div class="section-line"></div>
-      <div class="section-count">// 04 apps</div>
+      <div class="section-count">// 13 plugins</div>
     </div>
 
-    <div class="os-toggle">
-      <button class="os-btn active" onclick="switchOS('win', this)">Windows</button>
-      <button class="os-btn" onclick="switchOS('mac', this)">MacOS</button>
+    <div class="plugin-filters">
+      <button class="filter-pill active" onclick="filterPlugins('all', this)">All</button>
+      <button class="filter-pill" onclick="filterPlugins('ae', this)">After Effects</button>
+      <button class="filter-pill" onclick="filterPlugins('pr', this)">Premiere Pro</button>
     </div>
 
-    <!-- WINDOWS -->
-    <div class="os-panel active" id="os-win">
-      <div class="cards-grid">
-        <div class="card">
-          <div class="card-title"><span class="dot"></span>After Effects</div>
-          <div class="version-row"><span class="version-label">2025</span><span class="version-links"><a href="https://drive.google.com/file/d/1U4yc420NEzd5wHnFDyiXGYzD4q0UZlCe/view?usp=drive_link">Link</a></span></div>
-        </div>
-        <div class="card">
-          <div class="card-title"><span class="dot"></span>Photoshop</div>
-          <div class="version-row"><span class="version-label">2025</span><span class="version-links"><a href="https://drive.google.com/file/d/1FHKIfFiRPA3eknB-D4N5Bx6iFpx1Og4C/view?usp=drive_link">Link</a></span></div>
-        </div>
-        <div class="card">
-          <div class="card-title"><span class="dot"></span>Alight Motion Mod APK</div>
-          <div class="version-row"><span class="version-label">2025</span><span class="version-links"><a href="https://alightmotionsapps.com/">Link</a></span></div>
-        </div>
-      </div>
-      <div class="coming-soon">// more versions + software being added soon</div>
+    <div class="plugin-section-label">After Effects</div>
+    <div class="plugin-grid" id="plugin-grid-ae">
+      <a class="plugin-card" data-soft="ae" data-price="free" href="https://drive.google.com/file/d/1MUuBVfXF1H9o9igxZn8ocF_pSah-0fl1/view?usp=drive_link">
+        <div class="plugin-card-top"><span class="plugin-name">Flow</span></div>
+        <div class="plugin-desc">Smooth, intuitive easing for your keyframes. One of the best free animation tools out there.</div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+      </a>
+      <a class="plugin-card" data-soft="ae" data-price="paid" href="https://drive.google.com/file/d/1iFzsuoV_y5kFrihze337dVqdVBxDF3wf/view?usp=drive_link">
+        <div class="plugin-card-top"><span class="plugin-name">Newton 4</span></div>
+        <div class="plugin-desc">Realistic 2D physics simulation right inside After Effects. Industry standard for bounce and collision.</div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+      </a>
+      <a class="plugin-card" data-soft="ae" data-price="free" href="https://www.videocopilot.net/blog/2018/05/fx-console-updated-to-v1-0-3/">
+        <div class="plugin-card-top"><span class="plugin-name">FxConsole</span></div>
+        <div class="plugin-desc">Quickly search and apply any effect or preset by name without digging through panels.</div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+      </a>
+      <a class="plugin-card" data-soft="ae" data-price="paid" href="https://drive.google.com/file/d/1XsSQPcfZ6WvEC5e9qHlBZ7iinMjRDzCI/view?usp=drive_link">
+        <div class="plugin-card-top"><span class="plugin-name">DataMosh 2</span></div>
+        <div class="plugin-desc">Glitch and datamosh effects made simple — popular for music videos and transitions.</div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+      </a>
+      <a class="plugin-card" data-soft="ae" data-price="free" href="https://drive.google.com/file/d/1UKJH3FSq39jK5jevRBt_1qhlA6wpX4wH/view?usp=drive_link">
+        <div class="plugin-card-top"><span class="plugin-name">TextEvo</span></div>
+        <div class="plugin-desc">Animated text presets that are easy to customize and drop into any project.</div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+      </a>
+      <a class="plugin-card" data-soft="ae" data-price="paid" href="https://drive.google.com/file/d/1noIK3p75dxbMvEvO9vfGaHE06XZ2b25y/view?usp=drive_link">
+        <div class="plugin-card-top"><span class="plugin-name">Matrix</span></div>
+        <div class="plugin-desc">Particle and matrix-style effects for sci-fi and digital aesthetics.</div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+      </a>
+      <a class="plugin-card" data-soft="ae" data-price="free" href="https://drive.google.com/file/d/1tdw9bCwz-48AW-wfYwWQz7xohKdqyAzW/view?usp=drive_link">
+        <div class="plugin-card-top"><span class="plugin-name">CRT Emulator</span></div>
+        <div class="plugin-desc">Authentic retro CRT screen distortion, scanlines, and glow effects.</div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+      </a>
+      <a class="plugin-card" data-soft="ae" data-price="free" href="https://uwu2x.alixz.ovh/">
+        <div class="plugin-card-top"><span class="plugin-name">Uwu2x</span></div>
+        <div class="plugin-desc">AI-powered upscaling tool for cleaning up low-res footage right in your timeline.</div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+      </a>
+      <a class="plugin-card" data-soft="ae" data-price="free" href="https://github.com/NevermindNilas/TheAnimeScripter">
+        <div class="plugin-card-top"><span class="plugin-name">TheAnimeScripter</span></div>
+        <div class="plugin-desc">Frame interpolation, upscaling, and deduplication tools built for anime editors.</div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+      </a>
     </div>
 
-    <!-- MACOS -->
-    <div class="os-panel" id="os-mac">
-      <div class="cards-grid">
-        <div class="card">
-          <div class="card-title"><span class="dot"></span>After Effects</div>
-          <div class="version-row"><span class="version-label">2025</span><span class="version-links"><a href="https://drive.google.com/file/d/1awBPHwtBTiIL0HcR-TpjuQIyViUY4PwH/view?usp=drive_link">Link</a></span></div>
-        </div>
-        <div class="card">
-          <div class="card-title"><span class="dot"></span>Alight Motion Mod APK</div>
-          <div class="version-row"><span class="version-label">2025</span><span class="version-links"><a href="https://alightmotionsapps.com/">Link</a></span></div>
-        </div>
-      </div>
-      <div class="coming-soon">// mac links are being updated — check back soon</div>
-    </div>
-  </div>
-
-  <!-- EXTENSIONS & PLUGINS -->
-  <div class="section" id="extensions">
-    <div class="section-header">
-      <div class="section-title">Extensions & Scripts<span class="asterisk">*</span></div>
-      <div class="section-mascot-wrap"><img class="section-mascot" src="assets/hunnids%20shape%20files/CENTI_SHAPE_00000_clean_cropped.png" alt="centi" /></div>
-      <div class="section-line"></div>
-      <div class="section-count">// After Effects</div>
-    </div>
-    <div class="plugin-grid">
-      <a class="plugin-item" href="https://github.com/NevermindNilas/TheAnimeScripter"><span class="plugin-name">TheAnimeScripter</span><span class="plugin-tag">AE</span><span class="arrow">→</span></a>
-      <a class="plugin-item" href="https://uwu2x.alixz.ovh/"><span class="plugin-name">Uwu2x</span><span class="plugin-tag">AE</span><span class="arrow">→</span></a>
-      <a class="plugin-item" href="https://www.videocopilot.net/blog/2018/05/fx-console-updated-to-v1-0-3/"><span class="plugin-name">FxConsole</span><span class="plugin-tag">AE</span><span class="arrow">→</span></a>
-      <a class="plugin-item" href="https://drive.google.com/file/d/1MUuBVfXF1H9o9igxZn8ocF_pSah-0fl1/view?usp=drive_link"><span class="plugin-name">Flow 1.5.2</span><span class="plugin-tag">AE</span><span class="arrow">→</span></a>
-      <a class="plugin-item" href="https://drive.google.com/file/d/1UKJH3FSq39jK5jevRBt_1qhlA6wpX4wH/view?usp=drive_link"><span class="plugin-name">TextEvo</span><span class="plugin-tag">AE</span><span class="arrow">→</span></a>
-      <a class="plugin-item" href="https://drive.google.com/file/d/1XsSQPcfZ6WvEC5e9qHlBZ7iinMjRDzCI/view?usp=drive_link"><span class="plugin-name">DataMosh 2</span><span class="plugin-tag">AE</span><span class="arrow">→</span></a>
-      <a class="plugin-item" href="https://drive.google.com/file/d/1noIK3p75dxbMvEvO9vfGaHE06XZ2b25y/view?usp=drive_link"><span class="plugin-name">Matrix</span><span class="plugin-tag">AE</span><span class="arrow">→</span></a>
-      <a class="plugin-item" href="https://drive.google.com/file/d/1tdw9bCwz-48AW-wfYwWQz7xohKdqyAzW/view?usp=drive_link"><span class="plugin-name">CRT Emulator</span><span class="plugin-tag">AE</span><span class="arrow">→</span></a>
-      <a class="plugin-item" href="https://drive.google.com/file/d/1iFzsuoV_y5kFrihze337dVqdVBxDF3wf/view?usp=drive_link"><span class="plugin-name">Newton 4</span><span class="plugin-tag">AE</span><span class="arrow">→</span></a>
+    <div class="plugin-section-label">Premiere Pro</div>
+    <div class="plugin-grid" id="plugin-grid-pr">
+      <a class="plugin-card" data-soft="pr" data-price="paid" href="https://drive.google.com/file/d/13bry9rD5ycxKU9OWkZGliwI71M-76-s3/view?usp=drive_link">
+        <div class="plugin-card-top"><span class="plugin-name">Captioneer</span></div>
+        <div class="plugin-desc">Auto-generate and style captions fast — built for short-form content creators.</div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">PR</span><span class="plugin-arrow">→</span></div>
+      </a>
+      <a class="plugin-card" data-soft="pr" data-price="free" href="https://drive.google.com/file/d/1ZXT0xzgm4hTyahQ6cSFCm_6w3cO4b2Y4/view?usp=drive_link">
+        <div class="plugin-card-top"><span class="plugin-name">FastFx</span></div>
+        <div class="plugin-desc">One-click effect presets for fast-paced edits and montages.</div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">PR</span><span class="plugin-arrow">→</span></div>
+      </a>
+      <a class="plugin-card" data-soft="pr" data-price="paid" href="https://drive.google.com/file/d/1qaTifU5wfHBot6yea8Kiope1jvZ0ad68/view?usp=drive_link">
+        <div class="plugin-card-top"><span class="plugin-name">Excalibur</span></div>
+        <div class="plugin-desc">Dynamic transition pack designed for fast cuts and energetic edits.</div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">PR</span><span class="plugin-arrow">→</span></div>
+      </a>
+      <a class="plugin-card" data-soft="pr" data-price="paid" href="https://drive.google.com/file/d/10n1X-4iFQNf_bEmTD6DUppq6wPp33lMG/view?usp=drive_link">
+        <div class="plugin-card-top"><span class="plugin-name">Easify 2 Pro</span></div>
+        <div class="plugin-desc">Drag-and-drop easing curves for Premiere — finally smooth keyframes without AE.</div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">PR</span><span class="plugin-arrow">→</span></div>
+      </a>
     </div>
 
-    <div class="section-header" style="margin-top:28px;">
-      <div class="section-title" style="font-size:13px; color: var(--text-secondary);">Premiere Pro</div>
-      <div class="section-line"></div>
-    </div>
-    <div class="plugin-grid">
-      <a class="plugin-item" href="https://drive.google.com/file/d/13bry9rD5ycxKU9OWkZGliwI71M-76-s3/view?usp=drive_link"><span class="plugin-name">Captioneer 1.7.0</span><span class="plugin-tag">PR</span><span class="arrow">→</span></a>
-      <a class="plugin-item" href="https://drive.google.com/file/d/1ZXT0xzgm4hTyahQ6cSFCm_6w3cO4b2Y4/view?usp=drive_link"><span class="plugin-name">FastFx v1.0.0</span><span class="plugin-tag">PR</span><span class="arrow">→</span></a>
-      <a class="plugin-item" href="https://drive.google.com/file/d/1qaTifU5wfHBot6yea8Kiope1jvZ0ad68/view?usp=drive_link"><span class="plugin-name">Excalibur 1.1.5</span><span class="plugin-tag">PR</span><span class="arrow">→</span></a>
-      <a class="plugin-item" href="https://drive.google.com/file/d/10n1X-4iFQNf_bEmTD6DUppq6wPp33lMG/view?usp=drive_link"><span class="plugin-name">Easify 2 Pro 2.5.0</span><span class="plugin-tag">PR</span><span class="arrow">→</span></a>
-    </div>
     <div class="coming-soon">// more plugins dropping soon — stay tuned</div>
+
+    <button class="show-more-btn" onclick="toggleAllPlugins(this)">
+      <span class="show-more-label">show all plugins</span>
+      <span class="show-more-chevron">▾</span>
+    </button>
+
+    <div class="all-plugins-panel" id="all-plugins-panel">
+      <div class="all-plugins-col">
+        <div class="all-plugins-col-label">After Effects</div>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1MUuBVfXF1H9o9igxZn8ocF_pSah-0fl1/view?usp=drive_link">Flow</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1iFzsuoV_y5kFrihze337dVqdVBxDF3wf/view?usp=drive_link">Newton 4</a>
+        <a class="all-plugins-link" href="https://www.videocopilot.net/blog/2018/05/fx-console-updated-to-v1-0-3/">FxConsole</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1XsSQPcfZ6WvEC5e9qHlBZ7iinMjRDzCI/view?usp=drive_link">DataMosh 2</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1UKJH3FSq39jK5jevRBt_1qhlA6wpX4wH/view?usp=drive_link">TextEvo</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1noIK3p75dxbMvEvO9vfGaHE06XZ2b25y/view?usp=drive_link">Matrix</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1tdw9bCwz-48AW-wfYwWQz7xohKdqyAzW/view?usp=drive_link">CRT Emulator</a>
+        <a class="all-plugins-link" href="https://uwu2x.alixz.ovh/">Uwu2x</a>
+        <a class="all-plugins-link" href="https://github.com/NevermindNilas/TheAnimeScripter">TheAnimeScripter</a>
+      </div>
+      <div class="all-plugins-col">
+        <div class="all-plugins-col-label">Premiere Pro</div>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/13bry9rD5ycxKU9OWkZGliwI71M-76-s3/view?usp=drive_link">Captioneer</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1ZXT0xzgm4hTyahQ6cSFCm_6w3cO4b2Y4/view?usp=drive_link">FastFx</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1qaTifU5wfHBot6yea8Kiope1jvZ0ad68/view?usp=drive_link">Excalibur</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/10n1X-4iFQNf_bEmTD6DUppq6wPp33lMG/view?usp=drive_link">Easify 2 Pro</a>
+      </div>
+    </div>
   </div>
 
-  <!-- GUIDES -->
   <div class="section" id="guides">
     <div class="section-header">
       <div class="section-title">Guides<span class="asterisk">*</span></div>
@@ -1083,7 +1161,6 @@
     </div>
     <div class="guides-list">
 
-      <!-- Guide with YouTube -->
       <div class="guide-item">
         <div class="guide-header" onclick="toggleGuide(this)">
           <span class="guide-num">01</span>
@@ -1111,7 +1188,6 @@
         </div>
       </div>
 
-      <!-- Guide text only -->
       <div class="guide-item">
         <div class="guide-header" onclick="toggleGuide(this)">
           <span class="guide-num">02</span>
@@ -1124,7 +1200,6 @@
         </div>
       </div>
 
-      <!-- Guide text only -->
       <div class="guide-item">
         <div class="guide-header" onclick="toggleGuide(this)">
           <span class="guide-num">03</span>
@@ -1134,13 +1209,12 @@
         </div>
         <div class="guide-body">
           <div class="guide-desc">Where AE stores plugins, scripts, and presets on Windows and macOS. Essential for manually installing extensions.<br><br>
-            <strong style="color:var(--text-primary)">Windows:</strong> <code style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--teal); background:#111; padding:2px 6px; border-radius:3px;">C:\Program Files\Adobe\Adobe After Effects [year]\Support Files\Plug-ins</code><br><br>
-            <strong style="color:var(--text-primary)">macOS:</strong> <code style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--teal); background:#111; padding:2px 6px; border-radius:3px;">/Applications/Adobe After Effects [year]/Plug-ins</code>
+            <strong style="color:var(--text-primary)">Windows:</strong> <code style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--brown); background:var(--bg-soft); padding:2px 6px; border-radius:6px;">C:\Program Files\Adobe\Adobe After Effects [year]\Support Files\Plug-ins</code><br><br>
+            <strong style="color:var(--text-primary)">macOS:</strong> <code style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--brown); background:var(--bg-soft); padding:2px 6px; border-radius:6px;">/Applications/Adobe After Effects [year]/Plug-ins</code>
           </div>
         </div>
       </div>
 
-      <!-- Guide with YouTube -->
       <div class="guide-item">
         <div class="guide-header" onclick="toggleGuide(this)">
           <span class="guide-num">04</span>
@@ -1168,7 +1242,6 @@
         </div>
       </div>
 
-      <!-- Guide text only -->
       <div class="guide-item">
         <div class="guide-header" onclick="toggleGuide(this)">
           <span class="guide-num">05</span>
@@ -1181,7 +1254,6 @@
         </div>
       </div>
 
-      <!-- Guide text only -->
       <div class="guide-item">
         <div class="guide-header" onclick="toggleGuide(this)">
           <span class="guide-num">06</span>
@@ -1194,7 +1266,6 @@
         </div>
       </div>
 
-      <!-- Guide with YouTube -->
       <div class="guide-item">
         <div class="guide-header" onclick="toggleGuide(this)">
           <span class="guide-num">07</span>
@@ -1222,7 +1293,6 @@
         </div>
       </div>
 
-      <!-- Guide text only -->
       <div class="guide-item">
         <div class="guide-header" onclick="toggleGuide(this)">
           <span class="guide-num">08</span>
@@ -1235,7 +1305,6 @@
         </div>
       </div>
 
-      <!-- Guide text only -->
       <div class="guide-item">
         <div class="guide-header" onclick="toggleGuide(this)">
           <span class="guide-num">09</span>
@@ -1248,7 +1317,6 @@
         </div>
       </div>
 
-      <!-- Guide text only -->
       <div class="guide-item">
         <div class="guide-header" onclick="toggleGuide(this)">
           <span class="guide-num">10</span>
@@ -1265,7 +1333,6 @@
     <div class="coming-soon">// more guides being written — check back</div>
   </div>
 
-  <!-- FAQ -->
   <div class="section" id="faq">
     <div class="section-header">
       <div class="section-title">FAQ<span class="asterisk">*</span></div>
@@ -1276,7 +1343,7 @@
 
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFAQ(this)">What software does this server support? <span class="faq-chevron">▾</span></div>
-        <div class="faq-a">We primarily focus on Adobe After Effects and Premiere Pro, with some Photoshop and Media Encoder resources as well. More software may be added in the future based on community needs.</div>
+        <div class="faq-a">We primarily focus on plugins for Adobe After Effects and Premiere Pro. More tools may be added in the future based on community needs.</div>
       </div>
 
       <div class="faq-item">
@@ -1285,8 +1352,8 @@
       </div>
 
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFAQ(this)">How do I install After Effects? <span class="faq-chevron">▾</span></div>
-        <div class="faq-a">Download the installer from the Downloads section above and follow the setup steps. Check out our After Effects Beginners Guide in the Guides section for a full walkthrough including installation paths and first-time setup tips.</div>
+        <div class="faq-q" onclick="toggleFAQ(this)">How do I install a plugin? <span class="faq-chevron">▾</span></div>
+        <div class="faq-a">Check out our Installing Plugins guide in the Guides section for a full walkthrough including installation paths and first-time setup tips.</div>
       </div>
 
       <div class="faq-item">
@@ -1308,7 +1375,6 @@
     <div class="coming-soon">// more FAQs being added as questions come in</div>
   </div>
 
-  <!-- HELPFUL SITES -->
   <div class="section" id="helpful">
     <div class="section-header">
       <div class="section-title">Helpful Websites<span class="asterisk">*</span></div>
@@ -1320,7 +1386,7 @@
       <a class="site-card" href="https://aescripts.com/">
         <span class="site-name">aescripts</span>
         <span class="site-desc">Scripts, plugins, and a dedicated desktop app for installing and managing creative tools.</span>
-        <span class="site-url">https://aescripts.com/learn/post/zxp-installer</span>
+        <span class="site-url">aescripts.com</span>
       </a>
       <a class="site-card" href="https://animeclips.online/clips/">
         <span class="site-name">Anime Clips Online</span>
@@ -1330,7 +1396,7 @@
       <a class="site-card" href="https://catbox.moe/">
         <span class="site-name">Catbox</span>
         <span class="site-desc">Fast file hosting for sharing images, videos, and creative assets.</span>
-        <span class="site-url">https://catbox.moe/</span>
+        <span class="site-url">catbox.moe</span>
       </a>
       <a class="site-card" href="https://handbrake.fr/">
         <span class="site-name">Handbrake</span>
@@ -1338,14 +1404,14 @@
         <span class="site-url">handbrake.fr</span>
       </a>
       <a class="site-card" href="https://nmkd.itch.io/flowframes/">
-        <span class="site-name">FlowFrames"</span>
+        <span class="site-name">FlowFrames</span>
         <span class="site-desc">Smooth motion and boost FPS.</span>
         <span class="site-url">itch.io/flowframes</span>
       </a>
       <a class="site-card" href="https://stacher.io/">
-        <span class="site-name">Stacher7</span>
-        <span class="site-desc">A cross platform yt dlp GUI for downloading, organizing, and managing media.</span>
-        <span class="site-url">stacher.io/</span>
+        <span class="site-name">Stacher</span>
+        <span class="site-desc">A cross platform yt-dlp GUI for downloading, organizing, and managing media.</span>
+        <span class="site-url">stacher.io</span>
       </a>
       <a class="site-card" href="https://www.reddit.com/r/AfterEffects/">
         <span class="site-name">r/AfterEffects</span>
@@ -1363,17 +1429,14 @@
 
 </main>
 
-<!-- RIGHT SIDEBAR -->
 <aside class="right-sidebar">
 
-  <!-- hype widget -->
   <div class="widget">
     <div class="widget-label">// the vibe</div>
     <div class="hype-text">editing resources, nothing else.</div>
     <div class="hype-sub">// curated by hunnids for hunnids</div>
   </div>
 
-  <!-- mascot showcase -->
   <div class="widget mascot-widget">
     <div class="widget-label">// the team</div>
     <div class="mascot-img-wrap"><img src="assets/hunnids%20shape%20files/KILO_SHAPE_00000_clean_cropped.png" alt="Kilo" /></div>
@@ -1381,42 +1444,37 @@
     <div class="mascot-desc">super geek. knows every plugin ever made.</div>
   </div>
 
-  <!-- stats -->
   <div class="widget">
     <div class="widget-label">// by the numbers</div>
     <div class="stat-row"><span class="stat-label">plugins listed</span><span class="stat-val">13</span></div>
     <div class="stat-row"><span class="stat-label">guides available</span><span class="stat-val">10</span></div>
-    <div class="stat-row"><span class="stat-label">helpful sites</span><span class="stat-val">07</span></div>
-    <div class="stat-row"><span class="stat-label">software downloads</span><span class="stat-val">04</span></div>
+    <div class="stat-row"><span class="stat-label">helpful sites</span><span class="stat-val">08</span></div>
   </div>
 
-  <!-- tip of the day -->
   <div class="widget">
     <div class="widget-label">// tip of the day</div>
     <div class="tip-text"><strong>Use proxies.</strong> If AE is running slow, create proxy files for your heavy footage. It'll save your sanity on longer timelines.</div>
   </div>
 
-  <!-- another mascot -->
   <div class="widget mascot-widget">
     <div class="mascot-img-wrap"><img src="assets/hunnids%20shape%20files/HUNDO_SHAPE_00000_clean_cropped.png" alt="Hundo" /></div>
     <div class="mascot-name">HUNDO</div>
     <div class="mascot-desc">cool dude, smells good.</div>
   </div>
 
-  <!-- changelog -->
   <div class="widget">
     <div class="widget-label">// recent updates</div>
     <div class="change-item">
       <div class="change-dot"></div>
       <div>
-        <div class="change-text">Added Newton 4 + CRT Emulator to AE plugins</div>
+        <div class="change-text">Replaced software downloads with a full plugins list</div>
         <div class="change-date">recent</div>
       </div>
     </div>
     <div class="change-item">
       <div class="change-dot"></div>
       <div>
-        <div class="change-text">Photoshop 2025 Windows link updated</div>
+        <div class="change-text">New look — warmer colors, rounder everything</div>
         <div class="change-date">recent</div>
       </div>
     </div>
@@ -1429,20 +1487,17 @@
     </div>
   </div>
 
-  <!-- centi -->
   <div class="widget mascot-widget">
     <div class="mascot-img-wrap"><img src="assets/hunnids%20shape%20files/CENTI_SHAPE_00000_clean_cropped.png" alt="Centi" /></div>
     <div class="mascot-name">CENTI</div>
     <div class="mascot-desc">she has bangs. swagged down.</div>
   </div>
 
-  <!-- another tip -->
   <div class="widget">
     <div class="widget-label">// did you know</div>
     <div class="tip-text"><strong>Flow</strong> is one of the best free easing plugins for AE. Smooth out your animations in seconds — it's in the plugins list above.</div>
   </div>
 
-  <!-- calico -->
   <div class="widget mascot-widget">
     <div class="mascot-img-wrap"><img src="assets/hunnids%20shape%20files/CALICO_CAT_SHAPE_00000_clean_cropped.png" alt="Calico" /></div>
     <div class="mascot-name">CALICO</div>
@@ -1451,34 +1506,50 @@
 
 </aside>
 
-</div><!-- end layout -->
+</div>
 
 <script>
-  // Copy password
   function copyPW() {
     navigator.clipboard.writeText('h100').then(() => {
       const btn = document.getElementById('copy-btn');
       btn.textContent = 'copied!';
-      btn.style.color = '#3ecfcf';
-      btn.style.borderColor = '#3ecfcf';
-      setTimeout(() => { btn.textContent = 'copy'; btn.style.color = '#2a9898'; btn.style.borderColor = '#1a3030'; }, 2000);
+      setTimeout(() => { btn.textContent = 'copy'; }, 2000);
     });
   }
 
-  // OS toggle
-  function switchOS(os, btn) {
-    document.querySelectorAll('.os-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.os-panel').forEach(p => p.classList.remove('active'));
+  function filterPlugins(type, btn) {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
-    document.getElementById('os-' + os).classList.add('active');
+    const cards = document.querySelectorAll('.plugin-card');
+    const labels = document.querySelectorAll('.plugin-section-label');
+
+    cards.forEach(card => {
+      const soft = card.dataset.soft;
+      let show = true;
+      if (type === 'ae' || type === 'pr') show = soft === type;
+      card.style.display = show ? '' : 'none';
+    });
+
+    labels.forEach(label => {
+      const grid = label.nextElementSibling;
+      if (!grid || !grid.classList.contains('plugin-grid')) return;
+      const visible = Array.from(grid.children).some(c => c.style.display !== 'none');
+      label.style.display = visible ? '' : 'none';
+      grid.style.display = visible ? '' : 'none';
+    });
   }
 
-  // Guide accordion
+  function toggleAllPlugins(btn) {
+    btn.classList.toggle('open');
+    const panel = document.getElementById('all-plugins-panel');
+    panel.classList.toggle('open');
+    btn.querySelector('.show-more-label').textContent = panel.classList.contains('open') ? 'hide plugin list' : 'show all plugins';
+  }
+
   function toggleGuide(el) {
     el.closest('.guide-item').classList.toggle('open');
   }
 
-  // YouTube inline play
   function playYT(card, videoId) {
     const wrap = document.createElement('div');
     wrap.className = 'yt-embed-wrap';
@@ -1486,12 +1557,10 @@
     card.replaceWith(wrap);
   }
 
-  // FAQ accordion
   function toggleFAQ(el) {
     el.closest('.faq-item').classList.toggle('open');
   }
 
-  // Active sidebar icon on scroll
   const sections = document.querySelectorAll('.section[id]');
   const icons = document.querySelectorAll('.sidebar-icon');
 
@@ -1507,35 +1576,30 @@
 
   sections.forEach(s => obs.observe(s));
 
-  // Search index
   const searchIndex = [
-    { label: 'After Effects', category: 'Downloads', target: '#downloads' },
-    { label: 'Premiere Pro', category: 'Downloads', target: '#downloads' },
-    { label: 'Photoshop', category: 'Downloads', target: '#downloads' },
-    { label: 'Media Encoder', category: 'Downloads', target: '#downloads' },
-    { label: 'TheAnimeScripter', category: 'Plugin · AE', target: '#extensions' },
-    { label: 'Uwu2x', category: 'Plugin · AE', target: '#extensions' },
-    { label: 'FxConsole', category: 'Plugin · AE', target: '#extensions' },
-    { label: 'Flow 1.5.2', category: 'Plugin · AE', target: '#extensions' },
-    { label: 'TextEvo', category: 'Plugin · AE', target: '#extensions' },
-    { label: 'DataMosh 2', category: 'Plugin · AE', target: '#extensions' },
-    { label: 'Matrix', category: 'Plugin · AE', target: '#extensions' },
-    { label: 'CRT Emulator', category: 'Plugin · AE', target: '#extensions' },
-    { label: 'Newton 4', category: 'Plugin · AE', target: '#extensions' },
-    { label: 'Captioneer 1.7.0', category: 'Plugin · PR', target: '#extensions' },
-    { label: 'FastFx v1.0.0', category: 'Plugin · PR', target: '#extensions' },
-    { label: 'Excalibur 1.1.5', category: 'Plugin · PR', target: '#extensions' },
-    { label: 'Easify 2 Pro 2.5.0', category: 'Plugin · PR', target: '#extensions' },
+    { label: 'Flow', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'Newton 4', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'FxConsole', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'DataMosh 2', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'TextEvo', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'Matrix', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'CRT Emulator', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'Uwu2x', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'TheAnimeScripter', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'Captioneer', category: 'Plugin · PR', target: '#plugins' },
+    { label: 'FastFx', category: 'Plugin · PR', target: '#plugins' },
+    { label: 'Excalibur', category: 'Plugin · PR', target: '#plugins' },
+    { label: 'Easify 2 Pro', category: 'Plugin · PR', target: '#plugins' },
     { label: 'After Effects Beginners Guide', category: 'Guide · AE', target: '#guides' },
     { label: 'Changing After Effects Version', category: 'Guide · AE', target: '#guides' },
     { label: 'After Effects Installation Paths', category: 'Guide · AE', target: '#guides' },
-    { label: 'How to Use Track Mattes', category: 'Guide · AE', target: '#guides' },
-    { label: 'Puppet Tool Basics', category: 'Guide · AE', target: '#guides' },
+    { label: 'Installing Plugins', category: 'Guide · AE', target: '#guides' },
+    { label: 'Optimizing After Effects Performance', category: 'Guide · AE', target: '#guides' },
     { label: 'Premiere Pro Setup Guide', category: 'Guide · PR', target: '#guides' },
     { label: 'Exporting Settings Guide', category: 'Guide · PR', target: '#guides' },
-    { label: 'Color Grading Basics', category: 'Guide · PR', target: '#guides' },
+    { label: 'Workspace Customization', category: 'Guide · PR', target: '#guides' },
     { label: 'How to Extract Zip/7z Files', category: 'Guide · General', target: '#guides' },
-    { label: 'Rosetta (M1+) Guide', category: 'Guide · General', target: '#guides' },
+    { label: 'Installing Scripts & Extensions', category: 'Guide · General', target: '#guides' },
     { label: 'FAQ', category: 'Section', target: '#faq' },
     { label: 'Helpful Websites', category: 'Section', target: '#helpful' },
   ];
@@ -1564,17 +1628,17 @@
     searchActive = -1;
 
     if (results.length === 0) {
-      container.innerHTML = `<div style="padding:20px; text-align:center; font-family:'JetBrains Mono',monospace; font-size:12px; color:#444;">// no results found</div>`;
+      container.innerHTML = `<div style="padding:20px; text-align:center; font-family:'JetBrains Mono',monospace; font-size:12px; color:#c4b193;">// no results found</div>`;
       return;
     }
 
     container.innerHTML = results.map((r, i) => `
       <div class="search-result-item" data-target="${r.target}" data-index="${i}"
-        style="display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-radius:7px; cursor:pointer; transition:background 0.1s;"
+        style="display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-radius:12px; cursor:pointer; transition:background 0.1s;"
         onmouseenter="setSearchActive(${i})"
         onclick="jumpTo('${r.target}')">
-        <span style="font-size:13.5px; color:#efefef;">${r.label}</span>
-        <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#444; background:#1a1a1a; border:1px solid #222; border-radius:3px; padding:2px 7px;">${r.category}</span>
+        <span style="font-size:13.5px; color:#4a3826; font-weight:600;">${r.label}</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#8a7558; background:#f5ecdc; border:1px solid #ecdfc8; border-radius:8px; padding:2px 8px;">${r.category}</span>
       </div>
     `).join('');
   }
@@ -1582,7 +1646,7 @@
   function setSearchActive(i) {
     searchActive = i;
     document.querySelectorAll('.search-result-item').forEach((el, idx) => {
-      el.style.background = idx === i ? '#1a2e2e' : '';
+      el.style.background = idx === i ? '#fff3de' : '';
     });
   }
 
@@ -1604,13 +1668,11 @@
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  // Cmd/Ctrl+K to open
   document.addEventListener('keydown', e => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
     if (e.key === 'Escape') closeSearch();
   });
 
-  // Click outside to close
   document.getElementById('search-modal').addEventListener('click', function(e) {
     if (e.target === this) closeSearch();
   });
