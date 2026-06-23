@@ -18,10 +18,10 @@
       --text-primary: #4a3826;
       --text-secondary: #8a7558;
       --text-muted: #c4b193;
-      --brown: #9c5c2e;
-      --brown-dim: #79431f;
-      --brown-light: #d99761;
-      --cream-pop: #fff3de;
+      --brown: #2b2525;
+      --brown-dim: #1c1717;
+      --brown-light: #5a4a45;
+      --cream-pop: #ece4d8;
       --white: #ffffff;
       --shadow-soft: 0 4px 18px rgba(181, 112, 58, 0.08);
       --shadow-pop: 0 8px 28px rgba(181, 112, 58, 0.16);
@@ -33,9 +33,9 @@
     body {
       background: var(--bg);
       background-image:
-        radial-gradient(circle at 15% 8%, rgba(232, 168, 114, 0.18) 0%, transparent 40%),
-        radial-gradient(circle at 90% 25%, rgba(181, 112, 58, 0.10) 0%, transparent 35%),
-        radial-gradient(circle at 50% 95%, rgba(232, 168, 114, 0.12) 0%, transparent 45%);
+        radial-gradient(circle at 15% 8%, rgba(90, 74, 69, 0.16) 0%, transparent 40%),
+        radial-gradient(circle at 90% 25%, rgba(43, 37, 37, 0.10) 0%, transparent 35%),
+        radial-gradient(circle at 50% 95%, rgba(90, 74, 69, 0.10) 0%, transparent 45%);
       color: var(--text-primary);
       font-family: 'Nunito', sans-serif;
       font-size: 14px;
@@ -48,7 +48,7 @@
       content: '';
       position: fixed;
       inset: 0;
-      background-image: radial-gradient(circle, rgba(181,112,58,0.06) 1px, transparent 1.3px);
+      background-image: radial-gradient(circle, rgba(43,37,37,0.05) 1px, transparent 1.3px);
       background-size: 14px 14px;
       pointer-events: none;
       z-index: 0;
@@ -217,7 +217,7 @@
       left: 64px;
       right: 0;
       height: 36px;
-      background: linear-gradient(135deg, #fff3de, #fae2bd);
+      background: linear-gradient(135deg, #f3efe9, #e6ddd2);
       border-bottom: 1px solid var(--border-hover);
       display: flex;
       align-items: center;
@@ -428,7 +428,7 @@
     .page-header {
       margin-bottom: 48px;
       position: relative;
-      background: linear-gradient(135deg, #fff7e8 0%, #fbe8c8 100%);
+      background: linear-gradient(135deg, #faf8f4 0%, #e9e0d6 100%);
       border: 1px solid var(--border-hover);
       border-radius: 28px;
       padding: 44px 48px;
@@ -1032,7 +1032,7 @@
       <div class="page-title">hunnids<span class="asterisk">*</span></div>
       <div class="page-desc">Plugins, guides, and tools curated for editors. New resources are added regularly, so check back often.</div>
     </div>
-    <div class="page-mascot-wrap"><img class="page-mascot" src="assets/hunnids%20shape%20files/HUNNIDO_SHAPE_00000_clean_cropped.png" alt="hunnido" /></div>
+    <div class="page-mascot-wrap"><img class="page-mascot" src="assets/hunnids%20shape%20files/HAPPY_HUNNIDO_clean_cropped.png" alt="hunnido" /></div>
   </div>
 
   <div class="section" id="plugins">
@@ -1098,6 +1098,27 @@
       </a>
     </div>
 
+    <button class="show-more-btn" onclick="toggleAllPlugins(this, 'ae-plugins-panel')">
+      <span class="show-more-label">show all After Effects plugins</span>
+      <span class="show-more-chevron">▾</span>
+    </button>
+
+    <div class="all-plugins-panel" id="ae-plugins-panel">
+      <div class="all-plugins-col">
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1MUuBVfXF1H9o9igxZn8ocF_pSah-0fl1/view?usp=drive_link">Flow</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1iFzsuoV_y5kFrihze337dVqdVBxDF3wf/view?usp=drive_link">Newton 4</a>
+        <a class="all-plugins-link" href="https://www.videocopilot.net/blog/2018/05/fx-console-updated-to-v1-0-3/">FxConsole</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1XsSQPcfZ6WvEC5e9qHlBZ7iinMjRDzCI/view?usp=drive_link">DataMosh 2</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1UKJH3FSq39jK5jevRBt_1qhlA6wpX4wH/view?usp=drive_link">TextEvo</a>
+      </div>
+      <div class="all-plugins-col">
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1noIK3p75dxbMvEvO9vfGaHE06XZ2b25y/view?usp=drive_link">Matrix</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1tdw9bCwz-48AW-wfYwWQz7xohKdqyAzW/view?usp=drive_link">CRT Emulator</a>
+        <a class="all-plugins-link" href="https://uwu2x.alixz.ovh/">Uwu2x</a>
+        <a class="all-plugins-link" href="https://github.com/NevermindNilas/TheAnimeScripter">TheAnimeScripter</a>
+      </div>
+    </div>
+
     <div class="plugin-section-label">Premiere Pro</div>
     <div class="plugin-grid" id="plugin-grid-pr">
       <a class="plugin-card" data-soft="pr" data-price="paid" href="https://drive.google.com/file/d/13bry9rD5ycxKU9OWkZGliwI71M-76-s3/view?usp=drive_link">
@@ -1122,34 +1143,23 @@
       </a>
     </div>
 
-    <div class="coming-soon">// more plugins dropping soon — stay tuned</div>
-
-    <button class="show-more-btn" onclick="toggleAllPlugins(this)">
-      <span class="show-more-label">show all plugins</span>
+    <button class="show-more-btn" onclick="toggleAllPlugins(this, 'pr-plugins-panel')">
+      <span class="show-more-label">show all Premiere Pro plugins</span>
       <span class="show-more-chevron">▾</span>
     </button>
 
-    <div class="all-plugins-panel" id="all-plugins-panel">
+    <div class="all-plugins-panel" id="pr-plugins-panel">
       <div class="all-plugins-col">
-        <div class="all-plugins-col-label">After Effects</div>
-        <a class="all-plugins-link" href="https://drive.google.com/file/d/1MUuBVfXF1H9o9igxZn8ocF_pSah-0fl1/view?usp=drive_link">Flow</a>
-        <a class="all-plugins-link" href="https://drive.google.com/file/d/1iFzsuoV_y5kFrihze337dVqdVBxDF3wf/view?usp=drive_link">Newton 4</a>
-        <a class="all-plugins-link" href="https://www.videocopilot.net/blog/2018/05/fx-console-updated-to-v1-0-3/">FxConsole</a>
-        <a class="all-plugins-link" href="https://drive.google.com/file/d/1XsSQPcfZ6WvEC5e9qHlBZ7iinMjRDzCI/view?usp=drive_link">DataMosh 2</a>
-        <a class="all-plugins-link" href="https://drive.google.com/file/d/1UKJH3FSq39jK5jevRBt_1qhlA6wpX4wH/view?usp=drive_link">TextEvo</a>
-        <a class="all-plugins-link" href="https://drive.google.com/file/d/1noIK3p75dxbMvEvO9vfGaHE06XZ2b25y/view?usp=drive_link">Matrix</a>
-        <a class="all-plugins-link" href="https://drive.google.com/file/d/1tdw9bCwz-48AW-wfYwWQz7xohKdqyAzW/view?usp=drive_link">CRT Emulator</a>
-        <a class="all-plugins-link" href="https://uwu2x.alixz.ovh/">Uwu2x</a>
-        <a class="all-plugins-link" href="https://github.com/NevermindNilas/TheAnimeScripter">TheAnimeScripter</a>
-      </div>
-      <div class="all-plugins-col">
-        <div class="all-plugins-col-label">Premiere Pro</div>
         <a class="all-plugins-link" href="https://drive.google.com/file/d/13bry9rD5ycxKU9OWkZGliwI71M-76-s3/view?usp=drive_link">Captioneer</a>
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1ZXT0xzgm4hTyahQ6cSFCm_6w3cO4b2Y4/view?usp=drive_link">FastFx</a>
+      </div>
+      <div class="all-plugins-col">
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1qaTifU5wfHBot6yea8Kiope1jvZ0ad68/view?usp=drive_link">Excalibur</a>
         <a class="all-plugins-link" href="https://drive.google.com/file/d/10n1X-4iFQNf_bEmTD6DUppq6wPp33lMG/view?usp=drive_link">Easify 2 Pro</a>
       </div>
     </div>
+
+    <div class="coming-soon">// more plugins dropping soon — stay tuned</div>
   </div>
 
   <div class="section" id="guides">
@@ -1539,11 +1549,15 @@
     });
   }
 
-  function toggleAllPlugins(btn) {
+  function toggleAllPlugins(btn, panelId) {
     btn.classList.toggle('open');
-    const panel = document.getElementById('all-plugins-panel');
+    const panel = document.getElementById(panelId);
     panel.classList.toggle('open');
-    btn.querySelector('.show-more-label').textContent = panel.classList.contains('open') ? 'hide plugin list' : 'show all plugins';
+    const isOpen = panel.classList.contains('open');
+    const label = btn.querySelector('.show-more-label');
+    label.textContent = isOpen
+      ? label.textContent.replace('show all', 'hide')
+      : label.textContent.replace('hide', 'show all');
   }
 
   function toggleGuide(el) {
