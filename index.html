@@ -790,6 +790,40 @@
     .all-plugins-link:hover { color: #fff; background: linear-gradient(135deg, var(--brown-light), var(--brown)); border-color: var(--brown); }
     .all-plugins-link.hidden-by-search { display: none; }
 
+    /* dual-OS chip variant (plugin with both Windows and Mac links) */
+    .all-plugins-chip-dual {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid var(--border-hover);
+      overflow: hidden;
+      transition: border-color 0.15s;
+    }
+    .all-plugins-chip-dual:hover { border-color: var(--brown-light); }
+    .all-plugins-chip-dual.hidden-by-search { display: none; }
+
+    .all-plugins-chip-name {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      font-weight: 600;
+      padding: 6px 10px 6px 14px;
+      white-space: nowrap;
+    }
+
+    .all-plugins-chip-os {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 6px 10px;
+      border-left: 1px solid var(--border-hover);
+      transition: all 0.15s;
+    }
+    .all-plugins-chip-os:hover { background: linear-gradient(135deg, var(--brown-light), var(--brown)); color: #fff; }
+
     /* ── GUIDES ── */
     .guides-list { display: flex; flex-direction: column; gap: 18px; }
 
@@ -1245,6 +1279,34 @@
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1tdw9bCwz-48AW-wfYwWQz7xohKdqyAzW/view?usp=drive_link">CRT Emulator</a>
         <a class="all-plugins-link" href="https://uwu2x.alixz.ovh/">Uwu2x</a>
         <a class="all-plugins-link" href="https://github.com/NevermindNilas/TheAnimeScripter">TheAnimeScripter</a>
+        <div class="all-plugins-chip-dual">
+          <span class="all-plugins-chip-name">Example Dual-OS Plugin</span>
+          <a class="all-plugins-chip-os" href="WINDOWS_LINK_HERE">Win</a>
+          <a class="all-plugins-chip-os" href="MAC_LINK_HERE">Mac</a>
+        </div>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1khI_ZSe0Bjj56U4MfdYQfYnJDcUAn_bT/view?usp=drive_link">Aescripts Motion Mosh v1.2.1</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1C4lnXbWp2XRg5bSDTFQxR0avAFuNNf6W/view?usp=drive_link">AndrewYang Bundle 260215 (Win)</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1Rl5PvgzHaDxn_TLGarN8B8u1acby_zhe/view?usp=drive_link">AutoSway v1.90</a>
+        <div class="all-plugins-chip-dual">
+          <span class="all-plugins-chip-name">Crates Godrays + Light Wrap</span>
+          <a class="all-plugins-chip-os" href="https://drive.google.com/file/d/1WsYJyjXv9FscJ1BKaCzJ9hCQMgiiNV7M/view?usp=drive_link">Win</a>
+          <a class="all-plugins-chip-os" href="https://drive.google.com/file/d/1WsYJyjXv9FscJ1BKaCzJ9hCQMgiiNV7M/view?usp=drive_link">Mac</a>
+        </div>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1XtHhsDGd4__Z9FV4bK9Eel8qetF9HYmh/view?usp=drive_link">Crossphere Plugins Bundle (Win)</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1DKR0n1DO-H2SHdWDnfmKavKcs8TKJnCA/view?usp=drive_link">FilmConvert Bundle Adobe OFX (Win)</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1jW08PrzhtCK_jTXaKozRpyPFZ_7gu2uO/view?usp=drive_link">FilmConvert Nitrate v3.50 Adobe (Win)</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1V8DsFYmLfFqdMyHbqLGSjK5hJDQgI5vg/view?usp=drive_link">Signal 1.2.0</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1ClauK81p4VK4gBVvV19BLosvxegq3NE5/view?usp=drive_link">TV Distortion Bundle 2.7.5.1 (Win)</a>
+        <div class="all-plugins-chip-dual">
+          <span class="all-plugins-chip-name">Twixtor & Twixtor Pro v7.3.1</span>
+          <a class="all-plugins-chip-os" href="https://drive.google.com/file/d/1mCtgJhOx2T6i5H4NNDDvZMOGJ76nN_dC/view?usp=drive_link">Win</a>
+          <a class="all-plugins-chip-os" href="https://drive.google.com/file/d/1mCtgJhOx2T6i5H4NNDDvZMOGJ76nN_dC/view?usp=drive_link">Mac</a>
+        </div>
+        <div class="all-plugins-chip-dual">
+          <span class="all-plugins-chip-name">VC Optical Flares 1.3.8 Adobe</span>
+          <a class="all-plugins-chip-os" href="https://drive.google.com/file/d/1O9AzDt3wdEYiYQV6jiZOGPDWNEho3IYN/view?usp=drive_link">Win</a>
+          <a class="all-plugins-chip-os" href="https://drive.google.com/file/d/1O9AzDt3wdEYiYQV6jiZOGPDWNEho3IYN/view?usp=drive_link">Mac</a>
+        </div>
       </div>
     </div>
 
@@ -1723,9 +1785,10 @@
   function filterPluginChips(input, flowId) {
     const q = input.value.toLowerCase().trim();
     const flow = document.getElementById(flowId);
-    flow.querySelectorAll('.all-plugins-link').forEach(link => {
-      const match = link.textContent.toLowerCase().includes(q);
-      link.classList.toggle('hidden-by-search', !match);
+    flow.querySelectorAll('.all-plugins-link, .all-plugins-chip-dual').forEach(chip => {
+      const nameEl = chip.classList.contains('all-plugins-chip-dual') ? chip.querySelector('.all-plugins-chip-name') : chip;
+      const match = nameEl.textContent.toLowerCase().includes(q);
+      chip.classList.toggle('hidden-by-search', !match);
     });
   }
 
