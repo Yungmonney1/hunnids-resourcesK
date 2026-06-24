@@ -799,9 +799,12 @@
       background: rgba(255,255,255,0.55);
       border: 1px solid var(--border-hover);
       overflow: hidden;
-      transition: border-color 0.15s;
+      transition: all 0.15s;
     }
-    .all-plugins-chip-dual:hover { border-color: var(--brown-light); }
+    .all-plugins-chip-dual:hover {
+      background: linear-gradient(135deg, var(--brown-light), var(--brown));
+      border-color: var(--brown);
+    }
     .all-plugins-chip-dual.hidden-by-search { display: none; }
 
     .all-plugins-chip-name {
@@ -810,7 +813,9 @@
       font-weight: 600;
       padding: 6px 10px 6px 14px;
       white-space: nowrap;
+      transition: color 0.15s;
     }
+    .all-plugins-chip-dual:hover .all-plugins-chip-name { color: #fff; }
 
     .all-plugins-chip-os {
       font-family: 'JetBrains Mono', monospace;
@@ -822,7 +827,10 @@
       border-left: 1px solid var(--border-hover);
       transition: all 0.15s;
     }
-    .all-plugins-chip-os:hover { background: linear-gradient(135deg, var(--brown-light), var(--brown)); color: #fff; }
+    .all-plugins-chip-dual:hover .all-plugins-chip-os {
+      color: #fff;
+      border-left-color: rgba(255,255,255,0.3);
+    }
 
     /* ── GUIDES ── */
     .guides-list { display: flex; flex-direction: column; gap: 18px; }
