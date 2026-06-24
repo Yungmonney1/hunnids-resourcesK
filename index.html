@@ -733,104 +733,196 @@
     .all-plugins-panel {
       display: none;
       margin-top: 14px;
-      padding: 20px 24px;
+      padding: 18px 20px;
       background: rgba(255, 255, 255, 0.5);
       border: 1px solid var(--border);
       border-radius: 18px;
-      gap: 32px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 12px;
     }
     .all-plugins-panel.open { display: flex; }
 
-    .all-plugins-col {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      min-width: 160px;
+    .all-plugins-search {
+      width: 100%;
+      padding: 8px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border-hover);
+      background: rgba(255,255,255,0.7);
+      font-family: 'Nunito', sans-serif;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
     }
+    .all-plugins-search:focus { border-color: var(--brown-light); background: rgba(255,255,255,0.95); }
+    .all-plugins-search::placeholder { color: var(--text-muted); font-weight: 500; }
 
-    .all-plugins-col-label {
+    .all-plugins-flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .all-plugins-flow::-webkit-scrollbar { width: 4px; }
+    .all-plugins-flow::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
+
+    .all-plugins-count {
       font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
       color: var(--text-muted);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 6px;
     }
 
     .all-plugins-link {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--text-secondary);
       font-weight: 600;
       text-decoration: none;
-      padding: 4px 0;
-      transition: color 0.12s;
+      padding: 6px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid var(--border-hover);
+      transition: all 0.15s;
+      white-space: nowrap;
     }
-    .all-plugins-link:hover { color: var(--brown); text-decoration: underline; }
+    .all-plugins-link:hover { color: #fff; background: linear-gradient(135deg, var(--brown-light), var(--brown)); border-color: var(--brown); }
+    .all-plugins-link.hidden-by-search { display: none; }
 
     /* ── GUIDES ── */
-    .guides-list { display: flex; flex-direction: column; gap: 8px; }
+    .guides-list { display: flex; flex-direction: column; gap: 18px; }
 
-    .guide-item {
+    .guides-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 14px;
+    }
+
+    .guide-card {
+      background: rgba(255, 255, 255, 0.55);
       border: 1px solid var(--border);
       border-radius: 18px;
       overflow: hidden;
-      transition: border-color 0.15s, box-shadow 0.15s;
-      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s, background 0.18s;
+      display: flex;
+      flex-direction: column;
     }
-    .guide-item:hover { border-color: var(--brown-light); }
-    .guide-item.open { border-color: var(--brown-light); box-shadow: var(--shadow-soft); }
+    .guide-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-pop); border-color: var(--brown-light); background: rgba(255,255,255,0.85); }
+    .guide-card.active { border-color: var(--brown); box-shadow: var(--shadow-pop); }
 
-    .guide-header {
+    .guide-card-thumb {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: linear-gradient(135deg, rgba(112,122,138,0.18), rgba(58,63,74,0.28));
+      overflow: hidden;
+    }
+    .guide-card-thumb img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .guide-card-thumb .guide-card-icon {
+      position: absolute;
+      inset: 0;
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 15px 20px;
-      cursor: pointer;
-      transition: background 0.12s;
-      user-select: none;
+      justify-content: center;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--brown-light);
+      opacity: 0.55;
     }
-    .guide-header:hover { background: rgba(255,255,255,0.5); }
+    .guide-card-play {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .guide-card-play svg { width: 10px; height: 10px; }
 
-    .guide-num {
+    .guide-card-tagchip {
+      position: absolute;
+      top: 8px;
+      left: 8px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: var(--text-muted);
-      min-width: 24px;
+      font-size: 9px;
+      font-weight: 700;
+      color: #fff;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(4px);
+      border-radius: 6px;
+      padding: 2px 8px;
+      letter-spacing: 0.5px;
     }
 
-    .guide-name { font-size: 14px; color: var(--text-primary); font-weight: 600; flex: 1; }
+    .guide-card-body { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; }
 
-    .guide-tag {
+    .guide-card-num {
       font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
-      color: var(--brown-dim);
-      background: rgba(0,0,0,0.04);
-      border: 1px solid var(--border-hover);
-      border-radius: 8px;
-      padding: 2px 9px;
-    }
-
-    .guide-chevron {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
       color: var(--text-muted);
-      transition: transform 0.2s;
-      margin-left: 6px;
+      margin-bottom: 4px;
     }
-    .guide-item.open .guide-chevron { transform: rotate(180deg); }
 
-    .guide-body {
+    .guide-card-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.35;
+    }
+
+    /* expanding detail panel below the grid */
+    .guide-detail-panel {
       display: none;
-      padding: 16px 22px 20px;
-      background: rgba(255,255,255,0.35);
-      border-top: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px 26px;
       flex-direction: column;
       gap: 14px;
     }
-    .guide-item.open .guide-body { display: flex; }
+    .guide-detail-panel.open { display: flex; }
 
-    .guide-desc {
+    .guide-detail-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .guide-detail-title {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--brown-dim);
+    }
+
+    .guide-detail-close {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border-hover);
+      background: rgba(255,255,255,0.5);
+      transition: all 0.15s;
+    }
+    .guide-detail-close:hover { background: rgba(255,255,255,0.9); color: var(--brown-dim); }
+
+    .guide-detail-desc {
       font-size: 13.5px;
       color: var(--text-secondary);
       line-height: 1.75;
@@ -1142,14 +1234,13 @@
     </button>
 
     <div class="all-plugins-panel" id="ae-plugins-panel">
-      <div class="all-plugins-col">
+      <input type="text" class="all-plugins-search" placeholder="Filter After Effects plugins..." oninput="filterPluginChips(this, 'ae-plugins-flow')" />
+      <div class="all-plugins-flow" id="ae-plugins-flow">
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1MUuBVfXF1H9o9igxZn8ocF_pSah-0fl1/view?usp=drive_link">Flow</a>
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1iFzsuoV_y5kFrihze337dVqdVBxDF3wf/view?usp=drive_link">Newton 4</a>
         <a class="all-plugins-link" href="https://www.videocopilot.net/blog/2018/05/fx-console-updated-to-v1-0-3/">FxConsole</a>
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1XsSQPcfZ6WvEC5e9qHlBZ7iinMjRDzCI/view?usp=drive_link">DataMosh 2</a>
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1UKJH3FSq39jK5jevRBt_1qhlA6wpX4wH/view?usp=drive_link">TextEvo</a>
-      </div>
-      <div class="all-plugins-col">
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1noIK3p75dxbMvEvO9vfGaHE06XZ2b25y/view?usp=drive_link">Matrix</a>
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1tdw9bCwz-48AW-wfYwWQz7xohKdqyAzW/view?usp=drive_link">CRT Emulator</a>
         <a class="all-plugins-link" href="https://uwu2x.alixz.ovh/">Uwu2x</a>
@@ -1187,11 +1278,10 @@
     </button>
 
     <div class="all-plugins-panel" id="pr-plugins-panel">
-      <div class="all-plugins-col">
+      <input type="text" class="all-plugins-search" placeholder="Filter Premiere Pro plugins..." oninput="filterPluginChips(this, 'pr-plugins-flow')" />
+      <div class="all-plugins-flow" id="pr-plugins-flow">
         <a class="all-plugins-link" href="https://drive.google.com/file/d/13bry9rD5ycxKU9OWkZGliwI71M-76-s3/view?usp=drive_link">Captioneer</a>
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1ZXT0xzgm4hTyahQ6cSFCm_6w3cO4b2Y4/view?usp=drive_link">FastFx</a>
-      </div>
-      <div class="all-plugins-col">
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1qaTifU5wfHBot6yea8Kiope1jvZ0ad68/view?usp=drive_link">Excalibur</a>
         <a class="all-plugins-link" href="https://drive.google.com/file/d/10n1X-4iFQNf_bEmTD6DUppq6wPp33lMG/view?usp=drive_link">Easify 2 Pro</a>
       </div>
@@ -1209,172 +1299,226 @@
     </div>
     <div class="guides-list">
 
-      <div class="guide-item">
-        <div class="guide-header" onclick="toggleGuide(this)">
-          <span class="guide-num">01</span>
-          <span class="guide-name">After Effects Beginners Guide</span>
-          <span class="guide-tag">AE</span>
-          <span class="guide-chevron">▾</span>
+      <div class="guides-grid">
+        <div class="guide-card" onclick="openGuide(this, 'guide-detail-01')">
+          <div class="guide-card-thumb">
+            <img src="https://img.youtube.com/vi/TfeEhz-FSEY/hqdefault.jpg" alt="AE Beginners Guide" />
+            <div class="guide-card-tagchip">AE</div>
+            <div class="guide-card-play"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0)"/><path d="M9 7l9 5-9 5V7z" fill="#fff"/></svg></div>
+          </div>
+          <div class="guide-card-body">
+            <div class="guide-card-num">01</div>
+            <div class="guide-card-name">After Effects Beginners Guide</div>
+          </div>
         </div>
-        <div class="guide-body">
-          <div class="guide-desc">A full walkthrough for getting started with After Effects — interface overview, compositions, keyframes, and your first animation.</div>
-          <div class="yt-card" onclick="playYT(this, 'TfeEhz-FSEY')">
-            <div class="yt-thumb-wrap">
-              <img src="https://img.youtube.com/vi/TfeEhz-FSEY/hqdefault.jpg" alt="AE Beginners Guide" />
-              <div class="yt-play-btn">
-                <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
-                  <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
-                </svg>
-              </div>
-            </div>
-            <div class="yt-info">
-              <div class="yt-title">After Effects for Beginners — Full Tutorial</div>
-              <div class="yt-meta">youtube.com · click to play</div>
-            </div>
+
+        <div class="guide-card" onclick="openGuide(this, 'guide-detail-02')">
+          <div class="guide-card-thumb"><div class="guide-card-icon">AE</div><div class="guide-card-tagchip">AE</div></div>
+          <div class="guide-card-body">
+            <div class="guide-card-num">02</div>
+            <div class="guide-card-name">Changing After Effects Version</div>
+          </div>
+        </div>
+
+        <div class="guide-card" onclick="openGuide(this, 'guide-detail-03')">
+          <div class="guide-card-thumb"><div class="guide-card-icon">AE</div><div class="guide-card-tagchip">AE</div></div>
+          <div class="guide-card-body">
+            <div class="guide-card-num">03</div>
+            <div class="guide-card-name">After Effects Installation Paths</div>
+          </div>
+        </div>
+
+        <div class="guide-card" onclick="openGuide(this, 'guide-detail-04')">
+          <div class="guide-card-thumb">
+            <img src="https://img.youtube.com/vi/YOUTUBE_ID_HERE/hqdefault.jpg" alt="Installing Plugins" />
+            <div class="guide-card-tagchip">AE</div>
+            <div class="guide-card-play"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0)"/><path d="M9 7l9 5-9 5V7z" fill="#fff"/></svg></div>
+          </div>
+          <div class="guide-card-body">
+            <div class="guide-card-num">04</div>
+            <div class="guide-card-name">Installing Plugins</div>
+          </div>
+        </div>
+
+        <div class="guide-card" onclick="openGuide(this, 'guide-detail-05')">
+          <div class="guide-card-thumb"><div class="guide-card-icon">AE</div><div class="guide-card-tagchip">AE</div></div>
+          <div class="guide-card-body">
+            <div class="guide-card-num">05</div>
+            <div class="guide-card-name">Optimizing After Effects Performance</div>
+          </div>
+        </div>
+
+        <div class="guide-card" onclick="openGuide(this, 'guide-detail-06')">
+          <div class="guide-card-thumb"><div class="guide-card-icon">PR</div><div class="guide-card-tagchip">PR</div></div>
+          <div class="guide-card-body">
+            <div class="guide-card-num">06</div>
+            <div class="guide-card-name">Premiere Pro Setup Guide</div>
+          </div>
+        </div>
+
+        <div class="guide-card" onclick="openGuide(this, 'guide-detail-07')">
+          <div class="guide-card-thumb">
+            <img src="https://img.youtube.com/vi/YOUTUBE_ID_HERE/hqdefault.jpg" alt="Exporting Guide" />
+            <div class="guide-card-tagchip">PR</div>
+            <div class="guide-card-play"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0)"/><path d="M9 7l9 5-9 5V7z" fill="#fff"/></svg></div>
+          </div>
+          <div class="guide-card-body">
+            <div class="guide-card-num">07</div>
+            <div class="guide-card-name">Exporting Settings Guide</div>
+          </div>
+        </div>
+
+        <div class="guide-card" onclick="openGuide(this, 'guide-detail-08')">
+          <div class="guide-card-thumb"><div class="guide-card-icon">PR</div><div class="guide-card-tagchip">PR</div></div>
+          <div class="guide-card-body">
+            <div class="guide-card-num">08</div>
+            <div class="guide-card-name">Workspace Customization</div>
+          </div>
+        </div>
+
+        <div class="guide-card" onclick="openGuide(this, 'guide-detail-09')">
+          <div class="guide-card-thumb"><div class="guide-card-icon">GEN</div><div class="guide-card-tagchip">GEN</div></div>
+          <div class="guide-card-body">
+            <div class="guide-card-num">09</div>
+            <div class="guide-card-name">How to Extract Zip/7z Files</div>
+          </div>
+        </div>
+
+        <div class="guide-card" onclick="openGuide(this, 'guide-detail-10')">
+          <div class="guide-card-thumb"><div class="guide-card-icon">GEN</div><div class="guide-card-tagchip">GEN</div></div>
+          <div class="guide-card-body">
+            <div class="guide-card-num">10</div>
+            <div class="guide-card-name">Installing Scripts & Extensions</div>
           </div>
         </div>
       </div>
 
-      <div class="guide-item">
-        <div class="guide-header" onclick="toggleGuide(this)">
-          <span class="guide-num">02</span>
-          <span class="guide-name">Changing After Effects Version</span>
-          <span class="guide-tag">AE</span>
-          <span class="guide-chevron">▾</span>
+      <div class="guide-detail-panel" id="guide-detail-01">
+        <div class="guide-detail-header">
+          <div class="guide-detail-title">After Effects Beginners Guide</div>
+          <div class="guide-detail-close" onclick="closeGuide('guide-detail-01')">close ✕</div>
         </div>
-        <div class="guide-body">
-          <div class="guide-desc">How to switch between installed versions of After Effects using the Creative Cloud desktop app. Useful if a plugin requires a specific version.</div>
-        </div>
-      </div>
-
-      <div class="guide-item">
-        <div class="guide-header" onclick="toggleGuide(this)">
-          <span class="guide-num">03</span>
-          <span class="guide-name">After Effects Installation Paths</span>
-          <span class="guide-tag">AE</span>
-          <span class="guide-chevron">▾</span>
-        </div>
-        <div class="guide-body">
-          <div class="guide-desc">Where AE stores plugins, scripts, and presets on Windows and macOS. Essential for manually installing extensions.<br><br>
-            <strong style="color:var(--text-primary)">Windows:</strong> <code style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--brown); background:var(--bg-soft); padding:2px 6px; border-radius:6px;">C:\Program Files\Adobe\Adobe After Effects [year]\Support Files\Plug-ins</code><br><br>
-            <strong style="color:var(--text-primary)">macOS:</strong> <code style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--brown); background:var(--bg-soft); padding:2px 6px; border-radius:6px;">/Applications/Adobe After Effects [year]/Plug-ins</code>
+        <div class="guide-detail-desc">A full walkthrough for getting started with After Effects — interface overview, compositions, keyframes, and your first animation.</div>
+        <div class="yt-card" onclick="playYT(this, 'TfeEhz-FSEY')">
+          <div class="yt-thumb-wrap">
+            <img src="https://img.youtube.com/vi/TfeEhz-FSEY/hqdefault.jpg" alt="AE Beginners Guide" />
+            <div class="yt-play-btn">
+              <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
+                <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
+              </svg>
+            </div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-title">After Effects for Beginners — Full Tutorial</div>
+            <div class="yt-meta">youtube.com · click to play</div>
           </div>
         </div>
       </div>
 
-      <div class="guide-item">
-        <div class="guide-header" onclick="toggleGuide(this)">
-          <span class="guide-num">04</span>
-          <span class="guide-name">Installing Plugins</span>
-          <span class="guide-tag">AE</span>
-          <span class="guide-chevron">▾</span>
+      <div class="guide-detail-panel" id="guide-detail-02">
+        <div class="guide-detail-header">
+          <div class="guide-detail-title">Changing After Effects Version</div>
+          <div class="guide-detail-close" onclick="closeGuide('guide-detail-02')">close ✕</div>
         </div>
-        <div class="guide-body">
-          <div class="guide-desc">Step-by-step guide for installing .zxp, .aex, and script-based plugins into After Effects and Premiere Pro.</div>
-          <div class="yt-card" onclick="playYT(this, 'YOUTUBE_ID_HERE')">
-            <div class="yt-thumb-wrap">
-              <img src="https://img.youtube.com/vi/YOUTUBE_ID_HERE/hqdefault.jpg" alt="Installing Plugins" />
-              <div class="yt-play-btn">
-                <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
-                  <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
-                </svg>
-              </div>
+        <div class="guide-detail-desc">How to switch between installed versions of After Effects using the Creative Cloud desktop app. Useful if a plugin requires a specific version.</div>
+      </div>
+
+      <div class="guide-detail-panel" id="guide-detail-03">
+        <div class="guide-detail-header">
+          <div class="guide-detail-title">After Effects Installation Paths</div>
+          <div class="guide-detail-close" onclick="closeGuide('guide-detail-03')">close ✕</div>
+        </div>
+        <div class="guide-detail-desc">Where AE stores plugins, scripts, and presets on Windows and macOS. Essential for manually installing extensions.<br><br>
+          <strong style="color:var(--text-primary)">Windows:</strong> <code style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--brown); background:var(--bg-soft); padding:2px 6px; border-radius:6px;">C:\Program Files\Adobe\Adobe After Effects [year]\Support Files\Plug-ins</code><br><br>
+          <strong style="color:var(--text-primary)">macOS:</strong> <code style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--brown); background:var(--bg-soft); padding:2px 6px; border-radius:6px;">/Applications/Adobe After Effects [year]/Plug-ins</code>
+        </div>
+      </div>
+
+      <div class="guide-detail-panel" id="guide-detail-04">
+        <div class="guide-detail-header">
+          <div class="guide-detail-title">Installing Plugins</div>
+          <div class="guide-detail-close" onclick="closeGuide('guide-detail-04')">close ✕</div>
+        </div>
+        <div class="guide-detail-desc">Step-by-step guide for installing .zxp, .aex, and script-based plugins into After Effects and Premiere Pro.</div>
+        <div class="yt-card" onclick="playYT(this, 'YOUTUBE_ID_HERE')">
+          <div class="yt-thumb-wrap">
+            <img src="https://img.youtube.com/vi/YOUTUBE_ID_HERE/hqdefault.jpg" alt="Installing Plugins" />
+            <div class="yt-play-btn">
+              <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
+                <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
+              </svg>
             </div>
-            <div class="yt-info">
-              <div class="yt-title">How to Install After Effects Plugins</div>
-              <div class="yt-meta">youtube.com · click to play</div>
-            </div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-title">How to Install After Effects Plugins</div>
+            <div class="yt-meta">youtube.com · click to play</div>
           </div>
         </div>
       </div>
 
-      <div class="guide-item">
-        <div class="guide-header" onclick="toggleGuide(this)">
-          <span class="guide-num">05</span>
-          <span class="guide-name">Optimizing After Effects Performance</span>
-          <span class="guide-tag">AE</span>
-          <span class="guide-chevron">▾</span>
+      <div class="guide-detail-panel" id="guide-detail-05">
+        <div class="guide-detail-header">
+          <div class="guide-detail-title">Optimizing After Effects Performance</div>
+          <div class="guide-detail-close" onclick="closeGuide('guide-detail-05')">close ✕</div>
         </div>
-        <div class="guide-body">
-          <div class="guide-desc">Tips for making AE run faster — RAM allocation, disk cache settings, GPU acceleration, and preview settings that make a noticeable difference.</div>
-        </div>
+        <div class="guide-detail-desc">Tips for making AE run faster — RAM allocation, disk cache settings, GPU acceleration, and preview settings that make a noticeable difference.</div>
       </div>
 
-      <div class="guide-item">
-        <div class="guide-header" onclick="toggleGuide(this)">
-          <span class="guide-num">06</span>
-          <span class="guide-name">Premiere Pro Setup Guide</span>
-          <span class="guide-tag">PR</span>
-          <span class="guide-chevron">▾</span>
+      <div class="guide-detail-panel" id="guide-detail-06">
+        <div class="guide-detail-header">
+          <div class="guide-detail-title">Premiere Pro Setup Guide</div>
+          <div class="guide-detail-close" onclick="closeGuide('guide-detail-06')">close ✕</div>
         </div>
-        <div class="guide-body">
-          <div class="guide-desc">How to set up a new Premiere Pro project correctly — sequence settings, scratch disk locations, and workspace layout recommendations.</div>
-        </div>
+        <div class="guide-detail-desc">How to set up a new Premiere Pro project correctly — sequence settings, scratch disk locations, and workspace layout recommendations.</div>
       </div>
 
-      <div class="guide-item">
-        <div class="guide-header" onclick="toggleGuide(this)">
-          <span class="guide-num">07</span>
-          <span class="guide-name">Exporting Settings Guide</span>
-          <span class="guide-tag">PR</span>
-          <span class="guide-chevron">▾</span>
+      <div class="guide-detail-panel" id="guide-detail-07">
+        <div class="guide-detail-header">
+          <div class="guide-detail-title">Exporting Settings Guide</div>
+          <div class="guide-detail-close" onclick="closeGuide('guide-detail-07')">close ✕</div>
         </div>
-        <div class="guide-body">
-          <div class="guide-desc">The best export settings for different platforms — Discord, YouTube, Twitter/X, and local playback. Covers H.264, H.265, and ProRes.</div>
-          <div class="yt-card" onclick="playYT(this, 'YOUTUBE_ID_HERE')">
-            <div class="yt-thumb-wrap">
-              <img src="https://img.youtube.com/vi/YOUTUBE_ID_HERE/hqdefault.jpg" alt="Exporting Guide" />
-              <div class="yt-play-btn">
-                <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
-                  <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
-                </svg>
-              </div>
+        <div class="guide-detail-desc">The best export settings for different platforms — Discord, YouTube, Twitter/X, and local playback. Covers H.264, H.265, and ProRes.</div>
+        <div class="yt-card" onclick="playYT(this, 'YOUTUBE_ID_HERE')">
+          <div class="yt-thumb-wrap">
+            <img src="https://img.youtube.com/vi/YOUTUBE_ID_HERE/hqdefault.jpg" alt="Exporting Guide" />
+            <div class="yt-play-btn">
+              <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
+                <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
+              </svg>
             </div>
-            <div class="yt-info">
-              <div class="yt-title">Best Premiere Pro Export Settings</div>
-              <div class="yt-meta">youtube.com · click to play</div>
-            </div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-title">Best Premiere Pro Export Settings</div>
+            <div class="yt-meta">youtube.com · click to play</div>
           </div>
         </div>
       </div>
 
-      <div class="guide-item">
-        <div class="guide-header" onclick="toggleGuide(this)">
-          <span class="guide-num">08</span>
-          <span class="guide-name">Workspace Customization</span>
-          <span class="guide-tag">PR</span>
-          <span class="guide-chevron">▾</span>
+      <div class="guide-detail-panel" id="guide-detail-08">
+        <div class="guide-detail-header">
+          <div class="guide-detail-title">Workspace Customization</div>
+          <div class="guide-detail-close" onclick="closeGuide('guide-detail-08')">close ✕</div>
         </div>
-        <div class="guide-body">
-          <div class="guide-desc">How to customize your Premiere Pro workspace — panel layout, keyboard shortcuts, and saving your setup so it persists between projects.</div>
-        </div>
+        <div class="guide-detail-desc">How to customize your Premiere Pro workspace — panel layout, keyboard shortcuts, and saving your setup so it persists between projects.</div>
       </div>
 
-      <div class="guide-item">
-        <div class="guide-header" onclick="toggleGuide(this)">
-          <span class="guide-num">09</span>
-          <span class="guide-name">How to Extract Zip/7z Files</span>
-          <span class="guide-tag">GEN</span>
-          <span class="guide-chevron">▾</span>
+      <div class="guide-detail-panel" id="guide-detail-09">
+        <div class="guide-detail-header">
+          <div class="guide-detail-title">How to Extract Zip/7z Files</div>
+          <div class="guide-detail-close" onclick="closeGuide('guide-detail-09')">close ✕</div>
         </div>
-        <div class="guide-body">
-          <div class="guide-desc">Most downloads here are zipped. Use <strong style="color:var(--text-primary)">7-Zip</strong> (Windows) or <strong style="color:var(--text-primary)">The Unarchiver</strong> (Mac) to extract them. Right-click the file → Extract Here. If prompted for a password, use the one in the banner at the top of this page.</div>
-        </div>
+        <div class="guide-detail-desc">Most downloads here are zipped. Use <strong style="color:var(--text-primary)">7-Zip</strong> (Windows) or <strong style="color:var(--text-primary)">The Unarchiver</strong> (Mac) to extract them. Right-click the file → Extract Here. If prompted for a password, use the one in the banner at the top of this page.</div>
       </div>
 
-      <div class="guide-item">
-        <div class="guide-header" onclick="toggleGuide(this)">
-          <span class="guide-num">10</span>
-          <span class="guide-name">Installing Scripts & Extensions</span>
-          <span class="guide-tag">GEN</span>
-          <span class="guide-chevron">▾</span>
+      <div class="guide-detail-panel" id="guide-detail-10">
+        <div class="guide-detail-header">
+          <div class="guide-detail-title">Installing Scripts & Extensions</div>
+          <div class="guide-detail-close" onclick="closeGuide('guide-detail-10')">close ✕</div>
         </div>
-        <div class="guide-body">
-          <div class="guide-desc">Scripts go in your AE Scripts folder. Extensions (.zxp files) need the <strong style="color:var(--text-primary)">aescripts + aeplugins manager</strong> or ZXP Installer to install. See guide 03 for the correct folder paths.</div>
-        </div>
+        <div class="guide-detail-desc">Scripts go in your AE Scripts folder. Extensions (.zxp files) need the <strong style="color:var(--text-primary)">aescripts + aeplugins manager</strong> or ZXP Installer to install. See guide 03 for the correct folder paths.</div>
       </div>
 
     </div>
@@ -1485,29 +1629,19 @@
     <div class="hype-sub">// curated by hunnids for hunnids</div>
   </div>
 
-  <div class="widget mascot-widget">
-    <div class="widget-label">// the team</div>
-    <div class="mascot-img-wrap"><img src="assets/hunnids%20shape%20files/KILO_SHAPE_00000_clean_cropped.png" alt="Kilo" /></div>
-    <div class="mascot-name">KILO</div>
-    <div class="mascot-desc">super geek. knows every plugin ever made.</div>
-  </div>
-
   <div class="widget">
     <div class="widget-label">// by the numbers</div>
     <div class="stat-row"><span class="stat-label">plugins listed</span><span class="stat-val">13</span></div>
     <div class="stat-row"><span class="stat-label">guides available</span><span class="stat-val">10</span></div>
     <div class="stat-row"><span class="stat-label">helpful sites</span><span class="stat-val">08</span></div>
+    <div class="stat-row"><span class="stat-label">AE plugins</span><span class="stat-val">09</span></div>
+    <div class="stat-row"><span class="stat-label">PR plugins</span><span class="stat-val">04</span></div>
+    <div class="stat-row"><span class="stat-label">free resources</span><span class="stat-val">07</span></div>
   </div>
 
   <div class="widget">
     <div class="widget-label">// tip of the day</div>
     <div class="tip-text"><strong>Use proxies.</strong> If AE is running slow, create proxy files for your heavy footage. It'll save your sanity on longer timelines.</div>
-  </div>
-
-  <div class="widget mascot-widget">
-    <div class="mascot-img-wrap"><img src="assets/hunnids%20shape%20files/HUNDO_SHAPE_00000_clean_cropped.png" alt="Hundo" /></div>
-    <div class="mascot-name">HUNDO</div>
-    <div class="mascot-desc">cool dude, smells good.</div>
   </div>
 
   <div class="widget">
@@ -1522,7 +1656,7 @@
     <div class="change-item">
       <div class="change-dot"></div>
       <div>
-        <div class="change-text">New look — warmer colors, rounder everything</div>
+        <div class="change-text">New look — glassy, cooler colors, rounder everything</div>
         <div class="change-date">recent</div>
       </div>
     </div>
@@ -1535,24 +1669,23 @@
     </div>
   </div>
 
-  <div class="widget mascot-widget">
-    <div class="mascot-img-wrap"><img src="assets/hunnids%20shape%20files/CENTI_SHAPE_00000_clean_cropped.png" alt="Centi" /></div>
-    <div class="mascot-name">CENTI</div>
-    <div class="mascot-desc">she has bangs. swagged down.</div>
-  </div>
-
   <div class="widget">
     <div class="widget-label">// did you know</div>
     <div class="tip-text"><strong>Flow</strong> is one of the best free easing plugins for AE. Smooth out your animations in seconds — it's in the plugins list above.</div>
   </div>
 
-  <div class="widget mascot-widget">
-    <div class="mascot-img-wrap"><img src="assets/hunnids%20shape%20files/CALICO_CAT_SHAPE_00000_clean_cropped.png" alt="Calico" /></div>
-    <div class="mascot-name">CALICO</div>
-    <div class="mascot-desc">random cat. probably chill though.</div>
+  <div class="widget">
+    <div class="widget-label">// keyboard shortcut</div>
+    <div class="tip-text">Press <strong>⌘K</strong> (or Ctrl+K) anywhere on this site to instantly search plugins and guides.</div>
+  </div>
+
+  <div class="widget">
+    <div class="widget-label">// quick tip</div>
+    <div class="tip-text">Most plugin zips are <strong>password protected</strong> — the password's always in the banner up top, just hit copy.</div>
   </div>
 
 </aside>
+
 
 </div>
 
@@ -1587,6 +1720,15 @@
     });
   }
 
+  function filterPluginChips(input, flowId) {
+    const q = input.value.toLowerCase().trim();
+    const flow = document.getElementById(flowId);
+    flow.querySelectorAll('.all-plugins-link').forEach(link => {
+      const match = link.textContent.toLowerCase().includes(q);
+      link.classList.toggle('hidden-by-search', !match);
+    });
+  }
+
   function toggleAllPlugins(btn, panelId) {
     btn.classList.toggle('open');
     const panel = document.getElementById(panelId);
@@ -1598,8 +1740,25 @@
       : label.textContent.replace('hide', 'show all');
   }
 
-  function toggleGuide(el) {
-    el.closest('.guide-item').classList.toggle('open');
+  function openGuide(card, panelId) {
+    const allCards = document.querySelectorAll('.guide-card');
+    const allPanels = document.querySelectorAll('.guide-detail-panel');
+    const panel = document.getElementById(panelId);
+    const alreadyOpen = panel.classList.contains('open') && card.classList.contains('active');
+
+    allCards.forEach(c => c.classList.remove('active'));
+    allPanels.forEach(p => p.classList.remove('open'));
+
+    if (!alreadyOpen) {
+      card.classList.add('active');
+      panel.classList.add('open');
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  function closeGuide(panelId) {
+    document.getElementById(panelId).classList.remove('open');
+    document.querySelectorAll('.guide-card').forEach(c => c.classList.remove('active'));
   }
 
   function playYT(card, videoId) {
