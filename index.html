@@ -528,6 +528,34 @@
     }
     .page-mascot:hover { transform: scale(1.08) rotate(4deg); }
 
+    .disclaimer-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px 18px;
+      margin-bottom: 40px;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .disclaimer-icon {
+      color: var(--brown-light);
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .disclaimer-text a {
+      color: var(--brown);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+    .disclaimer-text a:hover { color: var(--brown-dim); }
+
     /* ── SECTION ── */
     .section { margin-bottom: 56px; }
 
@@ -790,7 +818,23 @@
     .all-plugins-link:hover { color: #fff; background: linear-gradient(135deg, var(--brown-light), var(--brown)); border-color: var(--brown); }
     .all-plugins-link.hidden-by-search { display: none; }
 
+    .chip-ext-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8.5px;
+      font-weight: 700;
+      color: var(--brown-light);
+      background: rgba(0,0,0,0.05);
+      border-radius: 5px;
+      padding: 1px 5px;
+      margin-left: 5px;
+      letter-spacing: 0.5px;
+      vertical-align: middle;
+    }
+    .all-plugins-link:hover .chip-ext-tag,
+    .all-plugins-chip-dual:hover .chip-ext-tag { color: #fff; background: rgba(255,255,255,0.2); }
+
     /* dual-OS chip variant (plugin with both Windows and Mac links) */
+    /* dual-OS chip variant (single link, shows Win/Mac as badges) */
     .all-plugins-chip-dual {
       display: flex;
       align-items: center;
@@ -800,6 +844,8 @@
       border: 1px solid var(--border-hover);
       overflow: hidden;
       transition: all 0.15s;
+      text-decoration: none;
+      cursor: pointer;
     }
     .all-plugins-chip-dual:hover {
       background: linear-gradient(135deg, var(--brown-light), var(--brown));
@@ -822,7 +868,6 @@
       font-size: 10px;
       font-weight: 700;
       color: var(--text-muted);
-      text-decoration: none;
       padding: 6px 10px;
       border-left: 1px solid var(--border-hover);
       transition: all 0.15s;
@@ -1207,6 +1252,11 @@
     <div class="page-mascot-wrap"><img class="page-mascot" src="assets/hunnids%20shape%20files/HAPPY_HUNNIDO_clean_cropped.png" alt="hunnido" /></div>
   </div>
 
+  <div class="disclaimer-notice">
+    <span class="disclaimer-icon">ⓘ</span>
+    <span class="disclaimer-text">hunnids doesn't support piracy. We won't be listing full Adobe software here — only plugins, extensions, and resources. If you're new to navigating this space safely, <a href="https://fmhy.net/beginners-guide" target="_blank">this beginner's guide</a> is a solid starting point.</span>
+  </div>
+
   <div class="section" id="plugins">
     <div class="section-header">
       <div class="section-title">Plugins<span class="asterisk">*</span></div>
@@ -1287,34 +1337,60 @@
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1tdw9bCwz-48AW-wfYwWQz7xohKdqyAzW/view?usp=drive_link">CRT Emulator</a>
         <a class="all-plugins-link" href="https://uwu2x.alixz.ovh/">Uwu2x</a>
         <a class="all-plugins-link" href="https://github.com/NevermindNilas/TheAnimeScripter">TheAnimeScripter</a>
-        <div class="all-plugins-chip-dual">
+        <a class="all-plugins-chip-dual" href="WINDOWS_LINK_HERE">
           <span class="all-plugins-chip-name">Example Dual-OS Plugin</span>
-          <a class="all-plugins-chip-os" href="WINDOWS_LINK_HERE">Win</a>
-          <a class="all-plugins-chip-os" href="MAC_LINK_HERE">Mac</a>
-        </div>
+          <span class="all-plugins-chip-os">Win</span>
+          <span class="all-plugins-chip-os">Mac</span>
+        </a>
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1khI_ZSe0Bjj56U4MfdYQfYnJDcUAn_bT/view?usp=drive_link">Aescripts Motion Mosh v1.2.1</a>
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1C4lnXbWp2XRg5bSDTFQxR0avAFuNNf6W/view?usp=drive_link">AndrewYang Bundle 260215 (Win)</a>
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1Rl5PvgzHaDxn_TLGarN8B8u1acby_zhe/view?usp=drive_link">AutoSway v1.90</a>
-        <div class="all-plugins-chip-dual">
+        <a class="all-plugins-chip-dual" href="https://drive.google.com/file/d/1WsYJyjXv9FscJ1BKaCzJ9hCQMgiiNV7M/view?usp=drive_link">
           <span class="all-plugins-chip-name">Crates Godrays + Light Wrap</span>
-          <a class="all-plugins-chip-os" href="https://drive.google.com/file/d/1WsYJyjXv9FscJ1BKaCzJ9hCQMgiiNV7M/view?usp=drive_link">Win</a>
-          <a class="all-plugins-chip-os" href="https://drive.google.com/file/d/1WsYJyjXv9FscJ1BKaCzJ9hCQMgiiNV7M/view?usp=drive_link">Mac</a>
-        </div>
+          <span class="all-plugins-chip-os">Win</span>
+          <span class="all-plugins-chip-os">Mac</span>
+        </a>
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1XtHhsDGd4__Z9FV4bK9Eel8qetF9HYmh/view?usp=drive_link">Crossphere Plugins Bundle (Win)</a>
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1DKR0n1DO-H2SHdWDnfmKavKcs8TKJnCA/view?usp=drive_link">FilmConvert Bundle Adobe OFX (Win)</a>
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1jW08PrzhtCK_jTXaKozRpyPFZ_7gu2uO/view?usp=drive_link">FilmConvert Nitrate v3.50 Adobe (Win)</a>
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1V8DsFYmLfFqdMyHbqLGSjK5hJDQgI5vg/view?usp=drive_link">Signal 1.2.0</a>
         <a class="all-plugins-link" href="https://drive.google.com/file/d/1ClauK81p4VK4gBVvV19BLosvxegq3NE5/view?usp=drive_link">TV Distortion Bundle 2.7.5.1 (Win)</a>
-        <div class="all-plugins-chip-dual">
+        <a class="all-plugins-chip-dual" href="https://drive.google.com/file/d/1mCtgJhOx2T6i5H4NNDDvZMOGJ76nN_dC/view?usp=drive_link">
           <span class="all-plugins-chip-name">Twixtor & Twixtor Pro v7.3.1</span>
-          <a class="all-plugins-chip-os" href="https://drive.google.com/file/d/1mCtgJhOx2T6i5H4NNDDvZMOGJ76nN_dC/view?usp=drive_link">Win</a>
-          <a class="all-plugins-chip-os" href="https://drive.google.com/file/d/1mCtgJhOx2T6i5H4NNDDvZMOGJ76nN_dC/view?usp=drive_link">Mac</a>
-        </div>
-        <div class="all-plugins-chip-dual">
+          <span class="all-plugins-chip-os">Win</span>
+          <span class="all-plugins-chip-os">Mac</span>
+        </a>
+        <a class="all-plugins-chip-dual" href="https://drive.google.com/file/d/1O9AzDt3wdEYiYQV6jiZOGPDWNEho3IYN/view?usp=drive_link">
           <span class="all-plugins-chip-name">VC Optical Flares 1.3.8 Adobe</span>
-          <a class="all-plugins-chip-os" href="https://drive.google.com/file/d/1O9AzDt3wdEYiYQV6jiZOGPDWNEho3IYN/view?usp=drive_link">Win</a>
-          <a class="all-plugins-chip-os" href="https://drive.google.com/file/d/1O9AzDt3wdEYiYQV6jiZOGPDWNEho3IYN/view?usp=drive_link">Mac</a>
-        </div>
+          <span class="all-plugins-chip-os">Win</span>
+          <span class="all-plugins-chip-os">Mac</span>
+        </a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/17IHljr4_ZyFmoCwP0PD3R4BIkbqXsiQt/view?usp=drive_link">Aescripts Liquids 1.0 <span class="chip-ext-tag">EXT</span></a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/14ZE0-ICl8e1VZHO14Jg0MNVsb-DIkTiE/view?usp=drive_link">Anubis 1.0.4 <span class="chip-ext-tag">EXT</span></a>
+        <a class="all-plugins-chip-dual" href="https://drive.google.com/file/d/1O5RCRZP8frcH7WQBirsW9uGMAip0JJD4/view?usp=drive_link">
+          <span class="all-plugins-chip-name">BeatEdit Bundle 2 <span class="chip-ext-tag">EXT</span></span>
+          <span class="all-plugins-chip-os">Win</span>
+          <span class="all-plugins-chip-os">Mac</span>
+        </a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1hEEN1rt4ND56tf0ZO9FMz_rsCBxcVd4O/view?usp=drive_link">Cut'n'Pack 1.0.0 <span class="chip-ext-tag">EXT</span></a>
+        <a class="all-plugins-chip-dual" href="https://drive.google.com/file/d/1L7FNHVNzKDgjjzaKZiAA5T3nspG0Gykh/view?usp=drive_link">
+          <span class="all-plugins-chip-name">DynamicShadow 2 <span class="chip-ext-tag">EXT</span></span>
+          <span class="all-plugins-chip-os">Win</span>
+          <span class="all-plugins-chip-os">Mac</span>
+        </a>
+        <a class="all-plugins-chip-dual" href="https://drive.google.com/file/d/1yWtAV0A0HMGcyNVbuTpNA5h9e8j5Lrcs/view?usp=drive_link">
+          <span class="all-plugins-chip-name">kbar v3.1.1 <span class="chip-ext-tag">EXT</span></span>
+          <span class="all-plugins-chip-os">Win</span>
+          <span class="all-plugins-chip-os">Mac</span>
+        </a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1VulVXOSbFEtzTHxTmheMNCMp6l-E0-TR/view?usp=drive_link">Matte Tool v1.7 <span class="chip-ext-tag">EXT</span></a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1UOt4ATHSsa8C7XjTlGPFyWT_wLuZM1BK/view?usp=drive_link">Motion Tools Pro v2.0.15 <span class="chip-ext-tag">EXT</span></a>
+        <a class="all-plugins-chip-dual" href="https://drive.google.com/file/d/1vk4MIPTYBF4tzTSzb0GFg11pMmFUbCBy/view?usp=drive_link">
+          <span class="all-plugins-chip-name">MoveAnchorPoint 4 <span class="chip-ext-tag">EXT</span></span>
+          <span class="all-plugins-chip-os">Win</span>
+          <span class="all-plugins-chip-os">Mac</span>
+        </a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1zxICMs33iIYVJMwjxlQ_Fx8a7MqL1Sec/view?usp=drive_link">Project Sorter 1.7.3.1 <span class="chip-ext-tag">EXT</span></a>
       </div>
     </div>
 
