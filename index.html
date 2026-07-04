@@ -1179,6 +1179,220 @@
     /* ── SCROLLBAR ── */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
+
+    /* Discord CTA */
+    .discord-cta {
+      background: linear-gradient(135deg, #5865f2, #4752c4) !important;
+      color: #fff !important;
+      box-shadow: 0 4px 14px rgba(88,101,242,0.35);
+    }
+    .discord-cta:hover { opacity: 0.9; color: #fff !important; }
+
+    /* New Drops strip */
+    .new-drops {
+      margin-bottom: 32px;
+      background: rgba(255,255,255,0.45);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px 22px;
+    }
+
+    .new-drops-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .new-drops-label {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--brown-dim);
+    }
+
+    .new-drops-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #e8944a, #c4672a);
+      border-radius: 6px;
+      padding: 2px 7px;
+      letter-spacing: 0.5px;
+      animation: pulse-badge 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-badge {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .new-drops-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .new-drop-chip {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid var(--border-hover);
+      border-radius: 14px;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: all 0.15s;
+    }
+    .new-drop-chip:hover {
+      background: linear-gradient(135deg, var(--brown-light), var(--brown));
+      color: #fff;
+      border-color: var(--brown);
+    }
+
+    .new-drop-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #e8944a;
+      flex-shrink: 0;
+    }
+    .new-drop-chip:hover .new-drop-dot { background: rgba(255,255,255,0.7); }
+
+    .new-drop-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-muted);
+      background: rgba(0,0,0,0.05);
+      border-radius: 4px;
+      padding: 1px 5px;
+      transition: all 0.15s;
+    }
+    .new-drop-chip:hover .new-drop-tag { color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.15); }
+
+    /* Source tag on chips */
+    .chip-src-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: rgba(0,0,0,0.05);
+      border-radius: 5px;
+      padding: 1px 5px;
+      margin-left: 4px;
+      letter-spacing: 0.3px;
+      vertical-align: middle;
+      transition: all 0.15s;
+    }
+    .all-plugins-link:hover .chip-src-tag,
+    .all-plugins-chip-dual:hover .chip-src-tag { color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.15); }
+
+    /* About modal */
+    .about-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(40,45,55,0.45);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+    }
+    .about-modal-overlay.open { display: flex; }
+
+    .about-modal {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: 28px;
+      width: 560px;
+      max-width: 90vw;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 36px 40px;
+      box-shadow: 0 24px 60px rgba(40,45,60,0.2);
+      position: relative;
+    }
+
+    .about-modal-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border-hover);
+      background: rgba(255,255,255,0.5);
+      transition: all 0.15s;
+    }
+    .about-modal-close:hover { background: rgba(255,255,255,0.9); color: var(--brown-dim); }
+
+    .about-title {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--brown-dim);
+      margin-bottom: 6px;
+    }
+
+    .about-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--brown-light);
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+    }
+
+    .about-section-title {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--brown-dim);
+      margin: 20px 0 8px;
+    }
+
+    .about-body {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    .about-body a {
+      color: var(--brown);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .about-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 20px 0;
+    }
+
+    .about-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 10px 22px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #5865f2, #4752c4);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(88,101,242,0.3);
+      transition: opacity 0.15s;
+    }
+    .about-cta:hover { opacity: 0.88; }
   </style>
 </head>
 <body>
@@ -1206,7 +1420,8 @@
     <div class="header-tabs">
       <a class="tab active" href="#">Home</a>
       <a class="tab" href="#faq">FAQ</a>
-      <a class="tab" href="https://discord.gg/AcuUU2zpdD">Discord</a>
+      <a class="tab" onclick="openAbout()">About</a>
+      <a class="tab discord-cta" href="https://discord.gg/AcuUU2zpdD" target="_blank">Join Discord ↗</a>
     </div>
   </div>
   <div class="header-right">
@@ -1239,6 +1454,36 @@
   </div>
 </div>
 
+<!-- ABOUT MODAL -->
+<div class="about-modal-overlay" id="about-modal" onclick="if(event.target===this)closeAbout()">
+  <div class="about-modal">
+    <div class="about-modal-close" onclick="closeAbout()">close ✕</div>
+    <div class="about-title">hunnids<span style="color:var(--brown-light)">*</span></div>
+    <div class="about-sub">// a resource hub for editors</div>
+    <div class="about-body">
+      hunnids is a Discord-based community of editors sharing plugins, extensions, guides, and tools — all curated and verified by the team before they go up. Everything here is free to access.
+    </div>
+    <div class="about-divider"></div>
+    <div class="about-section-title">What we host</div>
+    <div class="about-body">
+      Plugins and extensions for After Effects and Premiere Pro, curated guides with video tutorials, and a list of helpful external tools and websites. We don't host full Adobe software — only plugins, extensions, and resources.
+    </div>
+    <div class="about-section-title">On piracy</div>
+    <div class="about-body">
+      hunnids doesn't support piracy. All links go to files we've packaged and verified ourselves. We always recommend scanning downloads before installing — false positives are common with repacked software. If you're new to navigating this space, <a href="https://fmhy.net/beginners-guide" target="_blank">this beginner's guide</a> is a solid starting point.
+    </div>
+    <div class="about-section-title">Encrypted downloads</div>
+    <div class="about-body">
+      Most downloads are password protected. The password is always displayed in the banner at the top of the page — just hit copy.
+    </div>
+    <div class="about-section-title">Community</div>
+    <div class="about-body">
+      hunnids started as a Discord server and this site is an extension of that. Join to get updates on new drops, ask questions, and connect with other editors.
+    </div>
+    <a class="about-cta" href="https://discord.gg/AcuUU2zpdD" target="_blank">Join the Discord ↗</a>
+  </div>
+</div>
+
 <div class="layout">
 
 <main>
@@ -1255,6 +1500,31 @@
   <div class="disclaimer-notice">
     <span class="disclaimer-icon">ⓘ</span>
     <span class="disclaimer-text">hunnids doesn't support piracy. We won't be listing full Adobe software here — only plugins, extensions, and resources. If you're new to navigating this space safely, <a href="https://fmhy.net/beginners-guide" target="_blank">this beginner's guide</a> is a solid starting point.</span>
+  </div>
+
+  <!-- NEW DROPS -->
+  <div class="new-drops">
+    <div class="new-drops-header">
+      <div class="new-drops-label">New Drops</div>
+      <div class="new-drops-badge">LIVE</div>
+    </div>
+    <div class="new-drops-list">
+      <a class="new-drop-chip" href="https://drive.google.com/file/d/1SqYVQiaOAgmiiQeqOReHk23VHcsWmUQW/view?usp=drive_link">
+        <div class="new-drop-dot"></div>Shake Sauce<span class="new-drop-tag">AE</span>
+      </a>
+      <a class="new-drop-chip" href="https://drive.google.com/file/d/1zxICMs33iIYVJMwjxlQ_Fx8a7MqL1Sec/view?usp=drive_link">
+        <div class="new-drop-dot"></div>Project Sorter 1.7.3.1<span class="new-drop-tag">EXT</span>
+      </a>
+      <a class="new-drop-chip" href="https://drive.google.com/file/d/1vk4MIPTYBF4tzTSzb0GFg11pMmFUbCBy/view?usp=drive_link">
+        <div class="new-drop-dot"></div>MoveAnchorPoint 4<span class="new-drop-tag">EXT</span>
+      </a>
+      <a class="new-drop-chip" href="https://drive.google.com/file/d/1UOt4ATHSsa8C7XjTlGPFyWT_wLuZM1BK/view?usp=drive_link">
+        <div class="new-drop-dot"></div>Motion Tools Pro v2.0.15<span class="new-drop-tag">EXT</span>
+      </a>
+      <a class="new-drop-chip" href="https://drive.google.com/file/d/1O9AzDt3wdEYiYQV6jiZOGPDWNEho3IYN/view?usp=drive_link">
+        <div class="new-drop-dot"></div>VC Optical Flares 1.3.8<span class="new-drop-tag">AE</span>
+      </a>
+    </div>
   </div>
 
   <div class="section" id="plugins">
@@ -1328,15 +1598,15 @@
     <div class="all-plugins-panel" id="ae-plugins-panel">
       <input type="text" class="all-plugins-search" placeholder="Filter After Effects plugins..." oninput="filterPluginChips(this, 'ae-plugins-flow')" />
       <div class="all-plugins-flow" id="ae-plugins-flow">
-        <a class="all-plugins-link" href="https://drive.google.com/file/d/1MUuBVfXF1H9o9igxZn8ocF_pSah-0fl1/view?usp=drive_link">Flow</a>
-        <a class="all-plugins-link" href="https://drive.google.com/file/d/1iFzsuoV_y5kFrihze337dVqdVBxDF3wf/view?usp=drive_link">Newton 4</a>
-        <a class="all-plugins-link" href="https://www.videocopilot.net/blog/2018/05/fx-console-updated-to-v1-0-3/">FxConsole</a>
-        <a class="all-plugins-link" href="https://drive.google.com/file/d/1XsSQPcfZ6WvEC5e9qHlBZ7iinMjRDzCI/view?usp=drive_link">DataMosh 2</a>
-        <a class="all-plugins-link" href="https://drive.google.com/file/d/1UKJH3FSq39jK5jevRBt_1qhlA6wpX4wH/view?usp=drive_link">TextEvo</a>
-        <a class="all-plugins-link" href="https://drive.google.com/file/d/1noIK3p75dxbMvEvO9vfGaHE06XZ2b25y/view?usp=drive_link">Matrix</a>
-        <a class="all-plugins-link" href="https://drive.google.com/file/d/1tdw9bCwz-48AW-wfYwWQz7xohKdqyAzW/view?usp=drive_link">CRT Emulator</a>
-        <a class="all-plugins-link" href="https://uwu2x.alixz.ovh/">Uwu2x</a>
-        <a class="all-plugins-link" href="https://github.com/NevermindNilas/TheAnimeScripter">TheAnimeScripter</a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1MUuBVfXF1H9o9igxZn8ocF_pSah-0fl1/view?usp=drive_link">Flow <span class="chip-src-tag">GD</span></a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1iFzsuoV_y5kFrihze337dVqdVBxDF3wf/view?usp=drive_link">Newton 4 <span class="chip-src-tag">GD</span></a>
+        <a class="all-plugins-link" href="https://www.videocopilot.net/blog/2018/05/fx-console-updated-to-v1-0-3/">FxConsole <span class="chip-src-tag">WEB</span></a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1XsSQPcfZ6WvEC5e9qHlBZ7iinMjRDzCI/view?usp=drive_link">DataMosh 2 <span class="chip-src-tag">GD</span></a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1UKJH3FSq39jK5jevRBt_1qhlA6wpX4wH/view?usp=drive_link">TextEvo <span class="chip-src-tag">GD</span></a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1noIK3p75dxbMvEvO9vfGaHE06XZ2b25y/view?usp=drive_link">Matrix <span class="chip-src-tag">GD</span></a>
+        <a class="all-plugins-link" href="https://drive.google.com/file/d/1tdw9bCwz-48AW-wfYwWQz7xohKdqyAzW/view?usp=drive_link">CRT Emulator <span class="chip-src-tag">GD</span></a>
+        <a class="all-plugins-link" href="https://uwu2x.alixz.ovh/">Uwu2x <span class="chip-src-tag">WEB</span></a>
+        <a class="all-plugins-link" href="https://github.com/NevermindNilas/TheAnimeScripter">TheAnimeScripter <span class="chip-src-tag">GH</span></a>
         <a class="all-plugins-chip-dual" href="WINDOWS_LINK_HERE">
           <span class="all-plugins-chip-name">Example Dual-OS Plugin</span>
           <span class="all-plugins-chip-os">Win</span>
@@ -1970,6 +2240,13 @@
 </div>
 
 <script>
+  function openAbout() {
+    document.getElementById('about-modal').classList.add('open');
+  }
+  function closeAbout() {
+    document.getElementById('about-modal').classList.remove('open');
+  }
+
   function copyPW() {
     navigator.clipboard.writeText('h100').then(() => {
       const btn = document.getElementById('copy-btn');
@@ -2162,7 +2439,7 @@
 
   document.addEventListener('keydown', e => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
-    if (e.key === 'Escape') closeSearch();
+    if (e.key === 'Escape') { closeSearch(); closeAbout(); }
   });
 
   document.getElementById('search-modal').addEventListener('click', function(e) {
