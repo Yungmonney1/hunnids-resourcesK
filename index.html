@@ -452,32 +452,119 @@
     }
 
     /* ── PAGE HEADER / HERO (glass card, like the trending poster) ── */
-    .page-header {
-      margin-bottom: 44px;
+    /* ── HERO CAROUSEL ── */
+    .hero-carousel {
       position: relative;
-      background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(235,240,248,0.5) 100%);
-      backdrop-filter: blur(18px);
-      border: 1px solid var(--border);
+      margin-bottom: 28px;
       border-radius: 28px;
-      padding: 40px 44px;
       overflow: hidden;
+      box-shadow: var(--shadow-pop);
+      height: 220px;
+    }
+
+    .hero-slides {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.45s cubic-bezier(.4,0,.2,1);
+    }
+
+    .hero-slide {
+      min-width: 100%;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 32px;
-      box-shadow: var(--shadow-pop);
+      padding: 36px 44px;
+      gap: 24px;
+      position: relative;
     }
 
-    .page-header::before {
-      content: '';
+    .hero-slide-video-bg {
       position: absolute;
-      top: -60px; right: -60px;
-      width: 220px; height: 220px;
-      background: radial-gradient(circle, rgba(255,255,255,0.6), transparent 70%);
-      border-radius: 50%;
+      inset: 0;
+      z-index: 0;
     }
 
-    .page-header-text { flex: 1; position: relative; z-index: 1; }
+    .hero-slide-video-bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-slide-video-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(10,8,20,0.78) 0%, rgba(30,20,50,0.55) 100%);
+    }
+
+    .hero-slide-content {
+      flex: 1;
+      z-index: 1;
+    }
+
+    .hero-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 14px;
+      padding: 8px 20px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 12.5px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .hero-cta-btn:hover { background: rgba(255,255,255,0.35); }
+
+    .hero-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-hover);
+      color: var(--text-primary);
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, transform 0.15s;
+      z-index: 10;
+      line-height: 1;
+      padding-bottom: 2px;
+    }
+    .hero-arrow:hover { background: rgba(255,255,255,0.9); transform: translateY(-50%) scale(1.08); }
+    .hero-arrow-left { left: 14px; }
+    .hero-arrow-right { right: 14px; }
+
+    .hero-dots {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .hero-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .hero-dot.active { width: 20px; border-radius: 3px; background: rgba(255,255,255,0.9); }
 
     .page-eyebrow {
       font-family: 'JetBrains Mono', monospace;
@@ -1570,13 +1657,60 @@
 
 <main>
 
-  <div class="page-header">
-    <div class="page-header-text">
-      <div class="page-eyebrow">// resource hub</div>
-      <div class="page-title">hunnids<span class="asterisk">*</span></div>
-      <div class="page-desc">Plugins, guides, and tools curated for editors. New resources are added regularly, so check back often.</div>
+  <div class="hero-carousel">
+    <div class="hero-slides" id="hero-slides">
+
+      <!-- Slide 1: Main hunnids intro -->
+      <div class="hero-slide active" style="background: linear-gradient(135deg, rgba(255,255,255,0.75) 0%, rgba(220,228,245,0.6) 100%);">
+        <div class="hero-slide-content">
+          <div class="page-eyebrow">// resource hub</div>
+          <div class="page-title">hunnids<span class="asterisk">*</span></div>
+          <div class="page-desc">Plugins, guides, and tools curated for editors. New resources are added regularly — check back often.</div>
+        </div>
+        <div class="page-mascot-wrap">
+          <img class="page-mascot" src="assets/hunnids%20shape%20files/HAPPY_HUNNIDO_clean_cropped.png" alt="hunnido" />
+        </div>
+      </div>
+
+      <!-- Slide 2: Editor spotlight -->
+      <div class="hero-slide" style="background: linear-gradient(135deg, rgba(20,20,30,0.82) 0%, rgba(40,35,60,0.75) 100%);">
+        <div class="hero-slide-video-bg">
+          <video src="https://files.catbox.moe/2rgl6q.mp4" autoplay muted loop playsinline></video>
+          <div class="hero-slide-video-overlay"></div>
+        </div>
+        <div class="hero-slide-content" style="position:relative; z-index:2;">
+          <div class="page-eyebrow" style="color:rgba(255,255,255,0.6);">// editor spotlight</div>
+          <div class="page-title" style="color:#fff; font-size:34px;">blazingheartt</div>
+          <div class="page-desc" style="color:rgba(255,255,255,0.75);">Featured editor from the hunnids community. Check out their work.</div>
+          <a href="https://www.tiktok.com/@blazingheartt" target="_blank" class="hero-cta-btn">View TikTok ↗</a>
+        </div>
+      </div>
+
+      <!-- Slide 3: Featured plugin -->
+      <div class="hero-slide" style="background: linear-gradient(135deg, rgba(230,240,255,0.75) 0%, rgba(210,225,248,0.6) 100%);">
+        <div class="hero-slide-content">
+          <div class="page-eyebrow">// featured plugin</div>
+          <div class="page-title" style="font-size:34px;">Flow</div>
+          <div class="page-desc">One of the best free easing tools for After Effects. Smooth out your keyframes in seconds — no setup needed.</div>
+          <a href="https://drive.google.com/file/d/1MUuBVfXF1H9o9igxZn8ocF_pSah-0fl1/view?usp=drive_link" target="_blank" class="hero-cta-btn">Download Free ↗</a>
+        </div>
+        <div class="page-mascot-wrap">
+          <img class="page-mascot" src="assets/hunnids%20shape%20files/KILO_SHAPE_00000_clean_cropped.png" alt="kilo" />
+        </div>
+      </div>
+
     </div>
-    <div class="page-mascot-wrap"><img class="page-mascot" src="assets/hunnids%20shape%20files/HAPPY_HUNNIDO_clean_cropped.png" alt="hunnido" /></div>
+
+    <!-- Navigation arrows -->
+    <button class="hero-arrow hero-arrow-left" onclick="moveSlide(-1)">‹</button>
+    <button class="hero-arrow hero-arrow-right" onclick="moveSlide(1)">›</button>
+
+    <!-- Dot indicators -->
+    <div class="hero-dots">
+      <div class="hero-dot active" onclick="goToSlide(0)"></div>
+      <div class="hero-dot" onclick="goToSlide(1)"></div>
+      <div class="hero-dot" onclick="goToSlide(2)"></div>
+    </div>
   </div>
 
   <div class="disclaimer-notice">
@@ -2284,18 +2418,6 @@
 
 <aside class="right-sidebar">
 
-  <!-- EDITOR SPOTLIGHT -->
-  <div class="spotlight-widget">
-    <div class="spotlight-video-wrap">
-      <video src="https://files.catbox.moe/2rgl6q.mp4" autoplay muted loop playsinline></video>
-    </div>
-    <div class="spotlight-info">
-      <div class="spotlight-label">// editor spotlight</div>
-      <div class="spotlight-name">blazingheartt</div>
-      <a class="spotlight-link" href="https://www.tiktok.com/@blazingheartt" target="_blank">@blazingheartt ↗</a>
-    </div>
-  </div>
-
   <div class="widget">
     <div class="widget-label">// the vibe</div>
     <div class="hype-text">editing resources, nothing else.</div>
@@ -2371,6 +2493,23 @@
 </div>
 
 <script>
+  // Hero carousel
+  let currentSlide = 0;
+  const totalSlides = 3;
+
+  function goToSlide(n) {
+    currentSlide = n;
+    document.getElementById('hero-slides').style.transform = `translateX(-${n * 100}%)`;
+    document.querySelectorAll('.hero-dot').forEach((d, i) => d.classList.toggle('active', i === n));
+  }
+
+  function moveSlide(dir) {
+    goToSlide((currentSlide + dir + totalSlides) % totalSlides);
+  }
+
+  // Auto-advance every 5 seconds
+  setInterval(() => moveSlide(1), 5000);
+
   function openAbout() {
     document.getElementById('about-modal').classList.add('open');
   }
