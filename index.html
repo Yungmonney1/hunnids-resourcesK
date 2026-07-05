@@ -28,6 +28,165 @@
       --shadow-pop: 0 14px 40px rgba(40, 45, 60, 0.14);
     }
 
+    /* ── DARK MODE ── */
+    body.dark-mode {
+      --bg: #0f1117;
+      --bg-soft: #161a24;
+      --bg-card: rgba(22, 27, 40, 0.75);
+      --bg-hover: rgba(30, 36, 54, 0.9);
+      --bg-sidebar: rgba(18, 22, 34, 0.7);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.15);
+      --text-primary: #e8eaf0;
+      --text-secondary: #8892a4;
+      --text-muted: #4a5268;
+      --brown: #8ba0c4;
+      --brown-dim: #c4d4f0;
+      --brown-light: #5a7aaa;
+      --cream-pop: rgba(30, 36, 54, 0.95);
+      --white: #1a1f2e;
+      --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.3);
+      --shadow-pop: 0 14px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    body.dark-mode {
+      background-image:
+        radial-gradient(circle at 12% 10%, rgba(40, 60, 120, 0.35) 0%, transparent 45%),
+        radial-gradient(circle at 88% 18%, rgba(60, 40, 100, 0.25) 0%, transparent 45%),
+        radial-gradient(circle at 30% 85%, rgba(20, 60, 80, 0.25) 0%, transparent 45%),
+        radial-gradient(circle at 90% 90%, rgba(50, 30, 60, 0.2) 0%, transparent 45%);
+    }
+
+    body.dark-mode .hero-slide[style*="rgba(255,255,255"] {
+      background: linear-gradient(135deg, rgba(22,28,45,0.9) 0%, rgba(18,24,42,0.85) 100%) !important;
+    }
+
+    /* dark mode toggle button */
+    .dark-toggle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border-hover);
+      background: var(--bg-card);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .dark-toggle:hover { background: var(--cream-pop); transform: scale(1.08); }
+
+    /* smooth theme transition */
+    body, body * {
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* creator section */
+    .creator-section {
+      margin-top: 60px;
+      margin-bottom: 20px;
+    }
+
+    .creator-card {
+      position: relative;
+      background: linear-gradient(135deg, rgba(255,255,255,0.75) 0%, rgba(218,228,248,0.65) 100%);
+      backdrop-filter: blur(22px) saturate(160%);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 44px 48px;
+      display: flex;
+      align-items: center;
+      gap: 44px;
+      box-shadow: var(--shadow-pop);
+      overflow: hidden;
+    }
+
+    body.dark-mode .creator-card {
+      background: linear-gradient(135deg, rgba(22,28,45,0.85) 0%, rgba(18,24,42,0.8) 100%);
+    }
+
+    .creator-card::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(255,255,255,0.25), transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .creator-photo {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--border-hover);
+      flex-shrink: 0;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .creator-photo-placeholder {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: var(--bg-soft);
+      border: 3px dashed var(--border-hover);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+
+    .creator-content { flex: 1; position: relative; z-index: 1; }
+
+    .creator-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--brown-light);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .creator-name {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--brown-dim);
+      margin-bottom: 14px;
+    }
+
+    .creator-bio {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      max-width: 620px;
+    }
+
+    .creator-bio strong { color: var(--text-primary); font-weight: 700; }
+
+    .creator-video-placeholder {
+      flex-shrink: 0;
+      width: 220px;
+      height: 130px;
+      border-radius: 16px;
+      background: var(--bg-soft);
+      border: 1px dashed var(--border-hover);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .creator-video-placeholder:hover { border-color: var(--brown-light); background: var(--bg-hover); }
+    .creator-video-placeholder span { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-muted); }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
@@ -1636,6 +1795,7 @@
     </div>
   </div>
   <div class="header-right">
+    <button class="dark-toggle" onclick="toggleDark()" id="dark-toggle" title="Toggle dark mode">🌙</button>
     <div class="search-bar" onclick="openSearch()" id="search-trigger">
       <span>⌕</span> Search<span class="kbd">⌘K</span>
     </div>
@@ -2455,6 +2615,31 @@
     <div class="coming-soon">// more sites being curated — suggestions welcome in Discord</div>
   </div>
 
+  <!-- CREATOR SECTION -->
+  <div class="creator-section" id="creator">
+    <div class="section-header">
+      <div class="section-title">About the Creator<span class="asterisk">*</span></div>
+      <div class="section-line"></div>
+    </div>
+    <div class="creator-card">
+      <img class="creator-photo" src="assets/hunnids%20shape%20files/kashmoney_icon.png" alt="kashmoney" id="creator-photo-wrap" />
+      <div class="creator-content">
+        <div class="creator-eyebrow">// the person behind it</div>
+        <div class="creator-name">kashmoney</div>
+        <div class="creator-bio">
+          hey, i'm kashmoney — owner and founder of hunnids. i started this whole thing because i was tired of digging through sketchy sites just to find decent plugins, lol. so i built this instead.<br><br>
+          <strong>every single thing on this site i've personally downloaded and tested myself.</strong> if it's here, it works. i'm not just throwing random links up — i actually use this stuff while editing.<br><br>
+          i know a site like this can look a little suspicious at first glance, totally get it. but this is 100% a community thing built for editors by an editor. no ads, no weird stuff, no catch. just free resources. feel free to hop in the discord if you have any questions or just want to link up 🤝
+        </div>
+      </div>
+      <div class="creator-video-placeholder" id="creator-video-wrap">
+        <span style="font-size:24px;">▶</span>
+        <span>// site walkthrough</span>
+        <span>coming soon</span>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <aside class="right-sidebar">
@@ -2534,6 +2719,19 @@
 </div>
 
 <script>
+  // Dark mode
+  function toggleDark() {
+    const isDark = document.body.classList.toggle('dark-mode');
+    document.getElementById('dark-toggle').textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('hunnids-theme', isDark ? 'dark' : 'light');
+  }
+
+  // Restore theme on load
+  if (localStorage.getItem('hunnids-theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+    document.getElementById('dark-toggle').textContent = '☀️';
+  }
+
   // Hero carousel - crossfade
   let currentSlide = 0;
   const totalSlides = 3;
