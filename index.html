@@ -1274,24 +1274,44 @@
     }
     .new-drop-chip:hover .new-drop-tag { color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.15); }
 
-    /* Verified clean badge on plugin cards */
+    /* Verified clean badge — tooltip on hover */
+    .plugin-card-bottom { position: relative; }
+
     .verified-badge {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%) scale(0.85);
+      transform-origin: bottom center;
       display: inline-flex;
       align-items: center;
       gap: 4px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 9px;
       font-weight: 700;
-      color: #2da44e;
-      background: rgba(45, 164, 78, 0.1);
-      border: 1px solid rgba(45, 164, 78, 0.25);
-      border-radius: 6px;
-      padding: 2px 7px;
-      letter-spacing: 0.3px;
+      color: #fff;
+      background: #2da44e;
+      border-radius: 8px;
+      padding: 4px 10px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s, transform 0.15s;
+      box-shadow: 0 4px 12px rgba(45,164,78,0.3);
     }
-    .verified-badge::before {
-      content: '✓';
-      font-size: 9px;
+    .verified-badge::before { content: '✓ '; }
+    .verified-badge::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #2da44e;
+    }
+    .plugin-card:hover .verified-badge {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
     }
 
     /* Editor spotlight widget */
@@ -2279,6 +2299,18 @@
 
 <aside class="right-sidebar">
 
+  <!-- EDITOR SPOTLIGHT -->
+  <div class="spotlight-widget">
+    <div class="spotlight-video-wrap">
+      <video src="https://files.catbox.moe/2rgl6q.mp4" autoplay muted loop playsinline></video>
+    </div>
+    <div class="spotlight-info">
+      <div class="spotlight-label">// editor spotlight</div>
+      <div class="spotlight-name">blazingheartt</div>
+      <a class="spotlight-link" href="https://www.tiktok.com/@blazingheartt" target="_blank">@blazingheartt ↗</a>
+    </div>
+  </div>
+
   <div class="widget">
     <div class="widget-label">// the vibe</div>
     <div class="hype-text">editing resources, nothing else.</div>
@@ -2337,18 +2369,6 @@
   <div class="widget">
     <div class="widget-label">// quick tip</div>
     <div class="tip-text">Most plugin zips are <strong>password protected</strong> — the password's always in the banner up top, just hit copy.</div>
-  </div>
-
-  <!-- EDITOR SPOTLIGHT -->
-  <div class="spotlight-widget">
-    <div class="spotlight-video-wrap">
-      <video src="https://files.catbox.moe/2rgl6q.mp4" autoplay muted loop playsinline></video>
-    </div>
-    <div class="spotlight-info">
-      <div class="spotlight-label">// editor spotlight</div>
-      <div class="spotlight-name">blazingheartt</div>
-      <a class="spotlight-link" href="https://www.tiktok.com/@blazingheartt" target="_blank">@blazingheartt ↗</a>
-    </div>
   </div>
 
   <!-- REQUEST FORM -->
