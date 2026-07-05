@@ -1275,14 +1275,12 @@
     .new-drop-chip:hover .new-drop-tag { color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.15); }
 
     /* Verified clean badge — tooltip on hover */
-    .plugin-card-bottom { position: relative; }
+    .plugin-card { position: relative; }
 
     .verified-badge {
       position: absolute;
-      bottom: calc(100% + 6px);
-      left: 50%;
-      transform: translateX(-50%) scale(0.85);
-      transform-origin: bottom center;
+      top: 10px;
+      right: 10px;
       display: inline-flex;
       align-items: center;
       gap: 4px;
@@ -1296,23 +1294,11 @@
       white-space: nowrap;
       pointer-events: none;
       opacity: 0;
-      transition: opacity 0.15s, transform 0.15s;
+      transition: opacity 0.2s;
       box-shadow: 0 4px 12px rgba(45,164,78,0.3);
     }
     .verified-badge::before { content: '✓ '; }
-    .verified-badge::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 5px solid transparent;
-      border-top-color: #2da44e;
-    }
-    .plugin-card:hover .verified-badge {
-      opacity: 1;
-      transform: translateX(-50%) scale(1);
-    }
+    .plugin-card:hover .verified-badge { opacity: 1; }
 
     /* Editor spotlight widget */
     .spotlight-widget {
@@ -1328,17 +1314,16 @@
     .spotlight-video-wrap {
       position: relative;
       width: 100%;
-      padding-top: 56.25%;
+      height: 200px;
       background: #000;
       overflow: hidden;
     }
 
     .spotlight-video-wrap video {
-      position: absolute;
-      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
     .spotlight-info {
