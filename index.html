@@ -109,6 +109,12 @@
     body.dark-mode .disclaimer-notice {
       background: rgba(22,28,45,0.7);
     }
+    body.dark-mode .new-drops-badge {
+      background: linear-gradient(135deg, #4a6aaa, #2a4a8a);
+    }
+    body.dark-mode .new-drop-dot {
+      background: #6a90cc;
+    }
 
     /* dark mode toggle button */
     .dark-toggle {
@@ -134,9 +140,8 @@
 
     /* creator section */
     .creator-section {
-      margin-top: 80px;
+      margin-top: 60px;
       margin-bottom: 20px;
-      clip-path: inset(-80px 0px 0px 0px round 0px);
     }
 
     .creator-card {
@@ -145,17 +150,26 @@
       backdrop-filter: blur(22px) saturate(160%);
       border: 1px solid var(--border);
       border-radius: 28px;
-      padding: 44px 48px 44px 200px;
+      padding: 40px 44px;
       display: flex;
-      align-items: center;
-      gap: 44px;
+      align-items: flex-start;
+      gap: 36px;
       box-shadow: var(--shadow-pop);
-      overflow: visible;
-      min-height: 180px;
+      overflow: hidden;
     }
 
     body.dark-mode .creator-card {
-      background: linear-gradient(135deg, rgba(22,28,45,0.85) 0%, rgba(18,24,42,0.8) 100%);
+      position: relative;
+      background: linear-gradient(135deg, rgba(255,255,255,0.75) 0%, rgba(218,228,248,0.65) 100%);
+      backdrop-filter: blur(22px) saturate(160%);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 40px 44px;
+      display: flex;
+      align-items: flex-start;
+      gap: 36px;
+      box-shadow: var(--shadow-pop);
+      overflow: hidden;
     }
 
     .creator-card::before {
@@ -169,17 +183,13 @@
     }
 
     .creator-photo {
-      position: absolute;
-      left: 40px;
-      top: -50px;
-      width: 175px;
-      height: 175px;
-      border-radius: 50%;
+      width: 140px;
+      height: 140px;
+      flex-shrink: 0;
+      border-radius: 20px;
       object-fit: cover;
-      border: 3px solid rgba(255,255,255,0.6);
-      box-shadow: var(--shadow-pop);
-      z-index: 10;
-      background: var(--bg-soft);
+      border: none;
+      box-shadow: var(--shadow-soft);
     }
 
     .creator-photo-placeholder {
@@ -1559,7 +1569,7 @@
       font-size: 9px;
       font-weight: 700;
       color: #fff;
-      background: linear-gradient(135deg, #4da8f7, #1a7fd4);
+      background: linear-gradient(135deg, #5a78c4, #3a5aaa);
       border-radius: 6px;
       padding: 2px 7px;
       letter-spacing: 0.5px;
@@ -1601,7 +1611,7 @@
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background: #4da8f7;
+      background: #5a78c4;
       flex-shrink: 0;
     }
     .new-drop-chip:hover .new-drop-dot { background: rgba(255,255,255,0.7); }
@@ -1818,6 +1828,80 @@
       transition: opacity 0.15s;
     }
     .about-cta:hover { opacity: 0.88; }
+
+    /* Dark mode — pill buttons and tags */
+    body.dark-mode .plugin-tag {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.12);
+      color: var(--text-muted);
+    }
+    body.dark-mode .guide-tag {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.12);
+      color: var(--text-secondary);
+    }
+    body.dark-mode .chip-ext-tag {
+      color: var(--text-muted);
+    }
+    body.dark-mode .plugin-section-label {
+      color: var(--text-secondary);
+    }
+    body.dark-mode .guide-card {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.1);
+    }
+    body.dark-mode .guide-card:hover {
+      background: rgba(255,255,255,0.09);
+    }
+    body.dark-mode .guide-detail-panel {
+      background: rgba(22,28,45,0.8);
+      border-color: rgba(255,255,255,0.1);
+    }
+    body.dark-mode .faq-item {
+      background: rgba(255,255,255,0.05);
+    }
+    body.dark-mode .faq-q:hover {
+      background: rgba(255,255,255,0.05);
+    }
+    body.dark-mode .faq-a {
+      background: rgba(255,255,255,0.03);
+    }
+    body.dark-mode .site-card {
+      background: rgba(255,255,255,0.05);
+    }
+    body.dark-mode .site-card:hover {
+      background: rgba(255,255,255,0.09);
+    }
+    body.dark-mode .plugin-card {
+      background: rgba(255,255,255,0.05);
+    }
+    body.dark-mode .plugin-card:hover {
+      background: rgba(255,255,255,0.09);
+    }
+    body.dark-mode .widget {
+      background: rgba(22,28,45,0.75);
+    }
+    body.dark-mode .widget:hover {
+      background: rgba(28,34,52,0.9);
+    }
+    body.dark-mode main {
+      background: rgba(15,18,30,0.6);
+    }
+    body.dark-mode .right-sidebar {
+      background: rgba(15,18,30,0.5);
+    }
+    body.dark-mode .hero-slide.active[style*="rgba(255"] {
+      background: linear-gradient(135deg, rgba(18,22,38,0.92) 0%, rgba(22,28,48,0.88) 100%) !important;
+    }
+    body.dark-mode .creator-card {
+      background: linear-gradient(135deg, rgba(22,28,45,0.9) 0%, rgba(18,24,42,0.85) 100%);
+    }
+    body.dark-mode .icon-sidebar {
+      background: rgba(12,15,26,0.85);
+    }
+    body.dark-mode header {
+      background: rgba(12,15,26,0.85);
+    }
   </style>
 </head>
 <body>
@@ -2677,7 +2761,7 @@
       <div class="section-line"></div>
     </div>
     <div class="creator-card">
-      <img class="creator-photo" src="assets/hunnids%20shape%20files/kashmoney_icon.png" alt="kashmoney" id="creator-photo-wrap" />
+      <img class="creator-photo" src="assets/hunnids%20shape%20files/kashmoney_icon.png" alt="kashmoney" />
       <div class="creator-content">
         <div class="creator-eyebrow">// the person behind it</div>
         <div class="creator-name">kashmoney</div>
