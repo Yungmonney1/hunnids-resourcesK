@@ -1216,7 +1216,7 @@
       font-size: 9px;
       font-weight: 700;
       color: #fff;
-      background: linear-gradient(135deg, #e8944a, #c4672a);
+      background: linear-gradient(135deg, #4da8f7, #1a7fd4);
       border-radius: 6px;
       padding: 2px 7px;
       letter-spacing: 0.5px;
@@ -1258,7 +1258,7 @@
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background: #e8944a;
+      background: #4da8f7;
       flex-shrink: 0;
     }
     .new-drop-chip:hover .new-drop-dot { background: rgba(255,255,255,0.7); }
@@ -1273,6 +1273,83 @@
       transition: all 0.15s;
     }
     .new-drop-chip:hover .new-drop-tag { color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.15); }
+
+    /* Verified clean badge on plugin cards */
+    .verified-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      color: #2da44e;
+      background: rgba(45, 164, 78, 0.1);
+      border: 1px solid rgba(45, 164, 78, 0.25);
+      border-radius: 6px;
+      padding: 2px 7px;
+      letter-spacing: 0.3px;
+    }
+    .verified-badge::before {
+      content: '✓';
+      font-size: 9px;
+    }
+
+    /* Editor spotlight widget */
+    .spotlight-widget {
+      background: rgba(255,255,255,0.55);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .spotlight-widget:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); }
+
+    .spotlight-video-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .spotlight-video-wrap video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .spotlight-info {
+      padding: 14px 18px 16px;
+    }
+
+    .spotlight-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #4da8f7;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .spotlight-name {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .spotlight-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: var(--brown-light);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .spotlight-link:hover { color: var(--brown); }
 
     /* Source tag on chips */
     .chip-src-tag {
@@ -1546,47 +1623,47 @@
       <a class="plugin-card" data-soft="ae" data-price="free" href="https://drive.google.com/file/d/1MUuBVfXF1H9o9igxZn8ocF_pSah-0fl1/view?usp=drive_link">
         <div class="plugin-card-top"><span class="plugin-name">Flow</span></div>
         <div class="plugin-desc">Smooth, intuitive easing for your keyframes. One of the best free animation tools out there.</div>
-        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="verified-badge">verified</span><span class="plugin-arrow">→</span></div>
       </a>
       <a class="plugin-card" data-soft="ae" data-price="paid" href="https://drive.google.com/file/d/1iFzsuoV_y5kFrihze337dVqdVBxDF3wf/view?usp=drive_link">
         <div class="plugin-card-top"><span class="plugin-name">Newton 4</span></div>
         <div class="plugin-desc">Realistic 2D physics simulation right inside After Effects. Industry standard for bounce and collision.</div>
-        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="verified-badge">verified</span><span class="plugin-arrow">→</span></div>
       </a>
       <a class="plugin-card" data-soft="ae" data-price="free" href="https://www.videocopilot.net/blog/2018/05/fx-console-updated-to-v1-0-3/">
         <div class="plugin-card-top"><span class="plugin-name">FxConsole</span></div>
         <div class="plugin-desc">Quickly search and apply any effect or preset by name without digging through panels.</div>
-        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="verified-badge">verified</span><span class="plugin-arrow">→</span></div>
       </a>
       <a class="plugin-card" data-soft="ae" data-price="paid" href="https://drive.google.com/file/d/1XsSQPcfZ6WvEC5e9qHlBZ7iinMjRDzCI/view?usp=drive_link">
         <div class="plugin-card-top"><span class="plugin-name">DataMosh 2</span></div>
         <div class="plugin-desc">Glitch and datamosh effects made simple — popular for music videos and transitions.</div>
-        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="verified-badge">verified</span><span class="plugin-arrow">→</span></div>
       </a>
       <a class="plugin-card" data-soft="ae" data-price="free" href="https://drive.google.com/file/d/1UKJH3FSq39jK5jevRBt_1qhlA6wpX4wH/view?usp=drive_link">
         <div class="plugin-card-top"><span class="plugin-name">TextEvo</span></div>
         <div class="plugin-desc">Animated text presets that are easy to customize and drop into any project.</div>
-        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="verified-badge">verified</span><span class="plugin-arrow">→</span></div>
       </a>
       <a class="plugin-card" data-soft="ae" data-price="paid" href="https://drive.google.com/file/d/1noIK3p75dxbMvEvO9vfGaHE06XZ2b25y/view?usp=drive_link">
         <div class="plugin-card-top"><span class="plugin-name">Matrix</span></div>
         <div class="plugin-desc">Particle and matrix-style effects for sci-fi and digital aesthetics.</div>
-        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="verified-badge">verified</span><span class="plugin-arrow">→</span></div>
       </a>
       <a class="plugin-card" data-soft="ae" data-price="free" href="https://drive.google.com/file/d/1tdw9bCwz-48AW-wfYwWQz7xohKdqyAzW/view?usp=drive_link">
         <div class="plugin-card-top"><span class="plugin-name">CRT Emulator</span></div>
         <div class="plugin-desc">Authentic retro CRT screen distortion, scanlines, and glow effects.</div>
-        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="verified-badge">verified</span><span class="plugin-arrow">→</span></div>
       </a>
       <a class="plugin-card" data-soft="ae" data-price="free" href="https://uwu2x.alixz.ovh/">
         <div class="plugin-card-top"><span class="plugin-name">Uwu2x</span></div>
         <div class="plugin-desc">AI-powered upscaling tool for cleaning up low-res footage right in your timeline.</div>
-        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="verified-badge">verified</span><span class="plugin-arrow">→</span></div>
       </a>
       <a class="plugin-card" data-soft="ae" data-price="free" href="https://github.com/NevermindNilas/TheAnimeScripter">
         <div class="plugin-card-top"><span class="plugin-name">TheAnimeScripter</span></div>
         <div class="plugin-desc">Frame interpolation, upscaling, and deduplication tools built for anime editors.</div>
-        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="plugin-arrow">→</span></div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">AE</span><span class="verified-badge">verified</span><span class="plugin-arrow">→</span></div>
       </a>
     </div>
 
@@ -1669,22 +1746,22 @@
       <a class="plugin-card" data-soft="pr" data-price="paid" href="https://drive.google.com/file/d/13bry9rD5ycxKU9OWkZGliwI71M-76-s3/view?usp=drive_link">
         <div class="plugin-card-top"><span class="plugin-name">Captioneer</span></div>
         <div class="plugin-desc">Auto-generate and style captions fast — built for short-form content creators.</div>
-        <div class="plugin-card-bottom"><span class="plugin-tag">PR</span><span class="plugin-arrow">→</span></div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">PR</span><span class="verified-badge">verified</span><span class="plugin-arrow">→</span></div>
       </a>
       <a class="plugin-card" data-soft="pr" data-price="free" href="https://drive.google.com/file/d/1ZXT0xzgm4hTyahQ6cSFCm_6w3cO4b2Y4/view?usp=drive_link">
         <div class="plugin-card-top"><span class="plugin-name">FastFx</span></div>
         <div class="plugin-desc">One-click effect presets for fast-paced edits and montages.</div>
-        <div class="plugin-card-bottom"><span class="plugin-tag">PR</span><span class="plugin-arrow">→</span></div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">PR</span><span class="verified-badge">verified</span><span class="plugin-arrow">→</span></div>
       </a>
       <a class="plugin-card" data-soft="pr" data-price="paid" href="https://drive.google.com/file/d/1qaTifU5wfHBot6yea8Kiope1jvZ0ad68/view?usp=drive_link">
         <div class="plugin-card-top"><span class="plugin-name">Excalibur</span></div>
         <div class="plugin-desc">Dynamic transition pack designed for fast cuts and energetic edits.</div>
-        <div class="plugin-card-bottom"><span class="plugin-tag">PR</span><span class="plugin-arrow">→</span></div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">PR</span><span class="verified-badge">verified</span><span class="plugin-arrow">→</span></div>
       </a>
       <a class="plugin-card" data-soft="pr" data-price="paid" href="https://drive.google.com/file/d/10n1X-4iFQNf_bEmTD6DUppq6wPp33lMG/view?usp=drive_link">
         <div class="plugin-card-top"><span class="plugin-name">Easify 2 Pro</span></div>
         <div class="plugin-desc">Drag-and-drop easing curves for Premiere — finally smooth keyframes without AE.</div>
-        <div class="plugin-card-bottom"><span class="plugin-tag">PR</span><span class="plugin-arrow">→</span></div>
+        <div class="plugin-card-bottom"><span class="plugin-tag">PR</span><span class="verified-badge">verified</span><span class="plugin-arrow">→</span></div>
       </a>
     </div>
 
@@ -2072,6 +2149,35 @@
       </div>
 
     </div>
+    <button class="show-more-btn" onclick="toggleAllPlugins(this, 'all-guides-panel')" style="margin-top:14px;">
+      <span class="show-more-label">show all guides & tutorials</span>
+      <span class="show-more-chevron">▾</span>
+    </button>
+
+    <div class="all-plugins-panel" id="all-guides-panel">
+      <input type="text" class="all-plugins-search" placeholder="Filter guides..." oninput="filterPluginChips(this, 'all-guides-flow')" />
+      <div class="all-plugins-flow" id="all-guides-flow">
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=TfeEhz-FSEY">After Effects Beginners Guide <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=iqNByKF8tlU">Changing AE Version <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=5bHGa0rPSRA">AE Installation Paths <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=dqDJBrqTMo0">Installing Plugins <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=FjVm1RQLVY4">Optimizing AE Performance <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=2Mxt2rj_EAs">Premiere Pro Setup <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=s3JoRlpbBxU">Exporting Settings Guide <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtu.be/KUquO5vzdGY">Workspace Customization <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=3MEjhPaZrRw">Extracting Zip/7z Files <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=5BPmSvD7rMM">Installing Scripts & Extensions <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://helpx.adobe.com/after-effects/user-guide.html">Adobe AE Official Docs <span class="chip-src-tag">WEB</span></a>
+        <a class="all-plugins-link" href="https://helpx.adobe.com/premiere-pro/user-guide.html">Adobe PR Official Docs <span class="chip-src-tag">WEB</span></a>
+        <a class="all-plugins-link" href="https://motionarray.com/learn/after-effects/">Motion Array AE Tutorials <span class="chip-src-tag">WEB</span></a>
+        <a class="all-plugins-link" href="https://www.videocopilot.net/tutorials/">Video Copilot Tutorials <span class="chip-src-tag">WEB</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/@schoolofmotion">School of Motion <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/@SonduckFilm">SonduckFilm Tutorials <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/@JustinOdisho">Justin Odisho Tutorials <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://fmhy.net/beginners-guide">FMHY Beginners Guide <span class="chip-src-tag">WEB</span></a>
+      </div>
+    </div>
+
     <div class="coming-soon">// more guides being written — check back</div>
   </div>
 
@@ -2181,12 +2287,11 @@
 
   <div class="widget">
     <div class="widget-label">// by the numbers</div>
-    <div class="stat-row"><span class="stat-label">plugins listed</span><span class="stat-val">13</span></div>
+    <div class="stat-row"><span class="stat-label">plugins + extensions</span><span class="stat-val">35</span></div>
+    <div class="stat-row"><span class="stat-label">AE resources</span><span class="stat-val">31</span></div>
+    <div class="stat-row"><span class="stat-label">PR resources</span><span class="stat-val">04</span></div>
     <div class="stat-row"><span class="stat-label">guides available</span><span class="stat-val">10</span></div>
     <div class="stat-row"><span class="stat-label">helpful sites</span><span class="stat-val">08</span></div>
-    <div class="stat-row"><span class="stat-label">AE plugins</span><span class="stat-val">09</span></div>
-    <div class="stat-row"><span class="stat-label">PR plugins</span><span class="stat-val">04</span></div>
-    <div class="stat-row"><span class="stat-label">free resources</span><span class="stat-val">07</span></div>
   </div>
 
   <div class="widget">
@@ -2232,6 +2337,27 @@
   <div class="widget">
     <div class="widget-label">// quick tip</div>
     <div class="tip-text">Most plugin zips are <strong>password protected</strong> — the password's always in the banner up top, just hit copy.</div>
+  </div>
+
+  <!-- EDITOR SPOTLIGHT -->
+  <div class="spotlight-widget">
+    <div class="spotlight-video-wrap">
+      <video src="https://files.catbox.moe/2rgl6q.mp4" autoplay muted loop playsinline></video>
+    </div>
+    <div class="spotlight-info">
+      <div class="spotlight-label">// editor spotlight</div>
+      <div class="spotlight-name">blazingheartt</div>
+      <a class="spotlight-link" href="https://www.tiktok.com/@blazingheartt" target="_blank">@blazingheartt ↗</a>
+    </div>
+  </div>
+
+  <!-- REQUEST FORM -->
+  <div class="widget">
+    <div class="widget-label">// suggest a resource</div>
+    <div class="tip-text" style="margin-bottom:12px;">Know a plugin or tool we're missing? Drop it here and we'll check it out.</div>
+    <a href="https://forms.gle/7g8kdegHXRTp58kKA" target="_blank" style="display:flex; align-items:center; justify-content:center; gap:6px; padding:9px 0; border-radius:14px; background:linear-gradient(135deg, var(--brown-light), var(--brown)); color:#fff; font-family:'Nunito',sans-serif; font-weight:700; font-size:12.5px; text-decoration:none; box-shadow:var(--shadow-soft); transition:opacity 0.15s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+      Request a Plugin ↗
+    </a>
   </div>
 
 </aside>
