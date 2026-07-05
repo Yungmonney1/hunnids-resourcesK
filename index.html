@@ -57,8 +57,57 @@
         radial-gradient(circle at 90% 90%, rgba(50, 30, 60, 0.2) 0%, transparent 45%);
     }
 
-    body.dark-mode .hero-slide[style*="rgba(255,255,255"] {
-      background: linear-gradient(135deg, rgba(22,28,45,0.9) 0%, rgba(18,24,42,0.85) 100%) !important;
+    body.dark-mode .filter-pill {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.12);
+      color: var(--text-secondary);
+    }
+    body.dark-mode .filter-pill:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--brown-light);
+    }
+    body.dark-mode .show-more-btn {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.12);
+    }
+    body.dark-mode .show-more-btn:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    body.dark-mode .all-plugins-search {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.12);
+      color: var(--text-primary);
+    }
+    body.dark-mode .tab:not(.active):not(.discord-cta) {
+      color: var(--text-secondary);
+    }
+    body.dark-mode .tab:not(.active):not(.discord-cta):hover {
+      background: rgba(255,255,255,0.08);
+    }
+    body.dark-mode .search-bar {
+      background: rgba(255,255,255,0.06);
+      color: var(--text-secondary);
+    }
+    body.dark-mode .pw-banner {
+      background: rgba(22,28,45,0.85);
+    }
+    body.dark-mode .new-drops {
+      background: rgba(22,28,45,0.75);
+    }
+    body.dark-mode .new-drop-chip {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.12);
+    }
+    body.dark-mode .all-plugins-link {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.1);
+    }
+    body.dark-mode .all-plugins-chip-dual {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.1);
+    }
+    body.dark-mode .disclaimer-notice {
+      background: rgba(22,28,45,0.7);
     }
 
     /* dark mode toggle button */
@@ -85,8 +134,9 @@
 
     /* creator section */
     .creator-section {
-      margin-top: 60px;
+      margin-top: 80px;
       margin-bottom: 20px;
+      clip-path: inset(-80px 0px 0px 0px round 0px);
     }
 
     .creator-card {
@@ -95,12 +145,13 @@
       backdrop-filter: blur(22px) saturate(160%);
       border: 1px solid var(--border);
       border-radius: 28px;
-      padding: 44px 48px;
+      padding: 44px 48px 44px 200px;
       display: flex;
       align-items: center;
       gap: 44px;
       box-shadow: var(--shadow-pop);
-      overflow: hidden;
+      overflow: visible;
+      min-height: 180px;
     }
 
     body.dark-mode .creator-card {
@@ -118,13 +169,17 @@
     }
 
     .creator-photo {
-      width: 110px;
-      height: 110px;
+      position: absolute;
+      left: 40px;
+      top: -50px;
+      width: 175px;
+      height: 175px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid var(--border-hover);
-      flex-shrink: 0;
-      box-shadow: var(--shadow-soft);
+      border: 3px solid rgba(255,255,255,0.6);
+      box-shadow: var(--shadow-pop);
+      z-index: 10;
+      background: var(--bg-soft);
     }
 
     .creator-photo-placeholder {
