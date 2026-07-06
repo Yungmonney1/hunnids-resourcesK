@@ -101,10 +101,28 @@
     body.dark-mode .all-plugins-link {
       background: rgba(255,255,255,0.06);
       border-color: rgba(255,255,255,0.1);
+      color: var(--text-secondary);
+    }
+    body.dark-mode .all-plugins-link:hover {
+      color: #fff;
     }
     body.dark-mode .all-plugins-chip-dual {
       background: rgba(255,255,255,0.06);
       border-color: rgba(255,255,255,0.1);
+    }
+    body.dark-mode .all-plugins-chip-name {
+      color: var(--text-secondary);
+    }
+    body.dark-mode .all-plugins-chip-os {
+      color: var(--text-muted);
+      border-left-color: rgba(255,255,255,0.1);
+    }
+    body.dark-mode .all-plugins-panel {
+      background: rgba(22,28,45,0.8);
+      border-color: rgba(255,255,255,0.08);
+    }
+    body.dark-mode .all-plugins-search {
+      color: var(--text-primary);
     }
     body.dark-mode .disclaimer-notice {
       background: rgba(22,28,45,0.7);
@@ -3020,13 +3038,21 @@
   }
 
   // Sidebar scroll with offset for fixed header
+  let scrolling = false;
   function scrollToSection(e, id) {
     e.preventDefault();
     const el = document.getElementById(id);
     if (!el) return;
-    const headerOffset = 160; // topbar + pw banner + some breathing room
+    const headerOffset = 160;
     const top = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+    // Set active state immediately
+    document.querySelectorAll('.sidebar-icon').forEach(i => i.classList.remove('active'));
+    const target = document.querySelector(`.sidebar-icon[href="#${id}"]`);
+    if (target) target.classList.add('active');
+    // Pause observer so it doesn't override during smooth scroll
+    scrolling = true;
     window.scrollTo({ top, behavior: 'smooth' });
+    setTimeout(() => { scrolling = false; }, 900);
   }
 
   // Active sidebar icon on scroll
@@ -3034,6 +3060,7 @@
   const icons = document.querySelectorAll('.sidebar-icon');
 
   const obs = new IntersectionObserver((entries) => {
+    if (scrolling) return;
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         icons.forEach(i => i.classList.remove('active'));
