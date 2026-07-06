@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hunnids* / tutorials</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg: #eef1f5;
+      --bg-card: rgba(255,255,255,0.62);
+      --bg-hover: rgba(255,255,255,0.85);
+      --border: rgba(255,255,255,0.55);
+      --border-hover: rgba(140,150,165,0.35);
+      --text-primary: #2c313a;
+      --text-secondary: #6b7280;
+      --text-muted: #a4acb8;
+      --brown: #3a3f4a;
+      --brown-dim: #21242c;
+      --brown-light: #707a8a;
+      --shadow-soft: 0 8px 30px rgba(40,45,60,0.08);
+      --shadow-pop: 0 14px 40px rgba(40,45,60,0.14);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      background-image:
+        radial-gradient(circle at 12% 10%, rgba(173,196,230,0.55) 0%, transparent 45%),
+        radial-gradient(circle at 88% 18%, rgba(210,190,230,0.40) 0%, transparent 45%),
+        radial-gradient(circle at 30% 85%, rgba(180,220,215,0.40) 0%, transparent 45%),
+        radial-gradient(circle at 90% 90%, rgba(230,200,200,0.30) 0%, transparent 45%);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    body.dark-mode {
+      --bg: #0f1117;
+      --bg-card: rgba(22,27,40,0.75);
+      --bg-hover: rgba(30,36,54,0.9);
+      --border: rgba(255,255,255,0.08);
+      --border-hover: rgba(255,255,255,0.15);
+      --text-primary: #e8eaf0;
+      --text-secondary: #8892a4;
+      --text-muted: #4a5268;
+      --brown: #8ba0c4;
+      --brown-dim: #c4d4f0;
+      --brown-light: #5a7aaa;
+      --shadow-soft: 0 8px 30px rgba(0,0,0,0.3);
+      --shadow-pop: 0 14px 40px rgba(0,0,0,0.5);
+    }
+
+    body.dark-mode {
+      background-image:
+        radial-gradient(circle at 12% 10%, rgba(40,60,120,0.35) 0%, transparent 45%),
+        radial-gradient(circle at 88% 18%, rgba(60,40,100,0.25) 0%, transparent 45%),
+        radial-gradient(circle at 30% 85%, rgba(20,60,80,0.25) 0%, transparent 45%),
+        radial-gradient(circle at 90% 90%, rgba(50,30,60,0.2) 0%, transparent 45%);
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(238,241,245,0.85);
+      backdrop-filter: blur(16px) saturate(160%);
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 100;
+      box-shadow: var(--shadow-soft);
+    }
+
+    body.dark-mode header {
+      background: rgba(12,15,26,0.88);
+    }
+
+    .header-left { display: flex; align-items: center; gap: 16px; }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border-hover);
+      background: rgba(255,255,255,0.5);
+      transition: all 0.15s;
+    }
+    .back-btn:hover { color: var(--brown-dim); background: rgba(255,255,255,0.9); }
+
+    .breadcrumb {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .breadcrumb span { color: var(--brown); }
+
+    .dark-toggle {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--border-hover);
+      background: rgba(255,255,255,0.5);
+      cursor: pointer; display: flex; align-items: center;
+      justify-content: center; font-size: 16px; transition: all 0.2s;
+    }
+    .dark-toggle:hover { background: rgba(255,255,255,0.9); transform: scale(1.08); }
+
+    /* ── MAIN ── */
+    .page-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 48px 48px 80px;
+    }
+
+    .page-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--brown-light);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .page-title {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--brown-dim);
+      margin-bottom: 6px;
+    }
+    .page-title span { color: var(--brown-light); }
+
+    .page-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 36px;
+    }
+
+    /* ── FILTER PILLS ── */
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .filter-pill {
+      font-family: 'Nunito', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 7px 18px;
+      border-radius: 20px;
+      border: 1px solid var(--border-hover);
+      background: rgba(255,255,255,0.5);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-pill:hover { border-color: var(--brown-light); color: var(--brown-dim); background: rgba(255,255,255,0.85); }
+    .filter-pill.active {
+      background: linear-gradient(135deg, var(--brown-light), var(--brown));
+      border-color: var(--brown);
+      color: #fff;
+      box-shadow: var(--shadow-soft);
+    }
+    body.dark-mode .filter-pill { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+
+    /* ── VIDEO GRID ── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .video-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(12px);
+    }
+    .video-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-pop); border-color: var(--brown-light); }
+    .video-card.hidden { display: none; }
+
+    body.dark-mode .video-card { background: rgba(255,255,255,0.05); }
+    body.dark-mode .video-card:hover { background: rgba(255,255,255,0.09); }
+
+    .video-thumb {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: #111;
+      overflow: hidden;
+    }
+
+    .video-thumb img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.25s;
+    }
+    .video-card:hover .video-thumb img { transform: scale(1.05); }
+
+    .video-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .video-card:hover .video-thumb-overlay { background: rgba(0,0,0,0.28); }
+
+    .video-play {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .video-card:hover .video-play { opacity: 1; transform: scale(1); }
+
+    .video-soft-tag {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      color: #fff;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(4px);
+      border-radius: 6px;
+      padding: 2px 7px;
+    }
+
+    .video-info {
+      padding: 12px 16px 16px;
+      flex: 1;
+    }
+
+    .video-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }
+
+    .video-cat {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    /* ── VIDEO MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(10,12,22,0.75);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: rgba(20,24,40,0.97);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      width: 760px;
+      max-width: 92vw;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 22px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .modal-title {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      flex: 1;
+      margin-right: 12px;
+    }
+
+    .modal-close {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+    .modal-embed {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+    }
+    .modal-embed iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a href="index.html" class="back-btn">← Back</a>
+    <div class="breadcrumb">hunnids<span>*</span> / tutorials</div>
+  </div>
+  <button class="dark-toggle" onclick="toggleDark()" id="dark-toggle" title="Toggle dark mode">🌙</button>
+</header>
+
+<div class="page-wrap">
+  <div class="page-eyebrow">// video library</div>
+  <div class="page-title">Tutorials<span>*</span></div>
+  <div class="page-desc">39 tutorials across After Effects, Premiere Pro, and general editing. Click any to watch.</div>
+
+  <div class="filters">
+    <button class="filter-pill active" onclick="filterVids('all', this)">All</button>
+    <button class="filter-pill" onclick="filterVids('basics', this)">Basics</button>
+    <button class="filter-pill" onclick="filterVids('color', this)">Color & Quality</button>
+    <button class="filter-pill" onclick="filterVids('motion', this)">Motion & Style</button>
+    <button class="filter-pill" onclick="filterVids('3d', this)">3D & Advanced</button>
+    <button class="filter-pill" onclick="filterVids('effects', this)">Effects</button>
+    <button class="filter-pill" onclick="filterVids('premiere', this)">Premiere Pro</button>
+  </div>
+
+  <div class="video-grid" id="video-grid">
+
+    <!-- BASICS -->
+    <div class="video-card" data-cat="basics" onclick="openModal('ASRhzm6u5Vw','Learn After Effects in 10 Minutes')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/ASRhzm6u5Vw/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Learn After Effects in 10 Minutes</div><div class="video-cat">Basics</div></div>
+    </div>
+    <div class="video-card" data-cat="basics" onclick="openModal('TfeEhz-FSEY','After Effects for Beginners — Full Tutorial')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/TfeEhz-FSEY/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">After Effects for Beginners — Full Tutorial</div><div class="video-cat">Basics</div></div>
+    </div>
+    <div class="video-card" data-cat="basics" onclick="openModal('iqNByKF8tlU','How to Change After Effects Version')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/iqNByKF8tlU/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">How to Change After Effects Version</div><div class="video-cat">Basics</div></div>
+    </div>
+    <div class="video-card" data-cat="basics" onclick="openModal('5bHGa0rPSRA','After Effects Plugin Folder Paths')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/5bHGa0rPSRA/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">After Effects Plugin Folder Paths</div><div class="video-cat">Basics</div></div>
+    </div>
+    <div class="video-card" data-cat="basics" onclick="openModal('dqDJBrqTMo0','How to Install After Effects Plugins')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/dqDJBrqTMo0/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">How to Install After Effects Plugins</div><div class="video-cat">Basics</div></div>
+    </div>
+    <div class="video-card" data-cat="basics" onclick="openModal('FjVm1RQLVY4','After Effects Performance Tips')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/FjVm1RQLVY4/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">After Effects Performance Tips</div><div class="video-cat">Basics</div></div>
+    </div>
+    <div class="video-card" data-cat="basics" onclick="openModal('3MEjhPaZrRw','How to Extract Zip and 7z Files')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/3MEjhPaZrRw/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">GEN</div></div>
+      <div class="video-info"><div class="video-title">How to Extract Zip and 7z Files</div><div class="video-cat">Basics</div></div>
+    </div>
+    <div class="video-card" data-cat="basics" onclick="openModal('5BPmSvD7rMM','Installing AE Scripts & Extensions')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/5BPmSvD7rMM/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Installing AE Scripts & Extensions</div><div class="video-cat">Basics</div></div>
+    </div>
+
+    <!-- COLOR & QUALITY -->
+    <div class="video-card" data-cat="color" onclick="openModal('CvOxo4WHbWQ','Full SFX Tutorial (+ FREE SFX Pack)')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/CvOxo4WHbWQ/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Full SFX Tutorial (+ FREE SFX Pack)</div><div class="video-cat">Color & Quality</div></div>
+    </div>
+    <div class="video-card" data-cat="color" onclick="openModal('H_Or2MONFQk','My Quality/Sharpen Settings')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/H_Or2MONFQk/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">My Quality/Sharpen Settings</div><div class="video-cat">Color & Quality</div></div>
+    </div>
+    <div class="video-card" data-cat="color" onclick="openModal('A2C2f5bcSQ4','How to Improve Quality (Topaz Settings)')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/A2C2f5bcSQ4/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">How to Improve Quality (Topaz Settings)</div><div class="video-cat">Color & Quality</div></div>
+    </div>
+    <div class="video-card" data-cat="color" onclick="openModal('Xxeefsq7_q8','Better Quality — Upscaling Guide')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/Xxeefsq7_q8/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Better Quality — Upscaling Guide</div><div class="video-cat">Color & Quality</div></div>
+    </div>
+    <div class="video-card" data-cat="color" onclick="openModal('sBPuLWJJJMU','AMV CC Tutorial')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/sBPuLWJJJMU/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">AMV CC Tutorial</div><div class="video-cat">Color & Quality</div></div>
+    </div>
+    <div class="video-card" data-cat="color" onclick="openModal('Kgas01Fd5XA','Vibe / Heavy CC Tutorial')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/Kgas01Fd5XA/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Vibe / Heavy CC Tutorial</div><div class="video-cat">Color & Quality</div></div>
+    </div>
+    <div class="video-card" data-cat="color" onclick="openModal('K0pFS_f4OJA','4K Color Correction in Under 1 Minute')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/K0pFS_f4OJA/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">4K Color Correction in Under 1 Minute</div><div class="video-cat">Color & Quality</div></div>
+    </div>
+    <div class="video-card" data-cat="color" onclick="openModal('6jzNKtNKrb0','Color Correction & Grading: Beginners Edition')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/6jzNKtNKrb0/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Color Correction & Grading: Beginners Edition</div><div class="video-cat">Color & Quality</div></div>
+    </div>
+    <div class="video-card" data-cat="color" onclick="openModal('Dy3qV1o-Mz8','How to Color Grade in After Effects')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/Dy3qV1o-Mz8/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">How to Color Grade in After Effects</div><div class="video-cat">Color & Quality</div></div>
+    </div>
+    <div class="video-card" data-cat="color" onclick="openModal('AgPj-_aDjXQ','4K Upscale Guide (AMV)')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/AgPj-_aDjXQ/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">4K Upscale Guide (AMV)</div><div class="video-cat">Color & Quality</div></div>
+    </div>
+    <div class="video-card" data-cat="color" onclick="openModal('Im3agYKq8q0','Animate Color / Gradient Backgrounds')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/Im3agYKq8q0/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Animate Color / Gradient Backgrounds</div><div class="video-cat">Color & Quality</div></div>
+    </div>
+
+    <!-- MOTION & STYLE -->
+    <div class="video-card" data-cat="motion" onclick="openModal('S8teW6OeMnk','Smooth Twixtor With No Warps (Flowframes)')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/S8teW6OeMnk/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Smooth Twixtor With No Warps (Flowframes)</div><div class="video-cat">Motion & Style</div></div>
+    </div>
+    <div class="video-card" data-cat="motion" onclick="openModal('Vhp-ukczmJM','Mograph Tutorial — 3D Shapes AMV')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/Vhp-ukczmJM/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Mograph Tutorial — 3D Shapes AMV</div><div class="video-cat">Motion & Style</div></div>
+    </div>
+    <div class="video-card" data-cat="motion" onclick="openModal('j89guha2AOY','How to Pace Like Dave Blunts')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/j89guha2AOY/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">How to Pace Like Dave Blunts</div><div class="video-cat">Motion & Style</div></div>
+    </div>
+    <div class="video-card" data-cat="motion" onclick="openModal('CUWPaQ0JHBQ','How to Make Jugg Style in After Effects')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/CUWPaQ0JHBQ/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">How to Make Jugg Style in After Effects</div><div class="video-cat">Motion & Style</div></div>
+    </div>
+    <div class="video-card" data-cat="motion" onclick="openModal('GHlhzoukoPg','Ultimate Graph Editor Tutorial')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/GHlhzoukoPg/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Ultimate Graph Editor Tutorial</div><div class="video-cat">Motion & Style</div></div>
+    </div>
+    <div class="video-card" data-cat="motion" onclick="openModal('tVvUpBHTYAY','3D Camera & Puppet Tool Tutorial')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/tVvUpBHTYAY/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">3D Camera & Puppet Tool Tutorial</div><div class="video-cat">Motion & Style</div></div>
+    </div>
+    <div class="video-card" data-cat="motion" onclick="openModal('fdGzWXM_UPY','Smooth Animations Tutorial')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/fdGzWXM_UPY/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Smooth Animations Tutorial</div><div class="video-cat">Motion & Style</div></div>
+    </div>
+
+    <!-- 3D & ADVANCED -->
+    <div class="video-card" data-cat="3d" onclick="openModal('fRl92Bba_6s','3D Camera Tutorial')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/fRl92Bba_6s/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">3D Camera Tutorial</div><div class="video-cat">3D & Advanced</div></div>
+    </div>
+    <div class="video-card" data-cat="3d" onclick="openModal('eTThmGkSWXU','3D Text Tutorial in After Effects')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/eTThmGkSWXU/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">3D Text Tutorial in After Effects</div><div class="video-cat">3D & Advanced</div></div>
+    </div>
+    <div class="video-card" data-cat="3d" onclick="openModal('2mmtgyt_XiM','How to Make a Cube in After Effects')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/2mmtgyt_XiM/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">How to Make a Cube in After Effects</div><div class="video-cat">3D & Advanced</div></div>
+    </div>
+    <div class="video-card" data-cat="3d" onclick="openModal('PSQxBrxPoeI','3D Earth with Rotating Text — Element 3D')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/PSQxBrxPoeI/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">3D Earth with Rotating Text — Element 3D</div><div class="video-cat">3D & Advanced</div></div>
+    </div>
+    <div class="video-card" data-cat="3d" onclick="openModal('dxJXg4Jj4l4','Basic Element 3D Logo Tutorial')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/dxJXg4Jj4l4/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Basic Element 3D Logo Tutorial</div><div class="video-cat">3D & Advanced</div></div>
+    </div>
+    <div class="video-card" data-cat="3d" onclick="openModal('3sxjU3tZl4M','Smooth 3D Camera Movements')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/3sxjU3tZl4M/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Smooth 3D Camera Movements</div><div class="video-cat">3D & Advanced</div></div>
+    </div>
+    <div class="video-card" data-cat="3d" onclick="openModal('O1pAc2hte1Q','3D Camera Tracking Tutorial')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/O1pAc2hte1Q/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">3D Camera Tracking Tutorial</div><div class="video-cat">3D & Advanced</div></div>
+    </div>
+    <div class="video-card" data-cat="3d" onclick="openModal('ar86cu1MvE8','Basics of 3D Tracking Using Mocha')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/ar86cu1MvE8/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Basics of 3D Tracking Using Mocha</div><div class="video-cat">3D & Advanced</div></div>
+    </div>
+
+    <!-- EFFECTS -->
+    <div class="video-card" data-cat="effects" onclick="openModal('Oj5x3yMPjlQ','How to Render a GIF in After Effects')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/Oj5x3yMPjlQ/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">How to Render a GIF in After Effects</div><div class="video-cat">Effects</div></div>
+    </div>
+    <div class="video-card" data-cat="effects" onclick="openModal('_VaeXq37--M','Audio Spectrum Around a Person')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/_VaeXq37--M/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Audio Spectrum Around a Person</div><div class="video-cat">Effects</div></div>
+    </div>
+
+    <!-- PREMIERE PRO -->
+    <div class="video-card" data-cat="premiere" onclick="openModal('2Mxt2rj_EAs','Premiere Pro Project Setup Guide')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/2Mxt2rj_EAs/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">PR</div></div>
+      <div class="video-info"><div class="video-title">Premiere Pro Project Setup Guide</div><div class="video-cat">Premiere Pro</div></div>
+    </div>
+    <div class="video-card" data-cat="premiere" onclick="openModal('s3JoRlpbBxU','Best Premiere Pro Export Settings')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/s3JoRlpbBxU/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">PR</div></div>
+      <div class="video-info"><div class="video-title">Best Premiere Pro Export Settings</div><div class="video-cat">Premiere Pro</div></div>
+    </div>
+    <div class="video-card" data-cat="premiere" onclick="openModal('KUquO5vzdGY','Premiere Pro Workspace Customization')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/KUquO5vzdGY/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">PR</div></div>
+      <div class="video-info"><div class="video-title">Premiere Pro Workspace Customization</div><div class="video-cat">Premiere Pro</div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- VIDEO MODAL -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-close" onclick="closeModal()">close ✕</div>
+    </div>
+    <div class="modal-embed" id="modal-embed"></div>
+  </div>
+</div>
+
+<script>
+  // Dark mode (syncs with main site)
+  function toggleDark() {
+    const isDark = document.body.classList.toggle('dark-mode');
+    document.getElementById('dark-toggle').textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('hunnids-theme', isDark ? 'dark' : 'light');
+  }
+  if (localStorage.getItem('hunnids-theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+    document.getElementById('dark-toggle').textContent = '☀️';
+  }
+
+  // Filter
+  function filterVids(cat, btn) {
+    document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.video-card').forEach(card => {
+      card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
+    });
+  }
+
+  // Modal
+  function openModal(id, title) {
+    document.getElementById('modal-title').textContent = title;
+    document.getElementById('modal-embed').innerHTML =
+      `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    document.getElementById('modal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+    document.getElementById('modal-embed').innerHTML = '';
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+
+</body>
+</html>

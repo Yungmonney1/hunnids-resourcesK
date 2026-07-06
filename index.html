@@ -1369,6 +1369,58 @@
     }
 
     /* YouTube card */
+    /* Featured video banner */
+    .featured-video-banner {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      position: relative;
+      margin-top: 22px;
+      border-radius: 20px;
+      overflow: hidden;
+      height: 160px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: var(--shadow-pop);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .featured-video-banner:hover { transform: translateY(-2px); box-shadow: 0 18px 48px rgba(40,45,60,0.22); }
+    .featured-video-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      opacity: 0.7; transition: opacity 0.2s, transform 0.3s;
+    }
+    .featured-video-banner:hover .featured-video-bg { opacity: 0.5; transform: scale(1.03); }
+    .featured-video-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(10,12,22,0.85) 0%, rgba(10,12,22,0.4) 70%, rgba(10,12,22,0.1) 100%);
+    }
+    .featured-video-content { position: relative; z-index: 2; padding: 0 28px; flex: 1; }
+    .featured-video-eyebrow {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.6);
+      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;
+    }
+    .featured-video-title { font-family: 'Quicksand', sans-serif; font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .featured-video-desc { font-size: 13px; color: rgba(255,255,255,0.7); }
+    .featured-video-play {
+      position: relative; z-index: 2; width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center;
+      margin-right: 28px; font-size: 18px; flex-shrink: 0; transition: transform 0.2s, background 0.2s;
+    }
+    .featured-video-banner:hover .featured-video-play { transform: scale(1.1); background: #fff; }
+    .tutorials-link-btn {
+      display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+      padding: 9px 22px; border-radius: 20px; border: 1px solid var(--border-hover);
+      background: rgba(255,255,255,0.5); color: var(--brown-dim);
+      font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px;
+      text-decoration: none; transition: all 0.15s;
+    }
+    .tutorials-link-btn:hover {
+      background: linear-gradient(135deg, var(--brown-light), var(--brown));
+      color: #fff; border-color: var(--brown); box-shadow: var(--shadow-soft);
+    }
+    body.dark-mode .tutorials-link-btn { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+
+    /* YouTube card */
     .yt-card {
       border-radius: 16px;
       overflow: hidden;
@@ -2658,6 +2710,22 @@
     </div>
 
     <div class="coming-soon">// more guides being written — check back</div>
+
+    <!-- Featured video banner -->
+    <a href="https://www.youtube.com/watch?v=ASRhzm6u5Vw" target="_blank" class="featured-video-banner">
+      <img src="https://img.youtube.com/vi/ASRhzm6u5Vw/maxresdefault.jpg" alt="Featured" class="featured-video-bg" />
+      <div class="featured-video-overlay"></div>
+      <div class="featured-video-content">
+        <div class="featured-video-eyebrow">// featured guide</div>
+        <div class="featured-video-title">Learn After Effects in 10 Minutes</div>
+        <div class="featured-video-desc">Perfect starting point — covers the essentials fast.</div>
+      </div>
+      <div class="featured-video-play">
+        <span>▶</span>
+      </div>
+    </a>
+
+    <a href="tutorials.html" class="tutorials-link-btn">Browse All Tutorials →</a>
   </div>
 
   <div class="section" id="faq">
