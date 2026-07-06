@@ -1913,15 +1913,6 @@
       background: rgba(12,15,26,0.85);
     }
 
-
-    .guide-vid-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-pop);
-      border-color: var(--brown-light) !important;
-    }
-    body.dark-mode .guide-vid-card {
-      background: rgba(255,255,255,0.05) !important;
-    }
   </style>
 </head>
 <body>
@@ -2523,479 +2514,6 @@
 
 
 
-    <!-- Featured guide video -->
-    <div class="featured-guide" style="margin-top:24px;">
-      <div class="featured-guide-card" onclick="openVideoModal('ASRhzm6u5Vw', 'Learn After Effects in 10 Minutes')" style="
-        position: relative;
-        border-radius: 20px;
-        overflow: hidden;
-        cursor: pointer;
-        height: 200px;
-        background: #000;
-        box-shadow: var(--shadow-pop);
-      ">
-        <img src="https://img.youtube.com/vi/ASRhzm6u5Vw/maxresdefault.jpg" alt="Featured Guide" style="width:100%; height:100%; object-fit:cover; opacity:0.75; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.55'" onmouseout="this.style.opacity='0.75'" />
-        <div style="position:absolute; inset:0; background:linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 100%); display:flex; align-items:center; padding:28px 32px; gap:20px;">
-          <div style="width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,0.9); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-            <span style="font-size:18px; margin-left:3px;">▶</span>
-          </div>
-          <div>
-            <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(255,255,255,0.6); letter-spacing:1px; text-transform:uppercase; margin-bottom:6px;">// featured guide</div>
-            <div style="font-family:'Quicksand',sans-serif; font-size:22px; font-weight:700; color:#fff; margin-bottom:4px;">Learn After Effects in 10 Minutes</div>
-            <div style="font-size:12.5px; color:rgba(255,255,255,0.7);">Perfect starting point for beginners — covers the essentials fast.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <button class="show-more-btn" onclick="toggleAllPlugins(this, 'full-guide-gallery')" style="margin-top:18px;">
-      <span class="show-more-label">show all guides & tutorials</span>
-      <span class="show-more-chevron">▾</span>
-    </button>
-
-    <div class="all-plugins-panel" id="full-guide-gallery" style="flex-direction:column; gap:16px; padding:20px;">
-      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:4px;" id="guide-gallery-filters">
-        <button class="filter-pill active" onclick="filterGuideGallery('all', this)">All</button>
-        <button class="filter-pill" onclick="filterGuideGallery('basics', this)">Basics</button>
-        <button class="filter-pill" onclick="filterGuideGallery('color', this)">Color & Quality</button>
-        <button class="filter-pill" onclick="filterGuideGallery('motion', this)">Motion & Style</button>
-        <button class="filter-pill" onclick="filterGuideGallery('3d', this)">3D & Advanced</button>
-        <button class="filter-pill" onclick="filterGuideGallery('effects', this)">Effects</button>
-        <button class="filter-pill" onclick="filterGuideGallery('premiere', this)">Premiere Pro</button>
-      </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:12px;" id="guide-gallery-grid">
-        <div class="guide-vid-card" data-cat="basics" onclick="openVideoModal('ASRhzm6u5Vw', 'Learn After Effects in 10 Minutes')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/ASRhzm6u5Vw/mqdefault.jpg" alt="Learn After Effects in 10 Minutes" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Learn After Effects in 10 Minutes</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="basics" onclick="openVideoModal('TfeEhz-FSEY', 'After Effects for Beginners')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/TfeEhz-FSEY/mqdefault.jpg" alt="After Effects for Beginners" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">After Effects for Beginners</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="basics" onclick="openVideoModal('iqNByKF8tlU', 'How to Change AE Version')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/iqNByKF8tlU/mqdefault.jpg" alt="How to Change AE Version" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">How to Change AE Version</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="basics" onclick="openVideoModal('5bHGa0rPSRA', 'AE Plugin Folder Paths')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/5bHGa0rPSRA/mqdefault.jpg" alt="AE Plugin Folder Paths" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">AE Plugin Folder Paths</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="basics" onclick="openVideoModal('dqDJBrqTMo0', 'How to Install AE Plugins')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/dqDJBrqTMo0/mqdefault.jpg" alt="How to Install AE Plugins" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">How to Install AE Plugins</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="basics" onclick="openVideoModal('FjVm1RQLVY4', 'AE Performance Tips')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/FjVm1RQLVY4/mqdefault.jpg" alt="AE Performance Tips" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">AE Performance Tips</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="basics" onclick="openVideoModal('3MEjhPaZrRw', 'How to Extract Zip/7z Files')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/3MEjhPaZrRw/mqdefault.jpg" alt="How to Extract Zip/7z Files" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">GEN</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">How to Extract Zip/7z Files</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="basics" onclick="openVideoModal('5BPmSvD7rMM', 'Installing AE Scripts & Extensions')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/5BPmSvD7rMM/mqdefault.jpg" alt="Installing AE Scripts & Extensions" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">GEN</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Installing AE Scripts & Extensions</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="color" onclick="openVideoModal('CvOxo4WHbWQ', 'Full SFX Tutorial (+ FREE Pack)')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/CvOxo4WHbWQ/mqdefault.jpg" alt="Full SFX Tutorial (+ FREE Pack)" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Full SFX Tutorial (+ FREE Pack)</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="color" onclick="openVideoModal('H_Or2MONFQk', 'My Quality/Sharpen Settings')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/H_Or2MONFQk/mqdefault.jpg" alt="My Quality/Sharpen Settings" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">My Quality/Sharpen Settings</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="color" onclick="openVideoModal('A2C2f5bcSQ4', 'How to Improve Quality (Topaz)')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/A2C2f5bcSQ4/mqdefault.jpg" alt="How to Improve Quality (Topaz)" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">How to Improve Quality (Topaz)</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="color" onclick="openVideoModal('Xxeefsq7_q8', 'Better Quality — Upscaling Guide')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/Xxeefsq7_q8/mqdefault.jpg" alt="Better Quality — Upscaling Guide" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Better Quality — Upscaling Guide</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="color" onclick="openVideoModal('sBPuLWJJJMU', 'AMV CC Tutorial')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/sBPuLWJJJMU/mqdefault.jpg" alt="AMV CC Tutorial" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">AMV CC Tutorial</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="color" onclick="openVideoModal('Kgas01Fd5XA', 'Vibe / Heavy CC Tutorial')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/Kgas01Fd5XA/mqdefault.jpg" alt="Vibe / Heavy CC Tutorial" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Vibe / Heavy CC Tutorial</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="color" onclick="openVideoModal('K0pFS_f4OJA', '4K Color Correction in 1 Minute')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/K0pFS_f4OJA/mqdefault.jpg" alt="4K Color Correction in 1 Minute" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">4K Color Correction in 1 Minute</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="color" onclick="openVideoModal('6jzNKtNKrb0', 'Color Correction — Beginners Edition')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/6jzNKtNKrb0/mqdefault.jpg" alt="Color Correction — Beginners Edition" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Color Correction — Beginners Edition</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="color" onclick="openVideoModal('Dy3qV1o-Mz8', 'How to Color Grade in AE')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/Dy3qV1o-Mz8/mqdefault.jpg" alt="How to Color Grade in AE" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">How to Color Grade in AE</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="color" onclick="openVideoModal('AgPj-_aDjXQ', '4K Upscale Guide (AMV)')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/AgPj-_aDjXQ/mqdefault.jpg" alt="4K Upscale Guide (AMV)" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">4K Upscale Guide (AMV)</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="color" onclick="openVideoModal('Im3agYKq8q0', 'Animate Color / Gradient Backgrounds')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/Im3agYKq8q0/mqdefault.jpg" alt="Animate Color / Gradient Backgrounds" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Animate Color / Gradient Backgrounds</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="motion" onclick="openVideoModal('S8teW6OeMnk', 'Smooth Twixtor (Flowframes)')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/S8teW6OeMnk/mqdefault.jpg" alt="Smooth Twixtor (Flowframes)" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Smooth Twixtor (Flowframes)</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="motion" onclick="openVideoModal('Vhp-ukczmJM', 'Mograph — 3D Shapes AMV')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/Vhp-ukczmJM/mqdefault.jpg" alt="Mograph — 3D Shapes AMV" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Mograph — 3D Shapes AMV</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="motion" onclick="openVideoModal('j89guha2AOY', 'How to Pace Like Dave Blunts')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/j89guha2AOY/mqdefault.jpg" alt="How to Pace Like Dave Blunts" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">How to Pace Like Dave Blunts</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="motion" onclick="openVideoModal('CUWPaQ0JHBQ', 'How to Make Jugg Style')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/CUWPaQ0JHBQ/mqdefault.jpg" alt="How to Make Jugg Style" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">How to Make Jugg Style</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="motion" onclick="openVideoModal('GHlhzoukoPg', 'Ultimate Graph Editor Tutorial')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/GHlhzoukoPg/mqdefault.jpg" alt="Ultimate Graph Editor Tutorial" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Ultimate Graph Editor Tutorial</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="motion" onclick="openVideoModal('tVvUpBHTYAY', '3D Camera & Puppet Tool')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/tVvUpBHTYAY/mqdefault.jpg" alt="3D Camera & Puppet Tool" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">3D Camera & Puppet Tool</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="motion" onclick="openVideoModal('fdGzWXM_UPY', 'Smooth Animations Tutorial')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/fdGzWXM_UPY/mqdefault.jpg" alt="Smooth Animations Tutorial" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Smooth Animations Tutorial</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="3d" onclick="openVideoModal('fRl92Bba_6s', '3D Camera Tutorial')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/fRl92Bba_6s/mqdefault.jpg" alt="3D Camera Tutorial" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">3D Camera Tutorial</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="3d" onclick="openVideoModal('eTThmGkSWXU', '3D Text in After Effects')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/eTThmGkSWXU/mqdefault.jpg" alt="3D Text in After Effects" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">3D Text in After Effects</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="3d" onclick="openVideoModal('2mmtgyt_XiM', 'How to Make a Cube in AE')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/2mmtgyt_XiM/mqdefault.jpg" alt="How to Make a Cube in AE" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">How to Make a Cube in AE</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="3d" onclick="openVideoModal('PSQxBrxPoeI', '3D Earth — Element 3D')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/PSQxBrxPoeI/mqdefault.jpg" alt="3D Earth — Element 3D" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">3D Earth — Element 3D</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="3d" onclick="openVideoModal('dxJXg4Jj4l4', 'Basic Element 3D Logo')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/dxJXg4Jj4l4/mqdefault.jpg" alt="Basic Element 3D Logo" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Basic Element 3D Logo</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="3d" onclick="openVideoModal('3sxjU3tZl4M', 'Smooth 3D Camera Movements')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/3sxjU3tZl4M/mqdefault.jpg" alt="Smooth 3D Camera Movements" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Smooth 3D Camera Movements</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="3d" onclick="openVideoModal('O1pAc2hte1Q', '3D Camera Tracking')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/O1pAc2hte1Q/mqdefault.jpg" alt="3D Camera Tracking" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">3D Camera Tracking</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="3d" onclick="openVideoModal('ar86cu1MvE8', '3D Tracking with Mocha')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/ar86cu1MvE8/mqdefault.jpg" alt="3D Tracking with Mocha" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">3D Tracking with Mocha</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="effects" onclick="openVideoModal('Oj5x3yMPjlQ', 'Render a GIF in After Effects')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/Oj5x3yMPjlQ/mqdefault.jpg" alt="Render a GIF in After Effects" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Render a GIF in After Effects</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="effects" onclick="openVideoModal('_VaeXq37--M', 'Audio Spectrum Around a Person')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/_VaeXq37--M/mqdefault.jpg" alt="Audio Spectrum Around a Person" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">AE</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Audio Spectrum Around a Person</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="premiere" onclick="openVideoModal('2Mxt2rj_EAs', 'Premiere Pro Setup Guide')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/2Mxt2rj_EAs/mqdefault.jpg" alt="Premiere Pro Setup Guide" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">PR</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Premiere Pro Setup Guide</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="premiere" onclick="openVideoModal('s3JoRlpbBxU', 'Best Premiere Pro Export Settings')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/s3JoRlpbBxU/mqdefault.jpg" alt="Best Premiere Pro Export Settings" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">PR</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Best Premiere Pro Export Settings</div>
-          </div>
-        </div>
-        <div class="guide-vid-card" data-cat="premiere" onclick="openVideoModal('KUquO5vzdGY', 'Workspace Customization')" style="
-          background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer;
-          transition:transform 0.18s, box-shadow 0.18s, border-color 0.18s;">
-          <div style="position:relative; width:100%; padding-top:56.25%; background:#111;">
-            <img src="https://img.youtube.com/vi/KUquO5vzdGY/mqdefault.jpg" alt="Workspace Customization" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
-            <div style="position:absolute; top:6px; left:6px; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#fff; background:rgba(0,0,0,0.55); border-radius:5px; padding:2px 6px;">PR</div>
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.4;">Workspace Customization</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="coming-soon">// more guides being written — check back</div>
   </div>
 
@@ -3331,6 +2849,191 @@
   }, { rootMargin: '-20% 0px -60% 0px' });
 
   sections.forEach(s => obs.observe(s));
+
+  const searchIndex = [
+    { label: 'Flow', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'Newton 4', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'FxConsole', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'DataMosh 2', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'TextEvo', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'Matrix', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'CRT Emulator', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'Uwu2x', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'TheAnimeScripter', category: 'Plugin · AE', target: '#plugins' },
+    { label: 'Captioneer', category: 'Plugin · PR', target: '#plugins' },
+    { label: 'FastFx', category: 'Plugin · PR', target: '#plugins' },
+    { label: 'Excalibur', category: 'Plugin · PR', target: '#plugins' },
+    { label: 'Easify 2 Pro', category: 'Plugin · PR', target: '#plugins' },
+    { label: 'After Effects Beginners Guide', category: 'Guide · AE', target: '#guides' },
+    { label: 'Changing After Effects Version', category: 'Guide · AE', target: '#guides' },
+    { label: 'After Effects Installation Paths', category: 'Guide · AE', target: '#guides' },
+    { label: 'Installing Plugins', category: 'Guide · AE', target: '#guides' },
+    { label: 'Optimizing After Effects Performance', category: 'Guide · AE', target: '#guides' },
+    { label: 'Premiere Pro Setup Guide', category: 'Guide · PR', target: '#guides' },
+    { label: 'Exporting Settings Guide', category: 'Guide · PR', target: '#guides' },
+    { label: 'Workspace Customization', category: 'Guide · PR', target: '#guides' },
+    { label: 'How to Extract Zip/7z Files', category: 'Guide · General', target: '#guides' },
+    { label: 'Installing Scripts & Extensions', category: 'Guide · General', target: '#guides' },
+    { label: 'FAQ', category: 'Section', target: '#faq' },
+    { label: 'Helpful Websites', category: 'Section', target: '#helpful' },
+  ];
+
+  let searchActive = -1;
+
+  function openSearch() {
+    const modal = document.getElementById('search-modal');
+    modal.style.display = 'flex';
+    setTimeout(() => document.getElementById('search-input').focus(), 50);
+    doSearch('');
+  }
+
+  function closeSearch() {
+    document.getElementById('search-modal').style.display = 'none';
+    document.getElementById('search-input').value = '';
+    searchActive = -1;
+  }
+
+  function doSearch(q) {
+    const results = q.trim() === ''
+      ? searchIndex.slice(0, 8)
+      : searchIndex.filter(i => i.label.toLowerCase().includes(q.toLowerCase()) || i.category.toLowerCase().includes(q.toLowerCase()));
+
+    const container = document.getElementById('search-results');
+    searchActive = -1;
+
+    if (results.length === 0) {
+      container.innerHTML = `<div style="padding:20px; text-align:center; font-family:'JetBrains Mono',monospace; font-size:12px; color:#a4acb8;">// no results found</div>`;
+      return;
+    }
+
+    container.innerHTML = results.map((r, i) => `
+      <div class="search-result-item" data-target="${r.target}" data-index="${i}"
+        style="display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-radius:12px; cursor:pointer; transition:background 0.1s;"
+        onmouseenter="setSearchActive(${i})"
+        onclick="jumpTo('${r.target}')">
+        <span style="font-size:13.5px; color:#2c313a; font-weight:600;">${r.label}</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#6b7280; background:rgba(0,0,0,0.04); border:1px solid rgba(140,150,165,0.25); border-radius:8px; padding:2px 8px;">${r.category}</span>
+      </div>
+    `).join('');
+  }
+
+  function setSearchActive(i) {
+    searchActive = i;
+    document.querySelectorAll('.search-result-item').forEach((el, idx) => {
+      el.style.background = idx === i ? 'rgba(58,63,74,0.08)' : '';
+    });
+  }
+
+  function searchKeyNav(e) {
+    const items = document.querySelectorAll('.search-result-item');
+    if (e.key === 'ArrowDown') { e.preventDefault(); setSearchActive(Math.min(searchActive + 1, items.length - 1)); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); setSearchActive(Math.max(searchActive - 1, 0)); }
+    if (e.key === 'Enter') {
+      const active = document.querySelector('.search-result-item[data-index="' + searchActive + '"]');
+      if (active) jumpTo(active.dataset.target);
+      else if (items.length > 0) jumpTo(items[0].dataset.target);
+    }
+    if (e.key === 'Escape') closeSearch();
+  }
+
+  function jumpTo(target) {
+    closeSearch();
+    const el = document.querySelector(target);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
+    if (e.key === 'Escape') { closeSearch(); closeAbout(); }
+  });
+
+  document.getElementById('search-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeSearch();
+  });
+
+  function copyPW() {
+    navigator.clipboard.writeText('h100').then(() => {
+      const btn = document.getElementById('copy-btn');
+      btn.textContent = 'copied!';
+      setTimeout(() => { btn.textContent = 'copy'; }, 2000);
+    });
+  }
+
+  function filterPlugins(type, btn) {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const cards = document.querySelectorAll('.plugin-card');
+    const labels = document.querySelectorAll('.plugin-section-label');
+
+    cards.forEach(card => {
+      const soft = card.dataset.soft;
+      let show = true;
+      if (type === 'ae' || type === 'pr') show = soft === type;
+      card.style.display = show ? '' : 'none';
+    });
+
+    labels.forEach(label => {
+      const grid = label.nextElementSibling;
+      if (!grid || !grid.classList.contains('plugin-grid')) return;
+      const visible = Array.from(grid.children).some(c => c.style.display !== 'none');
+      label.style.display = visible ? '' : 'none';
+      grid.style.display = visible ? '' : 'none';
+    });
+  }
+
+  function filterPluginChips(input, flowId) {
+    const q = input.value.toLowerCase().trim();
+    const flow = document.getElementById(flowId);
+    flow.querySelectorAll('.all-plugins-link, .all-plugins-chip-dual').forEach(chip => {
+      const nameEl = chip.classList.contains('all-plugins-chip-dual') ? chip.querySelector('.all-plugins-chip-name') : chip;
+      const match = nameEl.textContent.toLowerCase().includes(q);
+      chip.classList.toggle('hidden-by-search', !match);
+    });
+  }
+
+  function toggleAllPlugins(btn, panelId) {
+    btn.classList.toggle('open');
+    const panel = document.getElementById(panelId);
+    panel.classList.toggle('open');
+    const isOpen = panel.classList.contains('open');
+    const label = btn.querySelector('.show-more-label');
+    label.textContent = isOpen
+      ? label.textContent.replace('show all', 'hide')
+      : label.textContent.replace('hide', 'show all');
+  }
+
+  function openGuide(card, panelId) {
+    const allCards = document.querySelectorAll('.guide-card');
+    const allPanels = document.querySelectorAll('.guide-detail-panel');
+    const panel = document.getElementById(panelId);
+    const alreadyOpen = panel.classList.contains('open') && card.classList.contains('active');
+
+    allCards.forEach(c => c.classList.remove('active'));
+    allPanels.forEach(p => p.classList.remove('open'));
+
+    if (!alreadyOpen) {
+      card.classList.add('active');
+      panel.classList.add('open');
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  function closeGuide(panelId) {
+    document.getElementById(panelId).classList.remove('open');
+    document.querySelectorAll('.guide-card').forEach(c => c.classList.remove('active'));
+  }
+
+  function playYT(card, videoId) {
+    const wrap = document.createElement('div');
+    wrap.className = 'yt-embed-wrap';
+    wrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    card.replaceWith(wrap);
+  }
+
+  function toggleFAQ(el) {
+    el.closest('.faq-item').classList.toggle('open');
+  }
+
 
   const searchIndex = [
     { label: 'Flow', category: 'Plugin · AE', target: '#plugins' },
