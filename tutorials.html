@@ -180,7 +180,40 @@
     }
     body.dark-mode .filter-pill { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
 
-    /* ── VIDEO GRID ── */
+    /* Featured banner */
+    .featured-banner {
+      display: flex;
+      align-items: center;
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      height: 180px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: var(--shadow-pop);
+      transition: transform 0.2s;
+      margin-bottom: 28px;
+    }
+    .featured-banner:hover { transform: translateY(-2px); }
+    .featured-banner-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0.7; transition: opacity 0.2s, transform 0.3s;
+    }
+    .featured-banner:hover .featured-banner-bg { opacity: 0.5; transform: scale(1.03); }
+    .featured-banner-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(10,12,22,0.88) 0%, rgba(10,12,22,0.45) 65%, rgba(10,12,22,0.1) 100%);
+    }
+    .featured-banner-content { position: relative; z-index: 2; padding: 0 32px; flex: 1; }
+    .featured-banner-play {
+      position: relative; z-index: 2; width: 56px; height: 56px; border-radius: 50%;
+      background: rgba(255,255,255,0.9); display: flex; align-items: center;
+      justify-content: center; margin-right: 32px; font-size: 20px; flex-shrink: 0;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .featured-banner:hover .featured-banner-play { transform: scale(1.1); background: #fff; }
+
+    /* Video grid */
     .video-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -365,6 +398,18 @@
   <div class="page-eyebrow">// video library</div>
   <div class="page-title">Tutorials<span>*</span></div>
   <div class="page-desc">39 tutorials across After Effects, Premiere Pro, and general editing. Click any to watch.</div>
+
+  <!-- Featured video banner -->
+  <a href="https://www.youtube.com/watch?v=ASRhzm6u5Vw" target="_blank" class="featured-banner">
+    <img src="https://img.youtube.com/vi/ASRhzm6u5Vw/maxresdefault.jpg" alt="Featured" class="featured-banner-bg" />
+    <div class="featured-banner-overlay"></div>
+    <div class="featured-banner-content">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(255,255,255,0.6); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px;">// featured guide</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:26px; font-weight:700; color:#fff; margin-bottom:6px;">Learn After Effects in 10 Minutes</div>
+      <div style="font-size:13px; color:rgba(255,255,255,0.7);">Perfect starting point for editors — covers the essentials fast.</div>
+    </div>
+    <div class="featured-banner-play">▶</div>
+  </a>
 
   <div class="filters">
     <button class="filter-pill active" onclick="filterVids('all', this)">All</button>
