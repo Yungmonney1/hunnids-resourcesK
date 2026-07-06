@@ -412,6 +412,20 @@
   </a>
 
   <div class="filters">
+    <input type="text" id="tutorial-search" placeholder="Search tutorials..." oninput="searchTutorials(this.value)" style="
+      width: 100%;
+      padding: 10px 18px;
+      border-radius: 20px;
+      border: 1px solid var(--border-hover);
+      background: rgba(255,255,255,0.6);
+      font-family: 'Nunito', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      outline: none;
+      margin-bottom: 10px;
+      transition: border-color 0.15s, background 0.15s;
+    " onfocus="this.style.borderColor='var(--brown-light)'; this.style.background='rgba(255,255,255,0.95)'" onblur="this.style.borderColor=''; this.style.background='rgba(255,255,255,0.6)'" />
     <button class="filter-pill active" onclick="filterVids('all', this)">All</button>
     <button class="filter-pill" onclick="filterVids('basics', this)">Basics</button>
     <button class="filter-pill" onclick="filterVids('color', this)">Color & Quality</button>
@@ -419,6 +433,8 @@
     <button class="filter-pill" onclick="filterVids('3d', this)">3D & Advanced</button>
     <button class="filter-pill" onclick="filterVids('effects', this)">Effects</button>
     <button class="filter-pill" onclick="filterVids('premiere', this)">Premiere Pro</button>
+    <button class="filter-pill" onclick="filterVids('manga', this)">Manga/MMV</button>
+    <button class="filter-pill" onclick="filterVids('effects-create', this)">Effects</button>
   </div>
 
   <div class="video-grid" id="video-grid">
@@ -428,33 +444,33 @@
       <div class="video-thumb"><img src="https://img.youtube.com/vi/ASRhzm6u5Vw/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
       <div class="video-info"><div class="video-title">Learn After Effects in 10 Minutes</div><div class="video-cat">Basics</div></div>
     </div>
-    <div class="video-card" data-cat="basics" onclick="openModal('TfeEhz-FSEY','After Effects for Beginners — Full Tutorial')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/TfeEhz-FSEY/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">After Effects for Beginners — Full Tutorial</div><div class="video-cat">Basics</div></div>
+    <div class="video-card" data-cat="basics" onclick="openModal('IOfdULAjGj4','After Effects Basics Tutorial')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/IOfdULAjGj4/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">After Effects Basics Tutorial</div><div class="video-cat">Basics</div></div>
     </div>
-    <div class="video-card" data-cat="basics" onclick="openModal('iqNByKF8tlU','How to Change After Effects Version')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/iqNByKF8tlU/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">How to Change After Effects Version</div><div class="video-cat">Basics</div></div>
+    <div class="video-card" data-cat="basics" onclick="openModal('S6cqRFkA01o','After Effects Workflow Tips')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/S6cqRFkA01o/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">After Effects Workflow Tips</div><div class="video-cat">Basics</div></div>
     </div>
-    <div class="video-card" data-cat="basics" onclick="openModal('5bHGa0rPSRA','After Effects Plugin Folder Paths')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/5bHGa0rPSRA/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">After Effects Plugin Folder Paths</div><div class="video-cat">Basics</div></div>
+    <div class="video-card" data-cat="manga" onclick="openModal('qWs8dSoPw_I','3D Head Turn Tutorial')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/qWs8dSoPw_I/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">3D Head Turn Tutorial</div><div class="video-cat">Manga/MMV</div></div>
     </div>
-    <div class="video-card" data-cat="basics" onclick="openModal('dqDJBrqTMo0','How to Install After Effects Plugins')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/dqDJBrqTMo0/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">How to Install After Effects Plugins</div><div class="video-cat">Basics</div></div>
+    <div class="video-card" data-cat="manga" onclick="openModal('OqlympxTGK8','Manga Composition Tutorial')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/OqlympxTGK8/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Manga Composition Tutorial</div><div class="video-cat">Manga/MMV</div></div>
     </div>
-    <div class="video-card" data-cat="basics" onclick="openModal('FjVm1RQLVY4','After Effects Performance Tips')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/FjVm1RQLVY4/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">After Effects Performance Tips</div><div class="video-cat">Basics</div></div>
+    <div class="video-card" data-cat="manga" onclick="openModal('d46RQW0DfJE','Basic Coloring Tutorial')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/d46RQW0DfJE/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Basic Coloring Tutorial</div><div class="video-cat">Manga/MMV</div></div>
     </div>
-    <div class="video-card" data-cat="basics" onclick="openModal('3MEjhPaZrRw','How to Extract Zip and 7z Files')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/3MEjhPaZrRw/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">GEN</div></div>
-      <div class="video-info"><div class="video-title">How to Extract Zip and 7z Files</div><div class="video-cat">Basics</div></div>
+    <div class="video-card" data-cat="manga" onclick="openModal('4mEuRby7_Us','Manga Animation Tutorial')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/4mEuRby7_Us/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Manga Animation Tutorial</div><div class="video-cat">Manga/MMV</div></div>
     </div>
-    <div class="video-card" data-cat="basics" onclick="openModal('5BPmSvD7rMM','Installing AE Scripts & Extensions')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/5BPmSvD7rMM/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Installing AE Scripts & Extensions</div><div class="video-cat">Basics</div></div>
+    <div class="video-card" data-cat="manga" onclick="openModal('eB24MMeiz28','MMV Effects Tutorial')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/eB24MMeiz28/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">MMV Effects Tutorial</div><div class="video-cat">Manga/MMV</div></div>
     </div>
 
     <!-- COLOR & QUALITY -->
@@ -466,41 +482,41 @@
       <div class="video-thumb"><img src="https://img.youtube.com/vi/H_Or2MONFQk/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
       <div class="video-info"><div class="video-title">My Quality/Sharpen Settings</div><div class="video-cat">Color & Quality</div></div>
     </div>
-    <div class="video-card" data-cat="color" onclick="openModal('A2C2f5bcSQ4','How to Improve Quality (Topaz Settings)')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/A2C2f5bcSQ4/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">How to Improve Quality (Topaz Settings)</div><div class="video-cat">Color & Quality</div></div>
+    <div class="video-card" data-cat="manga" onclick="openModal('HjGEIU8K8d0','Manga Style Motion Tutorial')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/HjGEIU8K8d0/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">Manga Style Motion Tutorial</div><div class="video-cat">Manga/MMV</div></div>
     </div>
-    <div class="video-card" data-cat="color" onclick="openModal('Xxeefsq7_q8','Better Quality — Upscaling Guide')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/Xxeefsq7_q8/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Better Quality — Upscaling Guide</div><div class="video-cat">Color & Quality</div></div>
+    <div class="video-card" data-cat="manga" onclick="openModal('0JM6oXxEDEI','3D Composition Tutorial')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/0JM6oXxEDEI/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">3D Composition Tutorial</div><div class="video-cat">Manga/MMV</div></div>
     </div>
-    <div class="video-card" data-cat="color" onclick="openModal('sBPuLWJJJMU','AMV CC Tutorial')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/sBPuLWJJJMU/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">AMV CC Tutorial</div><div class="video-cat">Color & Quality</div></div>
+    <div class="video-card" data-cat="effects-create" onclick="openModal('R9bCpLIVMdY','How to Create Thermal Opium Effect')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/R9bCpLIVMdY/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">How to Create Thermal Opium Effect</div><div class="video-cat">Effects</div></div>
     </div>
     <div class="video-card" data-cat="color" onclick="openModal('Kgas01Fd5XA','Vibe / Heavy CC Tutorial')">
       <div class="video-thumb"><img src="https://img.youtube.com/vi/Kgas01Fd5XA/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
       <div class="video-info"><div class="video-title">Vibe / Heavy CC Tutorial</div><div class="video-cat">Color & Quality</div></div>
     </div>
-    <div class="video-card" data-cat="color" onclick="openModal('K0pFS_f4OJA','4K Color Correction in Under 1 Minute')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/K0pFS_f4OJA/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">4K Color Correction in Under 1 Minute</div><div class="video-cat">Color & Quality</div></div>
+    <div class="video-card" data-cat="effects-create" onclick="openModal('BkD6KPnPZK4','How to Create Glitch Effect')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/BkD6KPnPZK4/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">How to Create Glitch Effect</div><div class="video-cat">Effects</div></div>
     </div>
-    <div class="video-card" data-cat="color" onclick="openModal('6jzNKtNKrb0','Color Correction & Grading: Beginners Edition')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/6jzNKtNKrb0/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Color Correction & Grading: Beginners Edition</div><div class="video-cat">Color & Quality</div></div>
+    <div class="video-card" data-cat="effects-create" onclick="openModal('xnuP27VrO40','How to Create Light Leak Effect')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/xnuP27VrO40/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">How to Create Light Leak Effect</div><div class="video-cat">Effects</div></div>
     </div>
-    <div class="video-card" data-cat="color" onclick="openModal('Dy3qV1o-Mz8','How to Color Grade in After Effects')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/Dy3qV1o-Mz8/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">How to Color Grade in After Effects</div><div class="video-cat">Color & Quality</div></div>
+    <div class="video-card" data-cat="effects-create" onclick="openModal('giu-mel7iyU','How to Create Zoom Effect')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/giu-mel7iyU/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">How to Create Zoom Effect</div><div class="video-cat">Effects</div></div>
     </div>
-    <div class="video-card" data-cat="color" onclick="openModal('AgPj-_aDjXQ','4K Upscale Guide (AMV)')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/AgPj-_aDjXQ/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">4K Upscale Guide (AMV)</div><div class="video-cat">Color & Quality</div></div>
+    <div class="video-card" data-cat="effects-create" onclick="openModal('EP8OaGisJr0','How to Create Transition Effect')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/EP8OaGisJr0/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">How to Create Transition Effect</div><div class="video-cat">Effects</div></div>
     </div>
-    <div class="video-card" data-cat="color" onclick="openModal('Im3agYKq8q0','Animate Color / Gradient Backgrounds')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/Im3agYKq8q0/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Animate Color / Gradient Backgrounds</div><div class="video-cat">Color & Quality</div></div>
+    <div class="video-card" data-cat="effects-create" onclick="openModal('IvTXbHLtod4','How to Create Text Effect')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/IvTXbHLtod4/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">How to Create Text Effect</div><div class="video-cat">Effects</div></div>
     </div>
 
     <!-- MOTION & STYLE -->
@@ -512,9 +528,9 @@
       <div class="video-thumb"><img src="https://img.youtube.com/vi/Vhp-ukczmJM/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
       <div class="video-info"><div class="video-title">Mograph Tutorial — 3D Shapes AMV</div><div class="video-cat">Motion & Style</div></div>
     </div>
-    <div class="video-card" data-cat="motion" onclick="openModal('j89guha2AOY','How to Pace Like Dave Blunts')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/j89guha2AOY/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">How to Pace Like Dave Blunts</div><div class="video-cat">Motion & Style</div></div>
+    <div class="video-card" data-cat="effects-create" onclick="openModal('PGotOcHqjOg','How to Create VHS Effect')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/PGotOcHqjOg/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">How to Create VHS Effect</div><div class="video-cat">Effects</div></div>
     </div>
     <div class="video-card" data-cat="motion" onclick="openModal('CUWPaQ0JHBQ','How to Make Jugg Style in After Effects')">
       <div class="video-thumb"><img src="https://img.youtube.com/vi/CUWPaQ0JHBQ/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
@@ -524,9 +540,9 @@
       <div class="video-thumb"><img src="https://img.youtube.com/vi/GHlhzoukoPg/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
       <div class="video-info"><div class="video-title">Ultimate Graph Editor Tutorial</div><div class="video-cat">Motion & Style</div></div>
     </div>
-    <div class="video-card" data-cat="motion" onclick="openModal('tVvUpBHTYAY','3D Camera & Puppet Tool Tutorial')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/tVvUpBHTYAY/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">3D Camera & Puppet Tool Tutorial</div><div class="video-cat">Motion & Style</div></div>
+    <div class="video-card" data-cat="effects-create" onclick="openModal('hiQ-Y4rk42E','How to Create Distortion Effect')">
+      <div class="video-thumb"><img src="https://img.youtube.com/vi/hiQ-Y4rk42E/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
+      <div class="video-info"><div class="video-title">How to Create Distortion Effect</div><div class="video-cat">Effects</div></div>
     </div>
     <div class="video-card" data-cat="motion" onclick="openModal('fdGzWXM_UPY','Smooth Animations Tutorial')">
       <div class="video-thumb"><img src="https://img.youtube.com/vi/fdGzWXM_UPY/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
@@ -538,54 +554,10 @@
       <div class="video-thumb"><img src="https://img.youtube.com/vi/fRl92Bba_6s/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
       <div class="video-info"><div class="video-title">3D Camera Tutorial</div><div class="video-cat">3D & Advanced</div></div>
     </div>
-    <div class="video-card" data-cat="3d" onclick="openModal('eTThmGkSWXU','3D Text Tutorial in After Effects')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/eTThmGkSWXU/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">3D Text Tutorial in After Effects</div><div class="video-cat">3D & Advanced</div></div>
-    </div>
-    <div class="video-card" data-cat="3d" onclick="openModal('2mmtgyt_XiM','How to Make a Cube in After Effects')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/2mmtgyt_XiM/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">How to Make a Cube in After Effects</div><div class="video-cat">3D & Advanced</div></div>
-    </div>
-    <div class="video-card" data-cat="3d" onclick="openModal('PSQxBrxPoeI','3D Earth with Rotating Text — Element 3D')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/PSQxBrxPoeI/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">3D Earth with Rotating Text — Element 3D</div><div class="video-cat">3D & Advanced</div></div>
-    </div>
-    <div class="video-card" data-cat="3d" onclick="openModal('dxJXg4Jj4l4','Basic Element 3D Logo Tutorial')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/dxJXg4Jj4l4/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Basic Element 3D Logo Tutorial</div><div class="video-cat">3D & Advanced</div></div>
-    </div>
-    <div class="video-card" data-cat="3d" onclick="openModal('3sxjU3tZl4M','Smooth 3D Camera Movements')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/3sxjU3tZl4M/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Smooth 3D Camera Movements</div><div class="video-cat">3D & Advanced</div></div>
-    </div>
-    <div class="video-card" data-cat="3d" onclick="openModal('O1pAc2hte1Q','3D Camera Tracking Tutorial')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/O1pAc2hte1Q/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">3D Camera Tracking Tutorial</div><div class="video-cat">3D & Advanced</div></div>
-    </div>
-    <div class="video-card" data-cat="3d" onclick="openModal('ar86cu1MvE8','Basics of 3D Tracking Using Mocha')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/ar86cu1MvE8/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Basics of 3D Tracking Using Mocha</div><div class="video-cat">3D & Advanced</div></div>
-    </div>
 
     <!-- EFFECTS -->
-    <div class="video-card" data-cat="effects" onclick="openModal('Oj5x3yMPjlQ','How to Render a GIF in After Effects')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/Oj5x3yMPjlQ/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">How to Render a GIF in After Effects</div><div class="video-cat">Effects</div></div>
-    </div>
-    <div class="video-card" data-cat="effects" onclick="openModal('_VaeXq37--M','Audio Spectrum Around a Person')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/_VaeXq37--M/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Audio Spectrum Around a Person</div><div class="video-cat">Effects</div></div>
-    </div>
 
     <!-- PREMIERE PRO -->
-    <div class="video-card" data-cat="premiere" onclick="openModal('2Mxt2rj_EAs','Premiere Pro Project Setup Guide')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/2Mxt2rj_EAs/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">PR</div></div>
-      <div class="video-info"><div class="video-title">Premiere Pro Project Setup Guide</div><div class="video-cat">Premiere Pro</div></div>
-    </div>
-    <div class="video-card" data-cat="premiere" onclick="openModal('s3JoRlpbBxU','Best Premiere Pro Export Settings')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/s3JoRlpbBxU/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">PR</div></div>
-      <div class="video-info"><div class="video-title">Best Premiere Pro Export Settings</div><div class="video-cat">Premiere Pro</div></div>
-    </div>
     <div class="video-card" data-cat="premiere" onclick="openModal('KUquO5vzdGY','Premiere Pro Workspace Customization')">
       <div class="video-thumb"><img src="https://img.youtube.com/vi/KUquO5vzdGY/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">PR</div></div>
       <div class="video-info"><div class="video-title">Premiere Pro Workspace Customization</div><div class="video-cat">Premiere Pro</div></div>
@@ -617,10 +589,25 @@
     document.getElementById('dark-toggle').textContent = '☀️';
   }
 
+  // Search
+  function searchTutorials(q) {
+    const query = q.toLowerCase().trim();
+    document.querySelectorAll('.video-card').forEach(card => {
+      const title = card.querySelector('.video-title').textContent.toLowerCase();
+      const cat = card.querySelector('.video-cat').textContent.toLowerCase();
+      card.classList.toggle('hidden', query.length > 0 && !title.includes(query) && !cat.includes(query));
+    });
+    // Reset filter pills when searching
+    if (query.length > 0) {
+      document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+    }
+  }
+
   // Filter
   function filterVids(cat, btn) {
     document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+    document.getElementById('tutorial-search').value = '';
     document.querySelectorAll('.video-card').forEach(card => {
       card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
     });
