@@ -1909,16 +1909,16 @@
 <nav class="icon-sidebar">
   <div class="sidebar-logo">h*</div>
   <div class="sidebar-divider"></div>
-  <a class="sidebar-icon active" href="#plugins" data-tip="Plugins">
+  <a class="sidebar-icon active" href="#plugins" data-tip="Plugins" onclick="scrollToSection(event, 'plugins')">
     <img src="assets/hunnids%20shape%20files/HUNNIDO_SHAPE_00000_clean_cropped.png" alt="Plugins" />
   </a>
-  <a class="sidebar-icon" href="#guides" data-tip="Guides">
+  <a class="sidebar-icon" href="#guides" data-tip="Guides" onclick="scrollToSection(event, 'guides')">
     <img src="assets/hunnids%20shape%20files/HUNDO_SHAPE_00000_clean_cropped.png" alt="Guides" />
   </a>
-  <a class="sidebar-icon" href="#faq" data-tip="FAQ">
+  <a class="sidebar-icon" href="#faq" data-tip="FAQ" onclick="scrollToSection(event, 'faq')">
     <img src="assets/hunnids%20shape%20files/CENTI_SHAPE_00000_clean_cropped.png" alt="FAQ" />
   </a>
-  <a class="sidebar-icon" href="#helpful" data-tip="Helpful Sites">
+  <a class="sidebar-icon" href="#helpful" data-tip="Helpful Sites" onclick="scrollToSection(event, 'helpful')">
     <img src="assets/hunnids%20shape%20files/CALICO_CAT_SHAPE_00000_clean_cropped.png" alt="Helpful Sites" />
   </a>
 </nav>
@@ -2978,6 +2978,17 @@
     el.closest('.faq-item').classList.toggle('open');
   }
 
+  // Sidebar scroll with offset for fixed header
+  function scrollToSection(e, id) {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (!el) return;
+    const headerOffset = 160; // topbar + pw banner + some breathing room
+    const top = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+
+  // Active sidebar icon on scroll
   const sections = document.querySelectorAll('.section[id]');
   const icons = document.querySelectorAll('.sidebar-icon');
 
@@ -2989,7 +3000,7 @@
         if (active) active.classList.add('active');
       }
     });
-  }, { rootMargin: '-20% 0px -60% 0px' });
+  }, { rootMargin: '-10% 0px -55% 0px', threshold: 0 });
 
   sections.forEach(s => obs.observe(s));
 
@@ -3082,7 +3093,10 @@
   function jumpTo(target) {
     closeSearch();
     const el = document.querySelector(target);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!el) return;
+    const headerOffset = 160;
+    const top = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+    window.scrollTo({ top, behavior: 'smooth' });
   }
 
   document.addEventListener('keydown', e => {
