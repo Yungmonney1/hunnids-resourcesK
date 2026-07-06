@@ -332,21 +332,18 @@
       width: 22px;
       height: 22px;
       object-fit: contain;
-      transition: transform 0.2s, filter 0.2s;
+      transition: transform 0.2s;
       filter: brightness(0) saturate(100%) invert(35%) opacity(0.55);
     }
 
     .sidebar-icon:hover { background: var(--cream-pop); transform: scale(1.05); }
-    .sidebar-icon:hover img { transform: scale(1.12) rotate(-6deg); filter: brightness(0) saturate(100%) invert(35%) opacity(0.9); }
+    .sidebar-icon:hover img { transform: scale(1.12) rotate(-6deg); }
 
     .sidebar-icon.active {
       background: linear-gradient(135deg, var(--brown-light), var(--brown));
       box-shadow: var(--shadow-pop);
     }
-    .sidebar-icon.active img {
-      filter: brightness(0) invert(1) !important;
-      opacity: 1 !important;
-    }
+    .sidebar-icon.active img { filter: brightness(0) saturate(100%) invert(100%); }
 
     .sidebar-icon::after {
       content: attr(data-tip);
@@ -1899,20 +1896,12 @@
     body.dark-mode .creator-card {
       background: linear-gradient(135deg, rgba(22,28,45,0.9) 0%, rgba(18,24,42,0.85) 100%);
     }
-    body.dark-mode .sidebar-icon:hover { background: rgba(255,255,255,0.08); }
-    body.dark-mode .sidebar-icon.active {
-      background: linear-gradient(135deg, var(--brown-light), var(--brown));
-    }
-    body.dark-mode .sidebar-icon img {
-      filter: brightness(0) invert(0.6);
-    }
-    body.dark-mode .sidebar-icon.active img {
-      filter: brightness(0) invert(1) !important;
+    body.dark-mode .icon-sidebar {
+      background: rgba(12,15,26,0.85);
     }
     body.dark-mode header {
       background: rgba(12,15,26,0.85);
     }
-
   </style>
 </head>
 <body>
@@ -2411,8 +2400,21 @@
           <div class="guide-detail-close" onclick="closeGuide('guide-detail-01')">close ✕</div>
         </div>
         <div class="guide-detail-desc">A full walkthrough for getting started with After Effects — interface overview, compositions, keyframes, and your first animation.</div>
+        <div class="yt-card" onclick="playYT(this, 'TfeEhz-FSEY')">
+          <div class="yt-thumb-wrap">
+            <img src="https://img.youtube.com/vi/TfeEhz-FSEY/hqdefault.jpg" alt="AE Beginners Guide" />
+            <div class="yt-play-btn">
+              <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
+                <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
+              </svg>
+            </div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-title">After Effects for Beginners — Full Tutorial</div>
+            <div class="yt-meta">youtube.com · click to play</div>
+          </div>
         </div>
-      </div>
       </div>
 
       <div class="guide-detail-panel" id="guide-detail-02">
@@ -2421,8 +2423,21 @@
           <div class="guide-detail-close" onclick="closeGuide('guide-detail-02')">close ✕</div>
         </div>
         <div class="guide-detail-desc">How to switch between installed versions of After Effects using the Creative Cloud desktop app. Useful if a plugin requires a specific version.</div>
+        <div class="yt-card" onclick="playYT(this, 'iqNByKF8tlU')">
+          <div class="yt-thumb-wrap">
+            <img src="https://img.youtube.com/vi/iqNByKF8tlU/hqdefault.jpg" alt="How to Change After Effects Version" />
+            <div class="yt-play-btn">
+              <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
+                <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
+              </svg>
+            </div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-title">How to Change After Effects Version</div>
+            <div class="yt-meta">youtube.com · click to play</div>
+          </div>
         </div>
-      </div>
       </div>
 
       <div class="guide-detail-panel" id="guide-detail-03">
@@ -2434,8 +2449,21 @@
           <strong style="color:var(--text-primary)">Windows:</strong> <code style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--brown); background:var(--bg-soft); padding:2px 6px; border-radius:6px;">C:\Program Files\Adobe\Adobe After Effects [year]\Support Files\Plug-ins</code><br><br>
           <strong style="color:var(--text-primary)">macOS:</strong> <code style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--brown); background:var(--bg-soft); padding:2px 6px; border-radius:6px;">/Applications/Adobe After Effects [year]/Plug-ins</code>
         </div>
+        <div class="yt-card" onclick="playYT(this, '5bHGa0rPSRA')">
+          <div class="yt-thumb-wrap">
+            <img src="https://img.youtube.com/vi/5bHGa0rPSRA/hqdefault.jpg" alt="After Effects Plugin Folder Paths" />
+            <div class="yt-play-btn">
+              <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
+                <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
+              </svg>
+            </div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-title">After Effects Plugin Folder Paths</div>
+            <div class="yt-meta">youtube.com · click to play</div>
+          </div>
         </div>
-      </div>
       </div>
 
       <div class="guide-detail-panel" id="guide-detail-04">
@@ -2444,8 +2472,21 @@
           <div class="guide-detail-close" onclick="closeGuide('guide-detail-04')">close ✕</div>
         </div>
         <div class="guide-detail-desc">Step-by-step guide for installing .zxp, .aex, and script-based plugins into After Effects and Premiere Pro.</div>
+        <div class="yt-card" onclick="playYT(this, 'dqDJBrqTMo0')">
+          <div class="yt-thumb-wrap">
+            <img src="https://img.youtube.com/vi/dqDJBrqTMo0/hqdefault.jpg" alt="Installing Plugins" />
+            <div class="yt-play-btn">
+              <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
+                <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
+              </svg>
+            </div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-title">How to Install After Effects Plugins</div>
+            <div class="yt-meta">youtube.com · click to play</div>
+          </div>
         </div>
-      </div>
       </div>
 
       <div class="guide-detail-panel" id="guide-detail-05">
@@ -2454,8 +2495,21 @@
           <div class="guide-detail-close" onclick="closeGuide('guide-detail-05')">close ✕</div>
         </div>
         <div class="guide-detail-desc">Tips for making AE run faster — RAM allocation, disk cache settings, GPU acceleration, and preview settings that make a noticeable difference.</div>
+        <div class="yt-card" onclick="playYT(this, 'FjVm1RQLVY4')">
+          <div class="yt-thumb-wrap">
+            <img src="https://img.youtube.com/vi/FjVm1RQLVY4/hqdefault.jpg" alt="After Effects Performance Tips" />
+            <div class="yt-play-btn">
+              <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
+                <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
+              </svg>
+            </div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-title">After Effects Performance Tips</div>
+            <div class="yt-meta">youtube.com · click to play</div>
+          </div>
         </div>
-      </div>
       </div>
 
       <div class="guide-detail-panel" id="guide-detail-06">
@@ -2464,8 +2518,21 @@
           <div class="guide-detail-close" onclick="closeGuide('guide-detail-06')">close ✕</div>
         </div>
         <div class="guide-detail-desc">How to set up a new Premiere Pro project correctly — sequence settings, scratch disk locations, and workspace layout recommendations.</div>
+        <div class="yt-card" onclick="playYT(this, '2Mxt2rj_EAs')">
+          <div class="yt-thumb-wrap">
+            <img src="https://img.youtube.com/vi/2Mxt2rj_EAs/hqdefault.jpg" alt="Premiere Pro Project Setup Guide" />
+            <div class="yt-play-btn">
+              <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
+                <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
+              </svg>
+            </div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-title">Premiere Pro Project Setup Guide</div>
+            <div class="yt-meta">youtube.com · click to play</div>
+          </div>
         </div>
-      </div>
       </div>
 
       <div class="guide-detail-panel" id="guide-detail-07">
@@ -2474,8 +2541,21 @@
           <div class="guide-detail-close" onclick="closeGuide('guide-detail-07')">close ✕</div>
         </div>
         <div class="guide-detail-desc">The best export settings for different platforms — Discord, YouTube, Twitter/X, and local playback. Covers H.264, H.265, and ProRes.</div>
+        <div class="yt-card" onclick="playYT(this, 's3JoRlpbBxU')">
+          <div class="yt-thumb-wrap">
+            <img src="https://img.youtube.com/vi/s3JoRlpbBxU/hqdefault.jpg" alt="Exporting Guide" />
+            <div class="yt-play-btn">
+              <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
+                <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
+              </svg>
+            </div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-title">Best Premiere Pro Export Settings</div>
+            <div class="yt-meta">youtube.com · click to play</div>
+          </div>
         </div>
-      </div>
       </div>
 
       <div class="guide-detail-panel" id="guide-detail-08">
@@ -2484,8 +2564,21 @@
           <div class="guide-detail-close" onclick="closeGuide('guide-detail-08')">close ✕</div>
         </div>
         <div class="guide-detail-desc">How to customize your Premiere Pro workspace — panel layout, keyboard shortcuts, and saving your setup so it persists between projects.</div>
+        <div class="yt-card" onclick="playYT(this, 'KUquO5vzdGY')">
+          <div class="yt-thumb-wrap">
+            <img src="https://img.youtube.com/vi/KUquO5vzdGY/hqdefault.jpg" alt="Premiere Pro Workspace Customization" />
+            <div class="yt-play-btn">
+              <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
+                <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
+              </svg>
+            </div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-title">Premiere Pro Workspace Customization</div>
+            <div class="yt-meta">youtube.com · click to play</div>
+          </div>
         </div>
-      </div>
       </div>
 
       <div class="guide-detail-panel" id="guide-detail-09">
@@ -2494,8 +2587,21 @@
           <div class="guide-detail-close" onclick="closeGuide('guide-detail-09')">close ✕</div>
         </div>
         <div class="guide-detail-desc">Most downloads here are zipped. Use <strong style="color:var(--text-primary)">7-Zip</strong> (Windows) or <strong style="color:var(--text-primary)">The Unarchiver</strong> (Mac) to extract them. Right-click the file → Extract Here. If prompted for a password, use the one in the banner at the top of this page.</div>
+        <div class="yt-card" onclick="playYT(this, '3MEjhPaZrRw')">
+          <div class="yt-thumb-wrap">
+            <img src="https://img.youtube.com/vi/3MEjhPaZrRw/hqdefault.jpg" alt="How to Extract Zip and 7z Files" />
+            <div class="yt-play-btn">
+              <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
+                <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
+              </svg>
+            </div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-title">How to Extract Zip and 7z Files</div>
+            <div class="yt-meta">youtube.com · click to play</div>
+          </div>
         </div>
-      </div>
       </div>
 
       <div class="guide-detail-panel" id="guide-detail-10">
@@ -2504,15 +2610,52 @@
           <div class="guide-detail-close" onclick="closeGuide('guide-detail-10')">close ✕</div>
         </div>
         <div class="guide-detail-desc">Scripts go in your AE Scripts folder. Extensions (.zxp files) need the <strong style="color:var(--text-primary)">aescripts + aeplugins manager</strong> or ZXP Installer to install. See guide 03 for the correct folder paths.</div>
+        <div class="yt-card" onclick="playYT(this, '5BPmSvD7rMM')">
+          <div class="yt-thumb-wrap">
+            <img src="https://img.youtube.com/vi/5BPmSvD7rMM/hqdefault.jpg" alt="How to Install AE Scripts and Extensions" />
+            <div class="yt-play-btn">
+              <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.8.9 34 .9 34 .9S12.2.9 7.5 1.7a8.5 8.5 0 0 0-6 6C.7 12.4.7 24 .7 24s0 11.6.8 16.3a8.5 8.5 0 0 0 6 6C12.2 47.1 34 47.1 34 47.1s21.8 0 26.5-.8a8.5 8.5 0 0 0 6-6c.8-4.7.8-16.3.8-16.3s0-11.6-.8-16.3z" fill="#ff0000"/>
+                <path d="M27.2 34.1L44.8 24 27.2 13.9v20.2z" fill="#fff"/>
+              </svg>
+            </div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-title">How to Install AE Scripts and Extensions</div>
+            <div class="yt-meta">youtube.com · click to play</div>
+          </div>
         </div>
-      </div>
       </div>
 
     </div>
-    
+    <button class="show-more-btn" onclick="toggleAllPlugins(this, 'all-guides-panel')" style="margin-top:14px;">
+      <span class="show-more-label">show all guides & tutorials</span>
+      <span class="show-more-chevron">▾</span>
+    </button>
 
-
-
+    <div class="all-plugins-panel" id="all-guides-panel">
+      <input type="text" class="all-plugins-search" placeholder="Filter guides..." oninput="filterPluginChips(this, 'all-guides-flow')" />
+      <div class="all-plugins-flow" id="all-guides-flow">
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=TfeEhz-FSEY">After Effects Beginners Guide <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=iqNByKF8tlU">Changing AE Version <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=5bHGa0rPSRA">AE Installation Paths <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=dqDJBrqTMo0">Installing Plugins <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=FjVm1RQLVY4">Optimizing AE Performance <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=2Mxt2rj_EAs">Premiere Pro Setup <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=s3JoRlpbBxU">Exporting Settings Guide <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtu.be/KUquO5vzdGY">Workspace Customization <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=3MEjhPaZrRw">Extracting Zip/7z Files <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/watch?v=5BPmSvD7rMM">Installing Scripts & Extensions <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://helpx.adobe.com/after-effects/user-guide.html">Adobe AE Official Docs <span class="chip-src-tag">WEB</span></a>
+        <a class="all-plugins-link" href="https://helpx.adobe.com/premiere-pro/user-guide.html">Adobe PR Official Docs <span class="chip-src-tag">WEB</span></a>
+        <a class="all-plugins-link" href="https://motionarray.com/learn/after-effects/">Motion Array AE Tutorials <span class="chip-src-tag">WEB</span></a>
+        <a class="all-plugins-link" href="https://www.videocopilot.net/tutorials/">Video Copilot Tutorials <span class="chip-src-tag">WEB</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/@schoolofmotion">School of Motion <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/@SonduckFilm">SonduckFilm Tutorials <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://www.youtube.com/@JustinOdisho">Justin Odisho Tutorials <span class="chip-src-tag">YT</span></a>
+        <a class="all-plugins-link" href="https://fmhy.net/beginners-guide">FMHY Beginners Guide <span class="chip-src-tag">WEB</span></a>
+      </div>
+    </div>
 
     <div class="coming-soon">// more guides being written — check back</div>
   </div>
@@ -2950,228 +3093,6 @@
   document.getElementById('search-modal').addEventListener('click', function(e) {
     if (e.target === this) closeSearch();
   });
-
-  function copyPW() {
-    navigator.clipboard.writeText('h100').then(() => {
-      const btn = document.getElementById('copy-btn');
-      btn.textContent = 'copied!';
-      setTimeout(() => { btn.textContent = 'copy'; }, 2000);
-    });
-  }
-
-  function filterPlugins(type, btn) {
-    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    const cards = document.querySelectorAll('.plugin-card');
-    const labels = document.querySelectorAll('.plugin-section-label');
-
-    cards.forEach(card => {
-      const soft = card.dataset.soft;
-      let show = true;
-      if (type === 'ae' || type === 'pr') show = soft === type;
-      card.style.display = show ? '' : 'none';
-    });
-
-    labels.forEach(label => {
-      const grid = label.nextElementSibling;
-      if (!grid || !grid.classList.contains('plugin-grid')) return;
-      const visible = Array.from(grid.children).some(c => c.style.display !== 'none');
-      label.style.display = visible ? '' : 'none';
-      grid.style.display = visible ? '' : 'none';
-    });
-  }
-
-  function filterPluginChips(input, flowId) {
-    const q = input.value.toLowerCase().trim();
-    const flow = document.getElementById(flowId);
-    flow.querySelectorAll('.all-plugins-link, .all-plugins-chip-dual').forEach(chip => {
-      const nameEl = chip.classList.contains('all-plugins-chip-dual') ? chip.querySelector('.all-plugins-chip-name') : chip;
-      const match = nameEl.textContent.toLowerCase().includes(q);
-      chip.classList.toggle('hidden-by-search', !match);
-    });
-  }
-
-  function toggleAllPlugins(btn, panelId) {
-    btn.classList.toggle('open');
-    const panel = document.getElementById(panelId);
-    panel.classList.toggle('open');
-    const isOpen = panel.classList.contains('open');
-    const label = btn.querySelector('.show-more-label');
-    label.textContent = isOpen
-      ? label.textContent.replace('show all', 'hide')
-      : label.textContent.replace('hide', 'show all');
-  }
-
-  function openGuide(card, panelId) {
-    const allCards = document.querySelectorAll('.guide-card');
-    const allPanels = document.querySelectorAll('.guide-detail-panel');
-    const panel = document.getElementById(panelId);
-    const alreadyOpen = panel.classList.contains('open') && card.classList.contains('active');
-
-    allCards.forEach(c => c.classList.remove('active'));
-    allPanels.forEach(p => p.classList.remove('open'));
-
-    if (!alreadyOpen) {
-      card.classList.add('active');
-      panel.classList.add('open');
-      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-  }
-
-  function closeGuide(panelId) {
-    document.getElementById(panelId).classList.remove('open');
-    document.querySelectorAll('.guide-card').forEach(c => c.classList.remove('active'));
-  }
-
-  function playYT(card, videoId) {
-    const wrap = document.createElement('div');
-    wrap.className = 'yt-embed-wrap';
-    wrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-    card.replaceWith(wrap);
-  }
-
-  function toggleFAQ(el) {
-    el.closest('.faq-item').classList.toggle('open');
-  }
-
-
-  const searchIndex = [
-    { label: 'Flow', category: 'Plugin · AE', target: '#plugins' },
-    { label: 'Newton 4', category: 'Plugin · AE', target: '#plugins' },
-    { label: 'FxConsole', category: 'Plugin · AE', target: '#plugins' },
-    { label: 'DataMosh 2', category: 'Plugin · AE', target: '#plugins' },
-    { label: 'TextEvo', category: 'Plugin · AE', target: '#plugins' },
-    { label: 'Matrix', category: 'Plugin · AE', target: '#plugins' },
-    { label: 'CRT Emulator', category: 'Plugin · AE', target: '#plugins' },
-    { label: 'Uwu2x', category: 'Plugin · AE', target: '#plugins' },
-    { label: 'TheAnimeScripter', category: 'Plugin · AE', target: '#plugins' },
-    { label: 'Captioneer', category: 'Plugin · PR', target: '#plugins' },
-    { label: 'FastFx', category: 'Plugin · PR', target: '#plugins' },
-    { label: 'Excalibur', category: 'Plugin · PR', target: '#plugins' },
-    { label: 'Easify 2 Pro', category: 'Plugin · PR', target: '#plugins' },
-    { label: 'After Effects Beginners Guide', category: 'Guide · AE', target: '#guides' },
-    { label: 'Changing After Effects Version', category: 'Guide · AE', target: '#guides' },
-    { label: 'After Effects Installation Paths', category: 'Guide · AE', target: '#guides' },
-    { label: 'Installing Plugins', category: 'Guide · AE', target: '#guides' },
-    { label: 'Optimizing After Effects Performance', category: 'Guide · AE', target: '#guides' },
-    { label: 'Premiere Pro Setup Guide', category: 'Guide · PR', target: '#guides' },
-    { label: 'Exporting Settings Guide', category: 'Guide · PR', target: '#guides' },
-    { label: 'Workspace Customization', category: 'Guide · PR', target: '#guides' },
-    { label: 'How to Extract Zip/7z Files', category: 'Guide · General', target: '#guides' },
-    { label: 'Installing Scripts & Extensions', category: 'Guide · General', target: '#guides' },
-    { label: 'FAQ', category: 'Section', target: '#faq' },
-    { label: 'Helpful Websites', category: 'Section', target: '#helpful' },
-  ];
-
-  let searchActive = -1;
-
-  function openSearch() {
-    const modal = document.getElementById('search-modal');
-    modal.style.display = 'flex';
-    setTimeout(() => document.getElementById('search-input').focus(), 50);
-    doSearch('');
-  }
-
-  function closeSearch() {
-    document.getElementById('search-modal').style.display = 'none';
-    document.getElementById('search-input').value = '';
-    searchActive = -1;
-  }
-
-  function doSearch(q) {
-    const results = q.trim() === ''
-      ? searchIndex.slice(0, 8)
-      : searchIndex.filter(i => i.label.toLowerCase().includes(q.toLowerCase()) || i.category.toLowerCase().includes(q.toLowerCase()));
-
-    const container = document.getElementById('search-results');
-    searchActive = -1;
-
-    if (results.length === 0) {
-      container.innerHTML = `<div style="padding:20px; text-align:center; font-family:'JetBrains Mono',monospace; font-size:12px; color:#a4acb8;">// no results found</div>`;
-      return;
-    }
-
-    container.innerHTML = results.map((r, i) => `
-      <div class="search-result-item" data-target="${r.target}" data-index="${i}"
-        style="display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-radius:12px; cursor:pointer; transition:background 0.1s;"
-        onmouseenter="setSearchActive(${i})"
-        onclick="jumpTo('${r.target}')">
-        <span style="font-size:13.5px; color:#2c313a; font-weight:600;">${r.label}</span>
-        <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#6b7280; background:rgba(0,0,0,0.04); border:1px solid rgba(140,150,165,0.25); border-radius:8px; padding:2px 8px;">${r.category}</span>
-      </div>
-    `).join('');
-  }
-
-  function setSearchActive(i) {
-    searchActive = i;
-    document.querySelectorAll('.search-result-item').forEach((el, idx) => {
-      el.style.background = idx === i ? 'rgba(58,63,74,0.08)' : '';
-    });
-  }
-
-  function searchKeyNav(e) {
-    const items = document.querySelectorAll('.search-result-item');
-    if (e.key === 'ArrowDown') { e.preventDefault(); setSearchActive(Math.min(searchActive + 1, items.length - 1)); }
-    if (e.key === 'ArrowUp') { e.preventDefault(); setSearchActive(Math.max(searchActive - 1, 0)); }
-    if (e.key === 'Enter') {
-      const active = document.querySelector('.search-result-item[data-index="' + searchActive + '"]');
-      if (active) jumpTo(active.dataset.target);
-      else if (items.length > 0) jumpTo(items[0].dataset.target);
-    }
-    if (e.key === 'Escape') closeSearch();
-  }
-
-  function jumpTo(target) {
-    closeSearch();
-    const el = document.querySelector(target);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  document.addEventListener('keydown', e => {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
-    if (e.key === 'Escape') { closeSearch(); closeAbout(); }
-  });
-
-  document.getElementById('search-modal').addEventListener('click', function(e) {
-    if (e.target === this) closeSearch();
-  });
-
-  // Guide gallery filter
-  function filterGuideGallery(cat, btn) {
-    document.querySelectorAll('#guide-gallery-filters .filter-pill').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.guide-vid-card').forEach(card => {
-      card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
-    });
-  }
-
-  // Video modal
-  function openVideoModal(videoId, title) {
-    let modal = document.getElementById('video-modal-overlay');
-    if (!modal) {
-      modal = document.createElement('div');
-      modal.id = 'video-modal-overlay';
-      modal.style.cssText = 'display:flex; position:fixed; inset:0; z-index:9999; background:rgba(10,12,22,0.75); backdrop-filter:blur(8px); align-items:center; justify-content:center;';
-      modal.innerHTML = `<div style="background:rgba(20,24,40,0.97); border:1px solid rgba(255,255,255,0.12); border-radius:24px; width:720px; max-width:92vw; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,0.6);">
-        <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid rgba(255,255,255,0.08);">
-          <div id="vmod-title" style="font-family:'Quicksand',sans-serif; font-size:15px; font-weight:700; color:#fff; flex:1; margin-right:12px;"></div>
-          <div onclick="closeVideoModal()" style="font-family:'JetBrains Mono',monospace; font-size:11px; color:rgba(255,255,255,0.5); cursor:pointer; padding:4px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.15);">close ✕</div>
-        </div>
-        <div id="vmod-embed" style="position:relative; width:100%; padding-top:56.25%;"></div>
-      </div>`;
-      modal.addEventListener('click', e => { if(e.target === modal) closeVideoModal(); });
-      document.body.appendChild(modal);
-    }
-    document.getElementById('vmod-title').textContent = title;
-    document.getElementById('vmod-embed').innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none;"></iframe>`;
-    modal.style.display = 'flex';
-  }
-
-  function closeVideoModal() {
-    const modal = document.getElementById('video-modal-overlay');
-    if (modal) { modal.style.display = 'none'; document.getElementById('vmod-embed').innerHTML = ''; }
-  }
-
 </script>
 
 </body>
