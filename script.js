@@ -1,5 +1,4 @@
-<script>
-  // Dark mode
+// Dark mode
   function toggleDark() {
     const isDark = document.body.classList.toggle('dark-mode');
     document.getElementById('dark-toggle').textContent = isDark ? '☀️' : '🌙';
@@ -283,5 +282,3 @@
   document.getElementById('search-modal').addEventListener('click', function(e) {
     if (e.target === this) closeSearch();
   });
-</script>
-
