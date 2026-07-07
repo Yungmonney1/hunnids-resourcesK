@@ -663,10 +663,18 @@
   }
 
   // Modal
-  function openModal(id, title) {
+  function openModal(idOrUrl, title, source) {
+    source = source || 'youtube';
     document.getElementById('modal-title').textContent = title;
-    document.getElementById('modal-embed').innerHTML =
-      `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    let embedHTML;
+    if (source === 'youtube') {
+      embedHTML = `<iframe src="https://www.youtube.com/embed/${idOrUrl}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    } else if (source === 'tiktok') {
+      embedHTML = `<iframe src="https://www.tiktok.com/embed/v2/${idOrUrl}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    } else if (source === 'file') {
+      embedHTML = `<video src="${idOrUrl}" controls autoplay style="width:100%;height:100%;object-fit:contain;background:#000;"></video>`;
+    }
+    document.getElementById('modal-embed').innerHTML = embedHTML;
     document.getElementById('modal').classList.add('open');
   }
 
