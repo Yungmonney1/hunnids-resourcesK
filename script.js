@@ -353,7 +353,16 @@ function renderPlugins() {
     sectionHTML('Premiere Pro', 'pr', pr) +
     `<div class="coming-soon">// more plugins dropping soon — stay tuned</div>`;
 
-  const total = resources.filter(r => r.featured).length;
-  const countEl = document.querySelector('#plugins .section-count');
-  if (countEl) countEl.textContent = `// ${total} plugins`;
+  // Auto-update sidebar stats
+  const totalCount = resources.length;
+  const aeCount = resources.filter(r => r.soft === 'ae').length;
+  const prCount = resources.filter(r => r.soft === 'pr').length;
+
+  const pad = n => String(n).padStart(2, '0');
+  const statTotal = document.getElementById('stat-total');
+  const statAe = document.getElementById('stat-ae');
+  const statPr = document.getElementById('stat-pr');
+  if (statTotal) statTotal.textContent = pad(totalCount);
+  if (statAe) statAe.textContent = pad(aeCount);
+  if (statPr) statPr.textContent = pad(prCount);
 }
