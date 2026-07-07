@@ -2033,6 +2033,83 @@
       #loader-overlay { transition: none; }
       #loader-gif { animation: none; }
     }
+
+    /* ── MOBILE LAYOUT (≤768px) ── */
+    @media (max-width: 768px) {
+
+      /* Icon sidebar becomes a bottom tab bar */
+      .icon-sidebar {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        min-width: 0;
+        height: 62px;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 10px;
+        border-radius: 22px 22px 0 0;
+        gap: 0;
+      }
+      .sidebar-logo, .sidebar-divider { display: none; }
+      .sidebar-icon::after { display: none; }
+
+      /* Header: drop the space reserved for the old left sidebar, keep tabs on one scrollable row */
+      header {
+        left: 12px;
+        right: 12px;
+        padding: 0 16px;
+      }
+      .breadcrumb { display: none; }
+      .header-left { gap: 12px; min-width: 0; }
+      .header-tabs {
+        gap: 2px;
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: none;
+      }
+      .header-tabs::-webkit-scrollbar { display: none; }
+      .tab { padding: 6px 12px; font-size: 12.5px; flex: 0 0 auto; }
+      .header-right { gap: 8px; }
+      .search-bar { width: auto; padding: 8px 10px; }
+      .search-bar .kbd { display: none; }
+
+      .pw-banner {
+        left: 12px;
+        right: 12px;
+        padding: 0 12px;
+        gap: 6px;
+      }
+      .pw-banner span.label { display: none; }
+
+      /* Main layout stacks; content gets full width, right sidebar moves below */
+      .layout {
+        margin-left: 12px;
+        margin-right: 12px;
+        margin-bottom: 80px;
+        flex-direction: column;
+        min-height: auto;
+      }
+
+      main {
+        padding: 28px 20px 36px;
+        border-radius: 22px;
+      }
+
+      .right-sidebar {
+        width: 100%;
+        min-width: 0;
+        position: static;
+        height: auto;
+        top: auto;
+      }
+
+      .about-modal {
+        padding: 28px 24px;
+      }
+    }
   </style>
 </head>
 <body>
