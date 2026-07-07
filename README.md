@@ -9,10 +9,11 @@ A resource hub for video editors. Plugins, extensions, guides, and tools — all
 ## File Structure
 
 ```
-index.html       — main page (HTML only, ~800 lines)
+index.html       — main page (HTML structure only)
 style.css        — all styling
-script.js        — all JavaScript
-resources.js     — plugin/extension data (edit this to add plugins)
+script.js        — all JavaScript (if split out)
+resources.js     — plugin/extension data
+guides.js        — guide card data
 tutorials.html   — tutorials gallery page
 CNAME            — custom domain config
 assets/          — mascot images and GIFs
@@ -51,13 +52,27 @@ Open `resources.js` and add an object to the `resources` array.
 { name: "Extension Name", soft: "ae", src: "GD", ext: true, link: "https://..." },
 ```
 
-Save the file and push — the site updates automatically. No HTML required.
+Save and push — cards, counts, and filters update automatically.
 
 ---
 
-## Adding a Tutorial
+## Adding a Guide
 
-Open `tutorials.html` and add a card inside the `#video-grid` div:
+Open `guides.js` and add an object to the `guides` array:
+
+```js
+{ id: "YOUTUBE_ID", title: "Video Title", tag: "AE" },
+```
+
+Tags: `"AE"`, `"PR"`, or `"GEN"`
+
+The guide cards, numbering, thumbnails, featured banner, and sidebar count all update automatically. The first entry in the array is always the featured banner video.
+
+---
+
+## Adding a Tutorial (tutorials.html)
+
+Add a card inside the `#video-grid` div:
 
 ```html
 <div class="video-card" data-cat="basics" onclick="openModal('YOUTUBE_ID','Video Title')">
@@ -79,7 +94,7 @@ Open `tutorials.html` and add a card inside the `#video-grid` div:
 
 ## Password
 
-Plugin zips are password protected. Password is displayed in the site banner.
+Plugin zips are password protected. Password is displayed in the site banner (`h100`).
 
 ---
 

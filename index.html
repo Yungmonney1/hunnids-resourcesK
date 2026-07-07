@@ -2503,7 +2503,7 @@
     <div class="stat-row"><span class="stat-label">AE resources</span><span class="stat-val" id="stat-ae">—</span></div>
     <div class="stat-row"><span class="stat-label">PR resources</span><span class="stat-val" id="stat-pr">—</span></div>
     <div class="stat-row"><span class="stat-label">guides available</span><span class="stat-val" id="stat-guides">—</span></div>
-    <div class="stat-row"><span class="stat-label">helpful sites</span><span class="stat-val">08</span></div>
+    <div class="stat-row"><span class="stat-label">helpful sites</span><span class="stat-val" id="stat-sites">—</span></div>
   </div>
 
   <div class="widget">
@@ -2891,6 +2891,11 @@
     if (el('stat-ae')) el('stat-ae').textContent = pad(resources.filter(r => r.soft === 'ae').length);
     if (el('stat-pr')) el('stat-pr').textContent = pad(resources.filter(r => r.soft === 'pr').length);
   }
+
+  // Count helpful sites from DOM
+  const siteCount = document.querySelectorAll('.site-card').length;
+  const sitesEl = document.getElementById('stat-sites');
+  if (sitesEl) sitesEl.textContent = String(siteCount).padStart(2, '0');
 </script>
 
 </body>
