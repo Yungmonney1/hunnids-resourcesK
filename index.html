@@ -2037,6 +2037,8 @@
     /* ── MOBILE LAYOUT (≤768px) ── */
     @media (max-width: 768px) {
 
+      body { zoom: 0.9; }
+
       /* Icon sidebar becomes a bottom tab bar */
       .icon-sidebar {
         top: auto;
@@ -2076,18 +2078,17 @@
       .search-bar { width: auto; padding: 8px 10px; }
       .search-bar .kbd { display: none; }
 
-      .pw-banner {
-        left: 12px;
-        right: 12px;
-        padding: 0 12px;
-        gap: 6px;
-      }
-      .pw-banner span.label { display: none; }
+      /* Password banner removed on mobile — downloads aren't actionable there anyway */
+      .pw-banner { display: none; }
 
-      /* Main layout stacks; content gets full width, right sidebar moves below */
+      /* Manga cat mascot removed on mobile — sized for a wide desktop hero, breaks on narrow screens */
+      .hero-manga-cat { display: none; }
+
+      /* Main layout stacks; content gets full width, right sidebar moves below. Margin-top shrinks since the banner is gone. */
       .layout {
         margin-left: 12px;
         margin-right: 12px;
+        margin-top: 96px;
         margin-bottom: 80px;
         flex-direction: column;
         min-height: auto;
