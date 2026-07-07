@@ -1965,3 +1965,13 @@
     body.dark-mode header {
       background: rgba(12,15,26,0.85);
     }
+/* Dark mode — remaining white elements */
+body.dark-mode .pw-copy-btn {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.15);
+  color: var(--text-secondary);
+}
+body.dark-mode .pw-banner {
+  background: rgba(18,22,38,0.88);
+  border-color: rgba(255,255,255,0.08);
+}
