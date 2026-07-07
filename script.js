@@ -1,3 +1,5 @@
+document.addEventListener('DOMContentLoaded', function() {
+
 // Dark mode
   function toggleDark() {
     const isDark = document.body.classList.toggle('dark-mode');
@@ -33,32 +35,6 @@
   }
   function closeAbout() {
     document.getElementById('about-modal').classList.remove('open');
-  }
-
-  function openGuideModal(videoId, title) {
-    let modal = document.getElementById('guide-modal-overlay');
-    if (!modal) {
-      modal = document.createElement('div');
-      modal.id = 'guide-modal-overlay';
-      modal.style.cssText = 'display:flex;position:fixed;inset:0;z-index:9999;background:rgba(10,12,22,0.75);backdrop-filter:blur(8px);align-items:center;justify-content:center;';
-      modal.innerHTML = `<div style="background:rgba(20,24,40,0.97);border:1px solid rgba(255,255,255,0.12);border-radius:24px;width:760px;max-width:92vw;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.6);">
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid rgba(255,255,255,0.08);">
-          <div id="gmod-title" style="font-family:'Quicksand',sans-serif;font-size:15px;font-weight:700;color:#fff;flex:1;margin-right:12px;"></div>
-          <div onclick="closeGuideModal()" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.5);cursor:pointer;padding:4px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);">close ✕</div>
-        </div>
-        <div id="gmod-embed" style="position:relative;width:100%;padding-top:56.25%;"></div>
-      </div>`;
-      modal.addEventListener('click', e => { if (e.target === modal) closeGuideModal(); });
-      document.body.appendChild(modal);
-    }
-    document.getElementById('gmod-title').textContent = title;
-    document.getElementById('gmod-embed').innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none;"></iframe>`;
-    modal.style.display = 'flex';
-  }
-
-  function closeGuideModal() {
-    const modal = document.getElementById('guide-modal-overlay');
-    if (modal) { modal.style.display = 'none'; document.getElementById('gmod-embed').innerHTML = ''; }
   }
 
   function copyPW() {
@@ -282,3 +258,76 @@
   document.getElementById('search-modal').addEventListener('click', function(e) {
     if (e.target === this) closeSearch();
   });
+
+});
+
+// ── PLUGIN RENDERER ──────────────────────────
+function renderPlugins() {
+  const target = document.getElementById('plugin-render-target');
+  if (!target || typeof resources === 'undefined') return;
+
+  const ae = resources.filter(r => r.soft === 'ae');
+  const pr = resources.filter(r => r.soft === 'pr');
+
+  function chipHTML(r) {
+    const ext = r.ext ? ` <span class="chip-ext-tag">EXT</span>` : '';
+    const src = r.src ? ` <span class="chip-src-tag">${r.src}</span>` : '';
+    if (r.os) {
+      return `<a class="all-plugins-chip-dual" href="${r.link}" target="_blank">
+        <span class="all-plugins-chip-name">${r.name}${ext}</span>
+        ${r.os.map(o => `<span class="all-plugins-chip-os">${o}</span>`).join('')}
+      </a>`;
+    }
+    return `<a class="all-plugins-link" href="${r.link}" target="_blank">${r.name}${ext}${src}</a>`;
+  }
+
+  function featuredCardHTML(r) {
+    const tag = r.soft.toUpperCase();
+    return `<a class="plugin-card" data-soft="${r.soft}" href="${r.link}" target="_blank">
+      <div class="plugin-card-top"><span class="plugin-name">${r.name}</span></div>
+      <div class="plugin-desc">${r.desc || ''}</div>
+      <div class="plugin-card-bottom">
+        <span class="plugin-tag">${tag}</span>
+        <span class="verified-badge">verified</span>
+        <span class="plugin-arrow">→</span>
+      </div>
+    </a>`;
+  }
+
+  function sectionHTML(label, softKey, items) {
+    const featured = items.filter(r => r.featured);
+    const all = items.filter(r => !r.featured);
+    const panelId = `${softKey}-plugins-panel`;
+    const flowId = `${softKey}-plugins-flow`;
+
+    return `
+    <div class="plugin-section-label">${label}</div>
+    <div class="plugin-grid" id="plugin-grid-${softKey}">
+      ${featured.map(featuredCardHTML).join('\n      ')}
+    </div>
+    <button class="show-more-btn" onclick="toggleAllPlugins(this, '${panelId}')">
+      <span class="show-more-label">show all ${label} plugins</span>
+      <span class="show-more-chevron">▾</span>
+    </button>
+    <div class="all-plugins-panel" id="${panelId}">
+      <input type="text" class="all-plugins-search" placeholder="Filter ${label} plugins..."
+        oninput="filterPluginChips(this, '${flowId}')" />
+      <div class="all-plugins-flow" id="${flowId}">
+        ${all.map(chipHTML).join('\n        ')}
+      </div>
+    </div>`;
+  }
+
+  target.innerHTML =
+    sectionHTML('After Effects', 'ae', ae) +
+    sectionHTML('Premiere Pro', 'pr', pr) +
+    `<div class="coming-soon">// more plugins dropping soon — stay tuned</div>`;
+
+  // Update plugin count in header
+  const total = resources.filter(r => r.featured).length;
+  const countEl = document.querySelector('#plugins .section-count');
+  if (countEl) countEl.textContent = `// ${total} plugins`;
+}
+
+// Run on load
+document.addEventListener('DOMContentLoaded', renderPlugins);
