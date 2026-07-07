@@ -2846,6 +2846,7 @@
 </script>
 
 <script src="guides.js"></script>
+<script src="resources.js"></script>
 <script>
   function renderGuides() {
     const target = document.getElementById('guides-render-target');
@@ -2881,6 +2882,15 @@
   }
 
   renderGuides();
+
+  // Auto-calculate plugin stats from resources.js
+  if (typeof resources !== 'undefined') {
+    const pad = n => String(n).padStart(2, '0');
+    const el = id => document.getElementById(id);
+    if (el('stat-total')) el('stat-total').textContent = pad(resources.length);
+    if (el('stat-ae')) el('stat-ae').textContent = pad(resources.filter(r => r.soft === 'ae').length);
+    if (el('stat-pr')) el('stat-pr').textContent = pad(resources.filter(r => r.soft === 'pr').length);
+  }
 </script>
 
 </body>
