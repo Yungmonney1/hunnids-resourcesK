@@ -132,3 +132,5 @@ const resources = [
   },
 
 ];
+// Called by index.html after this script loads
+if (typeof renderResources === 'function') renderResources();
