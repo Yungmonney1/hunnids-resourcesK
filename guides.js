@@ -22,6 +22,8 @@ const guides = [
   { id: "KUquO5vzdGY", title: "HUNNIDS* Guide: Customizing Your AE Workspace",  tag: "PR"  },
   { id: "R9bCpLIVMdY", title: "Coloring and Animating Manga — Photoshop & AE", tag: "GEN" },
   { id: "hiQ-Y4rk42E", title: "How to Make Frutiger Metro Aero Effects",        tag: "GEN" },
+  { id: "ASjyNKpPGZ0", title: "How To Composite | Adobe After Effects Tutorial",        tag: "AE" },
+  { id: "cvzPS-k7KJQ", title: "how to make your sfx not shitty",        tag: "AE" },
 ];
 
 // Called by index.html after this script loads
