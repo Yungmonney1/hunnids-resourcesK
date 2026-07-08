@@ -2061,6 +2061,11 @@
       filter: drop-shadow(0 0 24px rgba(120, 150, 255, 0.55)) drop-shadow(0 0 60px rgba(120, 150, 255, 0.3));
     }
 
+    @keyframes pulseSkeleton {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
     @keyframes loaderFadeIn {
       0%   { opacity: 0; transform: scale(0.96); }
       100% { opacity: 1; transform: scale(1); }
@@ -2555,9 +2560,11 @@
     <div class="hype-sub">// curated by hunnids for hunnids</div>
   </div>
 
-  <div class="widget" style="padding: 18px 20px 14px;">
+  <div class="widget">
     <div class="widget-label">// join the server</div>
-    <iframe id="discord-widget" src="https://discord.com/widget?id=1220589442775908372&theme=dark" width="100%" height="360" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" style="border-radius: 12px; display: block;"></iframe>
+    <div id="discord-widget-custom" style="display:flex; flex-direction:column; gap:12px; align-items:center; padding:8px 0 2px;">
+      <div style="width:100%; height:14px; border-radius:8px; background:var(--bg-soft); animation:pulseSkeleton 1.4s ease-in-out infinite;"></div>
+    </div>
   </div>
 
   <div class="widget">
@@ -2634,17 +2641,12 @@
     const isDark = document.body.classList.toggle('dark-mode');
     document.getElementById('dark-toggle').textContent = isDark ? '☀️' : '🌙';
     localStorage.setItem('hunnids-theme', isDark ? 'dark' : 'light');
-    const discordWidget = document.getElementById('discord-widget');
-    if (discordWidget) discordWidget.src = `https://discord.com/widget?id=1220589442775908372&theme=${isDark ? 'dark' : 'light'}`;
   }
 
   // Restore theme on load
   if (localStorage.getItem('hunnids-theme') === 'dark') {
     document.body.classList.add('dark-mode');
     document.getElementById('dark-toggle').textContent = '☀️';
-  } else {
-    const discordWidget = document.getElementById('discord-widget');
-    if (discordWidget) discordWidget.src = `https://discord.com/widget?id=1220589442775908372&theme=light`;
   }
 
   // Hero carousel - crossfade
@@ -3091,6 +3093,35 @@
   const siteCount = document.querySelectorAll('.site-card').length;
   const sitesEl = document.getElementById('stat-sites');
   if (sitesEl) sitesEl.textContent = String(siteCount).padStart(2, '0');
+
+  // ── Discord widget (custom-built from Discord's public widget API) ──
+  (function loadDiscordWidget() {
+    const el = document.getElementById('discord-widget-custom');
+    if (!el) return;
+    const inviteFallback = 'https://discord.gg/AcuUU2zpdD';
+
+    fetch('https://discord.com/api/guilds/1220589442775908372/widget.json')
+      .then(r => r.json())
+      .then(data => {
+        const inviteUrl = data.instant_invite || inviteFallback;
+        const online = data.presence_count ?? '—';
+        const avatars = (data.members || []).slice(0, 5).map(m =>
+          `<img src="${m.avatar_url}" alt="" title="${m.username}" style="width:28px; height:28px; border-radius:50%; border:2px solid var(--bg-card); margin-left:-8px; box-shadow: var(--shadow-soft);" />`
+        ).join('');
+
+        el.innerHTML = `
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div style="width:8px; height:8px; border-radius:50%; background:#3ba55c; box-shadow:0 0 6px #3ba55c;"></div>
+            <span style="font-family:'Nunito',sans-serif; font-size:13px; font-weight:700; color:var(--text-primary);">${online} online</span>
+          </div>
+          ${avatars ? `<div style="display:flex; padding-left:8px;">${avatars}</div>` : ''}
+          <a href="${inviteUrl}" target="_blank" style="width:100%; box-sizing:border-box; display:block; text-align:center; padding:10px; border-radius:14px; background:#5865F2; color:#fff; font-family:'Nunito',sans-serif; font-weight:700; font-size:13px; text-decoration:none; transition:opacity 0.15s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">Join Discord ↗</a>
+        `;
+      })
+      .catch(() => {
+        el.innerHTML = `<a href="${inviteFallback}" target="_blank" style="width:100%; box-sizing:border-box; display:block; text-align:center; padding:10px; border-radius:14px; background:#5865F2; color:#fff; font-family:'Nunito',sans-serif; font-weight:700; font-size:13px; text-decoration:none;">Join Discord ↗</a>`;
+      });
+  })();
 
   // ── Loading screen (once per browser session) ──
   const loaderOverlay = document.getElementById('loader-overlay');
