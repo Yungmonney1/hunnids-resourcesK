@@ -66,17 +66,23 @@ Open `guides.js` and add an object to the `guides` array.
 { id: "YOUTUBE_ID", title: "Video Title", tag: "AE" },
 ```
 
-**TikTok:**
+**TikTok — no thumbnail (default):**
+```js
+{ source: "tiktok", embedId: "7123456789012345678", url: "https://www.tiktok.com/@user/video/7123456789012345678", title: "Video Title", tag: "AE" },
+```
+`embedId` is the numeric ID from the TikTok URL. With no `thumb` field, the card automatically shows a styled "TikTok" placeholder instead — no image upload needed.
+
+**TikTok — with a custom thumbnail (optional):**
 ```js
 { source: "tiktok", embedId: "7123456789012345678", url: "https://www.tiktok.com/@user/video/7123456789012345678", thumb: "assets/hunnids%20shape%20files/thumbs/name.jpg", title: "Video Title", tag: "AE" },
 ```
-`embedId` is the numeric ID from the TikTok URL. `thumb` is a screenshot you take yourself and upload — TikTok doesn't give an auto-thumbnail like YouTube does.
+Add `thumb` only if you want a real screenshot instead of the generic placeholder.
 
-**Local/other video file (hosted on Catbox or similar):**
+**Local/other video file (hosted on Catbox or similar) — no thumbnail (default):**
 ```js
-{ source: "file", url: "https://files.catbox.moe/xxxxx.mp4", thumb: "assets/hunnids%20shape%20files/thumbs/name.jpg", title: "Video Title", tag: "AE" },
+{ source: "file", url: "https://files.catbox.moe/xxxxx.mp4", title: "Video Title", tag: "AE" },
 ```
-Same deal — `thumb` is a manual screenshot since there's no auto-thumbnail service for a raw file.
+Same deal — shows a generic "Video" placeholder automatically. Add a `thumb` field the same way as above only if you want a custom image instead.
 
 Tags: `"AE"`, `"PR"`, or `"GEN"`
 
@@ -93,17 +99,25 @@ Open `tutorials-data.js` and add an object to the `tutorials` array.
 { id: "YOUTUBE_ID", title: "Video Title", cat: "basics", soft: "ae" },
 ```
 
-**TikTok:**
+**TikTok — no thumbnail (default):**
+```js
+{ source: "tiktok", embedId: "7123456789012345678", url: "https://www.tiktok.com/@user/video/7123456789012345678", title: "Video Title", cat: "basics", soft: "ae" },
+```
+Leaving out `thumb` shows a styled "TikTok" placeholder automatically — no screenshot needed.
+
+**TikTok — with a custom thumbnail (optional):**
 ```js
 { source: "tiktok", embedId: "7123456789012345678", url: "https://www.tiktok.com/@user/video/7123456789012345678", thumb: "assets/hunnids%20shape%20files/thumbs/name.jpg", title: "Video Title", cat: "basics", soft: "ae" },
 ```
+Only add `thumb` if you specifically want a real screenshot instead of the generic placeholder.
 
-**Local/other video file (hosted on Catbox or similar):**
+**Local/other video file (hosted on Catbox or similar) — no thumbnail (default):**
 ```js
-{ source: "file", url: "https://files.catbox.moe/xxxxx.mp4", thumb: "assets/hunnids%20shape%20files/thumbs/name.jpg", title: "Video Title", cat: "basics", soft: "ae" },
+{ source: "file", url: "https://files.catbox.moe/xxxxx.mp4", title: "Video Title", cat: "basics", soft: "ae" },
 ```
+Same deal — shows a generic "Video" placeholder unless you add a `thumb` field.
 
-For TikTok/file entries, `thumb` needs to be a manual screenshot you take yourself — there's no free auto-thumbnail service for those the way YouTube provides.
+`thumb` is entirely optional for both TikTok and file sources — when omitted, a CSS-generated placeholder badge shows instead, so you never have to take/upload a screenshot unless you actually want a custom one.
 
 `soft` is `"ae"` or `"pr"` — shows as the small badge on the thumbnail.
 
