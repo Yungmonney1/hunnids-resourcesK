@@ -227,6 +227,35 @@
       gap: 16px;
     }
 
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin-top: 32px;
+    }
+
+    .page-btn {
+      min-width: 34px;
+      height: 34px;
+      padding: 0 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border-hover);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .page-btn:hover:not(:disabled) { background: rgba(255,255,255,0.85); border-color: var(--brown-light); }
+    .page-btn.active { background: var(--brown); color: #fff; border-color: var(--brown); }
+    .page-btn:disabled { opacity: 0.35; cursor: default; }
+
+    body.dark-mode .page-btn { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+    body.dark-mode .page-btn:hover:not(:disabled) { background: rgba(255,255,255,0.1); }
+
     .video-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -460,159 +489,16 @@
     <button class="filter-pill" onclick="filterVids('color', this)">Color & Quality</button>
     <button class="filter-pill" onclick="filterVids('motion', this)">Motion & Style</button>
     <button class="filter-pill" onclick="filterVids('3d', this)">3D & Advanced</button>
-    <button class="filter-pill" onclick="filterVids('effects', this)">Effects</button>
+    <button class="filter-pill" onclick="filterVids('effects-create', this)">Effects</button>
     <button class="filter-pill" onclick="filterVids('premiere', this)">Premiere Pro</button>
     <button class="filter-pill" onclick="filterVids('manga', this)">Manga/MMV</button>
-    <button class="filter-pill" onclick="filterVids('effects-create', this)">Effects</button>
-    <button class="filter-pill" onclick="filterVids('plugins', this)">Plugin Tutorials</button>
     <button class="filter-pill" onclick="filterVids('plugins', this)">Plugin Tutorials</button>
   </div>
 
-  <div class="video-grid" id="video-grid">
+  <div class="video-grid" id="video-grid"></div>
 
-    <!-- BASICS -->
-    <div class="video-card" data-cat="basics" onclick="openModal('ASRhzm6u5Vw','Learn After Effects in 10 Minutes')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/ASRhzm6u5Vw/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Learn After Effects in 10 Minutes</div><div class="video-cat">Basics</div></div>
-    </div>
-    <div class="video-card" data-cat="effects-create" onclick="openModal('IOfdULAjGj4','Thermal Opium Effect — After Effects Tutorial')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/IOfdULAjGj4/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Thermal Opium Effect — After Effects Tutorial</div><div class="video-cat">Basics</div></div>
-    </div>
-    <div class="video-card" data-cat="basics" onclick="openModal('S6cqRFkA01o','Tweening Animation — Learn the Basics of After Effects')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/S6cqRFkA01o/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Tweening Animation — Learn the Basics of After Effects</div><div class="video-cat">Basics</div></div>
-    </div>
-    <div class="video-card" data-cat="effects-create" onclick="openModal('qWs8dSoPw_I','How to Use Datamosh | Glitch AMV Tutorial')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/qWs8dSoPw_I/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">How to Use Datamosh | Glitch AMV Tutorial</div><div class="video-cat">Manga/MMV</div></div>
-    </div>
-    <div class="video-card" data-cat="manga" onclick="openModal('OqlympxTGK8','Manga Animation: Compositing Tutorial')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/OqlympxTGK8/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Manga Animation: Compositing Tutorial</div><div class="video-cat">Manga/MMV</div></div>
-    </div>
-    <div class="video-card" data-cat="manga" onclick="openModal('d46RQW0DfJE','How to Make Your Own Slowed/Reverb Songs — After Effects')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/d46RQW0DfJE/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">How to Make Your Own Slowed/Reverb Songs</div><div class="video-cat">Manga/MMV</div></div>
-    </div>
-    <div class="video-card" data-cat="manga" onclick="openModal('4mEuRby7_Us','Full In Depth Manga Animation Tutorial (AE & Photoshop)')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/4mEuRby7_Us/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Full In Depth Manga Animation Tutorial</div><div class="video-cat">Manga/MMV</div></div>
-    </div>
-    <div class="video-card" data-cat="effects-create" onclick="openModal('eB24MMeiz28','Create a Smooth Motion Trail Effect — After Effects')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/eB24MMeiz28/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Create a Smooth Motion Trail Effect</div><div class="video-cat">Manga/MMV</div></div>
-    </div>
+  <div class="pagination" id="pagination"></div>
 
-    <!-- COLOR & QUALITY -->
-    <div class="video-card" data-cat="color" onclick="openModal('CvOxo4WHbWQ','Full SFX Tutorial (+ FREE SFX Pack)')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/CvOxo4WHbWQ/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Full SFX Tutorial (+ FREE SFX Pack)</div><div class="video-cat">Color & Quality</div></div>
-    </div>
-    <div class="video-card" data-cat="color" onclick="openModal('H_Or2MONFQk','My Quality/Sharpen Settings')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/H_Or2MONFQk/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">My Quality/Sharpen Settings</div><div class="video-cat">Color & Quality</div></div>
-    </div>
-    <div class="video-card" data-cat="effects-create" onclick="openModal('HjGEIU8K8d0','Easy Camera Lock Music Video Effect in After Effects')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/HjGEIU8K8d0/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Easy Camera Lock Music Video Effect</div><div class="video-cat">Manga/MMV</div></div>
-    </div>
-    <div class="video-card" data-cat="motion" onclick="openModal('0JM6oXxEDEI','How to Sync with Time Remapping/Velocity — After Effects')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/0JM6oXxEDEI/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">How to Sync with Time Remapping/Velocity</div><div class="video-cat">Manga/MMV</div></div>
-    </div>
-    <div class="video-card" data-cat="manga" onclick="openModal('R9bCpLIVMdY','Coloring and Animating Manga — Photoshop & After Effects')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/R9bCpLIVMdY/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Coloring and Animating Manga — Photoshop & After Effects</div><div class="video-cat">Effects</div></div>
-    </div>
-    <div class="video-card" data-cat="color" onclick="openModal('Kgas01Fd5XA','Vibe / Heavy CC Tutorial')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/Kgas01Fd5XA/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Vibe / Heavy CC Tutorial</div><div class="video-cat">Color & Quality</div></div>
-    </div>
-    <div class="video-card" data-cat="motion" onclick="openModal('BkD6KPnPZK4','Jugg After Effects One Framer Tutorial')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/BkD6KPnPZK4/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Jugg After Effects One Framer Tutorial</div><div class="video-cat">Effects</div></div>
-    </div>
-    <div class="video-card" data-cat="effects-create" onclick="openModal('xnuP27VrO40','Basic Typography — AE AMV Text Tutorial for Advanced Editors')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/xnuP27VrO40/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Basic Typography — AE AMV Text Tutorial for Advanced Editors</div><div class="video-cat">Effects</div></div>
-    </div>
-    <div class="video-card" data-cat="3d" onclick="openModal('giu-mel7iyU','How to Rig Hand in After Effects using Duik Bassel')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/giu-mel7iyU/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">How to Rig Hand in After Effects using Duik Bassel</div><div class="video-cat">Effects</div></div>
-    </div>
-    <div class="video-card" data-cat="manga" onclick="openModal('EP8OaGisJr0','"3D" Head Rotation for Detailed Artwork in After Effects')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/EP8OaGisJr0/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">"3D" Head Rotation for Detailed Artwork in After Effects</div><div class="video-cat">Effects</div></div>
-    </div>
-    <div class="video-card" data-cat="effects-create" onclick="openModal('IvTXbHLtod4','How to Make Kinetic Warp Text Animation in After Effects')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/IvTXbHLtod4/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">How to Make Kinetic Warp Text Animation in After Effects</div><div class="video-cat">Effects</div></div>
-    </div>
-
-    <!-- MOTION & STYLE -->
-    <div class="video-card" data-cat="motion" onclick="openModal('S8teW6OeMnk','Smooth Twixtor With No Warps (Flowframes)')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/S8teW6OeMnk/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Smooth Twixtor With No Warps (Flowframes)</div><div class="video-cat">Motion & Style</div></div>
-    </div>
-    <div class="video-card" data-cat="motion" onclick="openModal('Vhp-ukczmJM','Mograph Tutorial — 3D Shapes AMV')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/Vhp-ukczmJM/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Mograph Tutorial — 3D Shapes AMV</div><div class="video-cat">Motion & Style</div></div>
-    </div>
-    <div class="video-card" data-cat="effects-create" onclick="openModal('PGotOcHqjOg','Make Film Titles with Ease — Edit Tutorial')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/PGotOcHqjOg/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Make Film Titles with Ease — Edit Tutorial</div><div class="video-cat">Effects</div></div>
-    </div>
-    <div class="video-card" data-cat="motion" onclick="openModal('CUWPaQ0JHBQ','How to Make Jugg Style in After Effects')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/CUWPaQ0JHBQ/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">How to Make Jugg Style in After Effects</div><div class="video-cat">Motion & Style</div></div>
-    </div>
-    <div class="video-card" data-cat="motion" onclick="openModal('GHlhzoukoPg','Ultimate Graph Editor Tutorial')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/GHlhzoukoPg/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Ultimate Graph Editor Tutorial</div><div class="video-cat">Motion & Style</div></div>
-    </div>
-    <div class="video-card" data-cat="effects-create" onclick="openModal('hiQ-Y4rk42E','How to Make Frutiger Metro Aero Effects — After Effects')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/hiQ-Y4rk42E/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">How to Make Frutiger Metro Aero Effects — After Effects</div><div class="video-cat">Effects</div></div>
-    </div>
-    <div class="video-card" data-cat="motion" onclick="openModal('fdGzWXM_UPY','Smooth Animations Tutorial')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/fdGzWXM_UPY/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Smooth Animations Tutorial</div><div class="video-cat">Motion & Style</div></div>
-    </div>
-
-    <!-- 3D & ADVANCED -->
-    <div class="video-card" data-cat="3d" onclick="openModal('fRl92Bba_6s','3D Camera Tutorial')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/fRl92Bba_6s/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">3D Camera Tutorial</div><div class="video-cat">3D & Advanced</div></div>
-    </div>
-
-    <!-- EFFECTS -->
-
-    <!-- PREMIERE PRO -->
-    <div class="video-card" data-cat="premiere" onclick="openModal('KUquO5vzdGY','Premiere Pro Workspace Customization')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/KUquO5vzdGY/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">PR</div></div>
-      <div class="video-info"><div class="video-title">Premiere Pro Workspace Customization</div><div class="video-cat">Premiere Pro</div></div>
-    </div>
-
-    <!-- PLUGIN TUTORIALS -->
-    <div class="video-card" data-cat="plugins" onclick="openModal('qTaOIhh9ja8','Flow Plugin Tutorial — After Effects')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/qTaOIhh9ja8/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Flow Plugin Tutorial</div><div class="video-cat">Plugin Tutorials</div></div>
-    </div>
-    <div class="video-card" data-cat="plugins" onclick="openModal('JsQ_TtfDcnI','Newton 4 Tutorial — After Effects')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/JsQ_TtfDcnI/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">Newton 4 Tutorial</div><div class="video-cat">Plugin Tutorials</div></div>
-    </div>
-    <div class="video-card" data-cat="plugins" onclick="openModal('Qr0PFFPiv54','FX Console — Speed Up Your AE Workflow')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/Qr0PFFPiv54/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">FX Console Plugin Tutorial</div><div class="video-cat">Plugin Tutorials</div></div>
-    </div>
-    <div class="video-card" data-cat="plugins" onclick="openModal('j-TA5u0TBNk','KBar3 for After Effects Tutorial')">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/j-TA5u0TBNk/mqdefault.jpg" loading="lazy" /><div class="video-thumb-overlay"><div class="video-play">▶</div></div><div class="video-soft-tag">AE</div></div>
-      <div class="video-info"><div class="video-title">KBar3 Plugin Tutorial</div><div class="video-cat">Plugin Tutorials</div></div>
-    </div>
-
-  </div>
 </div>
 
 <!-- VIDEO MODAL -->
@@ -638,28 +524,112 @@
     document.getElementById('dark-toggle').textContent = '☀️';
   }
 
+  // ── Tutorials: render, filter, search, paginate — all driven by tutorials-data.js ──
+  const CATEGORY_LABELS = {
+    basics: 'Basics',
+    color: 'Color & Quality',
+    motion: 'Motion & Style',
+    '3d': '3D & Advanced',
+    'effects-create': 'Effects',
+    manga: 'Manga/MMV',
+    premiere: 'Premiere Pro',
+    plugins: 'Plugin Tutorials',
+  };
+  const PAGE_SIZE = 12;
+
+  let currentCat = 'all';
+  let currentQuery = '';
+  let currentPage = 1;
+
+  function tutorialThumb(t) {
+    if (!t.source || t.source === 'youtube') return `https://img.youtube.com/vi/${t.id}/mqdefault.jpg`;
+    return t.thumb;
+  }
+
+  function videoCardHTML(t) {
+    const source = t.source || 'youtube';
+    const idOrUrl = source === 'youtube' ? t.id : source === 'tiktok' ? t.embedId : t.url;
+    const catLabel = CATEGORY_LABELS[t.cat] || t.cat;
+    return `
+      <div class="video-card" onclick="openModal('${idOrUrl}','${t.title.replace(/'/g, "\\'")}','${source}')">
+        <div class="video-thumb">
+          <img src="${tutorialThumb(t)}" loading="lazy" />
+          <div class="video-thumb-overlay"><div class="video-play">▶</div></div>
+          <div class="video-soft-tag">${(t.soft || '').toUpperCase()}</div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">${t.title}</div>
+          <div class="video-cat">${catLabel}</div>
+        </div>
+      </div>`;
+  }
+
+  function getFilteredTutorials() {
+    const q = currentQuery.toLowerCase().trim();
+    return tutorials.filter(t => {
+      const matchesCat = currentCat === 'all' || t.cat === currentCat;
+      const matchesQuery = q.length === 0 ||
+        t.title.toLowerCase().includes(q) ||
+        (CATEGORY_LABELS[t.cat] || t.cat).toLowerCase().includes(q);
+      return matchesCat && matchesQuery;
+    });
+  }
+
+  function renderPagination(totalItems) {
+    const el = document.getElementById('pagination');
+    const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
+    if (totalPages <= 1) { el.innerHTML = ''; return; }
+
+    let html = `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹</button>`;
+    for (let p = 1; p <= totalPages; p++) {
+      html += `<button class="page-btn ${p === currentPage ? 'active' : ''}" onclick="goToPage(${p})">${p}</button>`;
+    }
+    html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>›</button>`;
+    el.innerHTML = html;
+  }
+
+  function goToPage(p) {
+    currentPage = p;
+    renderTutorials();
+    document.getElementById('video-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function renderTutorials() {
+    const filtered = getFilteredTutorials();
+    const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const pageItems = filtered.slice(start, start + PAGE_SIZE);
+
+    const grid = document.getElementById('video-grid');
+    grid.innerHTML = pageItems.length
+      ? pageItems.map(videoCardHTML).join('')
+      : `<div style="grid-column:1/-1; text-align:center; color:var(--text-secondary); padding:40px 0;">No tutorials found.</div>`;
+
+    renderPagination(filtered.length);
+  }
+
   // Search
   function searchTutorials(q) {
-    const query = q.toLowerCase().trim();
-    document.querySelectorAll('.video-card').forEach(card => {
-      const title = card.querySelector('.video-title').textContent.toLowerCase();
-      const cat = card.querySelector('.video-cat').textContent.toLowerCase();
-      card.classList.toggle('hidden', query.length > 0 && !title.includes(query) && !cat.includes(query));
-    });
-    // Reset filter pills when searching
-    if (query.length > 0) {
+    currentQuery = q;
+    currentPage = 1;
+    if (q.length > 0) {
+      currentCat = 'all';
       document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
     }
+    renderTutorials();
   }
 
   // Filter
   function filterVids(cat, btn) {
+    currentCat = cat;
+    currentPage = 1;
     document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     document.getElementById('tutorial-search').value = '';
-    document.querySelectorAll('.video-card').forEach(card => {
-      card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
-    });
+    currentQuery = '';
+    renderTutorials();
   }
 
   // Modal
@@ -685,6 +655,8 @@
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
+
+<script src="tutorials-data.js"></script>
 
 </body>
 </html>

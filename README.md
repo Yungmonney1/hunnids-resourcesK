@@ -15,6 +15,7 @@ script.js        — all JavaScript (if split out)
 resources.js     — plugin/extension data
 guides.js        — guide card data
 tutorials.html   — tutorials gallery page
+tutorials-data.js — tutorial video data
 CNAME            — custom domain config
 assets/          — mascot images and GIFs
 ```
@@ -83,42 +84,32 @@ The guide cards, numbering, thumbnails, featured banner, and sidebar count all u
 
 ---
 
-## Adding a Tutorial (tutorials.html)
+## Adding a Tutorial
 
-Add a card inside the `#video-grid` div.
+Open `tutorials-data.js` and add an object to the `tutorials` array.
 
 **YouTube (default):**
-```html
-<div class="video-card" data-cat="basics" onclick="openModal('YOUTUBE_ID','Video Title')">
-  <div class="video-thumb">
-    <img src="https://img.youtube.com/vi/YOUTUBE_ID/mqdefault.jpg" loading="lazy" />
-    <div class="video-thumb-overlay"><div class="video-play">▶</div></div>
-    <div class="video-soft-tag">AE</div>
-  </div>
-  <div class="video-info">
-    <div class="video-title">Video Title</div>
-    <div class="video-cat">Basics</div>
-  </div>
-</div>
+```js
+{ id: "YOUTUBE_ID", title: "Video Title", cat: "basics", soft: "ae" },
 ```
 
-**TikTok or a hosted file** — same markup, but swap the `onclick` and thumbnail:
-```html
-<div class="video-card" data-cat="basics" onclick="openModal('7123456789012345678','Video Title','tiktok')">
-  <div class="video-thumb">
-    <img src="assets/hunnids%20shape%20files/thumbs/name.jpg" loading="lazy" />
-    <div class="video-thumb-overlay"><div class="video-play">▶</div></div>
-    <div class="video-soft-tag">AE</div>
-  </div>
-  <div class="video-info">
-    <div class="video-title">Video Title</div>
-    <div class="video-cat">Basics</div>
-  </div>
-</div>
+**TikTok:**
+```js
+{ source: "tiktok", embedId: "7123456789012345678", url: "https://www.tiktok.com/@user/video/7123456789012345678", thumb: "assets/hunnids%20shape%20files/thumbs/name.jpg", title: "Video Title", cat: "basics", soft: "ae" },
 ```
-Use `'tiktok'` with the numeric TikTok video ID, or `'file'` with a direct Catbox (or similar) URL, as the third argument to `openModal`. Either way, the thumbnail image needs to be a manual screenshot uploaded to `assets/hunnids shape files/thumbs/`.
+
+**Local/other video file (hosted on Catbox or similar):**
+```js
+{ source: "file", url: "https://files.catbox.moe/xxxxx.mp4", thumb: "assets/hunnids%20shape%20files/thumbs/name.jpg", title: "Video Title", cat: "basics", soft: "ae" },
+```
+
+For TikTok/file entries, `thumb` needs to be a manual screenshot you take yourself — there's no free auto-thumbnail service for those the way YouTube provides.
+
+`soft` is `"ae"` or `"pr"` — shows as the small badge on the thumbnail.
 
 **Categories:** `basics` · `color` · `motion` · `3d` · `effects-create` · `manga` · `premiere` · `plugins`
+
+Save and push — cards, the "show all" filters, search, and pagination all update automatically. No HTML editing required.
 
 ---
 
