@@ -972,9 +972,27 @@
 
     .section-line {
       flex: 1;
-      height: 1px;
-      background: var(--border-hover);
-      opacity: 0.5;
+      height: 2px;
+      border-radius: 99px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(90deg, rgba(120,140,200,0.15), rgba(120,140,200,0.4));
+      box-shadow: 0 0 6px rgba(120,140,200,0.25);
+    }
+    .section-line::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      width: 35%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+      animation: sectionLineSheen 3.5s ease-in-out infinite;
+    }
+    @keyframes sectionLineSheen {
+      0%   { transform: translateX(-150%); }
+      100% { transform: translateX(400%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .section-line::after { animation: none; display: none; }
     }
 
     .section-count {
@@ -1152,6 +1170,47 @@
       transition: transform 0.2s;
     }
     .show-more-btn.open .show-more-chevron { transform: rotate(180deg); }
+
+    .info-btn {
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      border: 1px solid var(--border-hover);
+      background: rgba(255,255,255,0.5);
+      color: var(--brown-dim);
+      font-family: 'Nunito', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .info-btn:hover { border-color: var(--brown-light); background: rgba(255,255,255,0.85); }
+    body.dark-mode .info-btn { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+
+    .info-popover {
+      position: fixed;
+      z-index: 10000;
+      max-width: 300px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-hover);
+      border-radius: 16px;
+      padding: 14px 16px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: var(--text-primary);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(20px);
+    }
+    .info-popover-close {
+      float: right;
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-secondary);
+      margin-left: 10px;
+    }
 
     .all-plugins-panel {
       display: none;
@@ -2321,10 +2380,13 @@
     <div class="plugin-section-label">After Effects</div>
     <div class="plugin-grid" id="plugin-grid-ae"></div>
 
-    <button class="show-more-btn" onclick="toggleAllPlugins(this, 'ae-plugins-panel')">
-      <span class="show-more-label">show all After Effects plugins</span>
-      <span class="show-more-chevron">▾</span>
-    </button>
+    <div style="display:flex; align-items:center; gap:8px; margin-top:18px;">
+      <button class="show-more-btn" style="margin-top:0;" onclick="toggleAllPlugins(this, 'ae-plugins-panel')">
+        <span class="show-more-label">show all After Effects plugins</span>
+        <span class="show-more-chevron">▾</span>
+      </button>
+      <button class="info-btn" onclick="toggleInfoPopover(this)" aria-label="Why might a download get flagged?">ⓘ</button>
+    </div>
 
     <div class="all-plugins-panel" id="ae-plugins-panel">
       <input type="text" class="all-plugins-search" placeholder="Filter After Effects plugins..." oninput="filterPluginChips(this, 'ae-plugins-flow')" />
@@ -2334,10 +2396,13 @@
     <div class="plugin-section-label">Premiere Pro</div>
     <div class="plugin-grid" id="plugin-grid-pr"></div>
 
-    <button class="show-more-btn" onclick="toggleAllPlugins(this, 'pr-plugins-panel')">
-      <span class="show-more-label">show all Premiere Pro plugins</span>
-      <span class="show-more-chevron">▾</span>
-    </button>
+    <div style="display:flex; align-items:center; gap:8px; margin-top:18px;">
+      <button class="show-more-btn" style="margin-top:0;" onclick="toggleAllPlugins(this, 'pr-plugins-panel')">
+        <span class="show-more-label">show all Premiere Pro plugins</span>
+        <span class="show-more-chevron">▾</span>
+      </button>
+      <button class="info-btn" onclick="toggleInfoPopover(this)" aria-label="Why might a download get flagged?">ⓘ</button>
+    </div>
 
     <div class="all-plugins-panel" id="pr-plugins-panel">
       <input type="text" class="all-plugins-search" placeholder="Filter Premiere Pro plugins..." oninput="filterPluginChips(this, 'pr-plugins-flow')" />
@@ -2662,6 +2727,41 @@
     label.textContent = isOpen
       ? label.textContent.replace('show all', 'hide')
       : label.textContent.replace('hide', 'show all');
+  }
+
+  function closeInfoPopoverOnOutsideClick(e) {
+    const pop = document.getElementById('info-popover');
+    if (pop && !pop.contains(e.target) && !e.target.classList.contains('info-btn')) {
+      pop.remove();
+      document.removeEventListener('click', closeInfoPopoverOnOutsideClick);
+    }
+  }
+
+  function toggleInfoPopover(btn) {
+    const existing = document.getElementById('info-popover');
+    if (existing) {
+      const sameTrigger = existing._trigger === btn;
+      existing.remove();
+      document.removeEventListener('click', closeInfoPopoverOnOutsideClick);
+      if (sameTrigger) return;
+    }
+
+    const pop = document.createElement('div');
+    pop.id = 'info-popover';
+    pop.className = 'info-popover';
+    pop._trigger = btn;
+    pop.innerHTML = `<span class="info-popover-close" onclick="document.getElementById('info-popover').remove()">✕</span><strong>Why might a download get flagged?</strong><br><br>Some legitimate editing plugins and license-checkers get flagged by antivirus heuristics — a compiled script doing "unusual" things can superficially resemble malware behavior even when it's completely clean. Every download here has been personally tested. If you'd like to double-check any file yourself first, we'd recommend scanning it on <a href="https://www.virustotal.com" target="_blank" style="color:inherit;">VirusTotal</a>.`;
+    document.body.appendChild(pop);
+
+    const rect = btn.getBoundingClientRect();
+    const popWidth = 300;
+    let left = rect.left;
+    if (left + popWidth > window.innerWidth - 16) left = window.innerWidth - popWidth - 16;
+    if (left < 16) left = 16;
+    pop.style.top = (rect.bottom + 8) + 'px';
+    pop.style.left = left + 'px';
+
+    setTimeout(() => document.addEventListener('click', closeInfoPopoverOnOutsideClick), 0);
   }
 
 
