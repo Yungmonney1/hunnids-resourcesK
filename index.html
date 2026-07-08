@@ -2368,7 +2368,7 @@
         <span class="show-more-label">show all After Effects plugins</span>
         <span class="show-more-chevron">▾</span>
       </button>
-      <button class="info-btn" onclick="toggleInfoPopover(this)" aria-label="Why might a download get flagged?">ⓘ</button>
+      <button class="info-btn" onclick="toggleInfoPopover(this)" aria-label="Why some downloads get flagged">ⓘ</button>
     </div>
 
     <div class="all-plugins-panel" id="ae-plugins-panel">
@@ -2384,7 +2384,7 @@
         <span class="show-more-label">show all Premiere Pro plugins</span>
         <span class="show-more-chevron">▾</span>
       </button>
-      <button class="info-btn" onclick="toggleInfoPopover(this)" aria-label="Why might a download get flagged?">ⓘ</button>
+      <button class="info-btn" onclick="toggleInfoPopover(this)" aria-label="Why some downloads get flagged">ⓘ</button>
     </div>
 
     <div class="all-plugins-panel" id="pr-plugins-panel">
@@ -2733,7 +2733,7 @@
     pop.id = 'info-popover';
     pop.className = 'info-popover';
     pop._trigger = btn;
-    pop.innerHTML = `<span class="info-popover-close" onclick="document.getElementById('info-popover').remove()">✕</span><strong>Why might a download get flagged?</strong><br><br>Some legitimate editing plugins and license-checkers get flagged by antivirus heuristics — a compiled script doing "unusual" things can superficially resemble malware behavior even when it's completely clean. Every download here has been personally tested. If you'd like to double-check any file yourself first, we'd recommend scanning it on <a href="https://www.virustotal.com" target="_blank" style="color:inherit;">VirusTotal</a>.`;
+    pop.innerHTML = `<span class="info-popover-close" onclick="document.getElementById('info-popover').remove()">✕</span><strong>Why some downloads get flagged</strong><br><br>A false positive is when antivirus software wrongly flags a safe file as dangerous. This happens a lot with editing plugins — compiled scripts and license-checkers can trigger the same detection patterns as actual malware, even when there's nothing harmful inside.<br><br>That said, no one can guarantee any file is 100% safe, including us. Before running anything, scan it yourself on <a href="https://www.virustotal.com" target="_blank" style="color:inherit;">VirusTotal</a> — it checks a file against dozens of antivirus engines at once. If something gets flagged and you're not sure what it means, ask in the Discord before running it.`;
     document.body.appendChild(pop);
 
     const rect = btn.getBoundingClientRect();
