@@ -45,7 +45,7 @@ const tutorials = [
   { id: "hiQ-Y4rk42E", title: "How to Make Frutiger Metro Aero Effects — After Effects", cat: "effects-create", soft: "ae" },
   { id: "fdGzWXM_UPY", title: "Smooth Animations Tutorial", cat: "motion", soft: "ae" },
   { id: "fRl92Bba_6s", title: "3D Camera Tutorial", cat: "3d", soft: "ae" },
-  { id: "KUquO5vzdGY", title: "Premiere Pro Workspace Customization", cat: "premiere", soft: "pr" },
+  { id: "KUquO5vzdGY", title: "After Effects Workspace Customization", cat: "basics", soft: "ae" },
   { id: "qTaOIhh9ja8", title: "Flow Plugin Tutorial — After Effects", cat: "plugins", soft: "ae" },
   { id: "JsQ_TtfDcnI", title: "Newton 4 Tutorial — After Effects", cat: "plugins", soft: "ae" },
   { id: "Qr0PFFPiv54", title: "FX Console — Speed Up Your AE Workflow", cat: "plugins", soft: "ae" },
