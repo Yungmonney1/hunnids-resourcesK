@@ -562,7 +562,14 @@
     premiere: 'Premiere Pro',
     plugins: 'Plugin Tutorials',
   };
-  const PAGE_SIZE = 12;
+  let PAGE_SIZE = 12; // recalculated automatically to match actual grid columns
+  const ROWS_PER_PAGE = 3;
+
+  function getColumnCount() {
+    const grid = document.getElementById('video-grid');
+    const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length;
+    return cols || 1;
+  }
 
   let currentCat = 'all';
   let currentQuery = '';
@@ -629,6 +636,9 @@
   }
 
   function renderTutorials() {
+    const cols = getColumnCount();
+    PAGE_SIZE = cols * ROWS_PER_PAGE;
+
     const filtered = getFilteredTutorials();
     const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
     if (currentPage > totalPages) currentPage = totalPages;
@@ -643,6 +653,19 @@
 
     renderPagination(filtered.length);
   }
+
+  // Recalculate page size on resize (columns can change at different widths), debounced
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const newCols = getColumnCount();
+      if (newCols * ROWS_PER_PAGE !== PAGE_SIZE) {
+        currentPage = 1;
+        renderTutorials();
+      }
+    }, 200);
+  });
 
   // Search
   function searchTutorials(q) {
