@@ -433,6 +433,16 @@
       border: none;
     }
 
+    /* Vertical (TikTok-style) modal */
+    .modal.modal-vertical {
+      width: 380px;
+    }
+    .modal.modal-vertical .modal-embed {
+      padding-top: 0;
+      height: 80vh;
+      max-height: 780px;
+    }
+
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
 
@@ -520,7 +530,7 @@
 
 <!-- VIDEO MODAL -->
 <div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
-  <div class="modal">
+  <div class="modal" id="modal-box">
     <div class="modal-header">
       <div class="modal-title" id="modal-title"></div>
       <div class="modal-close" onclick="closeModal()">close ✕</div>
@@ -669,12 +679,14 @@
       embedHTML = `<video src="${idOrUrl}" controls autoplay style="width:100%;height:100%;object-fit:contain;background:#000;"></video>`;
     }
     document.getElementById('modal-embed').innerHTML = embedHTML;
+    document.getElementById('modal-box').classList.toggle('modal-vertical', source === 'tiktok');
     document.getElementById('modal').classList.add('open');
   }
 
   function closeModal() {
     document.getElementById('modal').classList.remove('open');
     document.getElementById('modal-embed').innerHTML = '';
+    document.getElementById('modal-box').classList.remove('modal-vertical');
   }
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });

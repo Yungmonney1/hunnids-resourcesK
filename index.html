@@ -2672,12 +2672,27 @@
       modal = document.createElement('div');
       modal.id = 'guide-modal-overlay';
       modal.style.cssText = 'display:flex;position:fixed;inset:0;z-index:9999;background:rgba(10,12,22,0.75);backdrop-filter:blur(8px);align-items:center;justify-content:center;';
-      modal.innerHTML = `<div style="background:rgba(20,24,40,0.97);border:1px solid rgba(255,255,255,0.12);border-radius:24px;width:760px;max-width:92vw;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.6);"><div style="display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid rgba(255,255,255,0.08);"><div id="gmod-title" style="font-family:'Quicksand',sans-serif;font-size:15px;font-weight:700;color:#fff;flex:1;margin-right:12px;"></div><div onclick="closeGuideModal()" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.5);cursor:pointer;padding:4px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);">close ✕</div></div><div id="gmod-embed" style="position:relative;width:100%;padding-top:56.25%;"></div></div>`;
+      modal.innerHTML = `<div id="gmod-box" style="background:rgba(20,24,40,0.97);border:1px solid rgba(255,255,255,0.12);border-radius:24px;width:760px;max-width:92vw;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.6);"><div style="display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid rgba(255,255,255,0.08);"><div id="gmod-title" style="font-family:'Quicksand',sans-serif;font-size:15px;font-weight:700;color:#fff;flex:1;margin-right:12px;"></div><div onclick="closeGuideModal()" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.5);cursor:pointer;padding:4px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);">close ✕</div></div><div id="gmod-embed" style="position:relative;width:100%;padding-top:56.25%;"></div></div>`;
       modal.addEventListener('click', e => { if (e.target === modal) closeGuideModal(); });
       document.body.appendChild(modal);
     }
     document.getElementById('gmod-title').textContent = g.title;
     document.getElementById('gmod-embed').innerHTML = guideEmbedHTML(g);
+
+    const box = document.getElementById('gmod-box');
+    const embed = document.getElementById('gmod-embed');
+    if (g.source === 'tiktok') {
+      box.style.width = '380px';
+      embed.style.paddingTop = '0';
+      embed.style.height = '80vh';
+      embed.style.maxHeight = '780px';
+    } else {
+      box.style.width = '760px';
+      embed.style.paddingTop = '56.25%';
+      embed.style.height = 'auto';
+      embed.style.maxHeight = 'none';
+    }
+
     modal.style.display = 'flex';
   }
   function closeGuideModal() {
