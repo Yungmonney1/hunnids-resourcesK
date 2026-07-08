@@ -2964,9 +2964,12 @@
     const countEl = document.getElementById('stat-guides');
     if (countEl) countEl.textContent = String(guides.length).padStart(2, '0');
   }
+</script>
 
-  renderGuides();
+<script src="guides.js"></script>
+<script src="resources.js"></script>
 
+<script>
   // Auto-calculate plugin stats from resources.js
   if (typeof resources !== 'undefined') {
     const pad = n => String(n).padStart(2, '0');
@@ -2996,9 +2999,6 @@
     }
   }
 </script>
-
-<script src="guides.js"></script>
-<script src="resources.js"></script>
 
 </body>
 </html>
