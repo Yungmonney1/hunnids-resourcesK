@@ -1671,11 +1671,16 @@
 
     /* Discord CTA */
     .discord-cta {
-      background: linear-gradient(135deg, #5865f2, #4752c4) !important;
-      color: #fff !important;
-      box-shadow: 0 4px 14px rgba(88,101,242,0.35);
+      background: transparent !important;
+      border: 1.5px solid #5865f2 !important;
+      color: #5865f2 !important;
+      box-shadow: none;
+      padding: 5.5px 16.5px;
     }
-    .discord-cta:hover { opacity: 0.9; color: #fff !important; }
+    .discord-cta:hover { background: rgba(88,101,242,0.1) !important; color: #5865f2 !important; opacity: 1; }
+
+    body.dark-mode .discord-cta { color: #8990f5 !important; border-color: #8990f5 !important; }
+    body.dark-mode .discord-cta:hover { background: rgba(88,101,242,0.15) !important; color: #8990f5 !important; }
 
     /* New Drops strip */
     .new-drops {
