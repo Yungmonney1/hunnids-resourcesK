@@ -2858,9 +2858,22 @@
 
 <script>
   // Guide source helpers — defaults to youtube for any entry without a "source" field
-  function guideThumb(g) {
-    if (!g.source || g.source === 'youtube') return `https://img.youtube.com/vi/${g.id}/hqdefault.jpg`;
-    return g.thumb;
+  function guideThumbHTML(g) {
+    const source = g.source || 'youtube';
+    if (source === 'youtube') {
+      return `<img src="https://img.youtube.com/vi/${g.id}/hqdefault.jpg" alt="${g.title}" />`;
+    }
+    if (g.thumb) {
+      return `<img src="${g.thumb}" alt="${g.title}" />`;
+    }
+    const label = source === 'tiktok' ? 'TikTok' : 'Video';
+    return `<div class="guide-card-thumb-placeholder guide-card-thumb-placeholder-${source}">${label}</div>`;
+  }
+  function guideThumbURL(g) {
+    // Used only where a plain image URL is needed (e.g. the featured banner's <img src>)
+    const source = g.source || 'youtube';
+    if (source === 'youtube') return `https://img.youtube.com/vi/${g.id}/hqdefault.jpg`;
+    return g.thumb || '';
   }
   function guideEmbedHTML(g) {
     if (!g.source || g.source === 'youtube') {
@@ -2924,7 +2937,7 @@
     target.innerHTML = guides.map((g, i) => `
       <div class="guide-card" onclick="openGuideModal(${i})">
         <div class="guide-card-thumb">
-          <img src="${guideThumb(g)}" alt="${g.title}" />
+          ${guideThumbHTML(g)}
           <div class="guide-card-tagchip">${g.tag}</div>
           <div class="guide-card-play">${playSVG}</div>
         </div>
@@ -2940,7 +2953,11 @@
     const img = document.getElementById('featured-banner-img');
     const title = document.getElementById('featured-banner-title');
     if (link) link.href = guideExternalLink(f);
-    if (img) img.src = guideThumb(f);
+    if (img) {
+      const url = guideThumbURL(f);
+      if (url) { img.src = url; img.style.display = ''; }
+      else { img.style.display = 'none'; }
+    }
     if (title) title.textContent = f.title;
 
     // Update sidebar guide count

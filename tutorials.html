@@ -291,6 +291,23 @@
     }
     .video-card:hover .video-thumb img { transform: scale(1.05); }
 
+    .video-thumb-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      color: #fff;
+      transition: transform 0.25s;
+    }
+    .video-card:hover .video-thumb-placeholder { transform: scale(1.05); }
+    .video-thumb-placeholder-tiktok { background: linear-gradient(135deg, #010101, #25F4EE 0%, #010101 40%, #FE2C55 100%); }
+    .video-thumb-placeholder-file { background: linear-gradient(135deg, #3a3f4a, #5a6072); }
+
     .video-thumb-overlay {
       position: absolute;
       inset: 0;
@@ -541,9 +558,16 @@
   let currentQuery = '';
   let currentPage = 1;
 
-  function tutorialThumb(t) {
-    if (!t.source || t.source === 'youtube') return `https://img.youtube.com/vi/${t.id}/mqdefault.jpg`;
-    return t.thumb;
+  function tutorialThumbHTML(t) {
+    const source = t.source || 'youtube';
+    if (source === 'youtube') {
+      return `<img src="https://img.youtube.com/vi/${t.id}/mqdefault.jpg" loading="lazy" />`;
+    }
+    if (t.thumb) {
+      return `<img src="${t.thumb}" loading="lazy" />`;
+    }
+    const label = source === 'tiktok' ? 'TikTok' : 'Video';
+    return `<div class="video-thumb-placeholder video-thumb-placeholder-${source}">${label}</div>`;
   }
 
   function videoCardHTML(t) {
@@ -553,7 +577,7 @@
     return `
       <div class="video-card" onclick="openModal('${idOrUrl}','${t.title.replace(/'/g, "\\'")}','${source}')">
         <div class="video-thumb">
-          <img src="${tutorialThumb(t)}" loading="lazy" />
+          ${tutorialThumbHTML(t)}
           <div class="video-thumb-overlay"><div class="video-play">▶</div></div>
           <div class="video-soft-tag">${(t.soft || '').toUpperCase()}</div>
         </div>
