@@ -71,6 +71,12 @@ const resources = [
     soft: "ae", src: "GH", featured: true,
     link: "https://github.com/NevermindNilas/TheAnimeScripter"
   },
+  {
+    name: "Liquid Glass",
+    desc: "An Apple-inspired liquid glass effect for After Effects. Real refraction and specular highlights on any layer with alpha.",
+    soft: "ae", src: "GH", featured: true,
+    link: "https://www.toolsformotion.com/liquid-glass"
+  },
 
   // ── AFTER EFFECTS — SHOW ALL ─────────────────
   { name: "Aescripts Motion Mosh v1.2.1", soft: "ae", src: "GD", link: "https://drive.google.com/file/d/1khI_ZSe0Bjj56U4MfdYQfYnJDcUAn_bT/view?usp=drive_link" },
