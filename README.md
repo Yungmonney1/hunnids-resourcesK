@@ -154,4 +154,4 @@ Both commands require the **Manage Server** permission to run.
 
 ---
 
-*Built by kashmoney for the hunnids Discord community.*
+*Built by hunnido for the hunnids Discord community.*
