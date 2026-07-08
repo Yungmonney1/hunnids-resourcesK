@@ -58,7 +58,6 @@ const tutorials = [
   { id: "vZzZFXzzWFU", title: "Uwu2x - 4K Quality + Smooth Twixtor in 1 click | After Effects Extension", cat: "plugins", soft: "ae" },
   { id: "HWd80Yyzfe4", title: "TextEvo Tutorial: The Basics", cat: "plugins", soft: "ae" },
   { id: "xB7ocpdHjtM", title: "AFTER EFEFCTS SIGNAL PLUGIN TUTORIAL FOR WINDOWS", cat: "plugins", soft: "ae" },
-  
 ];
 
 // Called by tutorials.html after this script loads
