@@ -52,7 +52,13 @@ const tutorials = [
   { id: "j-TA5u0TBNk", title: "KBar3 for After Effects Tutorial", cat: "plugins", soft: "ae" },
   { source: "tiktok", embedId: "7624116548101262599", url: "https://www.tiktok.com/@adhitpe/video/7624116548101262599", title: "Text Morphing Effect", cat: "basics", soft: "ae" },
   { source: "tiktok", embedId: "7658945947988184341", url: "https://www.tiktok.com/@sorasalter/video/7658945947988184341", title: "After Zoom Tutorial", cat: "basics", tag: "AE" },
-  { id: "y5Q-AhxPh9A", title: "Apple Style UI Shape Morphing Tutorial in After Effects ", cat: "motion", soft: "ae" },
+  { id: "y5Q-AhxPh9A", title: "Apple Style UI Shape Morphing Tutorial in After Effects", cat: "motion", soft: "ae" },
+  { id: "cpQzSKuEAkM", title: "Learn Apple Style Motion Graphics in 20 minutes | After Effects", cat: "motion", soft: "ae" },
+  { id: "pnynUoWmX3A", title: "How To Motion Track Objects In Premiere Pro", cat: "premiere", soft: "pr" },
+  { id: "vZzZFXzzWFU", title: "Uwu2x - 4K Quality + Smooth Twixtor in 1 click | After Effects Extension", cat: "plugins", soft: "ae" },
+  { id: "HWd80Yyzfe4", title: "TextEvo Tutorial: The Basics", cat: "plugins", soft: "ae" },
+  { id: "xB7ocpdHjtM", title: "AFTER EFEFCTS SIGNAL PLUGIN TUTORIAL FOR WINDOWS", cat: "plugins", soft: "ae" },
+  
 ];
 
 // Called by tutorials.html after this script loads
