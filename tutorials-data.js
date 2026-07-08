@@ -51,7 +51,8 @@ const tutorials = [
   { id: "Qr0PFFPiv54", title: "FX Console — Speed Up Your AE Workflow", cat: "plugins", soft: "ae" },
   { id: "j-TA5u0TBNk", title: "KBar3 for After Effects Tutorial", cat: "plugins", soft: "ae" },
   { source: "tiktok", embedId: "7624116548101262599", url: "https://www.tiktok.com/@adhitpe/video/7624116548101262599", title: "Text Morphing Effect", cat: "basics", soft: "ae" },
-  { source: "tiktok", embedId: "7658945947988184341", url: "https://www.tiktok.com/@sorasalter/video/7658945947988184341", thumb: "file:///X:/hunnids%20website/CUSTOM%20THUMBNAILS/after%20zoom%20tiktok-thumbnail.png", title: "Afer Zoom Tutorial", tag: "AE" },
+  { source: "tiktok", embedId: "7658945947988184341", url: "https://www.tiktok.com/@sorasalter/video/7658945947988184341", title: "After Zoom Tutorial", cat: "basics", tag: "AE" },
+  { id: "y5Q-AhxPh9A", title: "Apple Style UI Shape Morphing Tutorial in After Effects ", cat: "motion", soft: "ae" },
 ];
 
 // Called by tutorials.html after this script loads
