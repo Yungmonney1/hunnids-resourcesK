@@ -974,25 +974,8 @@
       flex: 1;
       height: 2px;
       border-radius: 99px;
-      position: relative;
-      overflow: hidden;
       background: linear-gradient(90deg, rgba(120,140,200,0.15), rgba(120,140,200,0.4));
       box-shadow: 0 0 6px rgba(120,140,200,0.25);
-    }
-    .section-line::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      width: 35%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
-      animation: sectionLineSheen 3.5s ease-in-out infinite;
-    }
-    @keyframes sectionLineSheen {
-      0%   { transform: translateX(-150%); }
-      100% { transform: translateX(400%); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .section-line::after { animation: none; display: none; }
     }
 
     .section-count {
@@ -1189,7 +1172,7 @@
     body.dark-mode .info-btn { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
 
     .info-popover {
-      position: fixed;
+      position: absolute;
       z-index: 10000;
       max-width: 300px;
       background: var(--bg-card);
@@ -2755,10 +2738,10 @@
 
     const rect = btn.getBoundingClientRect();
     const popWidth = 300;
-    let left = rect.left;
-    if (left + popWidth > window.innerWidth - 16) left = window.innerWidth - popWidth - 16;
-    if (left < 16) left = 16;
-    pop.style.top = (rect.bottom + 8) + 'px';
+    let left = rect.left + window.scrollX;
+    if (left + popWidth > window.scrollX + window.innerWidth - 16) left = window.scrollX + window.innerWidth - popWidth - 16;
+    if (left < window.scrollX + 16) left = window.scrollX + 16;
+    pop.style.top = (rect.bottom + window.scrollY + 8) + 'px';
     pop.style.left = left + 'px';
 
     setTimeout(() => document.addEventListener('click', closeInfoPopoverOnOutsideClick), 0);
