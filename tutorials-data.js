@@ -50,6 +50,7 @@ const tutorials = [
   { id: "JsQ_TtfDcnI", title: "Newton 4 Tutorial — After Effects", cat: "plugins", soft: "ae" },
   { id: "Qr0PFFPiv54", title: "FX Console — Speed Up Your AE Workflow", cat: "plugins", soft: "ae" },
   { id: "j-TA5u0TBNk", title: "KBar3 for After Effects Tutorial", cat: "plugins", soft: "ae" },
+  { source: "tiktok", embedId: "7624116548101262599", url: "https://www.tiktok.com/@adhitpe/video/7624116548101262599", title: "Text Morphing Effect", cat: "basics", soft: "ae" },
 ];
 
 // Called by tutorials.html after this script loads
