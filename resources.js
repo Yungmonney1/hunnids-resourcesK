@@ -104,6 +104,7 @@ const resources = [
   { name: "Motion Tools Pro v2.0.15", soft: "ae", src: "GD", ext: true, link: "https://drive.google.com/file/d/1UOt4ATHSsa8C7XjTlGPFyWT_wLuZM1BK/view?usp=drive_link" },
   { name: "MoveAnchorPoint 4", soft: "ae", src: "GD", ext: true, os: ["Win","Mac"], link: "https://drive.google.com/file/d/1vk4MIPTYBF4tzTSzb0GFg11pMmFUbCBy/view?usp=drive_link" },
   { name: "Project Sorter 1.7.3.1", soft: "ae", src: "GD", ext: true, link: "https://drive.google.com/file/d/1zxICMs33iIYVJMwjxlQ_Fx8a7MqL1Sec/view?usp=drive_link" },
+  { name: "Automation Toolkit", soft: "ae", src: "WEB", ext: true, link: "https://aescripts.com/automation-toolkit/" },
 
   // ── PREMIERE PRO — FEATURED ──────────────────
   {
