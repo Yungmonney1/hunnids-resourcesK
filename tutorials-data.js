@@ -236,7 +236,6 @@ const tutorials = [
   { id: "5RbAZ0k1Qgo", title: "Freeze Frame Animation in After Effects - After Effects Tutorial", cat: "basics", soft: "ae" },
   { id: "v1zurHkQ9Qk", title: "HUD Animation in After Effects - After Effects Tutorial - Logo Reveal Intro", cat: "basics", soft: "ae" },
   { id: "lgtKgCX5fNU", title: "Instagram Story Animation in After Effects - After Effects Tutorial", cat: "basics", soft: "ae" },
-  { id: "iuWhFoCM8Zg", title: "Untitled", cat: "basics", soft: "ae" },
   { id: "81KcRxEM_Ds", title: "After Effects Tutorial - Complex Patterns in After Effects", cat: "basics", soft: "ae" },
   { id: "THNQEBHZoGY", title: "After Effects Tutorial - Audio Spectrum in After Effects - No Plugins", cat: "basics", soft: "ae" },
   { id: "Lk-KmEhE55w", title: "After Effects Tutorial - Glowing Lines Animation in After Effects with Deep Glow", cat: "basics", soft: "ae" },
