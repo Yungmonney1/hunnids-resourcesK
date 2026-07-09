@@ -1869,7 +1869,7 @@
 
     /* About modal */
     .about-modal-overlay {
-      display: none;
+      display: flex;
       position: fixed;
       inset: 0;
       z-index: 999;
@@ -1877,8 +1877,19 @@
       backdrop-filter: blur(6px);
       align-items: center;
       justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
     }
-    .about-modal-overlay.open { display: flex; }
+    .about-modal-overlay.open { opacity: 1; visibility: visible; }
+    .about-modal-overlay .about-modal {
+      transform: scale(0.96);
+      transition: transform 0.25s ease;
+    }
+    .about-modal-overlay.open .about-modal { transform: scale(1); }
+    @media (prefers-reduced-motion: reduce) {
+      .about-modal-overlay, .about-modal-overlay .about-modal { transition: none; }
+    }
 
     .about-modal {
       background: rgba(255,255,255,0.92);
@@ -2201,7 +2212,7 @@
     <div class="breadcrumb">hunnids<span>*</span> / resources</div>
     <div class="header-tabs">
       <a class="tab active" href="#">Home</a>
-      <a class="tab" href="#faq">FAQ</a>
+      <a class="tab" href="#faq" onclick="scrollToSection(event, 'faq')">FAQ</a>
       <a class="tab" onclick="openAbout()">About</a>
       <a class="tab discord-cta" href="https://discord.gg/AcuUU2zpdD" target="_blank">Join Discord ↗</a>
     </div>
@@ -2860,6 +2871,12 @@
         icons.forEach(i => i.classList.remove('active'));
         const active = document.querySelector(`.sidebar-icon[href="#${entry.target.id}"]`);
         if (active) active.classList.add('active');
+
+        // Sync header tabs: "Home" maps to the plugins section, "FAQ" maps to its own section
+        const homeTab = document.querySelector('.tab[href="#"]');
+        const faqTab = document.querySelector('.tab[href="#faq"]');
+        if (homeTab) homeTab.classList.toggle('active', entry.target.id === 'plugins');
+        if (faqTab) faqTab.classList.toggle('active', entry.target.id === 'faq');
       }
     });
   }, { rootMargin: '-10% 0px -55% 0px', threshold: 0 });
