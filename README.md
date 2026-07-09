@@ -121,7 +121,7 @@ Same deal — shows a generic "Video" placeholder unless you add a `thumb` field
 
 `soft` is `"ae"` or `"pr"` — shows as the small badge on the thumbnail.
 
-**Categories:** `basics` · `color` · `motion` · `3d` · `effects-create` · `manga` · `premiere` · `plugins`
+**Categories:** `basics` · `text` · `transitions` · `glitch` · `amv-style` · `logos-intros` · `social-templates` · `backgrounds` · `motion` · `effects-create` · `color` · `3d` · `manga` · `premiere` · `plugins`
 
 Save and push — cards, the "show all" filters, search, and pagination all update automatically. No HTML editing required.
 

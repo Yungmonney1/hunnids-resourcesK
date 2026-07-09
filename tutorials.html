@@ -520,12 +520,19 @@
     <input type="text" id="tutorial-search" class="tutorial-search" placeholder="Search tutorials..." oninput="searchTutorials(this.value)" />
     <button class="filter-pill active" onclick="filterVids('all', this)">All</button>
     <button class="filter-pill" onclick="filterVids('basics', this)">Basics</button>
-    <button class="filter-pill" onclick="filterVids('color', this)">Color & Quality</button>
-    <button class="filter-pill" onclick="filterVids('motion', this)">Motion & Style</button>
-    <button class="filter-pill" onclick="filterVids('3d', this)">3D & Advanced</button>
+    <button class="filter-pill" onclick="filterVids('motion', this)">Motion Graphics</button>
+    <button class="filter-pill" onclick="filterVids('text', this)">Text & Titles</button>
+    <button class="filter-pill" onclick="filterVids('transitions', this)">Transitions</button>
+    <button class="filter-pill" onclick="filterVids('glitch', this)">Glitch & CRT</button>
+    <button class="filter-pill" onclick="filterVids('amv-style', this)">AMV Style</button>
     <button class="filter-pill" onclick="filterVids('effects-create', this)">Effects</button>
-    <button class="filter-pill" onclick="filterVids('premiere', this)">Premiere Pro</button>
+    <button class="filter-pill" onclick="filterVids('logos-intros', this)">Logos & Intros</button>
+    <button class="filter-pill" onclick="filterVids('backgrounds', this)">Backgrounds</button>
+    <button class="filter-pill" onclick="filterVids('social-templates', this)">Social Templates</button>
+    <button class="filter-pill" onclick="filterVids('color', this)">Color & Quality</button>
+    <button class="filter-pill" onclick="filterVids('3d', this)">3D & Advanced</button>
     <button class="filter-pill" onclick="filterVids('manga', this)">Manga/MMV</button>
+    <button class="filter-pill" onclick="filterVids('premiere', this)">Premiere Pro</button>
     <button class="filter-pill" onclick="filterVids('plugins', this)">Plugin Tutorials</button>
   </div>
 
@@ -561,16 +568,23 @@
   // ── Tutorials: render, filter, search, paginate — all driven by tutorials-data.js ──
   const CATEGORY_LABELS = {
     basics: 'Basics',
-    color: 'Color & Quality',
-    motion: 'Motion & Style',
-    '3d': '3D & Advanced',
+    text: 'Text & Titles',
+    transitions: 'Transitions',
+    glitch: 'Glitch & CRT',
+    'amv-style': 'AMV Style',
+    'logos-intros': 'Logos & Intros',
+    'social-templates': 'Social Templates',
+    backgrounds: 'Backgrounds',
+    motion: 'Motion Graphics',
     'effects-create': 'Effects',
+    color: 'Color & Quality',
+    '3d': '3D & Advanced',
     manga: 'Manga/MMV',
     premiere: 'Premiere Pro',
     plugins: 'Plugin Tutorials',
   };
   let PAGE_SIZE = 12; // recalculated automatically to match actual grid columns
-  const ROWS_PER_PAGE = 3;
+  const ROWS_PER_PAGE = 5;
 
   function getColumnCount() {
     const grid = document.getElementById('video-grid');
