@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="assets/hunnids%20shape%20files/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/hunnids%20shape%20files/favicon-180.png">
+  <title>hunnids* / art wall</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg: #eef1f5;
+      --bg-card: rgba(255,255,255,0.62);
+      --bg-hover: rgba(255,255,255,0.85);
+      --border: rgba(255,255,255,0.55);
+      --border-hover: rgba(140,150,165,0.35);
+      --text-primary: #2c313a;
+      --text-secondary: #6b7280;
+      --text-muted: #a4acb8;
+      --brown: #3a3f4a;
+      --brown-dim: #21242c;
+      --brown-light: #707a8a;
+      --shadow-soft: 0 8px 30px rgba(40,45,60,0.08);
+      --shadow-pop: 0 14px 40px rgba(40,45,60,0.14);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      background-image:
+        radial-gradient(circle at 12% 10%, rgba(173,196,230,0.55) 0%, transparent 45%),
+        radial-gradient(circle at 88% 18%, rgba(210,190,230,0.40) 0%, transparent 45%),
+        radial-gradient(circle at 30% 85%, rgba(180,220,215,0.40) 0%, transparent 45%),
+        radial-gradient(circle at 90% 90%, rgba(230,200,200,0.30) 0%, transparent 45%);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    body.dark-mode {
+      --bg: #0f1117;
+      --bg-card: rgba(22,27,40,0.75);
+      --bg-hover: rgba(30,36,54,0.9);
+      --border: rgba(255,255,255,0.08);
+      --border-hover: rgba(255,255,255,0.15);
+      --text-primary: #e8eaf0;
+      --text-secondary: #8892a4;
+      --text-muted: #4a5268;
+      --brown: #8ba0c4;
+      --brown-dim: #c4d4f0;
+      --brown-light: #5a7aaa;
+      --shadow-soft: 0 8px 30px rgba(0,0,0,0.3);
+      --shadow-pop: 0 14px 40px rgba(0,0,0,0.5);
+      background-image:
+        radial-gradient(circle at 12% 10%, rgba(40,60,120,0.35) 0%, transparent 45%),
+        radial-gradient(circle at 88% 18%, rgba(60,40,100,0.25) 0%, transparent 45%),
+        radial-gradient(circle at 30% 85%, rgba(20,60,80,0.25) 0%, transparent 45%),
+        radial-gradient(circle at 90% 90%, rgba(50,30,60,0.2) 0%, transparent 45%);
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      backdrop-filter: blur(16px) saturate(160%);
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 100;
+      box-shadow: var(--shadow-soft);
+    }
+
+    body.dark-mode header { background: rgba(12,15,26,0.88); }
+
+    .header-left { display: flex; align-items: center; gap: 16px; }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border-hover);
+      background: rgba(255,255,255,0.5);
+      transition: all 0.15s;
+    }
+    .back-btn:hover { color: var(--brown-dim); background: rgba(255,255,255,0.9); }
+    body.dark-mode .back-btn { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+
+    .breadcrumb {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .breadcrumb span { color: var(--brown); }
+
+    .dark-toggle {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--border-hover);
+      background: rgba(255,255,255,0.5);
+      cursor: pointer; display: flex; align-items: center;
+      justify-content: center; font-size: 16px; transition: all 0.2s;
+    }
+    .dark-toggle:hover { background: rgba(255,255,255,0.9); transform: scale(1.08); }
+    body.dark-mode .dark-toggle { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+
+    /* ── MAIN ── */
+    .page-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 48px 48px 80px;
+    }
+
+    .page-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--brown-light);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .page-title {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--brown-dim);
+      margin-bottom: 6px;
+    }
+    .page-title span { color: var(--brown-light); }
+
+    .page-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .live-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: var(--text-secondary);
+      opacity: 0.5;
+      margin-bottom: 36px;
+    }
+
+    /* ── MASONRY COLLAGE ── */
+    .art-masonry {
+      column-count: 4;
+      column-gap: 16px;
+    }
+    @media (max-width: 1200px) { .art-masonry { column-count: 3; } }
+    @media (max-width: 800px)  { .art-masonry { column-count: 2; } }
+    @media (max-width: 500px)  { .art-masonry { column-count: 1; } }
+
+    .art-card {
+      break-inside: avoid;
+      margin-bottom: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .art-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-pop); }
+
+    .art-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .art-card-info {
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .art-card-artist {
+      font-family: 'Nunito', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .art-card-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .art-empty {
+      text-align: center;
+      color: var(--text-secondary);
+      padding: 80px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+    }
+
+    @media (max-width: 768px) {
+      .page-wrap { padding: 24px 16px 60px; }
+      .page-title { font-size: 26px; }
+      .breadcrumb { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a href="index.html" class="back-btn">← Back</a>
+    <div class="breadcrumb">hunnids<span>*</span> / art wall</div>
+  </div>
+  <button class="dark-toggle" onclick="toggleDark()" id="dark-toggle" title="Toggle dark mode">🌙</button>
+</header>
+
+<div class="page-wrap">
+  <div class="page-eyebrow">// community showcase</div>
+  <div class="page-title">Art Wall<span>*</span></div>
+  <div class="page-desc">Fan art & edits from the hunnids community. Posts stay up for 7 days.</div>
+  <div class="live-count" id="live-count-art">— pieces on display right now</div>
+
+  <div class="art-masonry" id="art-masonry"></div>
+</div>
+
+<script>
+  function toggleDark() {
+    const isDark = document.body.classList.toggle('dark-mode');
+    document.getElementById('dark-toggle').textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('hunnids-theme', isDark ? 'dark' : 'light');
+  }
+  if (localStorage.getItem('hunnids-theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+    document.getElementById('dark-toggle').textContent = '☀️';
+  }
+
+  const RETENTION_DAYS = 7;
+
+  function timeAgo(isoString) {
+    const posted = new Date(isoString);
+    const diffMs = Date.now() - posted.getTime();
+    const diffHrs = Math.floor(diffMs / 3600000);
+    if (diffHrs < 1) return 'just now';
+    if (diffHrs < 24) return `${diffHrs}h ago`;
+    const diffDays = Math.floor(diffHrs / 24);
+    return `${diffDays}d ago`;
+  }
+
+  function artCardHTML(entry) {
+    const artist = (entry.artist || 'unknown').replace(/</g, '&lt;');
+    return `
+      <div class="art-card">
+        <img src="${entry.url}" alt="Art by ${artist}" loading="lazy" />
+        <div class="art-card-info">
+          <span class="art-card-artist">${artist}</span>
+          <span class="art-card-time">${timeAgo(entry.postedAt)}</span>
+        </div>
+      </div>`;
+  }
+
+  fetch('art-wall-data.json')
+    .then(r => r.ok ? r.json() : [])
+    .then(entries => {
+      const cutoff = Date.now() - RETENTION_DAYS * 24 * 60 * 60 * 1000;
+      const active = entries.filter(e => new Date(e.postedAt).getTime() > cutoff);
+      active.sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt));
+
+      const grid = document.getElementById('art-masonry');
+      grid.innerHTML = active.length
+        ? active.map(artCardHTML).join('')
+        : `<div class="art-empty">// no art posted in the last ${RETENTION_DAYS} days<br>drop something in the art channel on Discord</div>`;
+
+      const liveCountEl = document.getElementById('live-count-art');
+      if (liveCountEl) liveCountEl.textContent = `${active.length} piece${active.length === 1 ? '' : 's'} on display right now`;
+    })
+    .catch(() => {
+      const grid = document.getElementById('art-masonry');
+      grid.innerHTML = `<div class="art-empty">// couldn't load the art wall right now</div>`;
+    });
+</script>
+
+</body>
+</html>
