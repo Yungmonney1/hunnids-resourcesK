@@ -92,7 +92,7 @@ const resources = [
   { name: "TV Distortion Bundle 2.7.5.1 (Win)", soft: "ae", src: "GD", link: "https://drive.google.com/file/d/1ClauK81p4VK4gBVvV19BLosvxegq3NE5/view?usp=drive_link" },
   { name: "Twixtor & Twixtor Pro v7.3.1", soft: "ae", src: "GD", os: ["Win","Mac"], link: "https://drive.google.com/file/d/1mCtgJhOx2T6i5H4NNDDvZMOGJ76nN_dC/view?usp=drive_link" },
   { name: "VC Optical Flares 1.3.8 Adobe", soft: "ae", src: "GD", os: ["Win","Mac"], link: "https://drive.google.com/file/d/1O9AzDt3wdEYiYQV6jiZOGPDWNEho3IYN/view?usp=drive_link" },
-  { name: "BAO Plugins Bundle 2025.5 WIN - hunnids.zip", soft: "ae", src: "WEB", link: "https://pixeldrain.com/u/sj49MfsC" },
+  { name: "BAO Plugins Bundle 2025.5", soft: "ae", src: "WEB", link: "https://pixeldrain.com/u/sj49MfsC" },
 
   // ── AFTER EFFECTS — EXTENSIONS ───────────────
   { name: "Aescripts Liquids 1.0", soft: "ae", src: "GD", ext: true, link: "https://drive.google.com/file/d/17IHljr4_ZyFmoCwP0PD3R4BIkbqXsiQt/view?usp=drive_link" },
