@@ -600,9 +600,19 @@
       justify-content: space-between;
       align-items: baseline;
       padding: 7px 0;
-      border-bottom: 1px dashed var(--border-hover);
+      position: relative;
     }
-    .stat-row:last-child { border-bottom: none; }
+    .stat-row:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      border-radius: 99px;
+      background: linear-gradient(90deg, rgba(120,140,200,0.15), rgba(120,140,200,0.4));
+      box-shadow: 0 0 6px rgba(120,140,200,0.25);
+    }
 
     .stat-label {
       font-size: 12.5px;
@@ -615,6 +625,7 @@
       font-size: 13px;
       color: var(--brown);
       font-weight: 600;
+      text-shadow: 0 0 8px rgba(120,140,200,0.35);
     }
 
     .tip-text {
@@ -956,7 +967,7 @@
 
     .section-header {
       display: flex;
-      align-items: baseline;
+      align-items: center;
       gap: 10px;
       margin-bottom: 22px;
     }
@@ -2204,8 +2215,8 @@
   <a class="sidebar-icon active" href="#plugins" data-tip="Plugins" onclick="scrollToSection(event, 'plugins')">
     <img src="assets/hunnids%20shape%20files/HUNNIDO_SHAPE_00000_clean_cropped.png" alt="Plugins" />
   </a>
-  <a class="sidebar-icon" href="#guides" data-tip="Guides" onclick="scrollToSection(event, 'guides')">
-    <img src="assets/hunnids%20shape%20files/HUNDO_SHAPE_00000_clean_cropped.png" alt="Guides" />
+  <a class="sidebar-icon" href="#guides" data-tip="Tutorials" onclick="scrollToSection(event, 'guides')">
+    <img src="assets/hunnids%20shape%20files/HUNDO_SHAPE_00000_clean_cropped.png" alt="Tutorials" />
   </a>
   <a class="sidebar-icon" href="#faq" data-tip="FAQ" onclick="scrollToSection(event, 'faq')">
     <img src="assets/hunnids%20shape%20files/CENTI_SHAPE_00000_clean_cropped.png" alt="FAQ" />
@@ -2427,7 +2438,7 @@
 
   <div class="section" id="guides">
     <div class="section-header">
-      <div class="section-title">Guides<span class="asterisk">*</span></div>
+      <div class="section-title">Tutorials<span class="asterisk">*</span></div>
       <div class="section-mascot-wrap"><img class="section-mascot" src="assets/hunnids%20shape%20files/HUNDO_SHAPE_00000_clean_cropped.png" alt="hundo" /></div>
       <div class="section-line"></div>
       
@@ -2453,7 +2464,7 @@
     <a href="tutorials.html" class="tutorials-link-btn">Browse All Tutorials →</a>
 
     <div class="coming-soon">// more guides being written — check back</div>
-    <div class="live-count" id="live-count-guides">— guides available</div>
+    <div class="live-count" id="live-count-guides">— tutorials available</div>
 
   </div>
 
@@ -2477,7 +2488,7 @@
 
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFAQ(this)">How do I install a plugin? <span class="faq-chevron">▾</span></div>
-        <div class="faq-a">Check out our Installing Plugins guide in the Guides section for a full walkthrough including installation paths and first-time setup tips.</div>
+        <div class="faq-a">Check out our Installing Plugins guide in the Tutorials section for a full walkthrough including installation paths and first-time setup tips.</div>
       </div>
 
       <div class="faq-item">
@@ -2600,7 +2611,7 @@
     <div class="stat-row"><span class="stat-label">plugins + extensions</span><span class="stat-val" id="stat-total">—</span></div>
     <div class="stat-row"><span class="stat-label">AE resources</span><span class="stat-val" id="stat-ae">—</span></div>
     <div class="stat-row"><span class="stat-label">PR resources</span><span class="stat-val" id="stat-pr">—</span></div>
-    <div class="stat-row"><span class="stat-label">guides available</span><span class="stat-val" id="stat-guides">—</span></div>
+    <div class="stat-row"><span class="stat-label">tutorials available</span><span class="stat-val" id="stat-guides">—</span></div>
     <div class="stat-row"><span class="stat-label">helpful sites</span><span class="stat-val" id="stat-sites">—</span></div>
   </div>
 
@@ -3106,12 +3117,14 @@
 
     // Update sidebar guide count
     const countEl = document.getElementById('stat-guides');
-    if (countEl) countEl.textContent = String(guides.length).padStart(2, '0');
+    const totalTutorials = typeof tutorials !== 'undefined' ? tutorials.length : guides.length;
+    if (countEl) countEl.textContent = String(totalTutorials).padStart(2, '0');
     const liveGuidesEl = document.getElementById('live-count-guides');
-    if (liveGuidesEl) liveGuidesEl.textContent = `${guides.length} guides available`;
+    if (liveGuidesEl) liveGuidesEl.textContent = `${totalTutorials} tutorials available`;
   }
 </script>
 
+<script src="tutorials-data.js"></script>
 <script src="guides.js"></script>
 <script src="resources.js"></script>
 
