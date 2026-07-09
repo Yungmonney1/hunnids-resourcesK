@@ -153,6 +153,13 @@
       margin-bottom: 36px;
     }
 
+    .live-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: var(--text-secondary);
+      opacity: 0.5;
+    }
+
     /* ── FILTER PILLS ── */
     .filters {
       display: flex;
@@ -503,6 +510,7 @@
   <div class="page-eyebrow">// video library</div>
   <div class="page-title">Tutorials<span>*</span></div>
   <div class="page-desc">Curated tutorials for editors. Click any to watch.</div>
+  <div class="live-count" id="live-count-tutorials" style="margin-bottom: 20px;">— tutorials available</div>
 
   <!-- Featured video banner -->
   <a href="https://www.youtube.com/watch?v=ASRhzm6u5Vw" target="_blank" class="featured-banner">
@@ -673,6 +681,9 @@
       : `<div style="grid-column:1/-1; text-align:center; color:var(--text-secondary); padding:40px 0;">No tutorials found.</div>`;
 
     renderPagination(filtered.length);
+
+    const liveCountEl = document.getElementById('live-count-tutorials');
+    if (liveCountEl) liveCountEl.textContent = `${tutorials.length} tutorials available`;
   }
 
   // Recalculate page size on resize (columns can change at different widths), debounced

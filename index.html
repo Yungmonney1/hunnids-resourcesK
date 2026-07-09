@@ -1003,6 +1003,14 @@
       flex-shrink: 0;
     }
 
+    .live-count {
+      margin-top: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: var(--text-secondary);
+      opacity: 0.5;
+    }
+
     .section-mascot-wrap {
       width: 22px;
       height: 22px;
@@ -2414,6 +2422,7 @@
     </div>
 
     <div class="coming-soon">// more plugins dropping soon — stay tuned</div>
+    <div class="live-count" id="live-count-plugins">— plugins &amp; extensions listed</div>
   </div>
 
   <div class="section" id="guides">
@@ -2444,6 +2453,7 @@
     <a href="tutorials.html" class="tutorials-link-btn">Browse All Tutorials →</a>
 
     <div class="coming-soon">// more guides being written — check back</div>
+    <div class="live-count" id="live-count-guides">— guides available</div>
 
   </div>
 
@@ -2487,6 +2497,7 @@
 
     </div>
     <div class="coming-soon">// more FAQs being added as questions come in</div>
+    <div class="live-count" id="live-count-faq">— questions answered</div>
   </div>
 
   <div class="section" id="helpful">
@@ -2539,6 +2550,7 @@
       </a>
     </div>
     <div class="coming-soon">// more sites being curated — suggestions welcome in Discord</div>
+    <div class="live-count" id="live-count-helpful">— sites curated</div>
   </div>
 
   <!-- CREATOR SECTION -->
@@ -3095,6 +3107,8 @@
     // Update sidebar guide count
     const countEl = document.getElementById('stat-guides');
     if (countEl) countEl.textContent = String(guides.length).padStart(2, '0');
+    const liveGuidesEl = document.getElementById('live-count-guides');
+    if (liveGuidesEl) liveGuidesEl.textContent = `${guides.length} guides available`;
   }
 </script>
 
@@ -3109,12 +3123,20 @@
     if (el('stat-total')) el('stat-total').textContent = pad(resources.length);
     if (el('stat-ae')) el('stat-ae').textContent = pad(resources.filter(r => r.soft === 'ae').length);
     if (el('stat-pr')) el('stat-pr').textContent = pad(resources.filter(r => r.soft === 'pr').length);
+    if (el('live-count-plugins')) el('live-count-plugins').textContent = `${resources.length} plugins & extensions listed`;
   }
 
   // Count helpful sites from DOM
   const siteCount = document.querySelectorAll('.site-card').length;
   const sitesEl = document.getElementById('stat-sites');
   if (sitesEl) sitesEl.textContent = String(siteCount).padStart(2, '0');
+  const liveSitesEl = document.getElementById('live-count-helpful');
+  if (liveSitesEl) liveSitesEl.textContent = `${siteCount} sites curated`;
+
+  // Count FAQ items from DOM
+  const faqCount = document.querySelectorAll('.faq-item').length;
+  const liveFaqEl = document.getElementById('live-count-faq');
+  if (liveFaqEl) liveFaqEl.textContent = `${faqCount} questions answered`;
 
   // ── Discord widget (custom-built from Discord's public widget API) ──
   (function loadDiscordWidget() {
