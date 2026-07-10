@@ -138,6 +138,12 @@ const resources = [
     soft: "pr", src: "GD", featured: true,
     link: "https://drive.google.com/file/d/10n1X-4iFQNf_bEmTD6DUppq6wPp33lMG/view?usp=drive_link"
   },
+    {
+    name: "Lenscare_ae_v1.5.5",
+    desc: "Lenscare moves depth of field and out of focus generation to post production.",
+    soft: "pr", src: "WEB", featured: true,
+    link: "https://pixeldrain.com/u/QhYU3KwE"
+  },
 
 ];
 // Called by index.html after this script loads
