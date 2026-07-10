@@ -95,7 +95,7 @@ const resources = [
   { name: "BAO Plugins Bundle 2025.5", soft: "ae", src: "WEB", link: "https://pixeldrain.com/u/sj49MfsC" },
   { name: "Shadow Studio 3 v1.0.7", soft: "ae", src: "WEB", os: ["Win","Mac"], link: "https://pixeldrain.com/u/fnCdGqsd" },
   { name: "Furikake 1.0.5", soft: "ae", src: "GD", link: "https://pixeldrain.com/u/i9TB52YE" },
-  { name: "L3tt3rM4pp3r2", soft: "ae", src: "GD", link: "https://pixeldrain.com/u/ZQfUESZZ" },
+  { name: "L3tt3rM4pp3r2", soft: "ae", src: "GD", link: "https://pixeldrain.com/u/QpFv6Adk" },
   { name: "Lenscare_ae_v1.5.5", soft: "ae", src: "GD", os: ["Win","Mac"], link: "https://pixeldrain.com/u/QhYU3KwE" },
   
 
