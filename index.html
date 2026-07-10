@@ -1785,6 +1785,37 @@
       padding: 1px 5px;
       transition: all 0.15s;
     }
+
+    /* Art Wall preview strip */
+    .art-preview-strip {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+    .art-preview-thumb {
+      flex-shrink: 0;
+      width: 78px;
+      height: 78px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border-hover);
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.15s;
+    }
+    .art-preview-thumb:hover { transform: translateY(-2px) scale(1.03); }
+    .art-preview-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .art-preview-empty {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-secondary);
+      opacity: 0.7;
+    }
     .new-drop-chip:hover .new-drop-tag { color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.15); }
 
     /* Verified clean badge — tooltip on hover */
@@ -2365,25 +2396,11 @@
   <!-- NEW DROPS -->
   <div class="new-drops">
     <div class="new-drops-header">
-      <div class="new-drops-label">New Drops</div>
+      <div class="new-drops-label">Art Wall</div>
       <div class="new-drops-badge">LIVE</div>
     </div>
-    <div class="new-drops-list">
-      <a class="new-drop-chip" href="https://drive.google.com/file/d/1SqYVQiaOAgmiiQeqOReHk23VHcsWmUQW/view?usp=drive_link">
-        <div class="new-drop-dot"></div>Shake Sauce<span class="new-drop-tag">AE</span>
-      </a>
-      <a class="new-drop-chip" href="https://drive.google.com/file/d/1zxICMs33iIYVJMwjxlQ_Fx8a7MqL1Sec/view?usp=drive_link">
-        <div class="new-drop-dot"></div>Project Sorter 1.7.3.1<span class="new-drop-tag">EXT</span>
-      </a>
-      <a class="new-drop-chip" href="https://drive.google.com/file/d/1vk4MIPTYBF4tzTSzb0GFg11pMmFUbCBy/view?usp=drive_link">
-        <div class="new-drop-dot"></div>MoveAnchorPoint 4<span class="new-drop-tag">EXT</span>
-      </a>
-      <a class="new-drop-chip" href="https://drive.google.com/file/d/1UOt4ATHSsa8C7XjTlGPFyWT_wLuZM1BK/view?usp=drive_link">
-        <div class="new-drop-dot"></div>Motion Tools Pro v2.0.15<span class="new-drop-tag">EXT</span>
-      </a>
-      <a class="new-drop-chip" href="https://drive.google.com/file/d/1O9AzDt3wdEYiYQV6jiZOGPDWNEho3IYN/view?usp=drive_link">
-        <div class="new-drop-dot"></div>VC Optical Flares 1.3.8<span class="new-drop-tag">AE</span>
-      </a>
+    <div class="art-preview-strip" id="art-preview-strip">
+      <span class="art-preview-empty">// loading recent art...</span>
     </div>
   </div>
 
@@ -2621,29 +2638,13 @@
     <div class="tip-text"><strong>Use proxies.</strong> If AE is running slow, create proxy files for your heavy footage. It'll save your sanity on longer timelines.</div>
   </div>
 
-  <div class="widget">
-    <div class="widget-label">// recent updates</div>
-    <div class="change-item">
-      <div class="change-dot"></div>
-      <div>
-        <div class="change-text">Replaced software downloads with a full plugins list</div>
-        <div class="change-date">recent</div>
-      </div>
-    </div>
-    <div class="change-item">
-      <div class="change-dot"></div>
-      <div>
-        <div class="change-text">New look — glassy, cooler colors, rounder everything</div>
-        <div class="change-date">recent</div>
-      </div>
-    </div>
-    <div class="change-item">
-      <div class="change-dot"></div>
-      <div>
-        <div class="change-text">FAQ answers filled in</div>
-        <div class="change-date">recent</div>
-      </div>
-    </div>
+  <div class="widget" style="text-align: center;">
+    <div class="widget-label">// community showcase</div>
+    <div class="tip-text" style="margin-bottom: 14px;">Fan art & edits from the hunnids community, fresh every week.</div>
+    <a href="art-wall.html" class="show-more-btn" style="width: 100%; justify-content: center; text-decoration: none; margin-top: 0;">
+      <span class="show-more-label">visit the art wall</span>
+      <span class="show-more-chevron">→</span>
+    </a>
   </div>
 
   <div class="widget">
@@ -3178,6 +3179,31 @@
       })
       .catch(() => {
         el.innerHTML = `<a href="${inviteFallback}" target="_blank" style="width:100%; box-sizing:border-box; display:block; text-align:center; padding:10px; border-radius:14px; background:#5865F2; color:#fff; font-family:'Nunito',sans-serif; font-weight:700; font-size:13px; text-decoration:none;">Join Discord ↗</a>`;
+      });
+  })();
+
+  // ── Art Wall preview strip (top of page) ──
+  (function loadArtPreview() {
+    const strip = document.getElementById('art-preview-strip');
+    if (!strip) return;
+
+    fetch('art-wall-data.json')
+      .then(r => r.ok ? r.json() : [])
+      .then(entries => {
+        const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
+        const active = entries.filter(e => new Date(e.postedAt).getTime() > cutoff);
+        active.sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt));
+        const recent = active.slice(0, 10);
+
+        strip.innerHTML = recent.length
+          ? recent.map(e => `
+              <a class="art-preview-thumb" href="art-wall.html" title="by ${(e.artist || 'unknown').replace(/"/g, '&quot;')}">
+                <img src="${e.url}" alt="Art by ${(e.artist || 'unknown').replace(/"/g, '&quot;')}" loading="lazy" />
+              </a>`).join('')
+          : `<span class="art-preview-empty">// no art posted yet — be the first in Discord!</span>`;
+      })
+      .catch(() => {
+        strip.innerHTML = `<span class="art-preview-empty">// couldn't load the art wall right now</span>`;
       });
   })();
 
