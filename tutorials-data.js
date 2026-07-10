@@ -323,6 +323,10 @@ const tutorials = [
   { id: "NyGngM510yE", title: "5 More Ways To Use AI Fill In Your Videos", cat: "premiere", soft: "pr" },
   { id: "clVm0pjtSJs", title: "How To Edit Music In Premiere Pro - 5 Tips For Success", cat: "premiere", soft: "pr" },
   { id: "lTJizo_gxxE", title: "How To Edit A Video Like GAWX Art", cat: "premiere", soft: "pr" },
+  { id: "uP6SeiH9-Lc", title: "Lenscare for AE / Out Of Focusチュートリアル", cat: "plugins", soft: "ae" },
+  { id: "nSLPQWNoCZQ", title: "Shadow Studio 3 for After Effects Quickstart Guide", cat: "plugins", soft: "ae" },
+  { id: "z3j5SYnZ5nU", title: "Furikake for After Effects Quickstart", cat: "plugins", soft: "ae" },
+  { id: "rdz8nvulxMc", title: "L3tt3rM4pp3r Getting Started", cat: "basics", soft: "plugins" },
 ];
 
 // Called by tutorials.html after this script loads
