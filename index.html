@@ -1817,6 +1817,22 @@
       background: linear-gradient(135deg, #D6D3FB, #C3ECDD, #FBD9CE, #FAD2E3, #CFE4FA);
       z-index: 0;
     }
+    .art-sparkle {
+      position: absolute;
+      font-size: 13px;
+      z-index: 2;
+      animation: artSparkleTwinkle 1.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .art-sparkle-1 { top: -7px; right: -7px; }
+    .art-sparkle-2 { bottom: -5px; left: -7px; font-size: 10px; animation-delay: 0.6s; }
+    @keyframes artSparkleTwinkle {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); }
+      50%      { opacity: 1;   transform: scale(1.1); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .art-sparkle { animation: none; opacity: 0.8; }
+    }
     .art-preview-thumb {
       position: relative;
       z-index: 1;
@@ -3221,7 +3237,16 @@
         const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
         const active = entries.filter(e => new Date(e.postedAt).getTime() > cutoff);
         active.sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt));
-        const recent = active.slice(0, 30);
+
+        // Dedupe by image URL in case the data file has repeated entries
+        const seenUrls = new Set();
+        const deduped = active.filter(e => {
+          if (seenUrls.has(e.url)) return false;
+          seenUrls.add(e.url);
+          return true;
+        });
+
+        const recent = deduped.slice(0, 30);
 
         strip.innerHTML = recent.length
           ? recent.map(e => {
@@ -3231,6 +3256,7 @@
                 <a class="art-preview-thumb" href="art-wall.html" title="by ${(e.artist || 'unknown').replace(/"/g, '&quot;')}">
                   <img src="${e.url}" alt="Art by ${(e.artist || 'unknown').replace(/"/g, '&quot;')}" loading="lazy" />
                 </a>
+                ${isNew ? '<span class="art-sparkle art-sparkle-1">\u2728</span><span class="art-sparkle art-sparkle-2">\u2728</span>' : ''}
               </div>`;
             }).join('')
           : `<span class="art-preview-empty">// no art posted yet — be the first in Discord!</span>`;

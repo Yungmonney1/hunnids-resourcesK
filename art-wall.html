@@ -397,15 +397,22 @@
       const cutoff = Date.now() - RETENTION_DAYS * 24 * 60 * 60 * 1000;
       const active = entries.filter(e => new Date(e.postedAt).getTime() > cutoff);
       active.sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt));
-      currentEntries = active;
+
+      const seenUrls = new Set();
+      const deduped = active.filter(e => {
+        if (seenUrls.has(e.url)) return false;
+        seenUrls.add(e.url);
+        return true;
+      });
+      currentEntries = deduped;
 
       const grid = document.getElementById('art-masonry');
-      grid.innerHTML = active.length
-        ? active.map(artCardHTML).join('')
+      grid.innerHTML = deduped.length
+        ? deduped.map(artCardHTML).join('')
         : `<div class="art-empty">// no art posted in the last ${RETENTION_DAYS} days<br>drop something in the art channel on Discord</div>`;
 
       const liveCountEl = document.getElementById('live-count-art');
-      if (liveCountEl) liveCountEl.textContent = `${active.length} piece${active.length === 1 ? '' : 's'} on display right now`;
+      if (liveCountEl) liveCountEl.textContent = `${deduped.length} piece${deduped.length === 1 ? '' : 's'} on display right now`;
     })
     .catch(() => {
       const grid = document.getElementById('art-masonry');
