@@ -1193,8 +1193,11 @@
 
     .info-popover {
       position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
       z-index: 10000;
-      max-width: 300px;
+      width: 300px;
+      max-width: calc(100vw - 32px);
       background: var(--bg-card);
       border: 1px solid var(--border-hover);
       border-radius: 16px;
@@ -2466,7 +2469,7 @@
     <div class="plugin-section-label">After Effects</div>
     <div class="plugin-grid" id="plugin-grid-ae"></div>
 
-    <div id="ae-show-more-row" style="display:flex; align-items:center; gap:8px; margin-top:18px; flex-wrap:nowrap;">
+    <div id="ae-show-more-row" style="display:flex; align-items:center; gap:8px; margin-top:18px; flex-wrap:nowrap !important; position:relative;">
       <button class="show-more-btn" style="margin-top:0; white-space:nowrap;" onclick="toggleAllPlugins(this, 'ae-plugins-panel')">
         <span class="show-more-label">show all After Effects plugins</span>
         <span class="show-more-chevron">▾</span>
@@ -2482,7 +2485,7 @@
     <div class="plugin-section-label">Premiere Pro</div>
     <div class="plugin-grid" id="plugin-grid-pr"></div>
 
-    <div id="pr-show-more-row" style="display:flex; align-items:center; gap:8px; margin-top:18px; flex-wrap:nowrap;">
+    <div id="pr-show-more-row" style="display:flex; align-items:center; gap:8px; margin-top:18px; flex-wrap:nowrap !important; position:relative;">
       <button class="show-more-btn" style="margin-top:0; white-space:nowrap;" onclick="toggleAllPlugins(this, 'pr-plugins-panel')">
         <span class="show-more-label">show all Premiere Pro plugins</span>
         <span class="show-more-chevron">▾</span>
@@ -2844,15 +2847,10 @@
     pop.className = 'info-popover';
     pop._trigger = btn;
     pop.innerHTML = `<span class="info-popover-close" onclick="document.getElementById('info-popover').remove()">✕</span><strong>Why some downloads get flagged</strong><br><br>A false positive is when antivirus software wrongly flags a safe file as dangerous. This happens a lot with editing plugins — compiled scripts and license-checkers can trigger the same detection patterns as actual malware, even when there's nothing harmful inside.<br><br>That said, no one can guarantee any file is 100% safe, including us. Before running anything, scan it yourself on <a href="https://www.virustotal.com" target="_blank" style="color:inherit;">VirusTotal</a> — it checks a file against dozens of antivirus engines at once. If something gets flagged and you're not sure what it means, ask in the Discord before running it.`;
-    document.body.appendChild(pop);
 
-    const rect = btn.getBoundingClientRect();
-    const popWidth = 300;
-    let left = rect.left + window.scrollX;
-    if (left + popWidth > window.scrollX + window.innerWidth - 16) left = window.scrollX + window.innerWidth - popWidth - 16;
-    if (left < window.scrollX + 16) left = window.scrollX + 16;
-    pop.style.top = (rect.bottom + window.scrollY + 8) + 'px';
-    pop.style.left = left + 'px';
+    // Appended into the button's own row and positioned with pure CSS (top/left below),
+    // rather than JS pixel math -- avoids any mismatch from zoom/scroll calculations.
+    btn.parentElement.appendChild(pop);
 
     setTimeout(() => document.addEventListener('click', closeInfoPopoverOnOutsideClick), 0);
   }
