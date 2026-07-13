@@ -2466,7 +2466,7 @@
     <div class="plugin-section-label">After Effects</div>
     <div class="plugin-grid" id="plugin-grid-ae"></div>
 
-    <div style="display:flex; align-items:center; gap:8px; margin-top:18px;">
+    <div id="ae-show-more-row" style="display:flex; align-items:center; gap:8px; margin-top:18px;">
       <button class="show-more-btn" style="margin-top:0;" onclick="toggleAllPlugins(this, 'ae-plugins-panel')">
         <span class="show-more-label">show all After Effects plugins</span>
         <span class="show-more-chevron">▾</span>
@@ -2482,7 +2482,7 @@
     <div class="plugin-section-label">Premiere Pro</div>
     <div class="plugin-grid" id="plugin-grid-pr"></div>
 
-    <div style="display:flex; align-items:center; gap:8px; margin-top:18px;">
+    <div id="pr-show-more-row" style="display:flex; align-items:center; gap:8px; margin-top:18px;">
       <button class="show-more-btn" style="margin-top:0;" onclick="toggleAllPlugins(this, 'pr-plugins-panel')">
         <span class="show-more-label">show all Premiere Pro plugins</span>
         <span class="show-more-chevron">▾</span>
@@ -2787,6 +2787,18 @@
       label.style.display = visible ? '' : 'none';
       grid.style.display = visible ? '' : 'none';
     });
+
+    // Also hide the "show all" button row + expandable panel for whichever software is filtered out
+    const showAE = type === 'all' || type === 'ae';
+    const showPR = type === 'all' || type === 'pr';
+    const aeRow = document.getElementById('ae-show-more-row');
+    const aePanel = document.getElementById('ae-plugins-panel');
+    const prRow = document.getElementById('pr-show-more-row');
+    const prPanel = document.getElementById('pr-plugins-panel');
+    if (aeRow) aeRow.style.display = showAE ? '' : 'none';
+    if (aePanel) aePanel.style.display = showAE ? '' : 'none';
+    if (prRow) prRow.style.display = showPR ? '' : 'none';
+    if (prPanel) prPanel.style.display = showPR ? '' : 'none';
   }
 
   function filterPluginChips(input, flowId) {
