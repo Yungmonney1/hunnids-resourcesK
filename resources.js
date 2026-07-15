@@ -98,7 +98,6 @@ const resources = [
   { name: "L3tt3rM4pp3r2", soft: "ae", src: "GD", link: "https://pixeldrain.com/u/QpFv6Adk" },
   { name: "Lenscare_ae_v1.5.5", soft: "ae", src: "GD", os: ["Win","Mac"], link: "https://pixeldrain.com/u/QhYU3KwE" },
   { name: "FXAA", soft: "ae", src: "WEB", link: "https://aescripts.com/fxaa/" },
-  { name: "Newton 4.0", soft: "ae", src: "GD", link: "https://pixeldrain.com/u/nwumr2uL" },
   
 
   // ── AFTER EFFECTS — EXTENSIONS ───────────────
@@ -113,6 +112,7 @@ const resources = [
   { name: "MoveAnchorPoint 4", soft: "ae", src: "GD", ext: true, os: ["Win","Mac"], link: "https://drive.google.com/file/d/1vk4MIPTYBF4tzTSzb0GFg11pMmFUbCBy/view?usp=drive_link" },
   { name: "Project Sorter 1.7.3.1", soft: "ae", src: "GD", ext: true, link: "https://drive.google.com/file/d/1zxICMs33iIYVJMwjxlQ_Fx8a7MqL1Sec/view?usp=drive_link" },
   { name: "Automation Toolkit", soft: "ae", src: "WEB", ext: true, link: "https://aescripts.com/automation-toolkit/" },
+  { name: "Newton 4.0", soft: "ae", src: "GD", ext: true, link: "https://pixeldrain.com/u/nwumr2uL" },
 
   // ── PREMIERE PRO — FEATURED ──────────────────
   {
