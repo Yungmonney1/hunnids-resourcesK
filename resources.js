@@ -98,6 +98,7 @@ const resources = [
   { name: "L3tt3rM4pp3r2", soft: "ae", src: "GD", link: "https://pixeldrain.com/u/QpFv6Adk" },
   { name: "Lenscare_ae_v1.5.5", soft: "ae", src: "GD", os: ["Win","Mac"], link: "https://pixeldrain.com/u/QhYU3KwE" },
   { name: "FXAA", soft: "ae", src: "WEB", link: "https://aescripts.com/fxaa/" },
+  { name: "Newton 4.0", soft: "ae", src: "GD", link: "https://pixeldrain.com/u/nwumr2uL" },
   
 
   // ── AFTER EFFECTS — EXTENSIONS ───────────────
