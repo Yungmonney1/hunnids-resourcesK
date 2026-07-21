@@ -1809,9 +1809,12 @@
     }
     .art-preview-thumb-wrap {
       position: relative;
-      width: 78px;
-      height: 78px;
+      width: 128px;
+      height: 128px;
       flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
     }
     .art-preview-thumb-wrap.is-new::before {
       content: '';
@@ -1842,8 +1845,8 @@
       z-index: 1;
       display: block;
       flex-shrink: 0;
-      width: 78px;
-      height: 78px;
+      width: 128px;
+      height: 108px;
       border-radius: 14px;
       overflow: hidden;
       border: 1px solid var(--border-hover);
@@ -1857,6 +1860,16 @@
       object-fit: cover;
       display: block;
     }
+    .art-preview-caption {
+      font-family: 'Nunito', sans-serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0 2px;
+    }
     .art-preview-empty {
       font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
@@ -1864,6 +1877,150 @@
       opacity: 0.7;
     }
     .new-drop-chip:hover .new-drop-tag { color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.15); }
+
+    /* ── WEEKLY CHALLENGE (signature "beam" accent) ── */
+    .challenge-card {
+      position: relative;
+      margin-bottom: 32px;
+      background: rgba(255,255,255,0.5);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px 26px 22px;
+      overflow: hidden;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .challenge-beam {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #ff8a5c, #ffb17a, #ff8a5c, transparent);
+      background-size: 200% 100%;
+      animation: beamSweep 3.5s linear infinite;
+    }
+    @keyframes beamSweep {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .challenge-beam { animation: none; background-position: 0 0; }
+    }
+    .challenge-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: #e6672f;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .challenge-eyebrow .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #ff8a5c;
+      box-shadow: 0 0 0 3px rgba(255,138,92,0.2);
+    }
+    .challenge-title {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--brown-dim);
+      margin-bottom: 6px;
+    }
+    .challenge-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      max-width: 480px;
+      line-height: 1.55;
+    }
+    .challenge-meta {
+      display: flex;
+      gap: 18px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .challenge-meta-item {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .challenge-meta-item b { color: var(--brown); font-weight: 700; }
+    .challenge-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 13.5px;
+      color: #fff;
+      background: linear-gradient(135deg, #ff8a5c, #e6672f);
+      padding: 12px 22px;
+      border-radius: 14px;
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: 0 8px 20px rgba(230,103,47,0.28);
+      transition: transform 0.15s, box-shadow 0.15s;
+      flex-shrink: 0;
+    }
+    .challenge-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(230,103,47,0.35);
+    }
+    body.dark-mode .challenge-card { background: rgba(22,28,45,0.75); }
+    body.dark-mode .challenge-eyebrow { color: #ff9a68; }
+
+    @media (max-width: 640px) {
+      .challenge-card { flex-direction: column; align-items: flex-start; }
+      .challenge-cta { width: 100%; justify-content: center; }
+    }
+
+    /* ── HUNNIDS ORIGINALS (uses the same beam accent as Challenge) ── */
+    .originals-strip {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      padding: 2px 2px 14px;
+      margin-bottom: 4px;
+    }
+    .original-card {
+      position: relative;
+      flex: 0 0 260px;
+      background: rgba(255,255,255,0.5);
+      border: 1px dashed var(--border-hover);
+      border-radius: 18px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .original-badge {
+      align-self: flex-start;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #fff;
+      background: linear-gradient(135deg, #ff8a5c, #e6672f);
+      border-radius: 6px;
+      padding: 2px 8px;
+    }
+    .original-title {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .original-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    body.dark-mode .original-card { background: rgba(22,28,45,0.7); }
 
     /* Verified clean badge — tooltip on hover */
     .plugin-card { position: relative; }
@@ -2443,13 +2600,26 @@
   <!-- NEW DROPS -->
   <div class="new-drops">
     <div class="new-drops-header">
-      <div class="new-drops-label">Art Wall</div>
+      <div class="new-drops-label">Made With Hunnids*</div>
       <div class="new-drops-badge">LIVE</div>
       <div class="section-line"></div>
     </div>
     <div class="art-preview-strip" id="art-preview-strip">
       <span class="art-preview-empty">// loading recent art...</span>
     </div>
+  </div>
+
+  <!--
+    WEEKLY CHALLENGE — now pulled live from Discord scheduled events via the bot's API.
+    See loadChallengeEvent() in the script below to point this at your bot's endpoint.
+    If no event is live, this quietly shows a fallback "no event right now" state.
+  -->
+  <div class="challenge-card" id="challenge-card">
+    <div class="challenge-beam"></div>
+    <div id="challenge-content">
+      <div class="challenge-eyebrow"><span class="dot"></span> Loading current event...</div>
+    </div>
+    <div id="challenge-cta-wrap"></div>
   </div>
 
   <div class="section" id="guides">
@@ -2493,6 +2663,20 @@
     </div>
 
     <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-secondary,#8892a4); opacity:0.65; margin:-4px 0 14px;">// list trimmed down recently — cleaning house, more free tools coming soon</div>
+
+    <!--
+      HUNNIDS ORIGINALS — in-house tools built by/for the community, not just linked to.
+      Replace the placeholder card(s) below once something is actually built and hosted.
+      Keep the "IN THE WORKS" badge honest until a real download exists.
+    -->
+    <div class="plugin-section-label">hunnids Originals</div>
+    <div class="originals-strip">
+      <div class="original-card">
+        <span class="original-badge">IN THE WORKS</span>
+        <span class="original-title">hunnids Transitions Vol. 1</span>
+        <span class="original-desc">A first batch of original AE transitions built by the team. Not released yet — drop ideas for what you want in it in the Discord.</span>
+      </div>
+    </div>
 
     <div class="plugin-filters">
       <button class="filter-pill active" onclick="filterPlugins('all', this)">All</button>
@@ -3259,6 +3443,7 @@
                 <a class="art-preview-thumb" href="art-wall.html" title="by ${(e.artist || 'unknown').replace(/"/g, '&quot;')}">
                   <img src="${e.url}" alt="Art by ${(e.artist || 'unknown').replace(/"/g, '&quot;')}" loading="lazy" />
                 </a>
+                <span class="art-preview-caption">${(e.artist || 'unknown').replace(/</g, '&lt;')}</span>
                 ${isNew ? '<span class="art-sparkle art-sparkle-1">\u2728</span><span class="art-sparkle art-sparkle-2">\u2728</span>' : ''}
               </div>`;
             }).join('')
@@ -3267,6 +3452,55 @@
       .catch(() => {
         strip.innerHTML = `<span class="art-preview-empty">// couldn't load the art wall right now</span>`;
       });
+  })();
+
+  // ── Weekly Challenge (live from Discord scheduled events via bot API) ──
+  (function loadChallengeEvent() {
+    const contentEl = document.getElementById('challenge-content');
+    const ctaEl = document.getElementById('challenge-cta-wrap');
+    if (!contentEl || !ctaEl) return;
+
+    // CHANGE THIS to your bot's actual API URL once deployed (see bot-side code)
+    const EVENTS_API = 'https://hunnids-discord-bot.onrender.com/api/events';
+
+    function renderFallback() {
+      contentEl.innerHTML = `
+        <div class="challenge-eyebrow"><span class="dot"></span> No event right now</div>
+        <div class="challenge-title">Nothing scheduled this week</div>
+        <div class="challenge-desc">Check the Discord for what's coming up next, or suggest one yourself.</div>
+      `;
+      ctaEl.innerHTML = `<a class="challenge-cta" href="https://discord.gg/AcuUU2zpdD" target="_blank">Open Discord →</a>`;
+    }
+
+    function formatDeadline(iso) {
+      if (!iso) return null;
+      const d = new Date(iso);
+      if (isNaN(d)) return null;
+      return d.toLocaleString(undefined, { weekday: 'long', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+    }
+
+    fetch(EVENTS_API)
+      .then(r => r.ok ? r.json() : [])
+      .then(events => {
+        if (!Array.isArray(events) || events.length === 0) return renderFallback();
+
+        // Show the soonest upcoming event
+        events.sort((a, b) => new Date(a.start) - new Date(b.start));
+        const ev = events[0];
+        const deadline = formatDeadline(ev.start);
+
+        contentEl.innerHTML = `
+          <div class="challenge-eyebrow"><span class="dot"></span> ${ev.eyebrow || 'Upcoming event'}</div>
+          <div class="challenge-title">${(ev.name || 'Untitled event').replace(/</g, '&lt;')}</div>
+          <div class="challenge-desc">${(ev.description || '').replace(/</g, '&lt;')}</div>
+          <div class="challenge-meta">
+            ${deadline ? `<span class="challenge-meta-item">Starts: <b>${deadline}</b></span>` : ''}
+            ${ev.prize ? `<span class="challenge-meta-item">Prize: <b>${ev.prize.replace(/</g, '&lt;')}</b></span>` : ''}
+          </div>
+        `;
+        ctaEl.innerHTML = `<a class="challenge-cta" href="${ev.url || 'https://discord.gg/AcuUU2zpdD'}" target="_blank">View event →</a>`;
+      })
+      .catch(renderFallback);
   })();
 
   // ── Loading screen (once per browser session) ──
