@@ -2325,7 +2325,7 @@
 
 <div class="pw-banner">
   <span style="font-size:14px;">🔑</span>
-  <span class="label">encrypted downloads · password:</span>
+  <span class="label">zip password:</span>
   <span class="pwval" id="pw-text">h100</span>
   <button class="pw-copy-btn" onclick="copyPW()" id="copy-btn">copy</button>
 </div>
@@ -2360,13 +2360,13 @@
     <div class="about-body">
       Plugins and extensions for After Effects and Premiere Pro, curated guides with video tutorials, and a list of helpful external tools and websites. We don't host full Adobe software — only plugins, extensions, and resources.
     </div>
-    <div class="about-section-title">On piracy</div>
+    <div class="about-section-title">On safety</div>
     <div class="about-body">
-      hunnids doesn't support piracy. All links go to files we've packaged and verified ourselves. We always recommend scanning downloads before installing — false positives are common with repacked software. If you're new to navigating this space, <a href="https://fmhy.net/beginners-guide" target="_blank">this beginner's guide</a> is a solid starting point.
+      Every download listed here has been tested by the team before it's posted. We'd still recommend scanning anything before you install it — that's just good practice for any download, ours included.
     </div>
-    <div class="about-section-title">Encrypted downloads</div>
+    <div class="about-section-title">Zip passwords</div>
     <div class="about-body">
-      Most downloads are password protected. The password is always displayed in the banner at the top of the page — just hit copy.
+      Some downloads are packaged as password-protected zips. The password is always displayed in the banner at the top of the page — just hit copy.
     </div>
     <div class="about-section-title">Community</div>
     <div class="about-body">
@@ -2437,7 +2437,7 @@
 
   <div class="disclaimer-notice">
     <span class="disclaimer-icon">ⓘ</span>
-    <span class="disclaimer-text">hunnids doesn't support piracy. We won't be listing full Adobe software here — only plugins, extensions, and resources. If you're new to navigating this space safely, <a href="https://fmhy.net/beginners-guide" target="_blank">this beginner's guide</a> is a solid starting point.</span>
+    <span class="disclaimer-text">Everything here is a plugin, extension, or resource for After Effects and Premiere Pro — tested by the team before it's posted.</span>
   </div>
 
   <!-- NEW DROPS -->
@@ -2459,6 +2459,8 @@
       <div class="section-line"></div>
       
     </div>
+
+    <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-secondary,#8892a4); opacity:0.65; margin:-4px 0 14px;">// list trimmed down recently — cleaning house, more free tools coming soon</div>
 
     <div class="plugin-filters">
       <button class="filter-pill active" onclick="filterPlugins('all', this)">All</button>
@@ -2549,7 +2551,7 @@
 
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFAQ(this)">Are these links safe to use? <span class="faq-chevron">▾</span></div>
-        <div class="faq-a">All links are vetted by the hunnids team before being posted here. That said, always use caution when downloading software and run a virus scan if you're unsure. If a link seems off, let us know in the Discord.</div>
+        <div class="faq-a">Every link is tested by the hunnids team before it's posted. As with any download, it's good practice to scan it yourself before installing. If a link seems off, let us know in the Discord.</div>
       </div>
 
       <div class="faq-item">
@@ -2560,11 +2562,6 @@
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFAQ(this)">After Effects crashes on launch. How do I fix it? <span class="faq-chevron">▾</span></div>
         <div class="faq-a">Try clearing your AE cache and preferences first — go to Edit → Purge → All Memory & Disk Cache. If it keeps crashing, check that your GPU drivers are up to date and that you're running a compatible version of Windows or macOS. You can also ask for help in the Discord.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFAQ(this)">The installer is asking for a serial number. What do I do? <span class="faq-chevron">▾</span></div>
-        <div class="faq-a">Check the folder the installer came in — serial numbers or activation instructions are usually included alongside the download. If you can't find it, reach out in the Discord and someone can help you out.</div>
       </div>
 
       <div class="faq-item">
@@ -2594,11 +2591,6 @@
         <span class="site-name">Anime Clips Online</span>
         <span class="site-desc">Pre cut anime clips for editors, AMVs, and creative projects.</span>
         <span class="site-url">animeclips.online</span>
-      </a>
-      <a class="site-card" href="https://catbox.moe/">
-        <span class="site-name">Catbox</span>
-        <span class="site-desc">Fast file hosting for sharing images, videos, and creative assets.</span>
-        <span class="site-url">catbox.moe</span>
       </a>
       <a class="site-card" href="https://handbrake.fr/">
         <span class="site-name">Handbrake</span>
@@ -2846,7 +2838,7 @@
     pop.id = 'info-popover';
     pop.className = 'info-popover';
     pop._trigger = btn;
-    pop.innerHTML = `<span class="info-popover-close" onclick="document.getElementById('info-popover').remove()">✕</span><strong>Why some downloads get flagged</strong><br><br>A false positive is when antivirus software wrongly flags a safe file as dangerous. This happens a lot with editing plugins — compiled scripts and license-checkers can trigger the same detection patterns as actual malware, even when there's nothing harmful inside.<br><br>That said, no one can guarantee any file is 100% safe, including us. Before running anything, scan it yourself on <a href="https://www.virustotal.com" target="_blank" style="color:inherit;">VirusTotal</a> — it checks a file against dozens of antivirus engines at once. If something gets flagged and you're not sure what it means, ask in the Discord before running it.`;
+    pop.innerHTML = `<span class="info-popover-close" onclick="document.getElementById('info-popover').remove()">✕</span><strong>Why some downloads get flagged</strong><br><br>A false positive is when antivirus software wrongly flags a safe file as dangerous. This can happen with smaller, less common tools that haven't built up reputation with antivirus vendors yet, even when there's nothing harmful inside.<br><br>Before running anything, we'd still recommend scanning it yourself on <a href="https://www.virustotal.com" target="_blank" style="color:inherit;">VirusTotal</a> — it checks a file against dozens of antivirus engines at once. If something gets flagged and you're not sure what it means, ask in the Discord.`;
 
     // Appended into the button's own row and positioned with pure CSS (top/left below),
     // rather than JS pixel math -- avoids any mismatch from zoom/scroll calculations.
