@@ -103,7 +103,12 @@ const resources = [
   },
 
   // ── AFTER EFFECTS — SHOW ALL ─────────────────
-  // (empty for now — add genuinely free AE plugins/scripts here)
+  { name: "Redefinery AE Scripts (40+ free scripts)", soft: "ae", src: "WEB", link: "http://redefinery.com/ae/rd_scripts/" },
+  { name: "Quick New", soft: "ae", src: "WEB", link: "https://motionnations.gumroad.com/l/Cfadk" },
+  { name: "kyletmartinez AE Scripts (GitHub)", soft: "ae", src: "GH", link: "https://github.com/kyletmartinez/after-effects-scripts" },
+  { name: "Glass Eyes", soft: "ae", src: "WEB", link: "https://www.videocopilot.net/blog/2016/04/another-new-plug-in/" },
+  { name: "Sure Target 2", soft: "ae", src: "WEB", link: "http://www.videocopilot.net/tutorials/sure_target_2/" },
+  { name: "Un-PreCompose", soft: "ae", src: "WEB", link: "https://aescripts.com/un-precompose/" },
 
   // ── AFTER EFFECTS — EXTENSIONS ───────────────
   // (empty for now — add genuinely free AE extensions here)
