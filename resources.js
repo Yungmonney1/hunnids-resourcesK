@@ -77,6 +77,30 @@ const resources = [
     soft: "ae", src: "WEB", featured: true,
     link: "https://misterhorse.com/animation-composer"
   },
+  {
+    name: "EaseCopy",
+    desc: "Copy and paste your carefully-tuned eases between keyframes without touching your values. Pay-what-you-want, $0 works.",
+    soft: "ae", src: "WEB", featured: true,
+    link: "https://aescripts.com/easecopy/"
+  },
+  {
+    name: "Repeater",
+    desc: "Turn any layer — text, footage, shapes, 3D — into a live repeating array. Free from Plugin Everything.",
+    soft: "ae", src: "WEB", featured: true,
+    link: "https://aescripts.com/repeater/"
+  },
+  {
+    name: "Plugin Everything — Free Tools",
+    desc: "A whole hub of genuinely free AE plugins from Plugin Everything: Displacer Pro, FXAA, Label Match, Frame Skip, and more.",
+    soft: "ae", src: "WEB", featured: true,
+    link: "https://www.plugineverything.com/free"
+  },
+  {
+    name: "AEJuice Free Plugins",
+    desc: "A bundle of free tools and assets: lens textures, expressions pack, Google Material Icons, and more.",
+    soft: "ae", src: "WEB", featured: true,
+    link: "https://aejuice.com/free-plugins/"
+  },
 
   // ── AFTER EFFECTS — SHOW ALL ─────────────────
   // (empty for now — add genuinely free AE plugins/scripts here)
@@ -97,5 +121,15 @@ const resources = [
     soft: "pr", src: "WEB", featured: true,
     link: "https://www.filmcrux.com/free-transitions-vol-2"
   },
+  {
+    name: "AinTransitions (Free Pack)",
+    desc: "100 free transition presets with sound FX, plus a one-click extension to apply them.",
+    soft: "pr", src: "WEB", featured: true,
+    link: "https://ainforce.gumroad.com/l/freeAinTransitionsPPro"
+  },
 
 ];
+
+// Called by index.html after this script loads — this line was missing,
+// which is why the featured plugin cards weren't showing up at all.
+if (typeof renderResources === 'function') renderResources();
