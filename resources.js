@@ -47,6 +47,36 @@ const resources = [
     soft: "ae", src: "GH", featured: true,
     link: "https://github.com/NevermindNilas/TheAnimeScripter"
   },
+  {
+    name: "Saber",
+    desc: "Video Copilot's free plugin for energy beams, lightsabers, lasers, and neon effects.",
+    soft: "ae", src: "WEB", featured: true,
+    link: "https://www.videocopilot.net/blog/2016/03/new-plug-in-saber-now-available-100-free/"
+  },
+  {
+    name: "Orb",
+    desc: "GPU-accelerated 3D planet and sphere generator, free from Video Copilot.",
+    soft: "ae", src: "WEB", featured: true,
+    link: "https://www.videocopilot.net/orb/"
+  },
+  {
+    name: "UnMult",
+    desc: "One-click alpha channel generator for lens flares, glows, and other black-background FX.",
+    soft: "ae", src: "WEB", featured: true,
+    link: "https://aescripts.com/unmult/"
+  },
+  {
+    name: "Duik Ángela",
+    desc: "The industry-standard free rigging and character animation toolkit for After Effects.",
+    soft: "ae", src: "WEB", featured: true,
+    link: "https://rxlaboratory.org/tools/duik-angela"
+  },
+  {
+    name: "Animation Composer",
+    desc: "A huge library of drag-and-drop animation presets, transitions, and sound effects. Core version is free.",
+    soft: "ae", src: "WEB", featured: true,
+    link: "https://misterhorse.com/animation-composer"
+  },
 
   // ── AFTER EFFECTS — SHOW ALL ─────────────────
   // (empty for now — add genuinely free AE plugins/scripts here)
@@ -55,6 +85,17 @@ const resources = [
   // (empty for now — add genuinely free AE extensions here)
 
   // ── PREMIERE PRO — FEATURED ──────────────────
-  // (empty for now — add genuinely free PR plugins/presets here)
+  {
+    name: "Animation Composer",
+    desc: "Same drag-and-drop preset library as the AE version, built for Premiere Pro. Core version is free.",
+    soft: "pr", src: "WEB", featured: true,
+    link: "https://misterhorse.com/animation-composer-for-premiere"
+  },
+  {
+    name: "FILM CRUX Transitions Vol. 2",
+    desc: "15 free drag-and-drop transitions built specifically for Premiere Pro.",
+    soft: "pr", src: "WEB", featured: true,
+    link: "https://www.filmcrux.com/free-transitions-vol-2"
+  },
 
 ];
