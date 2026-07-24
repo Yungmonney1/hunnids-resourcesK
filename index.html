@@ -2432,6 +2432,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="dashboard/dashboard.css">
 </head>
 <body>
 
@@ -2620,6 +2621,37 @@
       <div class="challenge-eyebrow"><span class="dot"></span> Loading current event...</div>
     </div>
     <div id="challenge-cta-wrap"></div>
+  </div>
+
+  <!--
+    DASHBOARD — profile card + continue editing + what's new.
+    See /dashboard/README.md for how the profile card auth is wired up.
+  -->
+  <div class="dash-row">
+    <div id="hunnids-welcome-card" class="glass-card dash-welcome"></div>
+
+    <div class="glass-card dash-whats-new">
+      <div class="dash-card-title">What's new</div>
+      <div id="hunnids-whats-new" class="whats-new__list"></div>
+    </div>
+  </div>
+
+  <div class="glass-card dash-continue-editing">
+    <div class="dash-card-title">Continue editing</div>
+    <div class="ce-columns">
+      <div class="ce-group">
+        <div class="ce-group-title">Recently viewed</div>
+        <div id="hunnids-recently-viewed" class="ce-card-list"></div>
+      </div>
+      <div class="ce-group">
+        <div class="ce-group-title">Recently downloaded</div>
+        <div id="hunnids-recently-downloaded" class="ce-card-list"></div>
+      </div>
+      <div class="ce-group">
+        <div class="ce-group-title">Bookmarked</div>
+        <div id="hunnids-bookmarks" class="ce-card-list"></div>
+      </div>
+    </div>
   </div>
 
   <div class="section" id="guides">
@@ -3034,6 +3066,9 @@
 
   function openGuideModal(i) {
     const g = guides[i];
+    if (window.HunnidsContinueEditing) {
+      window.HunnidsContinueEditing.trackView('tutorial', g.id || g.embedId || g.title, { title: g.title });
+    }
     let modal = document.getElementById('guide-modal-overlay');
     if (!modal) {
       modal = document.createElement('div');
@@ -3280,9 +3315,15 @@
   }
 
   // Plugin render helpers — build cards + chips straight from resources.js
+  function trackPluginDownload(name) {
+    if (window.HunnidsContinueEditing) {
+      window.HunnidsContinueEditing.trackDownload('plugin', name, { title: name });
+    }
+  }
+
   function pluginCardHTML(r) {
     return `
-      <a class="plugin-card" data-soft="${r.soft}" href="${r.link}" target="_blank">
+      <a class="plugin-card" data-soft="${r.soft}" href="${r.link}" target="_blank" onclick="trackPluginDownload('${r.name.replace(/'/g, "\\'")}')">
         <div class="plugin-card-top"><span class="plugin-name">${r.name}</span></div>
         <div class="plugin-desc">${r.desc || ''}</div>
         <div class="plugin-card-bottom"><span class="plugin-tag">${r.soft.toUpperCase()}</span><span class="verified-badge">verified</span><span class="plugin-arrow">→</span></div>
@@ -3291,16 +3332,17 @@
 
   function pluginChipHTML(r) {
     const extBadge = r.ext ? ` <span class="chip-ext-tag">EXT</span>` : '';
+    const trackAttr = ` onclick="trackPluginDownload('${r.name.replace(/'/g, "\\'")}')"`;
     if (r.os && r.os.length) {
       const osSpans = r.os.map(o => `<span class="all-plugins-chip-os">${o}</span>`).join('');
       return `
-        <a class="all-plugins-chip-dual" href="${r.link}" target="_blank">
+        <a class="all-plugins-chip-dual" href="${r.link}" target="_blank"${trackAttr}>
           <span class="all-plugins-chip-name">${r.name}${extBadge}</span>
           ${osSpans}
         </a>`;
     }
     const srcBadge = ` <span class="chip-src-tag">${r.src}</span>`;
-    return `<a class="all-plugins-link" href="${r.link}" target="_blank">${r.name}${extBadge}${srcBadge}</a>`;
+    return `<a class="all-plugins-link" href="${r.link}" target="_blank"${trackAttr}>${r.name}${extBadge}${srcBadge}</a>`;
   }
 
   function renderResources() {
@@ -3360,6 +3402,13 @@
 <script src="tutorials-data.js"></script>
 <script src="guides.js"></script>
 <script src="resources.js"></script>
+
+<script src="dashboard/profile-data.js"></script>
+<script src="dashboard/auth.js"></script>
+<script src="dashboard/render.js"></script>
+<script src="dashboard/continue-editing.js"></script>
+<script src="dashboard/whats-new.js"></script>
+<script src="dashboard/dashboard-init.js"></script>
 
 <script>
   // Auto-calculate plugin stats from resources.js

@@ -724,6 +724,9 @@
   // Modal
   function openModal(idOrUrl, title, source) {
     source = source || 'youtube';
+    if (window.HunnidsContinueEditing) {
+      window.HunnidsContinueEditing.trackView('tutorial', idOrUrl, { title });
+    }
     document.getElementById('modal-title').textContent = title;
     let embedHTML;
     if (source === 'youtube') {
@@ -747,6 +750,7 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 
+<script src="dashboard/continue-editing.js"></script>
 <script src="tutorials-data.js"></script>
 
 </body>
