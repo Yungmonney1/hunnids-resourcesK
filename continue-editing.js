@@ -66,13 +66,37 @@ function toggleBookmark(type, id, meta) {
   return !(idx >= 0); // returns new bookmarked state
 }
 
+function toggleBookmarkAndRefresh(type, id, meta) {
+  toggleBookmark(type, id, meta);
+  refreshContinueEditing();
+}
+
+// Used by the bookmark button drawn directly on guide/plugin/tutorial
+// cards (not just the ones inside the dashboard's Continue Editing lists).
+// Updates the clicked button's own icon/state immediately, then refreshes
+// the dashboard lists in case they're on the same page.
+function toggleBookmarkButton(btnEl, type, id, meta) {
+  const nowBookmarked = toggleBookmark(type, id, meta);
+  btnEl.textContent = nowBookmarked ? '★' : '☆';
+  btnEl.classList.toggle('hunnids-bookmark-toggle--active', nowBookmarked);
+  refreshContinueEditing();
+}
+
 function renderCard(item) {
   const title = item.meta?.title || item.id;
+  const href = item.meta?.href || '#';
+  const filled = isBookmarked(item.id);
   return `
-    <a class="ce-card" href="/${item.type}s/${item.id}">
-      <span class="ce-card__type">${item.type}</span>
-      <span class="ce-card__title">${title}</span>
-    </a>
+    <div class="ce-card">
+      <a class="ce-card__link" href="${href}" target="_blank">
+        <span class="ce-card__type">${item.type}</span>
+        <span class="ce-card__title">${title}</span>
+      </a>
+      <button class="ce-bookmark-btn ${filled ? 'ce-bookmark-btn--active' : ''}"
+        onclick="event.stopPropagation(); window.HunnidsContinueEditing.toggleBookmarkAndRefresh('${item.type}', '${item.id}', ${JSON.stringify(item.meta || {}).replace(/"/g, '&quot;')})">
+        ${filled ? '★' : '☆'}
+      </button>
+    </div>
   `;
 }
 
@@ -98,6 +122,8 @@ window.HunnidsContinueEditing = {
   trackView,
   trackDownload,
   toggleBookmark,
+  toggleBookmarkAndRefresh,
+  toggleBookmarkButton,
   isBookmarked,
   refreshContinueEditing,
 };

@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="assets/hunnids%20shape%20files/favicon-32.png">
+  <link rel="stylesheet" href="dashboard/dashboard.css">
   <link rel="apple-touch-icon" href="assets/hunnids%20shape%20files/favicon-180.png">
   <title>hunnids* / tutorials</title>
   <style>
@@ -616,17 +617,28 @@
     return `<div class="video-thumb-placeholder video-thumb-placeholder-${source}">${label}</div>`;
   }
 
+  function tutorialExternalLink(t) {
+    const source = t.source || 'youtube';
+    if (source === 'youtube') return `https://www.youtube.com/watch?v=${t.id}`;
+    return t.url;
+  }
+
   function videoCardHTML(t) {
     const source = t.source || 'youtube';
     const idOrUrl = source === 'youtube' ? t.id : source === 'tiktok' ? t.embedId : t.url;
     const catLabel = CATEGORY_LABELS[t.cat] || t.cat;
+    const bookmarkId = t.id || t.embedId || t.title;
+    const bookmarked = window.HunnidsContinueEditing && window.HunnidsContinueEditing.isBookmarked(bookmarkId);
+    const escTitle = t.title.replace(/'/g, "\\'");
     return `
-      <div class="video-card" onclick="openModal('${idOrUrl}','${t.title.replace(/'/g, "\\'")}','${source}')">
+      <div class="video-card" onclick="openModal('${idOrUrl}','${escTitle}','${source}')" style="position:relative;">
         <div class="video-thumb">
           ${tutorialThumbHTML(t)}
           <div class="video-thumb-overlay"><div class="video-play">▶</div></div>
           <div class="video-soft-tag">${(t.soft || '').toUpperCase()}</div>
         </div>
+        <button class="hunnids-bookmark-toggle ${bookmarked ? 'hunnids-bookmark-toggle--active' : ''}"
+          onclick="event.stopPropagation(); window.HunnidsContinueEditing.toggleBookmarkButton(this, 'tutorial', '${bookmarkId}', { title: '${escTitle}', href: '${tutorialExternalLink(t)}' })">${bookmarked ? '★' : '☆'}</button>
         <div class="video-info">
           <div class="video-title">${t.title}</div>
           <div class="video-cat">${catLabel}</div>
@@ -725,7 +737,8 @@
   function openModal(idOrUrl, title, source) {
     source = source || 'youtube';
     if (window.HunnidsContinueEditing) {
-      window.HunnidsContinueEditing.trackView('tutorial', idOrUrl, { title });
+      const href = source === 'youtube' ? `https://www.youtube.com/watch?v=${idOrUrl}` : idOrUrl;
+      window.HunnidsContinueEditing.trackView('tutorial', idOrUrl, { title, href });
     }
     document.getElementById('modal-title').textContent = title;
     let embedHTML;

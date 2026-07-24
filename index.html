@@ -3067,7 +3067,7 @@
   function openGuideModal(i) {
     const g = guides[i];
     if (window.HunnidsContinueEditing) {
-      window.HunnidsContinueEditing.trackView('tutorial', g.id || g.embedId || g.title, { title: g.title });
+      window.HunnidsContinueEditing.trackView('tutorial', g.id || g.embedId || g.title, { title: g.title, href: guideExternalLink(g) });
     }
     let modal = document.getElementById('guide-modal-overlay');
     if (!modal) {
@@ -3315,24 +3315,27 @@
   }
 
   // Plugin render helpers — build cards + chips straight from resources.js
-  function trackPluginDownload(name) {
+  function trackPluginDownload(name, href) {
     if (window.HunnidsContinueEditing) {
-      window.HunnidsContinueEditing.trackDownload('plugin', name, { title: name });
+      window.HunnidsContinueEditing.trackDownload('plugin', name, { title: name, href });
     }
   }
 
   function pluginCardHTML(r) {
+    const bookmarked = window.HunnidsContinueEditing && window.HunnidsContinueEditing.isBookmarked(r.name);
     return `
-      <a class="plugin-card" data-soft="${r.soft}" href="${r.link}" target="_blank" onclick="trackPluginDownload('${r.name.replace(/'/g, "\\'")}')">
+      <a class="plugin-card" data-soft="${r.soft}" href="${r.link}" target="_blank" onclick="trackPluginDownload('${r.name.replace(/'/g, "\\'")}', '${r.link}')">
         <div class="plugin-card-top"><span class="plugin-name">${r.name}</span></div>
         <div class="plugin-desc">${r.desc || ''}</div>
         <div class="plugin-card-bottom"><span class="plugin-tag">${r.soft.toUpperCase()}</span><span class="verified-badge">verified</span><span class="plugin-arrow">→</span></div>
+        <button class="hunnids-bookmark-toggle ${bookmarked ? 'hunnids-bookmark-toggle--active' : ''}"
+          onclick="event.preventDefault(); event.stopPropagation(); window.HunnidsContinueEditing.toggleBookmarkButton(this, 'plugin', '${r.name.replace(/'/g, "\\'")}', { title: '${r.name.replace(/'/g, "\\'")}', href: '${r.link}' })">${bookmarked ? '★' : '☆'}</button>
       </a>`;
   }
 
   function pluginChipHTML(r) {
     const extBadge = r.ext ? ` <span class="chip-ext-tag">EXT</span>` : '';
-    const trackAttr = ` onclick="trackPluginDownload('${r.name.replace(/'/g, "\\'")}')"`;
+    const trackAttr = ` onclick="trackPluginDownload('${r.name.replace(/'/g, "\\'")}', '${r.link}')"`;
     if (r.os && r.os.length) {
       const osSpans = r.os.map(o => `<span class="all-plugins-chip-os">${o}</span>`).join('');
       return `
@@ -3364,18 +3367,24 @@
 
     const playSVG = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0)"/><path d="M9 7l9 5-9 5V7z" fill="#fff"/></svg>`;
 
-    target.innerHTML = guides.map((g, i) => `
+    target.innerHTML = guides.map((g, i) => {
+      const gid = g.id || g.embedId || g.title;
+      const bookmarked = window.HunnidsContinueEditing && window.HunnidsContinueEditing.isBookmarked(gid);
+      return `
       <div class="guide-card" onclick="openGuideModal(${i})">
         <div class="guide-card-thumb">
           ${guideThumbHTML(g)}
           <div class="guide-card-tagchip">${g.tag}</div>
           <div class="guide-card-play">${playSVG}</div>
+          <button class="hunnids-bookmark-toggle ${bookmarked ? 'hunnids-bookmark-toggle--active' : ''}"
+            onclick="event.stopPropagation(); window.HunnidsContinueEditing.toggleBookmarkButton(this, 'tutorial', '${gid}', { title: '${g.title.replace(/'/g, "\\'")}', href: '${guideExternalLink(g)}' })">${bookmarked ? '★' : '☆'}</button>
         </div>
         <div class="guide-card-body">
           <div class="guide-card-num">${String(i + 1).padStart(2, '0')}</div>
           <div class="guide-card-name">${g.title}</div>
         </div>
-      </div>`).join('');
+      </div>`;
+    }).join('');
 
     // Update featured banner from guides[0]
     const f = guides[0];
@@ -3399,14 +3408,15 @@
   }
 </script>
 
-<script src="tutorials-data.js"></script>
-<script src="guides.js"></script>
-<script src="resources.js"></script>
-
 <script src="dashboard/profile-data.js"></script>
 <script src="dashboard/auth.js"></script>
 <script src="dashboard/render.js"></script>
 <script src="dashboard/continue-editing.js"></script>
+
+<script src="tutorials-data.js"></script>
+<script src="guides.js"></script>
+<script src="resources.js"></script>
+
 <script src="dashboard/whats-new.js"></script>
 <script src="dashboard/dashboard-init.js"></script>
 
