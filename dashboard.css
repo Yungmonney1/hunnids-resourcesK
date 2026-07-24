@@ -15,7 +15,11 @@
 @media (max-width: 800px) {
   .dash-row { grid-template-columns: 1fr; }
 }
-.dash-row > .glass-card { min-width: 0; }
+.dash-row > .glass-card {
+  min-width: 0;
+  align-self: start;
+  height: fit-content;
+}
 
 .glass-card {
   background: var(--bg-card);
