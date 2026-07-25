@@ -1,23 +1,25 @@
 /**
  * render.js
  * ---------
- * Draws the Welcome Card into #hunnids-welcome-card based on whatever
- * profile-data.js hands it. Knows nothing about auth or fetching —
- * this file shouldn't need to change when the backend swap happens.
+ * Draws the compact nav profile into #hunnids-nav-profile based on
+ * whatever profile-data.js hands it. Knows nothing about auth or
+ * fetching - this file shouldn't need to change when the backend swap
+ * happens.
+ *
+ * Logged out: small pill button matching the other nav tabs.
+ * Logged in: avatar + username; click it to open a small dropdown
+ * with rank/rep/join date and a log out button.
  */
 
 function renderLoginButton(container) {
   container.innerHTML = `
-    <div class="welcome-card welcome-card--logged-out">
-      <p class="welcome-card__prompt">Log in to see your profile, rank, and rep.</p>
-      <button class="welcome-card__login-btn" onclick="window.HunnidsAuth.loginWithDiscord()">
-        <i class="ti ti-brand-discord"></i> Log in with Discord
-      </button>
-    </div>
+    <button class="nav-profile__login-btn" onclick="window.HunnidsAuth.loginWithDiscord()">
+      Log in with Discord
+    </button>
   `;
 }
 
-function renderWelcomeCard(container, profile) {
+function renderProfile(container, profile) {
   const joinDate = new Date(profile.join_date).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -25,28 +27,44 @@ function renderWelcomeCard(container, profile) {
   });
 
   container.innerHTML = `
-    <div class="welcome-card welcome-card--logged-in">
-      <img class="welcome-card__avatar" src="${profile.avatar_url}" alt="${profile.username}'s avatar" />
-      <div class="welcome-card__info">
-        <h3 class="welcome-card__username">${profile.username}</h3>
-        <p class="welcome-card__rank">Rank #${profile.rank}</p>
-        <p class="welcome-card__rep">${profile.reputation.toLocaleString()} rep</p>
-        <p class="welcome-card__joined">Joined ${joinDate}</p>
-      </div>
-      <button class="welcome-card__logout-btn" onclick="window.HunnidsAuth.logout()">
-        Log out
+    <div class="nav-profile__wrap">
+      <button class="nav-profile__trigger" onclick="window.HunnidsDashboard.toggleNavDropdown()">
+        <img class="nav-profile__avatar" src="${profile.avatar_url}" alt="${profile.username}'s avatar" />
+        <span class="nav-profile__username">${profile.username}</span>
       </button>
+      <div class="nav-profile__dropdown" id="nav-profile-dropdown">
+        <div class="nav-profile__rank">Rank #${profile.rank}</div>
+        <div class="nav-profile__rep">${profile.reputation.toLocaleString()} rep</div>
+        <div class="nav-profile__joined">Joined ${joinDate}</div>
+        <button class="nav-profile__logout-btn" onclick="window.HunnidsAuth.logout()">Log out</button>
+      </div>
     </div>
   `;
 }
 
+function toggleNavDropdown() {
+  const dropdown = document.getElementById('nav-profile-dropdown');
+  if (!dropdown) return;
+  dropdown.classList.toggle('nav-profile__dropdown--open');
+}
+
+// Close the dropdown when clicking anywhere outside it
+document.addEventListener('click', (e) => {
+  const wrap = document.querySelector('.nav-profile__wrap');
+  const dropdown = document.getElementById('nav-profile-dropdown');
+  if (!wrap || !dropdown) return;
+  if (!wrap.contains(e.target)) {
+    dropdown.classList.remove('nav-profile__dropdown--open');
+  }
+});
+
 async function refreshProfileCard() {
-  const container = document.getElementById('hunnids-welcome-card');
+  const container = document.getElementById('hunnids-nav-profile');
   if (!container) return;
 
   const profile = await window.HunnidsProfileData.getProfile();
   if (profile) {
-    renderWelcomeCard(container, profile);
+    renderProfile(container, profile);
   } else {
     renderLoginButton(container);
   }
@@ -54,3 +72,4 @@ async function refreshProfileCard() {
 
 window.HunnidsDashboard = window.HunnidsDashboard || {};
 window.HunnidsDashboard.refreshProfileCard = refreshProfileCard;
+window.HunnidsDashboard.toggleNavDropdown = toggleNavDropdown;

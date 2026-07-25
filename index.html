@@ -1809,6 +1809,9 @@
       overflow-y: hidden;
       padding: 4px 4px 6px 4px;
     }
+    .art-preview-strip::-webkit-scrollbar { height: 4px; }
+    .art-preview-strip::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
+    .art-preview-strip::-webkit-scrollbar-track { background: transparent; }
     .art-preview-thumb-wrap {
       position: relative;
       width: 128px;
@@ -2476,6 +2479,7 @@
     </div>
   </div>
   <div class="header-right">
+    <div id="hunnids-nav-profile" class="nav-profile"></div>
     <button class="dark-toggle" onclick="toggleDark()" id="dark-toggle" title="Toggle dark mode">🌙</button>
     <div class="search-bar" onclick="openSearch()" id="search-trigger">
       <span>⌕</span> Search<span class="kbd">⌘K</span>
@@ -2600,6 +2604,33 @@
     <span class="disclaimer-text">Everything here is a plugin, extension, or resource for After Effects and Premiere Pro — tested by the team before it's posted.</span>
   </div>
 
+  <!--
+    DASHBOARD — profile card + continue editing + what's new.
+    See /README.md for how the profile card auth is wired up.
+  -->
+  <div class="glass-card dash-whats-new">
+    <div class="dash-card-title">What's new</div>
+    <div id="hunnids-whats-new" class="whats-new__list"></div>
+  </div>
+
+  <div class="glass-card dash-continue-editing">
+    <div class="dash-card-title">Continue editing</div>
+    <div class="ce-columns">
+      <div class="ce-group">
+        <div class="ce-group-title">Recently viewed</div>
+        <div id="hunnids-recently-viewed" class="ce-card-list"></div>
+      </div>
+      <div class="ce-group">
+        <div class="ce-group-title">Recently downloaded</div>
+        <div id="hunnids-recently-downloaded" class="ce-card-list"></div>
+      </div>
+      <div class="ce-group">
+        <div class="ce-group-title">Bookmarked</div>
+        <div id="hunnids-bookmarks" class="ce-card-list"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- NEW DROPS -->
   <div class="new-drops">
     <div class="new-drops-header">
@@ -2623,37 +2654,6 @@
       <div class="challenge-eyebrow"><span class="dot"></span> Loading current event...</div>
     </div>
     <div id="challenge-cta-wrap"></div>
-  </div>
-
-  <!--
-    DASHBOARD — profile card + continue editing + what's new.
-    See /README.md for how the profile card auth is wired up.
-  -->
-  <div class="dash-row">
-    <div id="hunnids-welcome-card" class="glass-card dash-welcome"></div>
-
-    <div class="glass-card dash-whats-new">
-      <div class="dash-card-title">What's new</div>
-      <div id="hunnids-whats-new" class="whats-new__list"></div>
-    </div>
-  </div>
-
-  <div class="glass-card dash-continue-editing">
-    <div class="dash-card-title">Continue editing</div>
-    <div class="ce-columns">
-      <div class="ce-group">
-        <div class="ce-group-title">Recently viewed</div>
-        <div id="hunnids-recently-viewed" class="ce-card-list"></div>
-      </div>
-      <div class="ce-group">
-        <div class="ce-group-title">Recently downloaded</div>
-        <div id="hunnids-recently-downloaded" class="ce-card-list"></div>
-      </div>
-      <div class="ce-group">
-        <div class="ce-group-title">Bookmarked</div>
-        <div id="hunnids-bookmarks" class="ce-card-list"></div>
-      </div>
-    </div>
   </div>
 
   <div class="section" id="guides">
