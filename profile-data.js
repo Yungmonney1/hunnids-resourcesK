@@ -1,70 +1,69 @@
 /**
  * profile-data.js
  * ----------------
- * The ONLY file in the dashboard that knows *how* profile data is obtained.
- * Everything else (render.js, auth.js) just calls getProfile() and doesn't
- * care whether the answer came from localStorage demo data or a real API.
+ * The ONLY file that knows *how* profile data is obtained. Real backend
+ * now wired up - reads a JWT from localStorage (put there by
+ * captureOAuthToken() below, right after Discord's OAuth redirect lands)
+ * and calls the actual Flask API for rank/rep/join date.
  *
- * THE CONTRACT — this exact shape is what your future Flask endpoint
- * (/api/profile/me) and your future bot /profile command should both
- * return. Lock this in now so nothing downstream has to change later.
- *
+ * THE CONTRACT - this is what /api/profile/me on the bot's Render app
+ * returns, matching what render.js expects:
  * {
  *   discord_id: string,
  *   username: string,
  *   avatar_url: string,
- *   rank: number,
+ *   rank: number | null,
  *   reputation: number,
- *   join_date: string   // ISO date, e.g. "2023-06-14"
+ *   join_date: string | null   // ISO date, or null if lookup failed
  * }
  */
 
-const DEMO_STORAGE_KEY = 'hunnids_demo_profile';
+const PROFILE_API = 'https://hunnids-discord-bot.onrender.com/api/profile/me';
+const TOKEN_KEY = 'hunnids_token';
 
 /**
- * Returns a profile object, or null if nobody is "logged in".
- * TODO: BACKEND — replace the body of this function with:
- *
- *   const token = localStorage.getItem('hunnids_token');
- *   if (!token) return null;
- *   const res = await fetch('https://hunnids-discord-bot.onrender.com/api/profile/me', {
- *     headers: { Authorization: `Bearer ${token}` }
- *   });
- *   // same Render app that already serves /api/events for the Challenge Card
- *   if (res.status === 401) {
- *     localStorage.removeItem('hunnids_token');
- *     return null;
- *   }
- *   return await res.json();
- *
- * Nothing calling getProfile() needs to change when you do this swap.
+ * Called once on every page load (see dashboard-init.js). If Discord's
+ * OAuth redirect just landed with ?token=... in the URL, stash it in
+ * localStorage and strip it from the URL so it doesn't stay bookmarked
+ * or shared accidentally.
+ */
+function captureOAuthToken() {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+  if (!token) return;
+
+  localStorage.setItem(TOKEN_KEY, token);
+
+  params.delete('token');
+  params.delete('auth_error');
+  const cleanUrl = window.location.pathname + (params.toString() ? `?${params}` : '');
+  window.history.replaceState({}, '', cleanUrl);
+}
+
+/**
+ * Returns a profile object, or null if nobody is logged in / the token
+ * is invalid or expired.
  */
 async function getProfile() {
-  const raw = localStorage.getItem(DEMO_STORAGE_KEY);
-  if (!raw) return null;
+  const token = localStorage.getItem(TOKEN_KEY);
+  if (!token) return null;
 
   try {
-    return JSON.parse(raw);
+    const res = await fetch(PROFILE_API, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (res.status === 401) {
+      localStorage.removeItem(TOKEN_KEY);
+      return null;
+    }
+    if (!res.ok) return null;
+
+    return await res.json();
   } catch (err) {
-    console.error('Corrupt demo profile data, clearing it', err);
-    localStorage.removeItem(DEMO_STORAGE_KEY);
+    console.warn('Could not reach profile API', err);
     return null;
   }
 }
 
-/**
- * Demo-only helper — simulates "logging in" by writing a fake profile
- * to localStorage so you can build/test the Welcome Card before the
- * real Discord OAuth + Flask backend exists.
- * Delete this function (and its one call site in auth.js) once the
- * real backend is live.
- */
-function setDemoProfile(profile) {
-  localStorage.setItem(DEMO_STORAGE_KEY, JSON.stringify(profile));
-}
-
-function clearDemoProfile() {
-  localStorage.removeItem(DEMO_STORAGE_KEY);
-}
-
-window.HunnidsProfileData = { getProfile, setDemoProfile, clearDemoProfile };
+window.HunnidsProfileData = { getProfile, captureOAuthToken };

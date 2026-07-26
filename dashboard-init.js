@@ -6,6 +6,7 @@
  * continue-editing.js, and whats-new.js.
  */
 document.addEventListener('DOMContentLoaded', () => {
+  window.HunnidsProfileData.captureOAuthToken();
   window.HunnidsDashboard.refreshProfileCard();
   window.HunnidsContinueEditing.refreshContinueEditing();
   window.HunnidsWhatsNew.refreshWhatsNew();
