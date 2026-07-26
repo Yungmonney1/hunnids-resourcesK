@@ -6,7 +6,7 @@
  * that it's now a real redirect instead of the old demo stub.
  */
 
-const DISCORD_CLIENT_ID = 'PASTE_YOUR_CLIENT_ID_HERE';
+const DISCORD_CLIENT_ID = '1517374669446053990';
 const DISCORD_REDIRECT_URI = 'https://hunnids-discord-bot.onrender.com/api/auth/discord/callback';
 
 function loginWithDiscord() {
