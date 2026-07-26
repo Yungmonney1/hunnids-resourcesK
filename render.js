@@ -26,6 +26,13 @@ function renderProfile(container, profile) {
     day: 'numeric',
   });
 
+  const roles = profile.roles || [];
+  const rolesHTML = roles.length
+    ? `<div class="nav-profile__roles">${roles
+        .map((r) => `<span class="nav-profile__role-pill" style="${r.color ? `background:${r.color}22;color:${r.color};border-color:${r.color}55;` : ''}">${r.name}</span>`)
+        .join('')}</div>`
+    : '';
+
   container.innerHTML = `
     <div class="nav-profile__wrap">
       <button class="nav-profile__trigger" onclick="window.HunnidsDashboard.toggleNavDropdown()">
@@ -36,6 +43,7 @@ function renderProfile(container, profile) {
         <div class="nav-profile__rank">Rank #${profile.rank}</div>
         <div class="nav-profile__rep">${profile.reputation.toLocaleString()} rep</div>
         <div class="nav-profile__joined">Joined ${joinDate}</div>
+        ${rolesHTML}
         <button class="nav-profile__logout-btn" onclick="window.HunnidsAuth.logout()">Log out</button>
       </div>
     </div>

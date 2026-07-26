@@ -9,5 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.HunnidsProfileData.captureOAuthToken();
   window.HunnidsDashboard.refreshProfileCard();
   window.HunnidsContinueEditing.refreshContinueEditing();
+  window.HunnidsContinueEditing.initBookmarks();
   window.HunnidsWhatsNew.refreshWhatsNew();
 });

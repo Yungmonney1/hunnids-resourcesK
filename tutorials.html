@@ -638,6 +638,7 @@
           <div class="video-soft-tag">${(t.soft || '').toUpperCase()}</div>
         </div>
         <button class="hunnids-bookmark-toggle ${bookmarked ? 'hunnids-bookmark-toggle--active' : ''}"
+          data-bookmark-id="${String(bookmarkId).replace(/"/g, '&quot;')}"
           onclick="event.stopPropagation(); window.HunnidsContinueEditing.toggleBookmarkButton(this, 'tutorial', '${bookmarkId}', { title: '${escTitle}', href: '${tutorialExternalLink(t)}' })">${bookmarked ? '★' : '☆'}</button>
         <div class="video-info">
           <div class="video-title">${t.title}</div>
@@ -761,6 +762,10 @@
   }
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.HunnidsContinueEditing) window.HunnidsContinueEditing.initBookmarks();
+  });
 </script>
 
 <script src="continue-editing.js"></script>

@@ -1,27 +1,37 @@
 /**
  * continue-editing.js
  * --------------------
- * "Recently viewed", "recently downloaded", and "bookmarks" — all tracked
- * per-browser via localStorage. This never needs a backend, even in the
- * future: it's about what THIS browser looked at, not who's logged in.
+ * "Recently viewed" and "recently downloaded" stay per-browser via
+ * localStorage - genuinely no backend needed, ever, for those.
+ *
+ * "Bookmarks" now sync to the logged-in account (via the bot's
+ * /api/bookmarks/* routes) so they follow you between devices. Logged-out
+ * visitors still get bookmarks, just stored locally in that browser only,
+ * same as before. The first time someone who already had local bookmarks
+ * logs in, those get pushed up to their account once, then local storage
+ * is cleared (server becomes the source of truth from then on).
  *
  * HOW TO WIRE THIS UP ON OTHER PAGES:
- * On your tutorial/plugin detail pages, call these when relevant:
- *   window.HunnidsContinueEditing.trackView('tutorial', 'guide-12', { title: 'HUNNIDS Guide 12: Shatter Rigs' });
+ *   window.HunnidsContinueEditing.trackView('tutorial', 'guide-12', { title: 'HUNNIDS Guide 12' });
  *   window.HunnidsContinueEditing.trackDownload('plugin', 'newton-4', { title: 'Newton 4' });
- *   window.HunnidsContinueEditing.toggleBookmark('tutorial', 'guide-12', { title: 'HUNNIDS Guide 12' });
- *
- * Each entry stores its own small "meta" object (title, thumbnail, etc.)
- * so the dashboard can render a card without needing to re-look-up the
- * full item — just pass whatever the card needs to display.
+ *   window.HunnidsContinueEditing.toggleBookmarkButton(buttonEl, 'tutorial', 'guide-12', { title: '...', href: '...' });
  */
+
+const BOOKMARKS_API = 'https://hunnids-discord-bot.onrender.com/api/bookmarks';
+const TOKEN_KEY = 'hunnids_token'; // same key profile-data.js uses
+const LOCAL_BOOKMARKS_KEY = 'hunnids_bookmarks'; // legacy/guest-mode storage
 
 const MAX_RECENT = 10;
 const KEYS = {
   viewed: 'hunnids_recently_viewed',
   downloaded: 'hunnids_recently_downloaded',
-  bookmarks: 'hunnids_bookmarks',
 };
+
+let _bookmarksCache = []; // in-memory, so isBookmarked() can stay synchronous
+
+function _getToken() {
+  return localStorage.getItem(TOKEN_KEY);
+}
 
 function readList(key) {
   try {
@@ -50,36 +60,124 @@ function trackDownload(type, id, meta) {
   pushRecent(KEYS.downloaded, type, id, meta);
 }
 
-function isBookmarked(id) {
-  return readList(KEYS.bookmarks).some((item) => item.id === id);
-}
+/**
+ * Loads bookmarks once on page load - from the account if logged in
+ * (migrating any pre-login local bookmarks up to the account first),
+ * or from localStorage for guests. Call this once, early.
+ */
+async function initBookmarks() {
+  const token = _getToken();
 
-function toggleBookmark(type, id, meta) {
-  const list = readList(KEYS.bookmarks);
-  const idx = list.findIndex((item) => item.id === id);
-  if (idx >= 0) {
-    list.splice(idx, 1);
-  } else {
-    list.unshift({ type, id, meta, at: Date.now() });
+  if (!token) {
+    _bookmarksCache = readList(LOCAL_BOOKMARKS_KEY);
+    return;
   }
-  writeList(KEYS.bookmarks, list);
-  return !(idx >= 0); // returns new bookmarked state
+
+  try {
+    const res = await fetch(`${BOOKMARKS_API}/me`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) throw new Error('bookmarks fetch failed');
+    const data = await res.json();
+    let serverBookmarks = data.bookmarks || [];
+
+    const localBookmarks = readList(LOCAL_BOOKMARKS_KEY);
+    const toMigrate = localBookmarks.filter(
+      (local) => !serverBookmarks.some((server) => server.id === local.id)
+    );
+
+    for (const item of toMigrate) {
+      try {
+        const toggleRes = await fetch(`${BOOKMARKS_API}/toggle`, {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: item.type, id: item.id, meta: item.meta }),
+        });
+        const toggleData = await toggleRes.json();
+        serverBookmarks = toggleData.bookmarks || serverBookmarks;
+      } catch {
+        // one bad migration entry shouldn't sink the rest
+      }
+    }
+    if (toMigrate.length > 0) {
+      localStorage.removeItem(LOCAL_BOOKMARKS_KEY);
+    }
+
+    _bookmarksCache = serverBookmarks;
+  } catch (err) {
+    console.warn('Could not load bookmarks from account, using local copy for now', err);
+    _bookmarksCache = readList(LOCAL_BOOKMARKS_KEY);
+  }
+
+  refreshContinueEditing();
+  _refreshAllBookmarkButtonsOnPage();
 }
 
-function toggleBookmarkAndRefresh(type, id, meta) {
-  toggleBookmark(type, id, meta);
+function isBookmarked(id) {
+  return _bookmarksCache.some((item) => item.id === id);
+}
+
+/** Adds/removes a bookmark, syncing to the account if logged in, else localStorage. Returns the new bookmarked state (boolean). */
+async function toggleBookmark(type, id, meta) {
+  const token = _getToken();
+
+  if (!token) {
+    const idx = _bookmarksCache.findIndex((item) => item.id === id);
+    if (idx >= 0) {
+      _bookmarksCache.splice(idx, 1);
+    } else {
+      _bookmarksCache.unshift({ type, id, meta, at: Date.now() });
+    }
+    writeList(LOCAL_BOOKMARKS_KEY, _bookmarksCache);
+    return idx < 0;
+  }
+
+  try {
+    const res = await fetch(`${BOOKMARKS_API}/toggle`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type, id, meta }),
+    });
+    const data = await res.json();
+    _bookmarksCache = data.bookmarks || _bookmarksCache;
+    return !!data.bookmarked;
+  } catch (err) {
+    console.warn('Could not save bookmark', err);
+    return isBookmarked(id); // unchanged, request failed
+  }
+}
+
+async function toggleBookmarkAndRefresh(type, id, meta) {
+  await toggleBookmark(type, id, meta);
   refreshContinueEditing();
 }
 
 // Used by the bookmark button drawn directly on guide/plugin/tutorial
-// cards (not just the ones inside the dashboard's Continue Editing lists).
-// Updates the clicked button's own icon/state immediately, then refreshes
-// the dashboard lists in case they're on the same page.
-function toggleBookmarkButton(btnEl, type, id, meta) {
-  const nowBookmarked = toggleBookmark(type, id, meta);
+// cards (not just inside the dashboard's Continue Editing lists).
+// Updates the clicked button optimistically, then reconciles with
+// whatever the server (or localStorage) actually ended up with.
+async function toggleBookmarkButton(btnEl, type, id, meta) {
+  const wasActive = btnEl.classList.contains('hunnids-bookmark-toggle--active');
+  btnEl.textContent = wasActive ? '☆' : '★';
+  btnEl.classList.toggle('hunnids-bookmark-toggle--active', !wasActive);
+
+  const nowBookmarked = await toggleBookmark(type, id, meta);
+
   btnEl.textContent = nowBookmarked ? '★' : '☆';
   btnEl.classList.toggle('hunnids-bookmark-toggle--active', nowBookmarked);
   refreshContinueEditing();
+}
+
+// After bookmarks load from the account (which happens async, after the
+// page's cards already rendered once), this corrects any bookmark button
+// on the page that guessed wrong before the account data arrived.
+function _refreshAllBookmarkButtonsOnPage() {
+  document.querySelectorAll('[data-bookmark-id]').forEach((btn) => {
+    const id = btn.getAttribute('data-bookmark-id');
+    const active = isBookmarked(id);
+    btn.textContent = active ? '★' : '☆';
+    btn.classList.toggle('hunnids-bookmark-toggle--active', active);
+  });
 }
 
 function renderCard(item) {
@@ -115,12 +213,13 @@ function renderSection(containerId, list, emptyMessage) {
 function refreshContinueEditing() {
   renderSection('hunnids-recently-viewed', readList(KEYS.viewed), 'Nothing viewed yet — go check out a tutorial!');
   renderSection('hunnids-recently-downloaded', readList(KEYS.downloaded), "You haven't downloaded any plugins yet.");
-  renderSection('hunnids-bookmarks', readList(KEYS.bookmarks), 'No bookmarks yet — tap the bookmark icon on any resource.');
+  renderSection('hunnids-bookmarks', _bookmarksCache, 'No bookmarks yet — tap the bookmark icon on any resource.');
 }
 
 window.HunnidsContinueEditing = {
   trackView,
   trackDownload,
+  initBookmarks,
   toggleBookmark,
   toggleBookmarkAndRefresh,
   toggleBookmarkButton,

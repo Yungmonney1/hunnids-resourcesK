@@ -3331,6 +3331,7 @@
         <div class="plugin-desc">${r.desc || ''}</div>
         <div class="plugin-card-bottom"><span class="plugin-tag">${r.soft.toUpperCase()}</span><span class="verified-badge">verified</span><span class="plugin-arrow">→</span></div>
         <button class="hunnids-bookmark-toggle ${bookmarked ? 'hunnids-bookmark-toggle--active' : ''}"
+          data-bookmark-id="${r.name.replace(/"/g, '&quot;')}"
           onclick="event.preventDefault(); event.stopPropagation(); window.HunnidsContinueEditing.toggleBookmarkButton(this, 'plugin', '${r.name.replace(/'/g, "\\'")}', { title: '${r.name.replace(/'/g, "\\'")}', href: '${r.link}' })">${bookmarked ? '★' : '☆'}</button>
       </a>`;
   }
@@ -3379,6 +3380,7 @@
           <div class="guide-card-tagchip">${g.tag}</div>
           <div class="guide-card-play">${playSVG}</div>
           <button class="hunnids-bookmark-toggle ${bookmarked ? 'hunnids-bookmark-toggle--active' : ''}"
+            data-bookmark-id="${String(gid).replace(/"/g, '&quot;')}"
             onclick="event.stopPropagation(); window.HunnidsContinueEditing.toggleBookmarkButton(this, 'tutorial', '${gid}', { title: '${g.title.replace(/'/g, "\\'")}', href: '${guideExternalLink(g)}' })">${bookmarked ? '★' : '☆'}</button>
         </div>
         <div class="guide-card-body">
