@@ -323,6 +323,9 @@ const tutorials = [
   { id: "NyGngM510yE", title: "5 More Ways To Use AI Fill In Your Videos", cat: "premiere", soft: "pr" },
   { id: "clVm0pjtSJs", title: "How To Edit Music In Premiere Pro - 5 Tips For Success", cat: "premiere", soft: "pr" },
   { id: "lTJizo_gxxE", title: "How To Edit A Video Like GAWX Art", cat: "premiere", soft: "pr" },
+  { id: "ZOOgZDvugDw", title: "How To Upscale Any Video In Topaz Video AI Under 2 Minutes", cat: "color", soft: "ae" },
+  { id: "3EAfAO3rPaI", title: "Color Correction for Anime | After Effects Tutorial", cat: "color", soft: "ae" },
+  { id: "UVzRUNLZlro", title: "My FAVORITE Color Correction - After Effects Tutorial", cat: "color", soft: "ae" },
 ];
 
 // Called by tutorials.html after this script loads
