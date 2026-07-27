@@ -18,7 +18,7 @@
  */
 
 const BOOKMARKS_API = 'https://hunnids-discord-bot.onrender.com/api/bookmarks';
-const TOKEN_KEY = 'hunnids_token'; // same key profile-data.js uses
+const CE_TOKEN_KEY = 'hunnids_token'; // same key profile-data.js uses
 const LOCAL_BOOKMARKS_KEY = 'hunnids_bookmarks'; // legacy/guest-mode storage
 
 const MAX_RECENT = 10;
@@ -30,7 +30,7 @@ const KEYS = {
 let _bookmarksCache = []; // in-memory, so isBookmarked() can stay synchronous
 
 function _getToken() {
-  return localStorage.getItem(TOKEN_KEY);
+  return localStorage.getItem(CE_TOKEN_KEY);
 }
 
 function readList(key) {
