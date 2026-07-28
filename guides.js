@@ -22,10 +22,10 @@ const guides = [
   { id: "KUquO5vzdGY", title: "HUNNIDS* Guide: Customizing Your AE Workspace",  tag: "PR"  },
   { id: "R9bCpLIVMdY", title: "Coloring and Animating Manga — Photoshop & AE", tag: "GEN" },
   { id: "hiQ-Y4rk42E", title: "How to Make Frutiger Metro Aero Effects",        tag: "GEN" },
-  { id: "grrSRj5AGCA", title: "How To Make A Cool Melting Transition | After Effects Tutorial + FREE PRESET",        tag: "AE" },
-  { id: "SLWgx9gKPik", title: "ADVANCED ACID TRIP EFFECT TUTORIAL / AFTER EFFECT TUTORIAL / LSD EFFECT / COLORFUL TUTORIAL +FREE PF",        tag: "AE" },
-  { id: "o8rgqHm2SU8", title: "MAKE CRT TV SCREEN LINES GLITCH EFFECT | After Affects Tutorial",        tag: "AE" },
-  { id: "_5zqnTmoHsQ", title: "manga transitions for edits | after effects",        tag: "AE" },
+  { id: "grrSRj5AGCA", title: "MAKE CRT TV SCREEN LINES GLITCH EFFECT | After Affects Tutorial",        tag: "AE" },
+  { id: "SLWgx9gKPik", title: "manga transitions for edits | after effects",        tag: "AE" },
+  { id: "o8rgqHm2SU8", title: "ADVANCED ACID TRIP EFFECT TUTORIAL / AFTER EFFECT TUTORIAL / LSD EFFECT / COLORFUL TUTORIAL +FREE PF",        tag: "AE" },
+  { id: "_5zqnTmoHsQ", title: "How To Make A Cool Melting Transition | After Effects Tutorial + FREE PRESET",        tag: "AE" },
   
 ];
 
