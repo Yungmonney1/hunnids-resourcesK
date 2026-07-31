@@ -100,7 +100,16 @@ const resources = [
     desc: "A bundle of free tools and assets: lens textures, expressions pack, Google Material Icons, and more.",
     soft: "ae", src: "WEB", featured: true,
     link: "https://aejuice.com/free-plugins/"
+    
   },
+  {
+  name: "3D Extruder (AE Script)",
+  desc: "An After Effects Script that allows you to add 3D depth to your 2D animations.",
+  soft: "ae",        // "ae" or "pr"
+  src: "WEB",         // "GD" (Google Drive), "WEB", or "GH" (GitHub)
+  featured: true,
+  link: "https://motionnations.com/downloads/3d-extruder-script-free/"
+},
 
   // ── AFTER EFFECTS — SHOW ALL ─────────────────
   { name: "Redefinery AE Scripts (40+ free scripts)", soft: "ae", src: "WEB", link: "http://redefinery.com/ae/rd_scripts/" },
