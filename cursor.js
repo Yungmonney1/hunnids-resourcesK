@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const blob = document.createElement('div');
   blob.id = 'glass-blob';
-  document.body.appendChild(blob);
+  document.documentElement.appendChild(blob);
 
   const style = document.createElement('style');
   style.textContent = `
