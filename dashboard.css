@@ -230,24 +230,66 @@
 }
 
 /* What's new */
+.dash-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dash-card-title__pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e6672f;
+  box-shadow: 0 0 0 3px rgba(230,103,47,0.2);
+  animation: hunnidsPulse 1.6s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes hunnidsPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dash-card-title__pulse { animation: none; }
+}
+
 .whats-new__list { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .whats-new__item {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 6px 0;
+  padding: 6px 4px;
   border-bottom: 1px solid var(--border);
   min-width: 0;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: whatsNewFadeIn 0.35s ease forwards;
+  transition: transform 0.15s, background 0.15s;
+  border-radius: 8px;
+}
+.whats-new__item:hover {
+  transform: translateX(4px);
+  background: var(--bg-hover);
+}
+@keyframes whatsNewFadeIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .whats-new__item { opacity: 1; transform: none; animation: none; }
+  .whats-new__item:hover { transform: none; }
 }
 .whats-new__tag {
   font-family: 'JetBrains Mono', monospace;
   font-size: 9.5px;
   text-transform: uppercase;
   font-weight: 700;
-  padding: 2px 8px;
+  padding: 3px 8px;
   border-radius: 8px;
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
+.whats-new__tag-icon { font-size: 10px; line-height: 1; }
 .whats-new__tag--tutorial { background: rgba(112, 122, 138, 0.15); color: var(--brown-light); }
 .whats-new__tag--plugin { background: rgba(58, 63, 74, 0.12); color: var(--brown); }
 .whats-new__title {
@@ -263,3 +305,21 @@
   font-size: 12.5px;
   color: var(--text-muted);
 }
+
+/* Bookmark bounce — plays whenever the --active class is freshly applied */
+.hunnids-bookmark-toggle--active,
+.ce-bookmark-btn--active {
+  animation: bookmarkBounce 0.3s ease;
+}
+@keyframes bookmarkBounce {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hunnids-bookmark-toggle--active,
+  .ce-bookmark-btn--active { animation: none; }
+}
+
+/* Stat count-up numbers */
+.stat-val { transition: color 0.2s; }

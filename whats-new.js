@@ -16,10 +16,16 @@
 
 const ITEMS_PER_TYPE = 3;
 
-function renderItem(item) {
+const TYPE_ICON = {
+  tutorial: '🎬',
+  plugin: '🔌',
+};
+
+function renderItem(item, index) {
+  const icon = TYPE_ICON[item.type] || '';
   return `
-    <div class="whats-new__item">
-      <span class="whats-new__tag whats-new__tag--${item.type}">${item.type}</span>
+    <div class="whats-new__item" style="animation-delay: ${index * 60}ms">
+      <span class="whats-new__tag whats-new__tag--${item.type}"><span class="whats-new__tag-icon">${icon}</span>${item.type}</span>
       <span class="whats-new__title">${item.title}</span>
     </div>
   `;

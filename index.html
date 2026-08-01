@@ -2768,7 +2768,7 @@
     See /README.md for how the profile card auth is wired up.
   -->
   <div class="glass-card dash-whats-new">
-    <div class="dash-card-title">What's new</div>
+    <div class="dash-card-title"><span class="dash-card-title__pulse"></span>What's new</div>
     <div id="hunnids-whats-new" class="whats-new__list"></div>
   </div>
 
@@ -3096,6 +3096,26 @@
 
 </div>
 
+<script>
+  // Animates a stat number counting up from 0 to its real value, instead
+  // of just snapping the text in instantly.
+  function animateStatValue(el, target, { pad = false, duration = 700 } = {}) {
+    if (!el) return;
+    const numTarget = Number(target) || 0;
+    const start = performance.now();
+    function format(n) {
+      const rounded = Math.round(n);
+      return pad ? String(rounded).padStart(2, '0') : String(rounded);
+    }
+    function frame(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = format(numTarget * eased);
+      if (progress < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+</script>
 <script>
   // Dark mode
   function toggleDark() {
@@ -3568,7 +3588,7 @@
     // Update sidebar guide count
     const countEl = document.getElementById('stat-guides');
     const totalTutorials = typeof tutorials !== 'undefined' ? tutorials.length : guides.length;
-    if (countEl) countEl.textContent = String(totalTutorials).padStart(2, '0');
+    if (countEl) animateStatValue(countEl, totalTutorials, { pad: true });
     const liveGuidesEl = document.getElementById('live-count-guides');
     if (liveGuidesEl) liveGuidesEl.textContent = `${totalTutorials} tutorials available`;
   }
@@ -3589,18 +3609,17 @@
 <script>
   // Auto-calculate plugin stats from resources.js
   if (typeof resources !== 'undefined') {
-    const pad = n => String(n).padStart(2, '0');
     const el = id => document.getElementById(id);
-    if (el('stat-total')) el('stat-total').textContent = pad(resources.length);
-    if (el('stat-ae')) el('stat-ae').textContent = pad(resources.filter(r => r.soft === 'ae').length);
-    if (el('stat-pr')) el('stat-pr').textContent = pad(resources.filter(r => r.soft === 'pr').length);
+    if (el('stat-total')) animateStatValue(el('stat-total'), resources.length, { pad: true });
+    if (el('stat-ae')) animateStatValue(el('stat-ae'), resources.filter(r => r.soft === 'ae').length, { pad: true });
+    if (el('stat-pr')) animateStatValue(el('stat-pr'), resources.filter(r => r.soft === 'pr').length, { pad: true });
     if (el('live-count-plugins')) el('live-count-plugins').textContent = `${resources.length} plugins & extensions listed`;
   }
 
   // Count helpful sites from DOM
   const siteCount = document.querySelectorAll('.site-card').length;
   const sitesEl = document.getElementById('stat-sites');
-  if (sitesEl) sitesEl.textContent = String(siteCount).padStart(2, '0');
+  if (sitesEl) animateStatValue(sitesEl, siteCount, { pad: true });
   const liveSitesEl = document.getElementById('live-count-helpful');
   if (liveSitesEl) liveSitesEl.textContent = `${siteCount} sites curated`;
 
@@ -3627,11 +3646,14 @@
         el.innerHTML = `
           <div style="display:flex; align-items:center; gap:8px;">
             <div style="width:8px; height:8px; border-radius:50%; background:#3ba55c; box-shadow:0 0 6px #3ba55c;"></div>
-            <span style="font-family:'Nunito',sans-serif; font-size:13px; font-weight:700; color:var(--text-primary);">${online} online</span>
+            <span style="font-family:'Nunito',sans-serif; font-size:13px; font-weight:700; color:var(--text-primary);"><span id="discord-online-count">0</span> online</span>
           </div>
           ${avatars ? `<div style="display:flex; padding-left:8px;">${avatars}</div>` : ''}
           <a href="${inviteUrl}" target="_blank" style="width:100%; box-sizing:border-box; display:block; text-align:center; padding:10px; border-radius:14px; background:#5865F2; color:#fff; font-family:'Nunito',sans-serif; font-weight:700; font-size:13px; text-decoration:none; transition:opacity 0.15s;" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">Join Discord ↗</a>
         `;
+        const onlineEl = document.getElementById('discord-online-count');
+        if (onlineEl && typeof online === 'number') animateStatValue(onlineEl, online);
+        else if (onlineEl) onlineEl.textContent = online;
       })
       .catch(() => {
         el.innerHTML = `<a href="${inviteFallback}" target="_blank" style="width:100%; box-sizing:border-box; display:block; text-align:center; padding:10px; border-radius:14px; background:#5865F2; color:#fff; font-family:'Nunito',sans-serif; font-weight:700; font-size:13px; text-decoration:none;">Join Discord ↗</a>`;
@@ -3791,6 +3813,31 @@
   }
 </script>
 
+<script src="sounds.js"></script>
+<script>
+  // Sound effects, wired via event delegation so nothing above needs to
+  // change to fire them.
+  document.addEventListener('click', (e) => {
+    if (!window.HunnidsSFX) return;
+
+    if (e.target.closest('#dark-toggle')) {
+      window.HunnidsSFX.play('toggle');
+      return;
+    }
+    if (e.target.closest('.hunnids-bookmark-toggle, .ce-bookmark-btn')) {
+      window.HunnidsSFX.play('bookmark');
+      return;
+    }
+    if (e.target.closest('.hero-arrow, .challenge-arrow, .hero-dot, .challenge-dot')) {
+      window.HunnidsSFX.play('whoosh');
+      return;
+    }
+    if (e.target.closest('a[href*="discord.gg"], a.discord-cta, a.about-cta')) {
+      window.HunnidsSFX.play('success');
+      return;
+    }
+  });
+</script>
 <script src="cursor.js"></script>
 </body>
 </html>
