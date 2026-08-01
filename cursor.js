@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // On touch devices there's no real cursor to follow, and previously
+  // this script still created the blob and ran its animation loop every
+  // frame regardless - continuous backdrop-filter blur is expensive, and
+  // was running invisibly (just hidden via CSS) on every mobile visit.
+  // Bail out completely instead.
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
   const blob = document.createElement('div');
   blob.id = 'glass-blob';
   document.documentElement.appendChild(blob);
@@ -26,10 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
       z-index: 9999;
       transform-origin: center center;
       will-change: transform;
-    }
-    @media (pointer: coarse) {
-      #glass-blob { display: none; }
-      *, *::before, *::after { cursor: auto !important; }
     }
   `;
   document.head.appendChild(style);
