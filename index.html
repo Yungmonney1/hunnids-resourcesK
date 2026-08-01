@@ -1979,6 +1979,52 @@
     body.dark-mode .challenge-card { background: rgba(22,28,45,0.75); }
     body.dark-mode .challenge-eyebrow { color: #ff9a68; }
 
+    /* multi-event carousel controls, reusing the hero carousel's visual language */
+    .challenge-card { padding-bottom: 46px; }
+    .challenge-arrow {
+      position: absolute;
+      bottom: 14px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-hover);
+      color: var(--text-primary);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, transform 0.15s;
+      z-index: 10;
+      line-height: 1;
+      padding-bottom: 1px;
+    }
+    .challenge-arrow:hover { background: rgba(255,255,255,0.9); transform: scale(1.08); }
+    .challenge-arrow-left { right: 60px; }
+    .challenge-arrow-right { right: 18px; }
+    body.dark-mode .challenge-arrow { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); }
+    body.dark-mode .challenge-arrow:hover { background: rgba(255,255,255,0.16); }
+
+    .challenge-dots {
+      position: absolute;
+      bottom: 22px;
+      left: 26px;
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+    .challenge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(100,100,120,0.3);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .challenge-dot.active { width: 20px; border-radius: 3px; background: #e6672f; }
+
     @media (max-width: 640px) {
       .challenge-card { flex-direction: column; align-items: flex-start; }
       .challenge-cta { width: 100%; justify-content: center; }
@@ -2655,6 +2701,7 @@
       <div class="challenge-eyebrow"><span class="dot"></span> Loading current event...</div>
     </div>
     <div id="challenge-cta-wrap"></div>
+    <div id="challenge-nav-wrap"></div>
   </div>
 
   <div class="section" id="guides">
@@ -3522,10 +3569,15 @@
   (function loadChallengeEvent() {
     const contentEl = document.getElementById('challenge-content');
     const ctaEl = document.getElementById('challenge-cta-wrap');
-    if (!contentEl || !ctaEl) return;
+    const navEl = document.getElementById('challenge-nav-wrap');
+    if (!contentEl || !ctaEl || !navEl) return;
 
     // CHANGE THIS to your bot's actual API URL once deployed (see bot-side code)
     const EVENTS_API = 'https://hunnids-discord-bot.onrender.com/api/events';
+
+    let events = [];
+    let current = 0;
+    let autoplayTimer = null;
 
     function renderFallback() {
       contentEl.innerHTML = `
@@ -3534,6 +3586,7 @@
         <div class="challenge-desc">Check the Discord for what's coming up next, or suggest one yourself.</div>
       `;
       ctaEl.innerHTML = `<a class="challenge-cta" href="https://discord.gg/AcuUU2zpdD" target="_blank">Open Discord →</a>`;
+      navEl.innerHTML = '';
     }
 
     function formatDeadline(iso) {
@@ -3543,26 +3596,63 @@
       return d.toLocaleString(undefined, { weekday: 'long', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
     }
 
-    fetch(EVENTS_API)
-      .then(r => r.ok ? r.json() : [])
-      .then(events => {
-        if (!Array.isArray(events) || events.length === 0) return renderFallback();
+    function renderCurrent() {
+      const ev = events[current];
+      const deadline = formatDeadline(ev.start);
 
-        // Show the soonest upcoming event
-        events.sort((a, b) => new Date(a.start) - new Date(b.start));
-        const ev = events[0];
-        const deadline = formatDeadline(ev.start);
+      contentEl.innerHTML = `
+        <div class="challenge-eyebrow"><span class="dot"></span> ${ev.eyebrow || 'Upcoming event'}</div>
+        <div class="challenge-title">${(ev.name || 'Untitled event').replace(/</g, '&lt;')}</div>
+        <div class="challenge-desc">${(ev.description || '').replace(/</g, '&lt;')}</div>
+        <div class="challenge-meta">
+          ${deadline ? `<span class="challenge-meta-item">Starts: <b>${deadline}</b></span>` : ''}
+          ${ev.prize ? `<span class="challenge-meta-item">Prize: <b>${ev.prize.replace(/</g, '&lt;')}</b></span>` : ''}
+        </div>
+      `;
+      ctaEl.innerHTML = `<a class="challenge-cta" href="${ev.url || 'https://discord.gg/AcuUU2zpdD'}" target="_blank">View event →</a>`;
 
-        contentEl.innerHTML = `
-          <div class="challenge-eyebrow"><span class="dot"></span> ${ev.eyebrow || 'Upcoming event'}</div>
-          <div class="challenge-title">${(ev.name || 'Untitled event').replace(/</g, '&lt;')}</div>
-          <div class="challenge-desc">${(ev.description || '').replace(/</g, '&lt;')}</div>
-          <div class="challenge-meta">
-            ${deadline ? `<span class="challenge-meta-item">Starts: <b>${deadline}</b></span>` : ''}
-            ${ev.prize ? `<span class="challenge-meta-item">Prize: <b>${ev.prize.replace(/</g, '&lt;')}</b></span>` : ''}
+      if (events.length > 1) {
+        navEl.innerHTML = `
+          <div class="challenge-arrow challenge-arrow-left" onclick="window.__challengePrev()">‹</div>
+          <div class="challenge-arrow challenge-arrow-right" onclick="window.__challengeNext()">›</div>
+          <div class="challenge-dots">
+            ${events.map((_, i) => `<div class="challenge-dot${i === current ? ' active' : ''}" onclick="window.__challengeGoTo(${i})"></div>`).join('')}
           </div>
         `;
-        ctaEl.innerHTML = `<a class="challenge-cta" href="${ev.url || 'https://discord.gg/AcuUU2zpdD'}" target="_blank">View event →</a>`;
+      } else {
+        navEl.innerHTML = '';
+      }
+    }
+
+    function goTo(i) {
+      current = (i + events.length) % events.length;
+      renderCurrent();
+      resetAutoplay();
+    }
+
+    function resetAutoplay() {
+      if (autoplayTimer) clearInterval(autoplayTimer);
+      if (events.length > 1) {
+        autoplayTimer = setInterval(() => goTo(current + 1), 6000);
+      }
+    }
+
+    // Exposed so the inline onclick handlers above can reach these
+    window.__challengePrev = () => goTo(current - 1);
+    window.__challengeNext = () => goTo(current + 1);
+    window.__challengeGoTo = (i) => goTo(i);
+
+    fetch(EVENTS_API)
+      .then(r => r.ok ? r.json() : [])
+      .then(fetched => {
+        if (!Array.isArray(fetched) || fetched.length === 0) return renderFallback();
+
+        // Soonest event first, then cycle through the rest
+        fetched.sort((a, b) => new Date(a.start) - new Date(b.start));
+        events = fetched;
+        current = 0;
+        renderCurrent();
+        resetAutoplay();
       })
       .catch(renderFallback);
   })();
