@@ -5,6 +5,18 @@
    so this matches the rest of the site automatically, including dark
    mode — nothing to duplicate or keep in sync by hand. */
 
+/* Prevents iOS Safari from auto-inflating font sizes in narrow text
+   columns (like the What's new list) relative to the wider desktop
+   layout around them. Without this, text can render far larger than
+   its actual font-size on mobile, especially in landscape. */
+.whats-new__list,
+.whats-new__title,
+.whats-new__tag,
+.dash-card-title {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 .dash-whats-new { margin: 32px 0; }
 .dash-continue-editing { margin-bottom: 32px; }
 
