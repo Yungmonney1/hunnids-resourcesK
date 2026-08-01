@@ -8,20 +8,24 @@ document.addEventListener('DOMContentLoaded', () => {
     body { cursor: none; }
     #glass-blob {
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 36px;
       height: 36px;
+      margin-left: -18px;
+      margin-top: -18px;
       border-radius: 50%;
-      background: rgba(180, 220, 255, 0.25);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      border: 1px solid rgba(255, 255, 255, 0.4);
+      background: rgba(120, 170, 235, 0.4);
+      backdrop-filter: blur(6px) saturate(160%);
+      -webkit-backdrop-filter: blur(6px) saturate(160%);
+      border: 1.5px solid rgba(90, 140, 220, 0.65);
       box-shadow:
-        inset 0 0 8px rgba(255, 255, 255, 0.5),
-        0 0 12px rgba(120, 190, 255, 0.25);
+        inset 0 0 8px rgba(255, 255, 255, 0.6),
+        0 2px 10px rgba(40, 70, 120, 0.25);
       pointer-events: none;
       z-index: 9999;
-      transform: translate(-50%, -50%);
+      transform-origin: center center;
+      will-change: transform;
     }
     @media (pointer: coarse) {
       #glass-blob { display: none; }
@@ -46,10 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const speed = Math.min(Math.hypot(vx, vy) * 2.5, 14);
     const angle = Math.atan2(vy, vx) * 180 / Math.PI;
 
-    blob.style.left = bx + 'px';
-    blob.style.top = by + 'px';
     blob.style.transform =
-      `translate(-50%, -50%) rotate(${angle}deg) scale(${1 + speed * 0.03}, ${1 - speed * 0.015})`;
+      `translate(${bx}px, ${by}px) rotate(${angle}deg) scale(${1 + speed * 0.03}, ${1 - speed * 0.015})`;
 
     requestAnimationFrame(loop);
   }
