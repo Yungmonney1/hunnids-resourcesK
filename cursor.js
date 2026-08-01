@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const style = document.createElement('style');
   style.textContent = `
-    body { cursor: none; }
+    *, *::before, *::after { cursor: none !important; }
     #glass-blob {
       position: fixed;
       top: 0;
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     @media (pointer: coarse) {
       #glass-blob { display: none; }
-      body { cursor: auto; }
+      *, *::before, *::after { cursor: auto !important; }
     }
   `;
   document.head.appendChild(style);
