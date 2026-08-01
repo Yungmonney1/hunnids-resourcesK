@@ -1915,7 +1915,7 @@
     }
     .challenge-eyebrow {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       color: #e6672f;
       letter-spacing: 0.6px;
@@ -1932,16 +1932,16 @@
     }
     .challenge-title {
       font-family: 'Quicksand', sans-serif;
-      font-size: 20px;
+      font-size: 24px;
       font-weight: 700;
       color: var(--brown-dim);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
     .challenge-desc {
-      font-size: 13px;
+      font-size: 15px;
       color: var(--text-secondary);
-      max-width: 480px;
-      line-height: 1.55;
+      max-width: 520px;
+      line-height: 1.6;
     }
     .challenge-meta {
       display: flex;
@@ -1951,7 +1951,7 @@
     }
     .challenge-meta-item {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      font-size: 12.5px;
       color: var(--text-muted);
     }
     .challenge-meta-item b { color: var(--brown); font-weight: 700; }
@@ -2493,10 +2493,108 @@
       }
     }
   </style>
+  <style>
+    /* ── ROTATE-DEVICE PROMPT (mobile portrait only, dismissible banner) ── */
+    #rotate-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100000;
+      background: linear-gradient(135deg, #1a1d29, #0f1117);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      text-align: left;
+      padding: 14px 44px 14px 18px;
+      color: #e8eaf0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    /* only ever show this on touch devices in portrait - never on desktop */
+    @media (pointer: coarse) and (orientation: portrait) {
+      #rotate-overlay.active { display: flex; }
+    }
+    .rotate-icon {
+      font-size: 26px;
+      flex-shrink: 0;
+      animation: rotateHint 1.6s ease-in-out infinite;
+      display: inline-block;
+    }
+    @keyframes rotateHint {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-90deg); }
+    }
+    .rotate-text { flex: 1; min-width: 0; }
+    .rotate-title {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .rotate-desc {
+      font-family: 'Nunito', sans-serif;
+      font-size: 12px;
+      color: #8892a4;
+      line-height: 1.4;
+    }
+    .rotate-close {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: none;
+      color: #e8eaf0;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .rotate-close:hover { background: rgba(255,255,255,0.16); }
+  </style>
   <link rel="stylesheet" href="dashboard.css">
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41faa7d6bbb0425a99de71b7d1bb3deb"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
+
+<div id="rotate-overlay">
+  <div class="rotate-icon">📱</div>
+  <div class="rotate-text">
+    <div class="rotate-title">Rotate your device</div>
+    <div class="rotate-desc">hunnids.cc is built for landscape — turn your phone sideways for the full experience.</div>
+  </div>
+  <button class="rotate-close" id="rotate-dismiss" aria-label="Dismiss">✕</button>
+</div>
+<script>
+  (function () {
+    const overlay = document.getElementById('rotate-overlay');
+    const dismissBtn = document.getElementById('rotate-dismiss');
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    if (!overlay || !isTouch) return;
+
+    let dismissed = sessionStorage.getItem('hunnids-rotate-dismissed') === '1';
+
+    function checkOrientation() {
+      const isPortrait = window.innerHeight > window.innerWidth;
+      overlay.classList.toggle('active', isPortrait && !dismissed);
+    }
+
+    dismissBtn.addEventListener('click', () => {
+      dismissed = true;
+      sessionStorage.setItem('hunnids-rotate-dismissed', '1');
+      overlay.classList.remove('active');
+    });
+
+    checkOrientation();
+    window.addEventListener('resize', checkOrientation);
+    window.addEventListener('orientationchange', checkOrientation);
+  })();
+</script>
 
 <div id="loader-overlay">
   <img src="assets/hunnids%20shape%20files/hunnids-loader.webp" alt="" id="loader-gif" />
