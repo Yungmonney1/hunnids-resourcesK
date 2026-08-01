@@ -2640,6 +2640,7 @@
   <div class="header-right">
     <div id="hunnids-nav-profile" class="nav-profile"></div>
     <button class="dark-toggle" onclick="toggleDark()" id="dark-toggle" title="Toggle dark mode">🌙</button>
+    <button class="dark-toggle" onclick="toggleMusic()" id="music-toggle" title="Toggle background music">🎵</button>
     <div class="search-bar" onclick="openSearch()" id="search-trigger">
       <span>⌕</span> Search<span class="kbd">⌘K</span>
     </div>
@@ -3130,6 +3131,19 @@
     document.getElementById('dark-toggle').textContent = '☀️';
   }
 
+  // Background music
+  function toggleMusic() {
+    if (!window.HunnidsMusic) return;
+    const nowMuted = window.HunnidsMusic.toggleMute();
+    document.getElementById('music-toggle').textContent = nowMuted ? '🔇' : '🎵';
+  }
+  window.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('music-toggle');
+    if (btn && window.HunnidsMusic) {
+      btn.textContent = window.HunnidsMusic.isMuted() ? '🔇' : '🎵';
+    }
+  });
+
   // Hero carousel - crossfade
   let currentSlide = 0;
   const totalSlides = 3;
@@ -3250,6 +3264,7 @@
 
   function openGuideModal(i) {
     const g = guides[i];
+    if (window.HunnidsMusic) window.HunnidsMusic.duck();
     if (window.HunnidsContinueEditing) {
       window.HunnidsContinueEditing.trackView('tutorial', g.id || g.embedId || g.title, { title: g.title, href: guideExternalLink(g) });
     }
@@ -3282,6 +3297,7 @@
     modal.style.display = 'flex';
   }
   function closeGuideModal() {
+    if (window.HunnidsMusic) window.HunnidsMusic.unduck();
     const modal = document.getElementById('guide-modal-overlay');
     if (modal) { modal.style.display = 'none'; document.getElementById('gmod-embed').innerHTML = ''; }
   }
@@ -3814,6 +3830,7 @@
 </script>
 
 <script src="sounds.js"></script>
+<script src="music.js"></script>
 <script>
   // Sound effects, wired via event delegation so nothing above needs to
   // change to fire them.

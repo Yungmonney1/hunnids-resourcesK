@@ -506,6 +506,7 @@
     <div class="breadcrumb">hunnids<span>*</span> / tutorials</div>
   </div>
   <button class="dark-toggle" onclick="toggleDark()" id="dark-toggle" title="Toggle dark mode">🌙</button>
+  <button class="dark-toggle" onclick="toggleMusic()" id="music-toggle" title="Toggle background music">🎵</button>
 </header>
 
 <div class="page-wrap">
@@ -574,6 +575,19 @@
     document.body.classList.add('dark-mode');
     document.getElementById('dark-toggle').textContent = '☀️';
   }
+
+  // Background music (shared with main site via music.js)
+  function toggleMusic() {
+    if (!window.HunnidsMusic) return;
+    const nowMuted = window.HunnidsMusic.toggleMute();
+    document.getElementById('music-toggle').textContent = nowMuted ? '🔇' : '🎵';
+  }
+  window.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('music-toggle');
+    if (btn && window.HunnidsMusic) {
+      btn.textContent = window.HunnidsMusic.isMuted() ? '🔇' : '🎵';
+    }
+  });
 
   // ── Tutorials: render, filter, search, paginate — all driven by tutorials-data.js ──
   const CATEGORY_LABELS = {
@@ -738,6 +752,7 @@
   // Modal
   function openModal(idOrUrl, title, source) {
     source = source || 'youtube';
+    if (window.HunnidsMusic) window.HunnidsMusic.duck();
     if (window.HunnidsContinueEditing) {
       const href = source === 'youtube' ? `https://www.youtube.com/watch?v=${idOrUrl}` : idOrUrl;
       window.HunnidsContinueEditing.trackView('tutorial', idOrUrl, { title, href });
@@ -757,6 +772,7 @@
   }
 
   function closeModal() {
+    if (window.HunnidsMusic) window.HunnidsMusic.unduck();
     document.getElementById('modal').classList.remove('open');
     document.getElementById('modal-embed').innerHTML = '';
     document.getElementById('modal-box').classList.remove('modal-vertical');
@@ -773,6 +789,7 @@
 <script src="tutorials-data.js"></script>
 
 <script src="sounds.js"></script>
+<script src="music.js"></script>
 <script>
   document.addEventListener('click', (e) => {
     if (!window.HunnidsSFX) return;

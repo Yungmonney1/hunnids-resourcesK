@@ -314,6 +314,7 @@
     <div class="breadcrumb">hunnids<span>*</span> / art wall</div>
   </div>
   <button class="dark-toggle" onclick="toggleDark()" id="dark-toggle" title="Toggle dark mode">🌙</button>
+  <button class="dark-toggle" onclick="toggleMusic()" id="music-toggle" title="Toggle background music">🎵</button>
 </header>
 
 <div class="page-wrap">
@@ -346,6 +347,18 @@
     document.body.classList.add('dark-mode');
     document.getElementById('dark-toggle').textContent = '☀️';
   }
+
+  function toggleMusic() {
+    if (!window.HunnidsMusic) return;
+    const nowMuted = window.HunnidsMusic.toggleMute();
+    document.getElementById('music-toggle').textContent = nowMuted ? '🔇' : '🎵';
+  }
+  window.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('music-toggle');
+    if (btn && window.HunnidsMusic) {
+      btn.textContent = window.HunnidsMusic.isMuted() ? '🔇' : '🎵';
+    }
+  });
 
   const RETENTION_DAYS = 7;
 
@@ -421,6 +434,7 @@
     });
 </script>
 
+<script src="music.js"></script>
 <script src="cursor.js"></script>
 </body>
 </html>
