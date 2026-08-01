@@ -3832,6 +3832,10 @@
       window.HunnidsSFX.play('whoosh');
       return;
     }
+    if (e.target.closest('.guide-card')) {
+      window.HunnidsSFX.play('select');
+      return;
+    }
     if (e.target.closest('a[href*="discord.gg"], a.discord-cta, a.about-cta')) {
       window.HunnidsSFX.play('success');
       return;

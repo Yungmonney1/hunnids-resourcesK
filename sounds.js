@@ -65,7 +65,13 @@
     whoosh() {
       const audio = getCtx();
       if (!audio) return;
-      tone(300, audio.currentTime, 0.12, { type: 'sine', gain: 0.03, glideTo: 180 });
+      tone(300, audio.currentTime, 0.13, { type: 'sine', gain: 0.09, glideTo: 180 });
+    },
+    select() {
+      const audio = getCtx();
+      if (!audio) return;
+      tone(660, audio.currentTime, 0.06, { type: 'sine', gain: 0.05 });
+      tone(880, audio.currentTime + 0.04, 0.08, { type: 'sine', gain: 0.045 });
     },
   };
 

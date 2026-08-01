@@ -772,6 +772,28 @@
 <script src="continue-editing.js"></script>
 <script src="tutorials-data.js"></script>
 
+<script src="sounds.js"></script>
+<script>
+  document.addEventListener('click', (e) => {
+    if (!window.HunnidsSFX) return;
+    if (e.target.closest('.video-card')) {
+      window.HunnidsSFX.play('select');
+      return;
+    }
+    if (e.target.closest('.hunnids-bookmark-toggle, .ce-bookmark-btn')) {
+      window.HunnidsSFX.play('bookmark');
+      return;
+    }
+    if (e.target.closest('#dark-toggle')) {
+      window.HunnidsSFX.play('toggle');
+      return;
+    }
+    if (e.target.closest('a[href*="discord.gg"]')) {
+      window.HunnidsSFX.play('success');
+      return;
+    }
+  });
+</script>
 <script src="cursor.js"></script>
 </body>
 </html>
