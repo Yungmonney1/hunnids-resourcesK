@@ -25,7 +25,7 @@ const PLAYLIST = [
 ];
 
 (function () {
-  const NORMAL_VOLUME = 0.16;
+  const NORMAL_VOLUME = 0.1;
   const DUCK_VOLUME = 0;
   const MUTE_KEY = 'hunnids-music-muted';
 

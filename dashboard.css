@@ -154,6 +154,39 @@
   margin-bottom: 8px;
 }
 .ce-card-list { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+
+/* Collapsible "Continue editing" lists - caps height instead of
+   growing forever as more tutorials get watched/bookmarked. */
+.ce-card-list.ce-collapsed {
+  max-height: 184px;
+  overflow: hidden;
+  position: relative;
+}
+.ce-card-list.ce-collapsed::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 32px;
+  background: linear-gradient(to bottom, transparent, var(--bg-card));
+  pointer-events: none;
+}
+.ce-expand-btn {
+  margin-top: 8px;
+  width: 100%;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--brown-light);
+  background: transparent;
+  border: 1px solid var(--border-hover);
+  border-radius: 10px;
+  padding: 6px 0;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.ce-expand-btn:hover { background: var(--bg-hover); color: var(--brown-dim); }
 .ce-card {
   display: flex;
   align-items: center;
