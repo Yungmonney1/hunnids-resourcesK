@@ -17,7 +17,7 @@
  * 2. PLAYLIST: leave LIVE_STREAM_URL empty and list local audio files
  *    below instead - shuffled per visit, crossfaded between tracks.
  */
-const LIVE_STREAM_URL = 'https://nonstopcasiopea.radioca.st/';
+const LIVE_STREAM_URL = 'https://nonstopcasiopea.radioca.st/;';
 
 const PLAYLIST = [
   { src: 'audio/htb-music-casino-shop-475362.mp3', title: 'Casino Shop' },
@@ -99,8 +99,18 @@ const PLAYLIST = [
       unduck() { ducked = false; fadeTo(audio, targetVolume(), 250); },
       togglePlayPause() {
         if (!userGestureReceived) { attemptPlay(); return true; }
-        if (playing) { audio.pause(); playing = false; }
-        else { audio.play().then(() => { playing = true; }).catch(() => {}); }
+        if (playing) {
+          audio.pause();
+          playing = false;
+        } else {
+          // Resuming a paused LIVE stream by just calling play() again
+          // often reconnects to a stale/frozen buffer instead of the
+          // current broadcast. Reloading the source first forces a
+          // fresh connection to the live feed.
+          audio.load();
+          audio.volume = targetVolume();
+          audio.play().then(() => { playing = true; }).catch(err => console.error('[hunnids music] resume failed:', err));
+        }
         return playing;
       },
       isPlaying() { return playing; },
