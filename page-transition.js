@@ -54,8 +54,9 @@
     }
     #hunnids-page-transition.active { display: flex; }
     #hunnids-transition-video {
-      width: min(90vw, 720px);
-      height: auto;
+      width: 100vw;
+      height: 100vh;
+      object-fit: contain;
     }
   `;
   document.head.appendChild(style);
@@ -89,7 +90,10 @@
     const destination = a.href;
 
     if (FORCE_TRANSITION) {
-      playTransitionThenGo(destination);
+      // Carry the debug flag forward so it stays active across multiple
+      // test clicks in a row, instead of only working once.
+      const forcedDestination = destination + (destination.includes('?') ? '&' : '?') + 'forcetransition=1';
+      playTransitionThenGo(forcedDestination);
       return;
     }
 
