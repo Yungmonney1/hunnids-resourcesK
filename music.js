@@ -18,8 +18,8 @@ const PLAYLIST = [
   if (PLAYLIST.length === 0) return;
 
   const CROSSFADE_MS = 1800;
-  const NORMAL_VOLUME = 0.35;
-  const DUCK_VOLUME = 0.08;
+  const NORMAL_VOLUME = 0.16;
+  const DUCK_VOLUME = 0;
   const SAVE_INTERVAL_MS = 2000;
 
   const ORDER_KEY = 'hunnids-music-order';
@@ -84,9 +84,17 @@ const PLAYLIST = [
   }
 
   function fadeTo(audioEl, target, ms) {
+    // Cancel any fade already in progress on this element - without this,
+    // rapid toggling (e.g. clicking mute/unmute quickly) stacks multiple
+    // competing animation loops that fight over the volume value, which
+    // is why unmuting sometimes needed several clicks to "stick."
+    audioEl._fadeToken = (audioEl._fadeToken || 0) + 1;
+    const myToken = audioEl._fadeToken;
+
     const startVol = audioEl.volume;
     const startTime = performance.now();
     function step(now) {
+      if (audioEl._fadeToken !== myToken) return; // a newer fade took over
       const t = Math.min((now - startTime) / ms, 1);
       audioEl.volume = startVol + (target - startVol) * t;
       if (t < 1) requestAnimationFrame(step);
