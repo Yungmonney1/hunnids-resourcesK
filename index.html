@@ -579,6 +579,8 @@
       flex-direction: column;
       gap: 18px;
       box-shadow: var(--shadow-soft);
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-hover) transparent;
     }
 
     .right-sidebar::-webkit-scrollbar { width: 4px; }
@@ -1260,6 +1262,8 @@
       max-height: 260px;
       overflow-y: auto;
       padding-right: 4px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-hover) transparent;
     }
     .all-plugins-flow::-webkit-scrollbar { width: 4px; }
     .all-plugins-flow::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
@@ -1696,6 +1700,10 @@
     }
 
     /* ── SCROLLBAR ── */
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-hover) transparent;
+    }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
 
