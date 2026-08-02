@@ -76,12 +76,23 @@
     setTimeout(go, 3200);
   }
 
+  // Debug override: adding ?forcetransition=1 to any URL always plays
+  // the animation regardless of load speed, so it can actually be
+  // tested/tuned without needing to throttle your connection.
+  const FORCE_TRANSITION = new URLSearchParams(location.search).has('forcetransition');
+
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a');
     if (!a || !isMajorNavLink(a)) return;
 
     e.preventDefault();
     const destination = a.href;
+
+    if (FORCE_TRANSITION) {
+      playTransitionThenGo(destination);
+      return;
+    }
+
     let navigated = false;
 
     fetch(destination).catch(() => {}).finally(() => {
