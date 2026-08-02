@@ -1,13 +1,14 @@
 /**
  * music.js
  * --------
- * Background music playlist for hunnids.cc - shuffled per visit,
+ * Background music engine for hunnids.cc - shuffled per visit,
  * crossfades between tracks, remembers position/mute across pages.
+ * UI (the mini-player) lives in miniplayer.js and talks to this file
+ * through window.HunnidsMusic.
  *
  * HOW TO ADD TRACKS:
  * Drop audio files (mp3/ogg) anywhere in your repo (e.g. an /audio
- * folder) and list them below. That's the only edit needed - shuffle,
- * crossfade, persistence, muting, and ducking are all handled already.
+ * folder) and list them below.
  */
 const PLAYLIST = [
   { src: 'audio/htb-music-casino-shop-475362.mp3', title: 'Casino Shop' },
@@ -63,6 +64,7 @@ const PLAYLIST = [
   let muted = isMuted();
   let ducked = false;
   let userGestureReceived = false;
+  let playing = false;
 
   const players = [new Audio(), new Audio()];
   players.forEach(p => {
@@ -73,6 +75,12 @@ const PLAYLIST = [
     });
   });
   let activeIndex = 0;
+
+  const trackChangeListeners = [];
+  function notifyTrackChange() {
+    const track = currentTrack();
+    trackChangeListeners.forEach(fn => fn(track));
+  }
 
   function currentTrack() {
     return PLAYLIST[order[orderPos % order.length]];
@@ -86,15 +94,14 @@ const PLAYLIST = [
   function fadeTo(audioEl, target, ms) {
     // Cancel any fade already in progress on this element - without this,
     // rapid toggling (e.g. clicking mute/unmute quickly) stacks multiple
-    // competing animation loops that fight over the volume value, which
-    // is why unmuting sometimes needed several clicks to "stick."
+    // competing animation loops that fight over the volume value.
     audioEl._fadeToken = (audioEl._fadeToken || 0) + 1;
     const myToken = audioEl._fadeToken;
 
     const startVol = audioEl.volume;
     const startTime = performance.now();
     function step(now) {
-      if (audioEl._fadeToken !== myToken) return; // a newer fade took over
+      if (audioEl._fadeToken !== myToken) return;
       const t = Math.min((now - startTime) / ms, 1);
       audioEl.volume = startVol + (target - startVol) * t;
       if (t < 1) requestAnimationFrame(step);
@@ -106,10 +113,6 @@ const PLAYLIST = [
     audioEl.src = track.src;
     audioEl.volume = 0;
     if (startAt) {
-      // Seeking before the browser has loaded metadata can throw
-      // InvalidStateError in some browsers, which would silently abort
-      // everything after it (including the play() call). Wait until the
-      // element actually knows its duration before seeking.
       const seekWhenReady = () => {
         try { audioEl.currentTime = startAt; } catch (e) {}
         audioEl.removeEventListener('loadedmetadata', seekWhenReady);
@@ -121,21 +124,23 @@ const PLAYLIST = [
   function playCurrent(startAt) {
     const active = players[activeIndex];
     loadTrack(active, currentTrack(), startAt);
-    active.play().catch(err => console.error('[hunnids music] play() failed:', err));
+    active.play().then(() => { playing = true; }).catch(err => console.error('[hunnids music] play() failed:', err));
     fadeTo(active, targetVolume(), 400);
+    notifyTrackChange();
   }
 
-  function advance() {
-    orderPos = (orderPos + 1) % order.length;
+  function changeTrack(direction) {
+    orderPos = (orderPos + order.length + direction) % order.length;
     const outgoing = players[activeIndex];
     activeIndex = 1 - activeIndex;
     const incoming = players[activeIndex];
 
     loadTrack(incoming, currentTrack(), 0);
-    incoming.play().catch(err => console.error('[hunnids music] play() failed:', err));
+    incoming.play().then(() => { playing = true; }).catch(err => console.error('[hunnids music] play() failed:', err));
     fadeTo(incoming, targetVolume(), CROSSFADE_MS);
     fadeTo(outgoing, 0, CROSSFADE_MS);
     setTimeout(() => outgoing.pause(), CROSSFADE_MS + 100);
+    notifyTrackChange();
   }
 
   players.forEach(p => {
@@ -144,11 +149,11 @@ const PLAYLIST = [
       const remaining = p.duration - p.currentTime;
       if (remaining > 0 && remaining <= CROSSFADE_MS / 1000 + 0.2 && !p._advancing) {
         p._advancing = true;
-        advance();
+        changeTrack(1);
       }
     });
     p.addEventListener('ended', () => {
-      if (p === players[activeIndex] && !p._advancing) advance();
+      if (p === players[activeIndex] && !p._advancing) changeTrack(1);
     });
   });
 
@@ -194,6 +199,37 @@ const PLAYLIST = [
     unduck() {
       ducked = false;
       fadeTo(players[activeIndex], targetVolume(), 250);
+    },
+    // Real play/pause - actually stops playback, distinct from mute
+    // (which keeps playing silently). Used by the mini-player.
+    togglePlayPause() {
+      const active = players[activeIndex];
+      if (!userGestureReceived) {
+        start();
+        return true;
+      }
+      if (playing) {
+        active.pause();
+        playing = false;
+      } else {
+        active.play().then(() => { playing = true; }).catch(err => console.error('[hunnids music] play() failed:', err));
+      }
+      return playing;
+    },
+    isPlaying() {
+      return playing;
+    },
+    next() {
+      changeTrack(1);
+    },
+    previous() {
+      changeTrack(-1);
+    },
+    getCurrentTrack() {
+      return currentTrack();
+    },
+    onTrackChange(fn) {
+      trackChangeListeners.push(fn);
     },
   };
 })();

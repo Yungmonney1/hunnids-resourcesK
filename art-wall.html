@@ -320,9 +320,8 @@
       <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12.5A8.5 8.5 0 1 1 11.5 4a6.5 6.5 0 0 0 8.5 8.5z"/></svg>
       <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.4 1.4M17.6 17.6L19 19M19 5l-1.4 1.4M6.4 17.6L5 19"/></svg>
     </button>
-    <button class="dark-toggle" onclick="toggleMusic()" id="music-toggle" title="Toggle background music">
-      <svg class="music-icon music-icon--on" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
-      <svg class="music-icon music-icon--off" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/><line x1="3" y1="3" x2="21" y2="21"/></svg>
+    <button class="dark-toggle" onclick="toggleMusic()" id="music-toggle" title="Now playing">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
     </button>
   </div>
 </header>
@@ -364,20 +363,9 @@
     setThemeIcon(true);
   }
 
-  function setMusicIcon(muted) {
-    const btn = document.getElementById('music-toggle');
-    if (!btn) return;
-    btn.querySelector('.music-icon--on').style.display = muted ? 'none' : 'block';
-    btn.querySelector('.music-icon--off').style.display = muted ? 'block' : 'none';
-  }
   function toggleMusic() {
-    if (!window.HunnidsMusic) return;
-    const nowMuted = window.HunnidsMusic.toggleMute();
-    setMusicIcon(nowMuted);
+    if (window.HunnidsMiniplayer) window.HunnidsMiniplayer.toggle();
   }
-  window.addEventListener('DOMContentLoaded', () => {
-    if (window.HunnidsMusic) setMusicIcon(window.HunnidsMusic.isMuted());
-  });
 
   const RETENTION_DAYS = 7;
 
@@ -454,6 +442,7 @@
 </script>
 
 <script src="music.js"></script>
+<script src="miniplayer.js"></script>
 <script src="cursor.js"></script>
 </body>
 </html>
