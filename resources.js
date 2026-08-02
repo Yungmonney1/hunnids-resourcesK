@@ -118,6 +118,7 @@ const resources = [
   { name: "Glass Eyes", soft: "ae", src: "WEB", link: "https://www.videocopilot.net/blog/2016/04/another-new-plug-in/" },
   { name: "Sure Target 2", soft: "ae", src: "WEB", link: "http://www.videocopilot.net/tutorials/sure_target_2/" },
   { name: "Un-PreCompose", soft: "ae", src: "WEB", link: "https://aescripts.com/un-precompose/" },
+  { name: "15 FREE Camera Shake Presets", soft: "ae", src: "WEB", link: "https://blog.pond5.com/50565-15-free-camera-shake-presets/" },
 
   // ── AFTER EFFECTS — EXTENSIONS ───────────────
   // (empty for now — add genuinely free AE extensions here)
@@ -141,7 +142,12 @@ const resources = [
     soft: "pr", src: "WEB", featured: true,
     link: "https://ainforce.gumroad.com/l/freeAinTransitionsPPro"
   },
-
+  {
+    name: "15 FREE Camera Shake Presets",
+    desc: "15 Free Camera Shake Presets you can add to your motion graphic presets to stylize your next project.",
+    soft: "pr", src: "WEB", featured: true,
+    link: "https://blog.pond5.com/50565-15-free-camera-shake-presets/"
+  },
 ];
 
 // Called by index.html after this script loads — this line was missing,
