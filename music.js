@@ -112,6 +112,7 @@ const PLAYLIST = [
   function loadTrack(audioEl, track, startAt) {
     audioEl.src = track.src;
     audioEl.volume = 0;
+    audioEl._advancing = false;
     if (startAt) {
       const seekWhenReady = () => {
         try { audioEl.currentTime = startAt; } catch (e) {}
@@ -121,13 +122,7 @@ const PLAYLIST = [
     }
   }
 
-  function playCurrent(startAt) {
-    const active = players[activeIndex];
-    loadTrack(active, currentTrack(), startAt);
-    active.play().then(() => { playing = true; }).catch(err => console.error('[hunnids music] play() failed:', err));
-    fadeTo(active, targetVolume(), 400);
-    notifyTrackChange();
-  }
+
 
   function changeTrack(direction) {
     orderPos = (orderPos + order.length + direction) % order.length;
@@ -165,16 +160,35 @@ const PLAYLIST = [
     }));
   }, SAVE_INTERVAL_MS);
 
-  function start() {
-    if (userGestureReceived) return;
-    userGestureReceived = true;
-    playCurrent(resumeTime);
+  // Browsers block autoplay with sound, but DO allow autoplay when the
+  // element starts muted. So we start playback the instant the page
+  // loads (muted, inaudible), and unmute automatically on the visitor's
+  // very first interaction - meaning music is already running and
+  // caught up the moment it becomes audible, rather than starting fresh
+  // from a click.
+  function attemptSilentAutoplay() {
+    const active = players[activeIndex];
+    loadTrack(active, currentTrack(), resumeTime);
+    active.muted = true;
+    active.play().then(() => { playing = true; }).catch(() => {});
+    notifyTrackChange();
   }
 
-  document.addEventListener('click', function firstClick() {
-    if (!muted) start();
-    document.removeEventListener('click', firstClick);
-  }, { once: true });
+  function unlockAudio() {
+    if (userGestureReceived) return;
+    userGestureReceived = true;
+    const active = players[activeIndex];
+    active.muted = false;
+    if (active.paused) {
+      active.play().then(() => { playing = true; }).catch(err => console.error('[hunnids music] play() failed:', err));
+    }
+    fadeTo(active, targetVolume(), 500);
+  }
+
+  attemptSilentAutoplay();
+  ['click', 'keydown', 'touchstart'].forEach(evt => {
+    document.addEventListener(evt, unlockAudio, { once: true });
+  });
 
   window.HunnidsMusic = {
     toggleMute() {
@@ -183,7 +197,7 @@ const PLAYLIST = [
       if (muted) {
         fadeTo(players[activeIndex], 0, 300);
       } else if (!userGestureReceived) {
-        start();
+        unlockAudio();
       } else {
         fadeTo(players[activeIndex], targetVolume(), 300);
       }
@@ -205,7 +219,7 @@ const PLAYLIST = [
     togglePlayPause() {
       const active = players[activeIndex];
       if (!userGestureReceived) {
-        start();
+        unlockAudio();
         return true;
       }
       if (playing) {

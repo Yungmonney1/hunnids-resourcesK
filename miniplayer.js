@@ -46,19 +46,19 @@
   style.textContent = `
     #hunnids-miniplayer {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 24px;
+      right: 24px;
       z-index: 9998;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 14px;
       background: var(--bg-card, #fff);
       backdrop-filter: blur(18px) saturate(160%);
       border: 1px solid var(--border, rgba(0,0,0,0.08));
-      border-radius: 16px;
-      padding: 10px 12px;
-      box-shadow: 0 8px 30px rgba(40,45,60,0.16);
-      max-width: 300px;
+      border-radius: 20px;
+      padding: 14px 18px;
+      box-shadow: 0 10px 36px rgba(40,45,60,0.2);
+      max-width: 340px;
       opacity: 0;
       transform: translateY(12px);
       pointer-events: none;
@@ -70,15 +70,15 @@
       pointer-events: auto;
     }
     .mp-art {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
       flex-shrink: 0;
     }
     .mp-info { flex: 1; min-width: 0; }
     .mp-title {
       font-family: 'Nunito', sans-serif;
-      font-size: 12.5px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--text-primary, #222);
       white-space: nowrap;
@@ -87,15 +87,16 @@
     }
     .mp-sub {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px;
+      font-size: 10.5px;
       color: var(--text-muted, #999);
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      margin-top: 2px;
     }
     .mp-btn {
       flex-shrink: 0;
-      width: 26px;
-      height: 26px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       border: none;
       background: transparent;
@@ -108,14 +109,37 @@
     }
     .mp-btn:hover { background: var(--bg-hover, rgba(0,0,0,0.06)); }
     .mp-btn--main {
-      width: 30px;
-      height: 30px;
+      width: 36px;
+      height: 36px;
       background: var(--brown-dim, #333);
       color: #fff;
     }
     .mp-btn--main:hover { opacity: 0.85; background: var(--brown-dim, #333); }
     @media (prefers-reduced-motion: reduce) {
       #hunnids-miniplayer { transition: none; }
+    }
+
+    /* Glowing pulse ring on the nav button, so it reads as "the music
+       control" at a glance rather than just another icon button. */
+    #music-toggle {
+      position: relative;
+      overflow: visible;
+    }
+    #music-toggle::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(120,170,235,0.45), transparent 70%);
+      animation: musicGlow 2.4s ease-in-out infinite;
+      z-index: -1;
+    }
+    @keyframes musicGlow {
+      0%, 100% { opacity: 0.5; transform: scale(0.92); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #music-toggle::before { animation: none; opacity: 0.7; }
     }
   `;
   document.head.appendChild(style);
