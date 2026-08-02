@@ -3626,50 +3626,6 @@
 <script src="auth.js"></script>
 <script src="render.js"></script>
 <script src="continue-editing.js"></script>
-<script>
-  // Continue Editing lists (Recently viewed / Recently downloaded /
-  // Bookmarked) can grow indefinitely as someone watches more
-  // tutorials. Collapse each one past a threshold with a "Show more"
-  // toggle, watching for continue-editing.js populating them
-  // asynchronously rather than editing that file directly.
-  (function () {
-    const EXPAND_THRESHOLD = 4;
-    const listIds = ['hunnids-recently-viewed', 'hunnids-recently-downloaded', 'hunnids-bookmarks'];
-
-    function wireCollapse(list) {
-      if (list.dataset.ceWired) return;
-      const items = list.children.length;
-      if (items <= EXPAND_THRESHOLD) {
-        list.classList.remove('ce-collapsed');
-        const existingBtn = list.nextElementSibling;
-        if (existingBtn && existingBtn.classList.contains('ce-expand-btn')) existingBtn.remove();
-        return;
-      }
-      list.dataset.ceWired = '1';
-      list.classList.add('ce-collapsed');
-      const btn = document.createElement('button');
-      btn.className = 'ce-expand-btn';
-      btn.textContent = `Show ${items - EXPAND_THRESHOLD} more`;
-      btn.addEventListener('click', () => {
-        const collapsed = list.classList.toggle('ce-collapsed');
-        btn.textContent = collapsed ? `Show ${items - EXPAND_THRESHOLD} more` : 'Show less';
-      });
-      list.insertAdjacentElement('afterend', btn);
-    }
-
-    listIds.forEach(id => {
-      const list = document.getElementById(id);
-      if (!list) return;
-      wireCollapse(list);
-      new MutationObserver(() => {
-        delete list.dataset.ceWired;
-        const nextBtn = list.nextElementSibling;
-        if (nextBtn && nextBtn.classList.contains('ce-expand-btn')) nextBtn.remove();
-        wireCollapse(list);
-      }).observe(list, { childList: true });
-    });
-  })();
-</script>
 
 <script src="tutorials-data.js"></script>
 <script src="guides.js"></script>

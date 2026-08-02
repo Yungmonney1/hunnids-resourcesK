@@ -198,6 +198,8 @@ function renderCard(item) {
   `;
 }
 
+const EXPAND_THRESHOLD = 4;
+
 function renderSection(containerId, list, emptyMessage) {
   const container = document.getElementById(containerId);
   if (!container) return;
@@ -207,7 +209,31 @@ function renderSection(containerId, list, emptyMessage) {
     return;
   }
 
-  container.innerHTML = list.map(renderCard).join('');
+  // Preserve whatever expand/collapse state this section was already in
+  // (e.g. if the user had it expanded, a re-render from a bookmark
+  // toggle shouldn't snap it back closed).
+  const wasExpanded = container.dataset.ceExpanded === '1';
+  const overflowCount = list.length - EXPAND_THRESHOLD;
+  const visibleList = wasExpanded ? list : list.slice(0, EXPAND_THRESHOLD);
+
+  container.innerHTML = visibleList.map(renderCard).join('');
+
+  const existingBtn = container.parentElement?.querySelector('.ce-expand-btn');
+  if (existingBtn) existingBtn.remove();
+
+  if (overflowCount > 0) {
+    container.classList.toggle('ce-collapsed', !wasExpanded);
+    const btn = document.createElement('button');
+    btn.className = 'ce-expand-btn';
+    btn.textContent = wasExpanded ? 'Show less' : `Show ${overflowCount} more`;
+    btn.addEventListener('click', () => {
+      container.dataset.ceExpanded = wasExpanded ? '' : '1';
+      renderSection(containerId, list, emptyMessage);
+    });
+    container.insertAdjacentElement('afterend', btn);
+  } else {
+    container.classList.remove('ce-collapsed');
+  }
 }
 
 function refreshContinueEditing() {
