@@ -10,8 +10,8 @@
  * crossfade, persistence, muting, and ducking are all handled already.
  */
 const PLAYLIST = [
-  // { src: 'audio/track-1.mp3', title: 'Track 1' },
-  // { src: 'audio/track-2.mp3', title: 'Track 2' },
+  { src: 'audio/htb-music-casino-shop-475362.mp3', title: 'Casino Shop' },
+  { src: 'audio/alex-morgan-jazz-coffee-shop-music-563580.mp3', title: 'Jazz Coffee Shop' },
 ];
 
 (function () {
@@ -65,7 +65,13 @@ const PLAYLIST = [
   let userGestureReceived = false;
 
   const players = [new Audio(), new Audio()];
-  players.forEach(p => { p.preload = 'auto'; });
+  players.forEach(p => {
+    p.preload = 'auto';
+    p.addEventListener('error', () => {
+      const err = p.error;
+      console.error('[hunnids music] failed to load audio:', p.src, err && err.message, err && err.code);
+    });
+  });
   let activeIndex = 0;
 
   function currentTrack() {
@@ -90,14 +96,24 @@ const PLAYLIST = [
 
   function loadTrack(audioEl, track, startAt) {
     audioEl.src = track.src;
-    audioEl.currentTime = startAt || 0;
     audioEl.volume = 0;
+    if (startAt) {
+      // Seeking before the browser has loaded metadata can throw
+      // InvalidStateError in some browsers, which would silently abort
+      // everything after it (including the play() call). Wait until the
+      // element actually knows its duration before seeking.
+      const seekWhenReady = () => {
+        try { audioEl.currentTime = startAt; } catch (e) {}
+        audioEl.removeEventListener('loadedmetadata', seekWhenReady);
+      };
+      audioEl.addEventListener('loadedmetadata', seekWhenReady);
+    }
   }
 
   function playCurrent(startAt) {
     const active = players[activeIndex];
     loadTrack(active, currentTrack(), startAt);
-    active.play().catch(() => {});
+    active.play().catch(err => console.error('[hunnids music] play() failed:', err));
     fadeTo(active, targetVolume(), 400);
   }
 
@@ -108,7 +124,7 @@ const PLAYLIST = [
     const incoming = players[activeIndex];
 
     loadTrack(incoming, currentTrack(), 0);
-    incoming.play().catch(() => {});
+    incoming.play().catch(err => console.error('[hunnids music] play() failed:', err));
     fadeTo(incoming, targetVolume(), CROSSFADE_MS);
     fadeTo(outgoing, 0, CROSSFADE_MS);
     setTimeout(() => outgoing.pause(), CROSSFADE_MS + 100);
