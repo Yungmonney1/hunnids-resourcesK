@@ -368,6 +368,7 @@
   }
 
   const RETENTION_DAYS = 7;
+  const artistFilter = new URLSearchParams(location.search).get('artist');
 
   function timeAgo(isoString) {
     const posted = new Date(isoString);
@@ -415,8 +416,16 @@
   fetch('art-wall-data.json')
     .then(r => r.ok ? r.json() : [])
     .then(entries => {
-      const cutoff = Date.now() - RETENTION_DAYS * 24 * 60 * 60 * 1000;
-      const active = entries.filter(e => new Date(e.postedAt).getTime() > cutoff);
+      let active;
+      if (artistFilter) {
+        // Featuring a specific artist's work isn't about "what's fresh" -
+        // show everything they've posted regardless of the normal
+        // 7-day window.
+        active = entries.filter(e => (e.artist || '').toLowerCase() === artistFilter.toLowerCase());
+      } else {
+        const cutoff = Date.now() - RETENTION_DAYS * 24 * 60 * 60 * 1000;
+        active = entries.filter(e => new Date(e.postedAt).getTime() > cutoff);
+      }
       active.sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt));
 
       const seenUrls = new Set();
@@ -430,10 +439,23 @@
       const grid = document.getElementById('art-masonry');
       grid.innerHTML = deduped.length
         ? deduped.map(artCardHTML).join('')
-        : `<div class="art-empty">// no art posted in the last ${RETENTION_DAYS} days<br>drop something in the art channel on Discord</div>`;
+        : artistFilter
+          ? `<div class="art-empty">// no pieces found from ${artistFilter.replace(/</g, '&lt;')}</div>`
+          : `<div class="art-empty">// no art posted in the last ${RETENTION_DAYS} days<br>drop something in the art channel on Discord</div>`;
 
       const liveCountEl = document.getElementById('live-count-art');
-      if (liveCountEl) liveCountEl.textContent = `${deduped.length} piece${deduped.length === 1 ? '' : 's'} on display right now`;
+      if (liveCountEl) {
+        liveCountEl.textContent = artistFilter
+          ? `${deduped.length} piece${deduped.length === 1 ? '' : 's'} by ${artistFilter}`
+          : `${deduped.length} piece${deduped.length === 1 ? '' : 's'} on display right now`;
+      }
+
+      const titleEl = document.querySelector('.page-title');
+      const descEl = document.querySelector('.page-desc');
+      if (artistFilter && titleEl && descEl) {
+        titleEl.innerHTML = `${artistFilter.replace(/</g, '&lt;')}<span>*</span>`;
+        descEl.innerHTML = `Showing all posts from this artist. <a href="art-wall.html" style="color: var(--brown-light); text-decoration: underline;">View the full wall →</a>`;
+      }
     })
     .catch(() => {
       const grid = document.getElementById('art-masonry');
