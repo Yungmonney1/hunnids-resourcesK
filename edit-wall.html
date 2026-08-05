@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="assets/hunnids%20shape%20files/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/hunnids%20shape%20files/favicon-180.png">
+  <title>hunnids* / edit wall</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg: #eef1f5;
+      --bg-card: rgba(255,255,255,0.62);
+      --bg-hover: rgba(255,255,255,0.85);
+      --border: rgba(255,255,255,0.55);
+      --border-hover: rgba(140,150,165,0.35);
+      --text-primary: #2c313a;
+      --text-secondary: #6b7280;
+      --text-muted: #a4acb8;
+      --brown: #3a3f4a;
+      --brown-dim: #21242c;
+      --brown-light: #707a8a;
+      --shadow-soft: 0 8px 30px rgba(40,45,60,0.08);
+      --shadow-pop: 0 14px 40px rgba(40,45,60,0.14);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--border-hover) transparent; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    body {
+      background: var(--bg);
+      background-image:
+        radial-gradient(circle at 12% 10%, rgba(173,196,230,0.55) 0%, transparent 45%),
+        radial-gradient(circle at 88% 18%, rgba(210,190,230,0.40) 0%, transparent 45%),
+        radial-gradient(circle at 30% 85%, rgba(180,220,215,0.40) 0%, transparent 45%),
+        radial-gradient(circle at 90% 90%, rgba(230,200,200,0.30) 0%, transparent 45%);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    body.dark-mode {
+      --bg: #0f1117;
+      --bg-card: rgba(22,27,40,0.75);
+      --bg-hover: rgba(30,36,54,0.9);
+      --border: rgba(255,255,255,0.08);
+      --border-hover: rgba(255,255,255,0.15);
+      --text-primary: #e8eaf0;
+      --text-secondary: #8892a4;
+      --text-muted: #4a5268;
+      --brown: #8ba0c4;
+      --brown-dim: #c4d4f0;
+      --brown-light: #5a7aaa;
+      --shadow-soft: 0 8px 30px rgba(0,0,0,0.3);
+      --shadow-pop: 0 14px 40px rgba(0,0,0,0.5);
+    }
+
+    header {
+      position: sticky; top: 0; background: var(--bg);
+      backdrop-filter: blur(16px) saturate(160%);
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      z-index: 100; box-shadow: var(--shadow-soft);
+    }
+    body.dark-mode header { background: rgba(12,15,26,0.88); }
+    .header-left { display: flex; align-items: center; gap: 16px; }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .back-btn {
+      display: flex; align-items: center; gap: 6px;
+      font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px;
+      color: var(--text-secondary); text-decoration: none;
+      padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border-hover);
+      background: rgba(255,255,255,0.5); transition: all 0.15s;
+    }
+    .back-btn:hover { color: var(--brown-dim); background: rgba(255,255,255,0.9); }
+    body.dark-mode .back-btn { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+    .breadcrumb { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-secondary); }
+    .breadcrumb span { color: var(--brown); }
+    .dark-toggle {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--border-hover); background: rgba(255,255,255,0.5);
+      color: var(--brown-dim); cursor: pointer; display: flex;
+      align-items: center; justify-content: center; font-size: 16px; transition: all 0.2s;
+      position: relative; overflow: visible;
+    }
+    .dark-toggle:hover { background: rgba(255,255,255,0.9); transform: scale(1.08); }
+    body.dark-mode .dark-toggle { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+
+    .page-wrap { max-width: 900px; margin: 0 auto; padding: 48px 48px 80px; }
+    .page-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--brown-light); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+    .page-title { font-family: 'Quicksand', sans-serif; font-size: 36px; font-weight: 700; color: var(--brown-dim); margin-bottom: 6px; }
+    .page-title span { color: var(--brown-light); }
+    .page-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: 32px; }
+
+    /* login gate */
+    .login-gate {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
+      padding: 28px; text-align: center; margin-bottom: 28px; box-shadow: var(--shadow-soft);
+    }
+    .login-gate a {
+      display: inline-block; margin-top: 12px; background: #5865F2; color: #fff;
+      font-weight: 700; padding: 10px 22px; border-radius: 20px; text-decoration: none;
+    }
+
+    /* composer */
+    .composer {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
+      padding: 22px; margin-bottom: 32px; box-shadow: var(--shadow-soft); display: none;
+    }
+    .composer.ready { display: block; }
+    .composer textarea {
+      width: 100%; border: 1px solid var(--border-hover); border-radius: 12px;
+      background: var(--bg-hover); color: var(--text-primary); font-family: 'Nunito', sans-serif;
+      font-size: 13.5px; padding: 10px 12px; resize: vertical; min-height: 60px; margin-bottom: 10px;
+    }
+    .composer-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .composer-file-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--text-secondary);
+      border: 1px dashed var(--border-hover); border-radius: 10px; padding: 8px 12px;
+      cursor: pointer; flex: 1;
+    }
+    .composer-submit {
+      font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px; color: #fff;
+      background: var(--brown-dim); border: none; border-radius: 12px; padding: 9px 20px; cursor: pointer;
+    }
+    .composer-submit:disabled { opacity: 0.5; cursor: default; }
+    .composer-preview { max-width: 160px; border-radius: 10px; margin-top: 10px; display: none; }
+    .composer-status { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); margin-top: 8px; }
+
+    /* posts */
+    .post-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
+      overflow: hidden; box-shadow: var(--shadow-soft); margin-bottom: 24px;
+    }
+    .post-header { display: flex; align-items: center; gap: 10px; padding: 14px 16px; }
+    .post-avatar { width: 32px; height: 32px; border-radius: 50%; }
+    .post-username { font-weight: 700; font-size: 13px; }
+    .post-time { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-muted); margin-left: auto; }
+    .post-img { width: 100%; display: block; max-height: 640px; object-fit: contain; background: #000; }
+    .post-caption { padding: 12px 16px 0; font-size: 13.5px; }
+    .post-actions { display: flex; align-items: center; gap: 16px; padding: 10px 16px 14px; }
+    .post-action-btn {
+      background: transparent; border: none; cursor: pointer; font-size: 13px;
+      color: var(--text-secondary); display: flex; align-items: center; gap: 5px; padding: 4px 6px;
+    }
+    .post-action-btn:hover { color: var(--brown-dim); }
+    .post-action-btn.liked { color: #e6672f; }
+    .post-action-btn.report-btn:hover { color: #d64545; }
+    .post-delete-btn { margin-left: auto; color: var(--text-muted); }
+
+    .comments-section { border-top: 1px solid var(--border); padding: 10px 16px 14px; }
+    .comment-row { display: flex; gap: 8px; padding: 6px 0; font-size: 12.5px; }
+    .comment-username { font-weight: 700; flex-shrink: 0; }
+    .comment-form { display: flex; gap: 8px; margin-top: 8px; }
+    .comment-form input {
+      flex: 1; border: 1px solid var(--border-hover); border-radius: 20px; background: var(--bg-hover);
+      color: var(--text-primary); padding: 7px 14px; font-size: 12.5px; font-family: 'Nunito', sans-serif;
+    }
+    .comment-form button {
+      background: var(--brown-dim); color: #fff; border: none; border-radius: 20px;
+      padding: 7px 16px; font-size: 12px; font-weight: 700; cursor: pointer;
+    }
+
+    .feed-empty { text-align: center; color: var(--text-secondary); padding: 60px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+    .load-more-btn {
+      display: block; margin: 12px auto 0; font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+      font-weight: 700; text-transform: uppercase; color: var(--brown-light); background: transparent;
+      border: 1px solid var(--border-hover); border-radius: 12px; padding: 8px 20px; cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 0 20px; }
+      .page-wrap { padding: 24px 16px 60px; }
+      .page-title { font-size: 26px; }
+      .breadcrumb { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a href="index.html" class="back-btn">← Back</a>
+    <div class="breadcrumb">hunnids<span>*</span> / edit wall</div>
+  </div>
+  <div class="header-right">
+    <button class="dark-toggle" onclick="toggleDark()" id="dark-toggle" title="Toggle dark mode">
+      <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12.5A8.5 8.5 0 1 1 11.5 4a6.5 6.5 0 0 0 8.5 8.5z"/></svg>
+      <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.4 1.4M17.6 17.6L19 19M19 5l-1.4 1.4M6.4 17.6L5 19"/></svg>
+    </button>
+    <button class="dark-toggle" onclick="toggleMusic()" id="music-toggle" title="Now playing">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="page-wrap">
+  <div class="page-eyebrow">// post your work</div>
+  <div class="page-title">Edit Wall<span>*</span></div>
+  <div class="page-desc">Share your edits with the community. Everything here is public.</div>
+
+  <div class="login-gate" id="login-gate">
+    <p>Log in with Discord to post, comment, and react.</p>
+    <a href="https://hunnids-discord-bot.onrender.com/api/auth/discord/callback">Log in with Discord</a>
+  </div>
+
+  <div class="composer" id="composer">
+    <textarea id="composer-caption" maxlength="500" placeholder="Say something about your edit... (optional)"></textarea>
+    <div class="composer-row">
+      <label class="composer-file-label" id="file-label">
+        Choose an image to post
+        <input type="file" id="composer-file" accept="image/png,image/jpeg,image/webp,image/gif" style="display:none" />
+      </label>
+      <button class="composer-submit" id="composer-submit" disabled>Post</button>
+    </div>
+    <img class="composer-preview" id="composer-preview" />
+    <div class="composer-status" id="composer-status"></div>
+  </div>
+
+  <div id="feed"></div>
+  <button class="load-more-btn" id="load-more" style="display:none">Load more</button>
+</div>
+
+<script>
+  function toggleDark() {
+    const isDark = document.body.classList.toggle('dark-mode');
+    localStorage.setItem('hunnids-theme', isDark ? 'dark' : 'light');
+    setThemeIcon(isDark);
+  }
+  function setThemeIcon(isDark) {
+    const btn = document.getElementById('dark-toggle');
+    if (!btn) return;
+    btn.querySelector('.theme-icon--moon').style.display = isDark ? 'none' : 'block';
+    btn.querySelector('.theme-icon--sun').style.display = isDark ? 'block' : 'none';
+  }
+  if (localStorage.getItem('hunnids-theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+    setThemeIcon(true);
+  }
+  function toggleMusic() {
+    if (window.HunnidsMiniplayer) window.HunnidsMiniplayer.toggle();
+  }
+
+  // ── Edit Wall logic ──
+  const API_BASE = 'https://hunnids-discord-bot.onrender.com';
+  const TOKEN_KEY = 'hunnids_token';
+  const token = localStorage.getItem(TOKEN_KEY);
+  let currentUser = null;
+  let offset = 0;
+  let selectedFile = null;
+
+  function authHeaders(extra) {
+    const h = Object.assign({}, extra);
+    if (token) h['Authorization'] = `Bearer ${token}`;
+    return h;
+  }
+
+  function decodeJwtPayload(t) {
+    try {
+      return JSON.parse(atob(t.split('.')[1]));
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function timeAgo(iso) {
+    const diffMs = Date.now() - new Date(iso).getTime();
+    const mins = Math.floor(diffMs / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return `${mins}m ago`;
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return `${hrs}h ago`;
+    return `${Math.floor(hrs / 24)}d ago`;
+  }
+
+  function escapeHtml(str) {
+    return (str || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  if (token) {
+    currentUser = decodeJwtPayload(token);
+    document.getElementById('login-gate').style.display = 'none';
+    document.getElementById('composer').classList.add('ready');
+  }
+
+  // ── Composer ──
+  const fileInput = document.getElementById('composer-file');
+  const fileLabel = document.getElementById('file-label');
+  const preview = document.getElementById('composer-preview');
+  const submitBtn = document.getElementById('composer-submit');
+  const statusEl = document.getElementById('composer-status');
+
+  fileInput.addEventListener('change', () => {
+    selectedFile = fileInput.files[0] || null;
+    if (selectedFile) {
+      fileLabel.textContent = selectedFile.name;
+      preview.src = URL.createObjectURL(selectedFile);
+      preview.style.display = 'block';
+      submitBtn.disabled = false;
+    }
+  });
+
+  submitBtn.addEventListener('click', async () => {
+    if (!selectedFile) return;
+    submitBtn.disabled = true;
+    statusEl.textContent = 'Uploading image...';
+
+    try {
+      const presignRes = await fetch(`${API_BASE}/api/uploads/presign`, {
+        method: 'POST',
+        headers: authHeaders({ 'Content-Type': 'application/json' }),
+        body: JSON.stringify({ content_type: selectedFile.type }),
+      });
+      const presignData = await presignRes.json();
+      if (!presignRes.ok) throw new Error(presignData.error || 'upload permission failed');
+
+      const uploadRes = await fetch(presignData.upload_url, {
+        method: 'PUT',
+        headers: { 'Content-Type': selectedFile.type },
+        body: selectedFile,
+      });
+      if (!uploadRes.ok) throw new Error('image upload to storage failed');
+
+      statusEl.textContent = 'Posting...';
+      const postRes = await fetch(`${API_BASE}/api/posts`, {
+        method: 'POST',
+        headers: authHeaders({ 'Content-Type': 'application/json' }),
+        body: JSON.stringify({
+          image_url: presignData.public_url,
+          caption: document.getElementById('composer-caption').value.trim(),
+        }),
+      });
+      if (!postRes.ok) throw new Error('could not create post');
+
+      statusEl.textContent = '';
+      fileLabel.textContent = 'Choose an image to post';
+      preview.style.display = 'none';
+      document.getElementById('composer-caption').value = '';
+      selectedFile = null;
+      fileInput.value = '';
+
+      offset = 0;
+      document.getElementById('feed').innerHTML = '';
+      loadPosts();
+    } catch (err) {
+      statusEl.textContent = 'Error: ' + err.message;
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+
+  // ── Feed ──
+  function renderPost(post) {
+    const isOwner = currentUser && currentUser.discord_id === post.discord_id;
+    const wrap = document.createElement('div');
+    wrap.className = 'post-card';
+    wrap.dataset.postId = post.id;
+    wrap.innerHTML = `
+      <div class="post-header">
+        <img class="post-avatar" src="${post.avatar_url || ''}" alt="" />
+        <span class="post-username">${escapeHtml(post.username || 'unknown')}</span>
+        <span class="post-time">${timeAgo(post.created_at)}</span>
+      </div>
+      <img class="post-img" src="${post.image_url}" alt="edit by ${escapeHtml(post.username)}" loading="lazy" />
+      ${post.caption ? `<div class="post-caption">${escapeHtml(post.caption)}</div>` : ''}
+      <div class="post-actions">
+        <button class="post-action-btn like-btn ${post.liked_by_viewer ? 'liked' : ''}">
+          ♥ <span class="like-count">${post.like_count}</span>
+        </button>
+        <button class="post-action-btn comment-toggle-btn">💬 <span class="comment-count">${post.comment_count}</span></button>
+        <button class="post-action-btn report-btn">⚑ report</button>
+        ${isOwner ? `<button class="post-action-btn post-delete-btn">delete</button>` : ''}
+      </div>
+      <div class="comments-section" style="display:none">
+        <div class="comment-list"></div>
+        ${token ? `
+          <div class="comment-form">
+            <input type="text" class="comment-input" placeholder="Add a comment..." maxlength="1000" />
+            <button class="comment-submit-btn">Send</button>
+          </div>` : ''}
+      </div>
+    `;
+
+    wrap.querySelector('.like-btn').addEventListener('click', async () => {
+      if (!token) return alert('Log in to react to posts.');
+      const res = await fetch(`${API_BASE}/api/posts/${post.id}/react`, {
+        method: 'POST', headers: authHeaders(),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        wrap.querySelector('.like-btn').classList.toggle('liked', data.liked);
+        wrap.querySelector('.like-count').textContent = data.like_count;
+      }
+    });
+
+    wrap.querySelector('.report-btn').addEventListener('click', async () => {
+      if (!token) return alert('Log in to report posts.');
+      if (!confirm('Report this post for review?')) return;
+      await fetch(`${API_BASE}/api/posts/${post.id}/report`, {
+        method: 'POST', headers: authHeaders(),
+      });
+      alert('Reported - thanks for flagging it.');
+    });
+
+    const delBtn = wrap.querySelector('.post-delete-btn');
+    if (delBtn) {
+      delBtn.addEventListener('click', async () => {
+        if (!confirm('Delete this post?')) return;
+        const res = await fetch(`${API_BASE}/api/posts/${post.id}`, {
+          method: 'DELETE', headers: authHeaders(),
+        });
+        if (res.ok) wrap.remove();
+      });
+    }
+
+    const commentsSection = wrap.querySelector('.comments-section');
+    const commentList = wrap.querySelector('.comment-list');
+    let commentsLoaded = false;
+
+    wrap.querySelector('.comment-toggle-btn').addEventListener('click', async () => {
+      const showing = commentsSection.style.display !== 'none';
+      commentsSection.style.display = showing ? 'none' : 'block';
+      if (!showing && !commentsLoaded) {
+        commentsLoaded = true;
+        const res = await fetch(`${API_BASE}/api/posts/${post.id}/comments`);
+        const data = await res.json();
+        commentList.innerHTML = (data.comments || []).map(c => `
+          <div class="comment-row">
+            <span class="comment-username">${escapeHtml(c.username || 'unknown')}</span>
+            <span>${escapeHtml(c.body)}</span>
+          </div>
+        `).join('') || '<div class="comment-row" style="color:var(--text-muted)">No comments yet.</div>';
+      }
+    });
+
+    const commentSubmitBtn = wrap.querySelector('.comment-submit-btn');
+    if (commentSubmitBtn) {
+      commentSubmitBtn.addEventListener('click', async () => {
+        const input = wrap.querySelector('.comment-input');
+        const text = input.value.trim();
+        if (!text) return;
+        const res = await fetch(`${API_BASE}/api/posts/${post.id}/comments`, {
+          method: 'POST',
+          headers: authHeaders({ 'Content-Type': 'application/json' }),
+          body: JSON.stringify({ body: text }),
+        });
+        if (res.ok) {
+          const comment = await res.json();
+          if (commentList.querySelector('[style*="text-muted"]')) commentList.innerHTML = '';
+          commentList.insertAdjacentHTML('beforeend', `
+            <div class="comment-row">
+              <span class="comment-username">${escapeHtml(comment.username || 'unknown')}</span>
+              <span>${escapeHtml(comment.body)}</span>
+            </div>
+          `);
+          input.value = '';
+          const countEl = wrap.querySelector('.comment-count');
+          countEl.textContent = Number(countEl.textContent) + 1;
+        }
+      });
+    }
+
+    return wrap;
+  }
+
+  async function loadPosts() {
+    const res = await fetch(`${API_BASE}/api/posts?offset=${offset}` , { headers: authHeaders() });
+    const data = await res.json();
+    const posts = data.posts || [];
+    const feed = document.getElementById('feed');
+
+    if (posts.length === 0 && offset === 0) {
+      feed.innerHTML = '<div class="feed-empty">// nothing posted yet - be the first!</div>';
+      document.getElementById('load-more').style.display = 'none';
+      return;
+    }
+
+    posts.forEach(p => feed.appendChild(renderPost(p)));
+    offset += posts.length;
+    document.getElementById('load-more').style.display = posts.length === 20 ? 'block' : 'none';
+  }
+
+  document.getElementById('load-more').addEventListener('click', loadPosts);
+  loadPosts();
+</script>
+
+<script src="sounds.js"></script>
+<script src="music.js"></script>
+<script src="miniplayer.js"></script>
+<script src="cursor.js"></script>
+</body>
+</html>
