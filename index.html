@@ -110,7 +110,9 @@
       border: 1px solid var(--border); box-shadow: var(--shadow-soft);
       padding: 16px; display: flex; flex-direction: column; overflow: hidden;
       transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none; color: inherit;
     }
+    .w-card, .w-card * { text-decoration: none; }
     .w-card.clickable { cursor: pointer; }
     .w-card.clickable:hover { transform: translateY(-3px); box-shadow: var(--shadow-pop); }
     .w-label {

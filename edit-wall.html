@@ -149,7 +149,7 @@
       padding: 9px 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px;
     }
     .wall-card-user { display: flex; align-items: center; gap: 6px; min-width: 0; }
-    .wall-card-avatar { width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0; }
+    .wall-card-avatar { width: 20px !important; height: 20px !important; border-radius: 50%; flex-shrink: 0; object-fit: cover; }
     .wall-card-username { font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .wall-card-stats { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-muted); flex-shrink: 0; display: flex; gap: 8px; }
 
@@ -177,7 +177,7 @@
     .lightbox-scroll { overflow-y: auto; }
     .lightbox-img { width: 100%; max-height: 60vh; object-fit: contain; background: #000; display: block; }
     .lightbox-header { display: flex; align-items: center; gap: 10px; padding: 14px 18px; }
-    .lightbox-avatar { width: 32px; height: 32px; border-radius: 50%; }
+    .lightbox-avatar { width: 32px !important; height: 32px !important; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
     .lightbox-username { font-weight: 700; font-size: 13px; }
     .lightbox-time { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-muted); margin-left: auto; }
     .lightbox-caption { padding: 0 18px 12px; font-size: 13.5px; }
@@ -406,7 +406,7 @@
       <img src="${post.image_url}" alt="edit by ${escapeHtml(post.username)}" loading="lazy" />
       <div class="wall-card-info">
         <div class="wall-card-user">
-          <img class="wall-card-avatar" src="${post.avatar_url || ''}" alt="" />
+          <img class="wall-card-avatar" width="20" height="20" src="${post.avatar_url || ''}" alt="" />
           <span class="wall-card-username">${escapeHtml(post.username || 'unknown')}</span>
         </div>
         <div class="wall-card-stats">
@@ -455,7 +455,7 @@
     scroll.innerHTML = `
       <img class="lightbox-img" src="${post.image_url}" alt="" />
       <div class="lightbox-header">
-        <img class="lightbox-avatar" src="${post.avatar_url || ''}" alt="" />
+        <img class="lightbox-avatar" width="32" height="32" src="${post.avatar_url || ''}" alt="" />
         <span class="lightbox-username">${escapeHtml(post.username || 'unknown')}</span>
         <span class="lightbox-time">${timeAgo(post.created_at)}</span>
       </div>
