@@ -402,16 +402,18 @@
     const card = document.createElement('div');
     card.className = 'wall-card';
     card.dataset.postId = post.id;
+    const isArtWall = post.source === 'artwall';
     card.innerHTML = `
       <img src="${post.image_url}" alt="edit by ${escapeHtml(post.username)}" loading="lazy" />
       <div class="wall-card-info">
         <div class="wall-card-user">
-          <img class="wall-card-avatar" width="20" height="20" src="${post.avatar_url || ''}" alt="" />
+          ${post.avatar_url ? `<img class="wall-card-avatar" width="20" height="20" src="${post.avatar_url}" alt="" />` : ''}
           <span class="wall-card-username">${escapeHtml(post.username || 'unknown')}</span>
         </div>
         <div class="wall-card-stats">
-          <span>♥ ${post.like_count}</span>
-          <span>💬 ${post.comment_count}</span>
+          ${isArtWall
+            ? `<span title="Posted via the Discord art channel">via Discord</span>`
+            : `<span>♥ ${post.like_count}</span><span>💬 ${post.comment_count}</span>`}
         </div>
       </div>
     `;
@@ -419,39 +421,136 @@
     return card;
   }
 
+  // ── Art Wall entries get normalized into the same shape as Edit Wall
+  //    posts, so one feed/lightbox/like/comment system covers both. ──
+  function artWallIdFor(entry) {
+    // Stable synthetic id from the URL, since art-wall-data.json entries
+    // don't have a real id - prefixed so it can never collide with a
+    // real Edit Wall post's uuid.
+    return 'artwall:' + btoa(entry.url).replace(/[^a-zA-Z0-9]/g, '').slice(0, 40);
+  }
+
+  function normalizeArtWallEntry(entry) {
+    return {
+      id: artWallIdFor(entry),
+      source: 'artwall',
+      discord_id: null,
+      username: entry.artist || 'unknown',
+      avatar_url: null,
+      image_url: entry.url,
+      caption: '',
+      created_at: entry.postedAt,
+      like_count: 0,
+      comment_count: 0,
+      liked_by_viewer: false,
+    };
+  }
+
+  function normalizeEditWallPost(post) {
+    post.source = 'editwall';
+    return post;
+  }
+
+  let artWallEntries = [];
+  let artWallLoaded = false;
+
+  async function fetchArtWallEntries() {
+    if (artWallLoaded) return artWallEntries;
+    try {
+      const res = await fetch('art-wall-data.json');
+      const raw = res.ok ? await res.json() : [];
+      const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000; // same 7-day window art-wall.html itself uses
+      artWallEntries = raw
+        .filter(e => new Date(e.postedAt).getTime() > cutoff)
+        .map(normalizeArtWallEntry);
+      // Note: Art Wall entries are synced from Discord by the bot, not
+      // rows in the posts table - there's no real like/comment record
+      // for them to fetch, so they display as view-only (see renderCard
+      // and openLightbox, which check post.source to hide those actions
+      // for this source rather than wiring up buttons that would fail
+      // or write orphaned data).
+    } catch (e) {
+      artWallEntries = [];
+    }
+    artWallLoaded = true;
+    return artWallEntries;
+  }
+
+  const artistFilter = new URLSearchParams(location.search).get('artist');
+  if (artistFilter) {
+    document.querySelector('.page-title').innerHTML = `${escapeHtml(artistFilter)}<span>*</span>`;
+    document.querySelector('.page-desc').innerHTML = `Showing all posts from this person. <a href="edit-wall.html" style="color: var(--brown-light); text-decoration: underline;">View the full wall →</a>`;
+  }
+
+  function rerenderFeed() {
+    let merged = [...currentPosts, ...artWallEntries];
+    if (artistFilter) {
+      merged = merged.filter(p => (p.username || '').toLowerCase() === artistFilter.toLowerCase());
+    }
+    merged.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    const feed = document.getElementById('feed');
+    feed.innerHTML = '';
+    if (merged.length === 0) {
+      feed.innerHTML = artistFilter
+        ? `<div class="feed-empty">// no posts found from ${escapeHtml(artistFilter)}</div>`
+        : '<div class="feed-empty">// nothing posted yet - be the first!</div>';
+    } else {
+      merged.forEach(p => feed.appendChild(renderCard(p)));
+    }
+    document.getElementById('live-count').textContent = artistFilter
+      ? `${merged.length} post${merged.length === 1 ? '' : 's'} by ${escapeHtml(artistFilter)}`
+      : `${merged.length} post${merged.length === 1 ? '' : 's'} on display`;
+    return merged;
+  }
+
   async function loadPosts() {
+    await fetchArtWallEntries();
+
     const res = await fetch(`${API_BASE}/api/posts?offset=${offset}`, { headers: authHeaders() });
     const data = await res.json();
-    const posts = data.posts || [];
-    const feed = document.getElementById('feed');
+    const posts = (data.posts || []).map(normalizeEditWallPost);
 
-    if (posts.length === 0 && offset === 0) {
-      feed.innerHTML = '<div class="feed-empty">// nothing posted yet - be the first!</div>';
-      document.getElementById('load-more').style.display = 'none';
-      document.getElementById('live-count').textContent = '0 posts on display';
-      return;
-    }
-
-    posts.forEach(p => {
-      currentPosts.push(p);
-      feed.appendChild(renderCard(p));
-    });
+    posts.forEach(p => currentPosts.push(p));
     offset += posts.length;
-    document.getElementById('live-count').textContent = `${currentPosts.length} post${currentPosts.length === 1 ? '' : 's'} on display`;
+    rerenderFeed();
     document.getElementById('load-more').style.display = posts.length === 20 ? 'block' : 'none';
   }
 
   document.getElementById('load-more').addEventListener('click', loadPosts);
 
+
   // ── Lightbox (full post + comments) ──
-  function findPost(id) { return currentPosts.find(p => p.id === id); }
+  function findPost(id) {
+    return currentPosts.find(p => p.id === id) || artWallEntries.find(p => p.id === id);
+  }
 
   function openLightbox(postId) {
     const post = findPost(postId);
     if (!post) return;
+    const isArtWall = post.source === 'artwall';
     const isOwner = currentUser && currentUser.discord_id === post.discord_id;
 
     const scroll = document.getElementById('lightbox-scroll');
+
+    if (isArtWall) {
+      // No real backend record exists for these (synced from Discord by
+      // the bot, never inserted as a post row) - show it as a clean
+      // view-only piece rather than wiring up buttons that would 404 or
+      // write orphaned reaction/comment rows against a nonexistent post.
+      scroll.innerHTML = `
+        <img class="lightbox-img" src="${post.image_url}" alt="" />
+        <div class="lightbox-header">
+          <span class="lightbox-username">${escapeHtml(post.username || 'unknown')}</span>
+          <span class="lightbox-time">${timeAgo(post.created_at)}</span>
+        </div>
+        <div class="lightbox-caption" style="color:var(--text-muted); font-size:12px;">
+          Posted via the Discord art channel - reactions and comments live there, not here.
+        </div>
+      `;
+      document.getElementById('lightbox-overlay').classList.add('open');
+      return;
+    }
+
     scroll.innerHTML = `
       <img class="lightbox-img" src="${post.image_url}" alt="" />
       <div class="lightbox-header">

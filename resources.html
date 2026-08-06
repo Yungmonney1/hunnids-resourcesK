@@ -2669,7 +2669,6 @@
       <a class="tab active" href="#">Resources</a>
       <a class="tab" href="#faq" onclick="scrollToSection(event, 'faq')">FAQ</a>
       <a class="tab" onclick="openAbout()">About</a>
-      <a class="tab" href="art-wall.html">Art Wall</a>
       <a class="tab" href="edit-wall.html">Edit Wall</a>
       <a class="tab discord-cta" href="https://discord.gg/AcuUU2zpdD" target="_blank">Join Discord ↗</a>
     </div>
@@ -3089,7 +3088,7 @@
 
   <div class="widget">
     <div class="widget-label">// featured art</div>
-    <a class="featured-art-link" href="art-wall.html?artist=minikui" target="_blank">
+    <a class="featured-art-link" href="edit-wall.html?artist=minikui" target="_blank">
       <img class="featured-art-img" src="assets/hunnids%20shape%20files/featured-art-minikui-optimized.jpg" alt="Featured art by minikui" loading="lazy" />
       <div class="featured-art-caption">
         <span class="featured-art-artist">minikui</span>
@@ -3115,7 +3114,7 @@
   <div class="widget" style="text-align: center;">
     <div class="widget-label">// community showcase</div>
     <div class="tip-text" style="margin-bottom: 14px;">Fan art & edits from the hunnids community, fresh every week.</div>
-    <a href="art-wall.html" class="show-more-btn" style="width: 100%; justify-content: center; text-decoration: none; margin-top: 0;">
+    <a href="edit-wall.html" class="show-more-btn" style="width: 100%; justify-content: center; text-decoration: none; margin-top: 0;">
       <span class="show-more-label">visit the art wall</span>
       <span class="show-more-chevron">→</span>
     </a>
@@ -3754,7 +3753,7 @@
               const isNew = (Date.now() - new Date(e.postedAt).getTime()) < 24 * 60 * 60 * 1000;
               return `
               <div class="art-preview-thumb-wrap${isNew ? ' is-new' : ''}">
-                <a class="art-preview-thumb" href="art-wall.html" title="by ${(e.artist || 'unknown').replace(/"/g, '&quot;')}">
+                <a class="art-preview-thumb" href="edit-wall.html" title="by ${(e.artist || 'unknown').replace(/"/g, '&quot;')}">
                   <img src="${e.url}" alt="Art by ${(e.artist || 'unknown').replace(/"/g, '&quot;')}" loading="lazy" />
                 </a>
                 <span class="art-preview-caption">${(e.artist || 'unknown').replace(/</g, '&lt;')}</span>
