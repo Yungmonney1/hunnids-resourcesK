@@ -76,7 +76,7 @@
       color: var(--text-secondary); transition: all 0.15s; position: relative;
     }
     .rail-icon:hover { background: var(--bg-hover); color: var(--brown-dim); }
-    .rail-icon.active { background: var(--brown-dim); color: #fff; }
+    .rail-icon.active { background: linear-gradient(135deg, #7f9cd4, #a893d8); color: #fff; box-shadow: 0 4px 16px rgba(127,156,212,0.5); }
     .rail-spacer { flex: 1; }
     .rail-icon.discord-icon { color: #5865F2; }
 
@@ -85,14 +85,16 @@
     .hub-greeting span { color: var(--brown-light); }
     .hub-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 24px; }
 
-    .stat-pills { display: flex; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
+    .stat-pills { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
     .stat-pill {
-      display: flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 30px;
-      background: var(--bg-card); backdrop-filter: blur(10px); border: 1px solid var(--border);
-      font-size: 12.5px; font-weight: 700; box-shadow: var(--shadow-soft);
+      display: flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 30px;
+      color: #fff; font-size: 13px; font-weight: 700; box-shadow: 0 6px 18px rgba(0,0,0,0.12);
     }
-    .stat-pill .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-    .stat-pill .num { color: var(--brown-dim); }
+    .stat-pill.online { background: linear-gradient(135deg, #3ba55c, #2d8a4a); }
+    .stat-pill.tutorials { background: linear-gradient(135deg, #e6672f, #d8481f); }
+    .stat-pill.plugins { background: linear-gradient(135deg, #7f9cd4, #5c78c4); }
+    .stat-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.8); flex-shrink: 0; }
+    .stat-pill .num { color: #fff; }
 
     /* ── hero / spotlight carousel ── */
     .hero {
@@ -167,14 +169,38 @@
 
     .widget-stack { display: flex; flex-direction: column; gap: 14px; }
     .w-card {
-      border-radius: 20px; background: var(--bg-card); backdrop-filter: blur(14px) saturate(150%);
-      border: 1px solid var(--border); box-shadow: var(--shadow-soft); padding: 16px;
+      border-radius: 22px; background: var(--bg-card); backdrop-filter: blur(14px) saturate(150%);
+      border: 1px solid var(--border); box-shadow: var(--shadow-soft); padding: 18px;
     }
     .w-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--brown-light); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+
+    /* color-blocked widget treatments, committing to the reference's
+       vivid gradient credit-card style instead of neutral glass */
+    .discord-card {
+      background: linear-gradient(135deg, #5865F2, #4752c4); border: none; color: #fff;
+      box-shadow: 0 10px 28px rgba(88,101,242,0.35);
+    }
+    .discord-card .w-label { color: rgba(255,255,255,0.75); }
     .discord-online-row { display: flex; align-items: center; gap: 8px; }
-    .discord-btn { display: block; margin-top: 10px; text-align: center; padding: 9px; border-radius: 12px; background: #5865F2; color: #fff; font-weight: 700; font-size: 12.5px; }
-    .tip-text, .plugin-text { font-size: 12.5px; }
-    .plugin-name { font-weight: 700; font-size: 14px; margin-bottom: 3px; }
+    .discord-btn {
+      display: block; margin-top: 10px; text-align: center; padding: 10px; border-radius: 14px;
+      background: #fff; color: #5865F2; font-weight: 700; font-size: 12.5px;
+    }
+
+    .tip-card {
+      background: linear-gradient(135deg, #2fb88a, #1f9b73); border: none; color: #fff;
+      box-shadow: 0 10px 28px rgba(47,184,138,0.3);
+    }
+    .tip-card .w-label { color: rgba(255,255,255,0.75); }
+    .tip-text { font-size: 12.5px; color: #fff; }
+
+    .plugin-card {
+      background: linear-gradient(135deg, #e6672f, #d8481f); border: none; color: #fff;
+      box-shadow: 0 10px 28px rgba(230,103,47,0.32);
+    }
+    .plugin-card .w-label { color: rgba(255,255,255,0.75); }
+    .plugin-text { font-size: 12.5px; color: rgba(255,255,255,0.9); }
+    .plugin-name { font-weight: 700; font-size: 15px; margin-bottom: 3px; color: #fff; }
 
     .toggle-row { display: flex; gap: 8px; margin-top: 4px; }
     .rail-toggle {
@@ -222,9 +248,9 @@
     <div class="hub-sub">Everything hunnids, all in one place.</div>
 
     <div class="stat-pills" id="stat-pills">
-      <div class="stat-pill"><span class="dot" style="background:#3ba55c"></span> <span class="num" id="pill-online">—</span> online</div>
-      <div class="stat-pill"><span class="dot" style="background:#e6672f"></span> <span class="num" id="pill-tutorials">—</span> tutorials</div>
-      <div class="stat-pill"><span class="dot" style="background:#7f9cd4"></span> <span class="num" id="pill-plugins">—</span> plugins</div>
+      <div class="stat-pill online"><span class="dot"></span> <span class="num" id="pill-online">—</span> online</div>
+      <div class="stat-pill tutorials"><span class="dot"></span> <span class="num" id="pill-tutorials">—</span> tutorials</div>
+      <div class="stat-pill plugins"><span class="dot"></span> <span class="num" id="pill-plugins">—</span> plugins</div>
     </div>
 
     <!-- Hero: Editor Spotlight carousel -->
@@ -400,7 +426,7 @@
         const inviteUrl = data.instant_invite || inviteFallback;
         const online = data.presence_count ?? '—';
         const avatars = (data.members || []).slice(0, 5).map(m =>
-          `<img src="${m.avatar_url}" alt="" title="${m.username}" style="width:26px; height:26px; border-radius:50%; border:2px solid var(--bg-card); margin-left:-8px; box-shadow: var(--shadow-soft);" />`
+          `<img src="${m.avatar_url}" alt="" title="${m.username}" style="width:26px; height:26px; border-radius:50%; border:2px solid #5865F2; margin-left:-8px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);" />`
         ).join('');
         el.innerHTML = `
           <div class="discord-online-row">
