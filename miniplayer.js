@@ -77,7 +77,7 @@
     }
     .mp-info { flex: 1; min-width: 0; }
     .mp-title {
-      font-family: 'Nunito', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-size: 14px;
       font-weight: 700;
       color: var(--text-primary, #222);
