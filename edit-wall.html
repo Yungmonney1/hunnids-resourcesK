@@ -517,7 +517,7 @@
 
     // media_type === 'link'
     const streamableMatch = url.match(/streamable\.com\/([a-zA-Z0-9]+)/i);
-    if (streamableMatch) return { kind: 'iframe', src: `https://streamable.com/e/${streamableMatch[1]}` };
+    if (streamableMatch) return { kind: 'iframe', src: `https://streamable.com/t/${streamableMatch[1]}` };
 
     const path = url.split('?')[0].toLowerCase();
     if (/\.(png|jpe?g|gif|webp)$/.test(path)) return { kind: 'image', src: url };
