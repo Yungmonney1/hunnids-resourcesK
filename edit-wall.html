@@ -117,6 +117,18 @@
       font-size: 13.5px; padding: 10px 12px; resize: vertical; min-height: 50px; margin-bottom: 10px;
     }
     .composer-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .composer-mode-tabs { display: flex; gap: 6px; margin-bottom: 10px; }
+    .composer-mode-tab {
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; color: var(--text-secondary);
+      background: var(--bg-hover); border: 1px solid var(--border-hover); border-radius: 20px;
+      padding: 6px 14px; cursor: pointer; transition: all 0.15s;
+    }
+    .composer-mode-tab.active { background: var(--brown-dim); color: #fff; border-color: var(--brown-dim); }
+    .composer-link-input {
+      flex: 1; border: 1px solid var(--border-hover); border-radius: 12px; background: var(--bg-hover);
+      color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 13.5px; padding: 10px 12px;
+    }
+    .composer-hint { font-size: 11px; color: var(--text-muted); margin-top: 8px; }
     .composer-file-label {
       font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--text-secondary);
       border: 1px dashed var(--border-hover); border-radius: 10px; padding: 8px 12px;
@@ -144,7 +156,12 @@
       position: relative;
     }
     .wall-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-pop); }
-    .wall-card img { display: block; width: 100%; height: auto; }
+    .wall-card img, .wall-card video { display: block; width: 100%; height: auto; }
+    .wall-card-linktile {
+      display: flex; align-items: center; justify-content: center; height: 140px;
+      background: linear-gradient(135deg, var(--bg-hover), var(--bg-card));
+      color: var(--text-secondary); font-weight: 700; font-size: 13px;
+    }
     .wall-card-info {
       padding: 9px 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px;
     }
@@ -176,6 +193,12 @@
     .lightbox-overlay.open .lightbox-box { transform: scale(1); }
     .lightbox-scroll { overflow-y: auto; }
     .lightbox-img { width: 100%; max-height: 60vh; object-fit: contain; background: #000; display: block; }
+    video.lightbox-img { max-height: 60vh; }
+    .lightbox-iframe { width: 100%; aspect-ratio: 16/9; background: #000; display: block; border: 0; }
+    .lightbox-linkfallback {
+      padding: 40px 24px; text-align: center; background: var(--bg-hover);
+    }
+    .lightbox-linkfallback p { color: var(--text-secondary); font-size: 13px; margin-bottom: 14px; }
     .lightbox-header { display: flex; align-items: center; gap: 10px; padding: 14px 18px; }
     .lightbox-avatar { width: 32px !important; height: 32px !important; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
     .lightbox-username { font-weight: 700; font-size: 13px; }
@@ -249,14 +272,33 @@
 
   <div class="composer" id="composer">
     <textarea id="composer-caption" maxlength="500" placeholder="Say something about your edit... (optional)"></textarea>
-    <div class="composer-row">
-      <label class="composer-file-label" id="file-label">
-        Choose an image to post
-        <input type="file" id="composer-file" accept="image/png,image/jpeg,image/webp,image/gif" style="display:none" />
-      </label>
-      <button class="composer-submit" id="composer-submit" disabled>Post</button>
+
+    <div class="composer-mode-tabs">
+      <button type="button" class="composer-mode-tab active" data-mode="upload">Upload file</button>
+      <button type="button" class="composer-mode-tab" data-mode="link">Paste a link</button>
     </div>
-    <img class="composer-preview" id="composer-preview" />
+
+    <div id="composer-upload-mode">
+      <div class="composer-row">
+        <label class="composer-file-label" id="file-label">
+          Choose an image or video to post
+          <input type="file" id="composer-file" accept="image/png,image/jpeg,image/webp,image/gif,video/mp4,video/webm,video/quicktime" style="display:none" />
+        </label>
+        <button class="composer-submit" id="composer-submit" disabled>Post</button>
+      </div>
+      <img class="composer-preview" id="composer-preview" />
+      <video class="composer-preview" id="composer-preview-video" controls style="display:none"></video>
+    </div>
+
+    <div id="composer-link-mode" style="display:none">
+      <div class="composer-row">
+        <input type="url" id="composer-link-input" class="composer-link-input"
+          placeholder="Paste a Catbox, Streamable, or direct media link..." />
+        <button class="composer-submit" id="composer-link-submit">Post</button>
+      </div>
+      <div class="composer-hint">Works great with catbox.moe or streamable.com links - handy for bypassing Discord's file size limit.</div>
+    </div>
+
     <div class="composer-status" id="composer-status"></div>
   </div>
 
@@ -334,23 +376,65 @@
   const fileInput = document.getElementById('composer-file');
   const fileLabel = document.getElementById('file-label');
   const preview = document.getElementById('composer-preview');
+  const previewVideo = document.getElementById('composer-preview-video');
   const submitBtn = document.getElementById('composer-submit');
   const statusEl = document.getElementById('composer-status');
+  const linkInput = document.getElementById('composer-link-input');
+  const linkSubmitBtn = document.getElementById('composer-link-submit');
+
+  // Mode tabs (Upload file / Paste a link)
+  document.querySelectorAll('.composer-mode-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.composer-mode-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const mode = tab.dataset.mode;
+      document.getElementById('composer-upload-mode').style.display = mode === 'upload' ? 'block' : 'none';
+      document.getElementById('composer-link-mode').style.display = mode === 'link' ? 'block' : 'none';
+      statusEl.textContent = '';
+    });
+  });
+
+  function resetComposer() {
+    fileLabel.textContent = 'Choose an image or video to post';
+    preview.style.display = 'none';
+    previewVideo.style.display = 'none';
+    document.getElementById('composer-caption').value = '';
+    selectedFile = null;
+    fileInput.value = '';
+    linkInput.value = '';
+    statusEl.textContent = '';
+  }
+
+  function refreshFeedAfterPost() {
+    offset = 0;
+    document.getElementById('feed').innerHTML = '';
+    currentPosts = [];
+    loadPosts();
+  }
 
   fileInput.addEventListener('change', () => {
     selectedFile = fileInput.files[0] || null;
-    if (selectedFile) {
-      fileLabel.textContent = selectedFile.name;
-      preview.src = URL.createObjectURL(selectedFile);
+    if (!selectedFile) return;
+    fileLabel.textContent = selectedFile.name;
+    const isVideo = selectedFile.type.startsWith('video/');
+    const url = URL.createObjectURL(selectedFile);
+    if (isVideo) {
+      previewVideo.src = url;
+      previewVideo.style.display = 'block';
+      preview.style.display = 'none';
+    } else {
+      preview.src = url;
       preview.style.display = 'block';
-      submitBtn.disabled = false;
+      previewVideo.style.display = 'none';
     }
+    submitBtn.disabled = false;
   });
 
   submitBtn.addEventListener('click', async () => {
     if (!selectedFile) return;
+    const isVideo = selectedFile.type.startsWith('video/');
     submitBtn.disabled = true;
-    statusEl.textContent = 'Uploading image...';
+    statusEl.textContent = isVideo ? 'Uploading video...' : 'Uploading image...';
 
     try {
       const presignRes = await fetch(`${API_BASE}/api/uploads/presign`, {
@@ -366,7 +450,7 @@
         headers: { 'Content-Type': selectedFile.type },
         body: selectedFile,
       });
-      if (!uploadRes.ok) throw new Error('image upload to storage failed');
+      if (!uploadRes.ok) throw new Error('upload to storage failed');
 
       statusEl.textContent = 'Posting...';
       const postRes = await fetch(`${API_BASE}/api/posts`, {
@@ -375,21 +459,13 @@
         body: JSON.stringify({
           image_url: presignData.public_url,
           caption: document.getElementById('composer-caption').value.trim(),
+          media_type: isVideo ? 'video' : 'image',
         }),
       });
       if (!postRes.ok) throw new Error('could not create post');
 
-      statusEl.textContent = '';
-      fileLabel.textContent = 'Choose an image to post';
-      preview.style.display = 'none';
-      document.getElementById('composer-caption').value = '';
-      selectedFile = null;
-      fileInput.value = '';
-
-      offset = 0;
-      document.getElementById('feed').innerHTML = '';
-      currentPosts = [];
-      loadPosts();
+      resetComposer();
+      refreshFeedAfterPost();
     } catch (err) {
       statusEl.textContent = 'Error: ' + err.message;
     } finally {
@@ -397,14 +473,78 @@
     }
   });
 
+  linkSubmitBtn.addEventListener('click', async () => {
+    const url = linkInput.value.trim();
+    if (!url) return;
+    if (!/^https?:\/\//i.test(url)) {
+      statusEl.textContent = 'Error: link must start with http:// or https://';
+      return;
+    }
+    linkSubmitBtn.disabled = true;
+    statusEl.textContent = 'Posting...';
+
+    try {
+      const postRes = await fetch(`${API_BASE}/api/posts`, {
+        method: 'POST',
+        headers: authHeaders({ 'Content-Type': 'application/json' }),
+        body: JSON.stringify({
+          image_url: url,
+          caption: document.getElementById('composer-caption').value.trim(),
+          media_type: 'link',
+        }),
+      });
+      const data = await postRes.json();
+      if (!postRes.ok) throw new Error(data.error || 'could not create post');
+
+      resetComposer();
+      refreshFeedAfterPost();
+    } catch (err) {
+      statusEl.textContent = 'Error: ' + err.message;
+    } finally {
+      linkSubmitBtn.disabled = false;
+    }
+  });
+
+  // ── Media classification, shared by card + lightbox rendering ──
+  // Figures out how to actually display a post based on its media_type
+  // and (for pasted links) the URL shape - Streamable links point at a
+  // webpage that needs embedding, while Catbox and similar links point
+  // straight at the file and can be dropped into <img>/<video> as-is.
+  function classifyMedia(post) {
+    const url = post.image_url;
+    if (post.media_type === 'video') return { kind: 'video', src: url };
+    if (post.media_type === 'image' || !post.media_type) return { kind: 'image', src: url };
+
+    // media_type === 'link'
+    const streamableMatch = url.match(/streamable\.com\/([a-zA-Z0-9]+)/i);
+    if (streamableMatch) return { kind: 'iframe', src: `https://streamable.com/e/${streamableMatch[1]}` };
+
+    const path = url.split('?')[0].toLowerCase();
+    if (/\.(png|jpe?g|gif|webp)$/.test(path)) return { kind: 'image', src: url };
+    if (/\.(mp4|webm|mov|mkv)$/.test(path)) return { kind: 'video', src: url };
+
+    return { kind: 'linkfallback', src: url };
+  }
+
   // ── Masonry grid card ──
   function renderCard(post) {
     const card = document.createElement('div');
     card.className = 'wall-card';
     card.dataset.postId = post.id;
     const isArtWall = post.source === 'artwall';
+    const media = classifyMedia(post);
+    let mediaHtml;
+    if (media.kind === 'video') {
+      mediaHtml = `<video src="${media.src}" muted preload="metadata"></video>`;
+    } else if (media.kind === 'image') {
+      mediaHtml = `<img src="${media.src}" alt="edit by ${escapeHtml(post.username)}" loading="lazy" />`;
+    } else if (media.kind === 'iframe') {
+      mediaHtml = `<div class="wall-card-linktile">▶ Streamable</div>`;
+    } else {
+      mediaHtml = `<div class="wall-card-linktile">🔗 External link</div>`;
+    }
     card.innerHTML = `
-      <img src="${post.image_url}" alt="edit by ${escapeHtml(post.username)}" loading="lazy" />
+      ${mediaHtml}
       <div class="wall-card-info">
         <div class="wall-card-user">
           ${post.avatar_url ? `<img class="wall-card-avatar" width="20" height="20" src="${post.avatar_url}" alt="" />` : ''}
@@ -524,6 +664,24 @@
     return currentPosts.find(p => p.id === id) || artWallEntries.find(p => p.id === id);
   }
 
+  function lightboxMediaHtml(post) {
+    const media = classifyMedia(post);
+    if (media.kind === 'video') {
+      return `<video class="lightbox-img" src="${media.src}" controls autoplay muted playsinline></video>`;
+    }
+    if (media.kind === 'iframe') {
+      return `<iframe class="lightbox-iframe" src="${media.src}" allow="autoplay; fullscreen" allowfullscreen frameborder="0"></iframe>`;
+    }
+    if (media.kind === 'linkfallback') {
+      return `
+        <div class="lightbox-linkfallback">
+          <p>This link can't be previewed directly.</p>
+          <a href="${media.src}" target="_blank" class="hero-btn hero-btn--primary" style="display:inline-block;">Open link ↗</a>
+        </div>`;
+    }
+    return `<img class="lightbox-img" src="${media.src}" alt="" />`;
+  }
+
   function openLightbox(postId) {
     const post = findPost(postId);
     if (!post) return;
@@ -538,7 +696,7 @@
       // view-only piece rather than wiring up buttons that would 404 or
       // write orphaned reaction/comment rows against a nonexistent post.
       scroll.innerHTML = `
-        <img class="lightbox-img" src="${post.image_url}" alt="" />
+        ${lightboxMediaHtml(post)}
         <div class="lightbox-header">
           <span class="lightbox-username">${escapeHtml(post.username || 'unknown')}</span>
           <span class="lightbox-time">${timeAgo(post.created_at)}</span>
@@ -552,7 +710,7 @@
     }
 
     scroll.innerHTML = `
-      <img class="lightbox-img" src="${post.image_url}" alt="" />
+      ${lightboxMediaHtml(post)}
       <div class="lightbox-header">
         <img class="lightbox-avatar" width="32" height="32" src="${post.avatar_url || ''}" alt="" />
         <span class="lightbox-username">${escapeHtml(post.username || 'unknown')}</span>
