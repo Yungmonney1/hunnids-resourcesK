@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="assets/hunnids%20shape%20files/favicon-32.png">
+  <title>hunnids* / profile</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg: #eef1f5; --bg-card: rgba(255,255,255,0.62); --bg-hover: rgba(255,255,255,0.85);
+      --border: rgba(255,255,255,0.55); --border-hover: rgba(140,150,165,0.35);
+      --text-primary: #2c313a; --text-secondary: #6b7280; --text-muted: #a4acb8;
+      --brown-dim: #21242c; --brown-light: #707a8a;
+      --shadow-soft: 0 8px 30px rgba(40,45,60,0.08); --shadow-pop: 0 14px 40px rgba(40,45,60,0.14);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--border-hover) transparent; }
+    a { text-decoration: none; color: inherit; }
+    body {
+      background: var(--bg);
+      background-image:
+        radial-gradient(circle at 12% 10%, rgba(173,196,230,0.55) 0%, transparent 45%),
+        radial-gradient(circle at 88% 18%, rgba(210,190,230,0.40) 0%, transparent 45%),
+        radial-gradient(circle at 30% 85%, rgba(180,220,215,0.40) 0%, transparent 45%);
+      background-attachment: fixed; color: var(--text-primary); font-family: 'Inter', sans-serif;
+      font-size: 14px; line-height: 1.6; min-height: 100vh;
+    }
+    body.dark-mode {
+      --bg: #0f1117; --bg-card: rgba(22,27,40,0.75); --bg-hover: rgba(30,36,54,0.9);
+      --border: rgba(255,255,255,0.08); --border-hover: rgba(255,255,255,0.15);
+      --text-primary: #e8eaf0; --text-secondary: #8892a4; --text-muted: #4a5268;
+      --brown-dim: #c4d4f0; --brown-light: #5a7aaa;
+      --shadow-soft: 0 8px 30px rgba(0,0,0,0.3); --shadow-pop: 0 14px 40px rgba(0,0,0,0.5);
+    }
+
+    .back-btn {
+      position: fixed; top: 20px; left: 20px; z-index: 10;
+      font-weight: 700; font-size: 13px; color: var(--text-secondary);
+      background: var(--bg-card); backdrop-filter: blur(10px); border: 1px solid var(--border);
+      padding: 8px 16px; border-radius: 20px;
+    }
+
+    .page-wrap { max-width: 720px; margin: 0 auto; padding: 80px 24px 80px; }
+
+    .banner {
+      height: 200px; border-radius: 24px; background: linear-gradient(135deg, #7f9cd4, #a893d8);
+      background-size: cover; background-position: center; margin-bottom: -50px;
+    }
+    .profile-head { display: flex; align-items: flex-end; gap: 18px; padding: 0 20px; margin-bottom: 20px; }
+    .avatar { width: 100px; height: 100px; border-radius: 50%; border: 5px solid var(--bg); object-fit: cover; background: var(--bg-card); }
+    .profile-name { font-size: 24px; font-weight: 800; margin-bottom: 30px; }
+    .profile-name .slug { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+
+    .bio { padding: 0 20px; font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; }
+
+    .links-list { display: flex; flex-direction: column; gap: 10px; padding: 0 20px; margin-bottom: 32px; }
+    .link-btn {
+      display: flex; align-items: center; justify-content: center; padding: 13px; border-radius: 16px;
+      background: var(--bg-card); backdrop-filter: blur(10px); border: 1px solid var(--border);
+      font-weight: 700; font-size: 14px; box-shadow: var(--shadow-soft); transition: transform 0.15s;
+    }
+    .link-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--brown-light);
+      letter-spacing: 1.2px; text-transform: uppercase; padding: 0 20px; margin-bottom: 12px;
+    }
+    .posts-grid { column-count: 3; column-gap: 10px; padding: 0 20px; }
+    @media (max-width: 600px) { .posts-grid { column-count: 2; } }
+    .post-thumb {
+      break-inside: avoid; margin-bottom: 10px; border-radius: 14px; overflow: hidden;
+      box-shadow: var(--shadow-soft); cursor: pointer;
+    }
+    .post-thumb img, .post-thumb video { width: 100%; display: block; }
+    .posts-empty { padding: 0 20px; color: var(--text-muted); font-size: 13px; }
+
+    .not-found { text-align: center; padding: 100px 20px; }
+    .not-found h1 { font-size: 22px; margin-bottom: 10px; }
+    .not-found p { color: var(--text-secondary); font-size: 13.5px; }
+
+    /* editor (self-view only) */
+    .editor-toggle {
+      display: block; text-align: center; margin: 0 20px 24px; padding: 10px; border-radius: 14px;
+      background: var(--brown-dim); color: #fff; font-weight: 700; font-size: 13px; cursor: pointer; border: none; width: calc(100% - 40px);
+    }
+    .editor {
+      display: none; background: var(--bg-card); backdrop-filter: blur(14px) saturate(150%);
+      border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin: 0 20px 28px; box-shadow: var(--shadow-soft);
+    }
+    .editor.open { display: block; }
+    .editor label { display: block; font-size: 11.5px; font-weight: 700; color: var(--brown-light); margin: 14px 0 5px; }
+    .editor label:first-child { margin-top: 0; }
+    .editor input, .editor textarea {
+      width: 100%; border: 1px solid var(--border-hover); border-radius: 10px; background: var(--bg-hover);
+      color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 13.5px; padding: 9px 12px;
+    }
+    .editor-link-row { display: flex; gap: 8px; margin-bottom: 6px; }
+    .editor-link-row input { flex: 1; }
+    .editor-link-remove { background: none; border: none; color: #d64545; font-weight: 700; cursor: pointer; padding: 0 8px; }
+    .editor-add-link {
+      margin-top: 6px; font-size: 12px; font-weight: 700; color: var(--brown-light); background: none;
+      border: 1px dashed var(--border-hover); border-radius: 10px; padding: 7px; cursor: pointer; width: 100%;
+    }
+    .editor-save-btn {
+      margin-top: 18px; width: 100%; padding: 11px; border-radius: 14px; background: var(--brown-dim);
+      color: #fff; font-weight: 700; font-size: 13.5px; border: none; cursor: pointer;
+    }
+    .editor-status { font-size: 12px; margin-top: 8px; color: var(--text-muted); }
+    .editor-banner-preview { width: 100%; height: 100px; border-radius: 10px; object-fit: cover; margin-top: 6px; background: var(--bg-hover); }
+  </style>
+</head>
+<body>
+
+<a class="back-btn" href="index.html">← Back</a>
+
+<div class="page-wrap" id="page-wrap">
+  <div style="text-align:center; padding:100px 0; color:var(--text-muted);">Loading...</div>
+</div>
+
+<script>
+  const API_BASE = 'https://hunnids-discord-bot.onrender.com';
+  const TOKEN_KEY = 'hunnids_token';
+  const token = localStorage.getItem(TOKEN_KEY);
+
+  function decodeJwtPayload(t) {
+    try { return JSON.parse(atob(t.split('.')[1])); } catch (e) { return null; }
+  }
+  function escapeHtml(str) {
+    return (str || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function authHeaders(extra) {
+    const h = Object.assign({}, extra);
+    if (token) h['Authorization'] = `Bearer ${token}`;
+    return h;
+  }
+
+  const currentUser = token ? decodeJwtPayload(token) : null;
+  const params = new URLSearchParams(location.search);
+  const slugParam = params.get('u');
+
+  const wrap = document.getElementById('page-wrap');
+
+  function renderPostsGrid(posts) {
+    if (posts.length === 0) return '<div class="posts-empty">Nothing posted yet.</div>';
+    return `<div class="posts-grid">${posts.map(p => {
+      const isVideo = p.media_type === 'video';
+      const media = isVideo
+        ? `<video src="${p.image_url}" muted preload="metadata"></video>`
+        : (p.media_type === 'link' ? '' : `<img src="${p.image_url}" alt="" loading="lazy" />`);
+      return media ? `<a class="post-thumb" href="edit-wall.html">${media}</a>` : '';
+    }).join('')}</div>`;
+  }
+
+  async function loadPostsFor(discordId) {
+    try {
+      const res = await fetch(`${API_BASE}/api/posts?author=${discordId}&offset=0`);
+      const data = await res.json();
+      return data.posts || [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function renderViewMode(profile, posts, isOwnProfile) {
+    wrap.innerHTML = `
+      <div class="banner" style="${profile.banner_url ? `background-image:url(${profile.banner_url})` : ''}"></div>
+      <div class="profile-head">
+        <img class="avatar" src="${profile.avatar_url || ''}" alt="" />
+        <div class="profile-name">${escapeHtml(profile.display_name || profile.username_slug)}<br><span class="slug">@${escapeHtml(profile.username_slug)}</span></div>
+      </div>
+      ${profile.bio ? `<div class="bio">${escapeHtml(profile.bio)}</div>` : ''}
+      ${profile.links && profile.links.length ? `
+        <div class="links-list">
+          ${profile.links.map(l => `<a class="link-btn" href="${l.url}" target="_blank">${escapeHtml(l.label)}</a>`).join('')}
+        </div>` : ''}
+      ${isOwnProfile ? `<button class="editor-toggle" id="editor-toggle-btn">Edit profile</button>` : ''}
+      <div id="editor-mount"></div>
+      <div class="section-label">// their edits</div>
+      ${renderPostsGrid(posts)}
+    `;
+
+    if (isOwnProfile) {
+      document.getElementById('editor-toggle-btn').addEventListener('click', () => {
+        renderEditor(profile);
+      });
+    }
+  }
+
+  function renderNotFound(canCreate) {
+    wrap.innerHTML = `
+      <div class="not-found">
+        <h1>Profile not found</h1>
+        <p>${canCreate ? "You haven't created a profile yet." : "This username doesn't exist."}</p>
+        ${canCreate ? `<button class="editor-toggle" style="max-width:220px; margin:20px auto 0;" id="create-btn">Create your profile</button>` : ''}
+      </div>
+      <div id="editor-mount"></div>
+    `;
+    if (canCreate) {
+      document.getElementById('create-btn').addEventListener('click', () => renderEditor(null));
+    }
+  }
+
+  // TODO: real editor form comes in the next piece - this is a
+  // placeholder so the buttons above don't hard-error in the meantime.
+  function renderEditor(profile) {
+    document.getElementById('editor-mount').innerHTML = `
+      <div class="editor open">
+        <p style="color:var(--text-muted); font-size:13px;">Profile editor coming in the next step.</p>
+      </div>`;
+  }
+
+  async function init() {
+    if (slugParam) {
+      // Viewing someone's profile (or your own, if the slug matches you)
+      const res = await fetch(`${API_BASE}/api/profiles/${encodeURIComponent(slugParam)}`);
+      if (!res.ok) return renderNotFound(false);
+      const data = await res.json();
+      const profile = data.profile;
+      const isOwnProfile = currentUser && currentUser.discord_id === profile.discord_id;
+      const posts = await loadPostsFor(profile.discord_id);
+      renderViewMode(profile, posts, isOwnProfile);
+      return;
+    }
+
+    // No ?u= param - "manage my profile" mode
+    if (!token) {
+      wrap.innerHTML = `
+        <div class="not-found">
+          <h1>Log in to manage your profile</h1>
+          <p>Head back to the homepage and log in with Discord first.</p>
+        </div>`;
+      return;
+    }
+    const res = await fetch(`${API_BASE}/api/profiles/me`, { headers: authHeaders() });
+    const data = await res.json();
+    if (!data.profile) return renderNotFound(true);
+    const posts = await loadPostsFor(data.profile.discord_id);
+    renderViewMode(data.profile, posts, true);
+  }
+
+  init();
+</script>
+
+</body>
+</html>
