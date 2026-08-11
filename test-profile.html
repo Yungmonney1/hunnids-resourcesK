@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>hunnids* / profiles API test</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 480px; margin: 40px auto; padding: 0 20px; }
+  h1, h2 { font-size: 16px; margin-top: 24px; }
+  input, button, textarea { font-size: 14px; padding: 8px; width: 100%; box-sizing: border-box; margin-bottom: 8px; }
+  button { cursor: pointer; }
+  #status { white-space: pre-wrap; font-family: monospace; font-size: 12px; background: #f2f2f2; padding: 10px; border-radius: 6px; margin-top: 12px; }
+</style>
+</head>
+<body>
+
+<h1>Profiles API test</h1>
+<p>Throwaway test page - delete once profiles are confirmed working.</p>
+
+<label>Your login token (auto-filled if logged into hunnids.cc)</label>
+<textarea id="token" rows="2"></textarea>
+
+<h2>Create / update my profile</h2>
+<label>Username slug (e.g. kashmoney)</label>
+<input id="slug" value="testuser" />
+<label>Bio</label>
+<textarea id="bio" rows="2">just testing this out</textarea>
+<label>Link 1 label</label>
+<input id="link-label" value="My Discord" />
+<label>Link 1 URL</label>
+<input id="link-url" value="https://discord.gg/AcuUU2zpdD" />
+<button id="save-btn">Save profile</button>
+
+<h2>Fetch a profile by slug</h2>
+<input id="fetch-slug" value="testuser" />
+<button id="fetch-btn">Fetch</button>
+
+<div id="status"></div>
+
+<script>
+  const API_BASE = 'https://hunnids-discord-bot.onrender.com';
+  const tokenEl = document.getElementById('token');
+  const stored = localStorage.getItem('hunnids_token');
+  if (stored) tokenEl.value = stored;
+
+  const statusEl = document.getElementById('status');
+  function log(label, data) {
+    statusEl.textContent = `${label}\n` + JSON.stringify(data, null, 2);
+  }
+
+  document.getElementById('save-btn').addEventListener('click', async () => {
+    const token = tokenEl.value.trim();
+    if (!token) return log('Error', 'Paste your login token first.');
+
+    const body = {
+      username_slug: document.getElementById('slug').value.trim(),
+      bio: document.getElementById('bio').value.trim(),
+      links: [{
+        label: document.getElementById('link-label').value.trim(),
+        url: document.getElementById('link-url').value.trim(),
+      }],
+    };
+
+    try {
+      const res = await fetch(`${API_BASE}/api/profiles/me`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      log(`Save response (status ${res.status}):`, data);
+    } catch (err) {
+      log('Save failed:', err.message);
+    }
+  });
+
+  document.getElementById('fetch-btn').addEventListener('click', async () => {
+    const slug = document.getElementById('fetch-slug').value.trim();
+    try {
+      const res = await fetch(`${API_BASE}/api/profiles/${slug}`);
+      const data = await res.json();
+      log(`Fetch response (status ${res.status}):`, data);
+    } catch (err) {
+      log('Fetch failed:', err.message);
+    }
+  });
+</script>
+
+</body>
+</html>
