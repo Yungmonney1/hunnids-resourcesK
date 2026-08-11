@@ -160,8 +160,10 @@
     .wall-card-linktile {
       display: flex; align-items: center; justify-content: center; height: 140px;
       background: linear-gradient(135deg, var(--bg-hover), var(--bg-card));
+      background-size: cover; background-position: center;
       color: var(--text-secondary); font-weight: 700; font-size: 13px;
     }
+    .wall-card-linktile.has-thumb { color: transparent; text-shadow: none; }
     .wall-card-info {
       padding: 9px 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px;
     }
@@ -539,7 +541,7 @@
     } else if (media.kind === 'image') {
       mediaHtml = `<img src="${media.src}" alt="edit by ${escapeHtml(post.username)}" loading="lazy" />`;
     } else if (media.kind === 'iframe') {
-      mediaHtml = `<div class="wall-card-linktile">▶ Streamable</div>`;
+      mediaHtml = `<div class="wall-card-linktile" id="linktile-${post.id}">▶ Streamable</div>`;
     } else {
       mediaHtml = `<div class="wall-card-linktile">🔗 External link</div>`;
     }
@@ -558,6 +560,24 @@
       </div>
     `;
     card.addEventListener('click', () => openLightbox(post.id));
+
+    // Streamable's official oEmbed API gives a real thumbnail image -
+    // fetched async so the card renders immediately with the
+    // placeholder, then swaps in the real preview once it loads.
+    if (media.kind === 'iframe') {
+      fetch(`https://api.streamable.com/oembed.json?url=${encodeURIComponent(post.image_url)}`)
+        .then(r => r.ok ? r.json() : null)
+        .then(data => {
+          if (!data || !data.thumbnail_url) return;
+          const tile = document.getElementById(`linktile-${post.id}`);
+          if (!tile) return;
+          const thumbUrl = data.thumbnail_url.startsWith('//') ? `https:${data.thumbnail_url}` : data.thumbnail_url;
+          tile.style.backgroundImage = `url(${thumbUrl})`;
+          tile.classList.add('has-thumb');
+        })
+        .catch(() => {});
+    }
+
     return card;
   }
 
