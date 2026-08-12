@@ -202,13 +202,121 @@
     }
   }
 
-  // TODO: real editor form comes in the next piece - this is a
-  // placeholder so the buttons above don't hard-error in the meantime.
   function renderEditor(profile) {
+    const p = profile || {};
+    const links = (p.links && p.links.length ? p.links : [{ label: '', url: '' }]);
+
     document.getElementById('editor-mount').innerHTML = `
       <div class="editor open">
-        <p style="color:var(--text-muted); font-size:13px;">Profile editor coming in the next step.</p>
-      </div>`;
+        <label>Username slug</label>
+        <input id="ed-slug" value="${escapeHtml(p.username_slug || '')}" placeholder="e.g. kashmoney" />
+
+        <label>Bio</label>
+        <textarea id="ed-bio" rows="3" maxlength="300">${escapeHtml(p.bio || '')}</textarea>
+
+        <label>Banner image</label>
+        <input type="file" id="ed-banner-file" accept="image/png,image/jpeg,image/webp,image/gif" />
+        <img class="editor-banner-preview" id="ed-banner-preview" src="${p.banner_url || ''}" style="${p.banner_url ? '' : 'display:none'}" />
+
+        <label>Links</label>
+        <div id="ed-links-list"></div>
+        <button type="button" class="editor-add-link" id="ed-add-link">+ Add another link</button>
+
+        <button type="button" class="editor-save-btn" id="ed-save-btn">Save profile</button>
+        <div class="editor-status" id="ed-status"></div>
+      </div>
+    `;
+
+    const linksList = document.getElementById('ed-links-list');
+    function renderLinkRows(items) {
+      linksList.innerHTML = items.map((l, i) => `
+        <div class="editor-link-row" data-index="${i}">
+          <input class="ed-link-label" placeholder="Label (e.g. YouTube)" value="${escapeHtml(l.label || '')}" />
+          <input class="ed-link-url" placeholder="https://..." value="${escapeHtml(l.url || '')}" />
+          <button type="button" class="editor-link-remove" data-remove="${i}">✕</button>
+        </div>
+      `).join('');
+      linksList.querySelectorAll('[data-remove]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = Number(btn.dataset.remove);
+          items.splice(idx, 1);
+          if (items.length === 0) items.push({ label: '', url: '' });
+          renderLinkRows(items);
+        });
+      });
+    }
+    renderLinkRows(links);
+
+    document.getElementById('ed-add-link').addEventListener('click', () => {
+      if (links.length >= 8) return;
+      links.push({ label: '', url: '' });
+      renderLinkRows(links);
+    });
+
+    // Banner upload - reuses the exact same R2 presign+PUT flow as
+    // Edit Wall image posts, just stores the resulting URL as the
+    // profile's banner instead of a post.
+    let pendingBannerUrl = p.banner_url || null;
+    document.getElementById('ed-banner-file').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const statusEl = document.getElementById('ed-status');
+      statusEl.textContent = 'Uploading banner...';
+      try {
+        const presignRes = await fetch(`${API_BASE}/api/uploads/presign`, {
+          method: 'POST',
+          headers: authHeaders({ 'Content-Type': 'application/json' }),
+          body: JSON.stringify({ content_type: file.type }),
+        });
+        const presignData = await presignRes.json();
+        if (!presignRes.ok) throw new Error(presignData.error || 'upload permission failed');
+
+        const uploadRes = await fetch(presignData.upload_url, {
+          method: 'PUT', headers: { 'Content-Type': file.type }, body: file,
+        });
+        if (!uploadRes.ok) throw new Error('upload to storage failed');
+
+        pendingBannerUrl = presignData.public_url;
+        const preview = document.getElementById('ed-banner-preview');
+        preview.src = pendingBannerUrl;
+        preview.style.display = 'block';
+        statusEl.textContent = 'Banner uploaded - remember to hit Save below.';
+      } catch (err) {
+        statusEl.textContent = 'Error: ' + err.message;
+      }
+    });
+
+    document.getElementById('ed-save-btn').addEventListener('click', async () => {
+      const statusEl = document.getElementById('ed-status');
+      const rows = Array.from(linksList.querySelectorAll('.editor-link-row'));
+      const finalLinks = rows.map(row => ({
+        label: row.querySelector('.ed-link-label').value.trim(),
+        url: row.querySelector('.ed-link-url').value.trim(),
+      })).filter(l => l.label && l.url);
+
+      const body = {
+        username_slug: document.getElementById('ed-slug').value.trim().toLowerCase(),
+        bio: document.getElementById('ed-bio').value.trim(),
+        links: finalLinks,
+        banner_url: pendingBannerUrl,
+      };
+
+      statusEl.textContent = 'Saving...';
+      try {
+        const res = await fetch(`${API_BASE}/api/profiles/me`, {
+          method: 'POST',
+          headers: authHeaders({ 'Content-Type': 'application/json' }),
+          body: JSON.stringify(body),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'could not save profile');
+
+        statusEl.textContent = 'Saved! Reloading...';
+        location.href = `profile.html?u=${encodeURIComponent(data.username_slug)}`;
+      } catch (err) {
+        statusEl.textContent = 'Error: ' + err.message;
+      }
+    });
   }
 
   async function init() {
